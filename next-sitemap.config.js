@@ -1,5 +1,8 @@
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://tusitio.com',
+  siteUrl: 'https://tudominio.com',
   generateRobotsTxt: true,
-  outDir: './public',
+  sitemapSize: 7000,
+  changefreq: 'weekly',
+  priority: 0.7,
 };
