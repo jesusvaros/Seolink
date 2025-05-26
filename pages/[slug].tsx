@@ -11,6 +11,7 @@ import { NextSeo } from 'next-seo';
 import StickyBuyCTA from '../components/StickyBuyCTA';
 import Head from 'next/head';
 import InternalLink from '../components/InternalLink';
+import ProductTable from '../components/ProductTable';
 
 type Product = {
   asin: string;
@@ -166,7 +167,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
         {/* Optional Table of Contents could go here */}
 
         <section className="my-8">
-          <MDXRemote {...source} components={{ InternalLink }} />
+          <MDXRemote {...source} components={{ InternalLink, AffiliateCard, ProductTable}} />
         </section>
 
         {productCards.length > 0 && (
