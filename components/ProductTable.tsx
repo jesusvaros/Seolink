@@ -3,10 +3,17 @@ export type Product = {
     name: string;
     image: string;
     affiliateLink: string;
-    capacity: string;
-    vapor: boolean;
-    limpieza: string;
     price: string;
+    capacity?: string;
+    vapor?: boolean;
+    limpieza?: string;
+    peso?: string;
+    dimensiones?: string;
+    potencia?: string;
+    pros?: string;
+    cons?: string;
+    description?: string;
+    detailedDescription?: string;
   };
   
   export default function ProductTable({ products }: { products: Product[] }) {

@@ -148,7 +148,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
             ProductDetailCard,
           }}
           scope={{
-            products: products,
+            products: frontMatter.products,
           }}
         />
 
@@ -157,13 +157,26 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           <section className="my-12">
             <h2 className="text-2xl font-semibold mb-6">Análisis detallado de productos</h2>
             <div className="space-y-12">
-              {frontMatter.products.map((product, index) => (
-                <ProductDetailCard key={product.asin || index} product={product as DetailedProduct} />
-              ))}
+              {frontMatter.products.map((product, index) => {
+                // Las descripciones detalladas deberían venir del frontMatter,
+                // pero si no están, podemos crear algunas genéricas basadas en el producto
+                const detailedProduct = {
+                  ...product,
+                  detailedDescription: product.detailedDescription || `${product.name} es una excelente opción que destaca por su ${product.capacity ? `capacidad de ${product.capacity}` : 'gran capacidad'} y su ${product.pros ? product.pros.split(',')[0].trim() : 'excelente rendimiento'}. ${product.limpieza ? `Su sistema de limpieza ${product.limpieza} facilita el mantenimiento.` : ''} ${product.potencia ? `Con una potencia de ${product.potencia}, es ideal para un uso ${parseInt(product.potencia) > 1000 ? 'intensivo' : 'regular'}.` : ''} ${product.cons ? `Sin embargo, es importante considerar que ${product.cons.split(',')[0].trim().toLowerCase()}.` : ''}`
+                } as DetailedProduct;
+                
+                return (
+                  <div key={product.asin || index} className="mb-10">
+                    <h3 className="text-xl font-semibold mb-4">{product.name}</h3>
+                    <ProductDetailCard product={detailedProduct} />
+                  </div>
+                );
+              })}
             </div>
           </section>
         )}
 
+        {/* Sticky Buy CTA for mobile */}
         {frontMatter.products?.length > 0 && (
           <StickyBuyCTA product={frontMatter.products[0]} />
         )}

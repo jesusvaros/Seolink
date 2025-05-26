@@ -54,7 +54,6 @@ products:
     affiliateLink: "https://..."
     price: "Texto visible del precio"
     capacity: "xx L"
-    vapor: true / false
     limpieza: "Texto sobre limpieza (ej. Pirolítico)"
     peso: "xx kg"
     dimensiones: "xx x xx x xx cm"
@@ -62,6 +61,7 @@ products:
     pros: "Pros del producto"
     cons: "Cons del producto"
     ... si el artículo tiene más campos, añádelos aquí
+    ... si el articulo no menciona nada sobre alguno de los campos eliminalo
 ---
 
 ---

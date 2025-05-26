@@ -7,7 +7,7 @@ export type DetailedProduct = {
   image: string;
   affiliateLink: string;
   price: string;
-  capacity: string;
+  capacity?: string;
   vapor?: boolean;
   limpieza?: string;
   peso?: string;
@@ -16,6 +16,7 @@ export type DetailedProduct = {
   pros?: string;
   cons?: string;
   description?: string;
+  detailedDescription?: string;
   [key: string]: any; // Allow for additional properties
 };
 
@@ -24,15 +25,15 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
   const prosList = product.pros ? product.pros.split(',').map(item => item.trim()) : [];
   const consList = product.cons ? product.cons.split(',').map(item => item.trim()) : [];
 
-  // Create an array of specification items for the table
+  // Create an array of specification items for the table, only including properties that exist
   const specifications = [
-    { label: 'Capacidad', value: product.capacity },
-    { label: 'Función vapor', value: product.vapor ? '✓' : '✗' },
-    { label: 'Sistema de limpieza', value: product.limpieza || 'No especificado' },
-    { label: 'Peso', value: product.peso },
-    { label: 'Dimensiones', value: product.dimensiones },
-    { label: 'Potencia', value: product.potencia },
-  ].filter(spec => spec.value); // Only include specs that have values
+    product.capacity ? { label: 'Capacidad', value: product.capacity } : null,
+    product.vapor !== undefined ? { label: 'Función vapor', value: product.vapor ? '✓' : '✗' } : null,
+    product.limpieza ? { label: 'Sistema de limpieza', value: product.limpieza } : null,
+    product.peso ? { label: 'Peso', value: product.peso } : null,
+    product.dimensiones ? { label: 'Dimensiones', value: product.dimensiones } : null,
+    product.potencia ? { label: 'Potencia', value: product.potencia } : null,
+  ].filter(spec => spec !== null); // Filter out null items
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-10 border border-gray-200">
@@ -64,60 +65,64 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
         </div>
       </div>
 
-      {/* Pros and Cons */}
-      <div className="px-6 py-4 border-t border-gray-200">
-        <h3 className="text-xl font-semibold mb-4">Pros y Contras</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-green-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-green-700 mb-2">Pros</h4>
-            <ul className="list-disc pl-5 space-y-1">
-              {prosList.length > 0 ? (
-                prosList.map((pro, index) => (
-                  <li key={`pro-${index}`} className="text-gray-700">{pro}</li>
-                ))
-              ) : (
-                <li className="text-gray-500 italic">No se han especificado ventajas</li>
-              )}
-            </ul>
-          </div>
-          <div className="bg-red-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-red-700 mb-2">Contras</h4>
-            <ul className="list-disc pl-5 space-y-1">
-              {consList.length > 0 ? (
-                consList.map((con, index) => (
-                  <li key={`con-${index}`} className="text-gray-700">{con}</li>
-                ))
-              ) : (
-                <li className="text-gray-500 italic">No se han especificado desventajas</li>
-              )}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Description */}
-      {product.description && (
+      {/* Pros and Cons - Only show if either pros or cons exist */}
+      {(prosList.length > 0 || consList.length > 0) && (
         <div className="px-6 py-4 border-t border-gray-200">
-          <h3 className="text-xl font-semibold mb-4">Descripción</h3>
-          <div className="text-gray-700 space-y-4">
-            <p>{product.description}</p>
-            <p>
-              Este {product.name} es una excelente opción para quienes buscan un producto
-              de calidad con buena relación calidad-precio. Sus características técnicas y su
-              diseño lo convierten en una opción muy recomendable.
-            </p>
+          <h3 className="text-xl font-semibold mb-4">Pros y Contras</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {prosList.length > 0 && (
+              <div className="bg-green-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-green-700 mb-2">Pros</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  {prosList.map((pro, index) => (
+                    <li key={`pro-${index}`} className="text-gray-700">{pro}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {consList.length > 0 && (
+              <div className="bg-red-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-red-700 mb-2">Contras</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  {consList.map((con, index) => (
+                    <li key={`con-${index}`} className="text-gray-700">{con}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       )}
 
-      {/* Specifications Table */}
-      <div className="px-6 py-4 border-t border-gray-200">
-        <h3 className="text-xl font-semibold mb-4">Especificaciones</h3>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <tbody className="bg-white divide-y divide-gray-200">
-              {specifications.map((spec, index) => (
-                spec.value && (
+      {/* Description */}
+      {(product.description || product.detailedDescription) && (
+        <div className="px-6 py-4 border-t border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Descripción</h3>
+          <div className="text-gray-700 space-y-4">
+            {product.detailedDescription ? (
+              <p>{product.detailedDescription}</p>
+            ) : product.description ? (
+              <>
+                <p>{product.description}</p>
+                <p>
+                  Este {product.name} es una excelente opción para quienes buscan un producto
+                  de calidad con buena relación calidad-precio. Sus características técnicas y su
+                  diseño lo convierten en una opción muy recomendable.
+                </p>
+              </>
+            ) : null}
+          </div>
+        </div>
+      )}
+
+      {/* Specifications Table - Only show if there are specifications */}
+      {specifications.length > 0 && (
+        <div className="px-6 py-4 border-t border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Especificaciones</h3>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200">
+                {specifications.map((spec, index) => (
                   <tr key={`spec-${index}`} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                     <td className="px-6 py-3 text-left text-sm font-medium text-gray-700 whitespace-nowrap">
                       {spec.label}
@@ -126,12 +131,12 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
                       {spec.value}
                     </td>
                   </tr>
-                )
-              ))}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Call to action footer */}
       <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
