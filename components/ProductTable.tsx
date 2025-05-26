@@ -1,4 +1,4 @@
-type Product = {
+export type Product = {
     asin: string;
     name: string;
     image: string;

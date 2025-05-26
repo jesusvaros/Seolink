@@ -4,21 +4,17 @@ import matter from 'gray-matter';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import Layout from '../layouts/BaseLayout';
-import AffiliateCard from '../components/AffiliateCard';
-import products from '../data/products.json';
 import { NextSeo } from 'next-seo';
-import StickyBuyCTA from '../components/StickyBuyCTA';
 import Head from 'next/head';
-import InternalLink from '../components/InternalLink';
-import ProductTable from '../components/ProductTable';
 
-type Product = {
-  asin: string;
-  name: string;
-  image: string;
-  affiliateLink: string;
-};
+import Layout from '../layouts/BaseLayout';
+import InternalLink from '../components/InternalLink';
+import AffiliateCard from '../components/AffiliateCard';
+import ProductTable, { Product } from '../components/ProductTable';
+import ProductDetailCard, { DetailedProduct } from '../components/ProductDetailCard';
+import StickyBuyCTA from '../components/StickyBuyCTA';
+import products from '../data/products.json';
+
 
 type PostProps = {
   source: MDXRemoteSerializeResult;
@@ -27,36 +23,31 @@ type PostProps = {
     date: string;
     image: string;
     excerpt: string;
-    products: string[];
     slug: string;
+    products: Product[];
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
-  
+
   const paths = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
-    const slug = data.slug || filename.replace(/\\.mdx?$/, '');
-    return {
-      params: { slug },
-    };
+    const slug = data.slug || filename.replace(/\.mdx?$/, '');
+    return { params: { slug } };
   });
-  
-  return { paths, fallback: false };
 
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-  
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
-  
-  // First try to find a file with exact matching slug in frontmatter
+
   let matchedFile = null;
   for (const filename of filenames) {
     const filePath = path.join(postsDirectory, filename);
@@ -67,21 +58,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       break;
     }
   }
-  
-  // If no exact match found in frontmatter, try filename match
+
   if (!matchedFile) {
     matchedFile = filenames.find((fn) => fn.replace(/\.mdx?$/, '') === slug);
   }
-  
-  if (!matchedFile) {
-    return { notFound: true };
-  }
-  
+
+  if (!matchedFile) return { notFound: true };
+
   const filePath = path.join(postsDirectory, matchedFile);
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
   const mdxSource = await serialize(content);
-  
+
   return {
     props: {
       source: mdxSource,
@@ -90,14 +78,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-
-
 export default function PostPage({ source, frontMatter }: PostProps) {
-  const productCards = (frontMatter.products || []).map((asin) => {
-    const product = (products as Product[]).find((p) => p.asin === asin);
-    return product ? <AffiliateCard key={asin} product={product} /> : null;
-  });
-
   return (
     <Layout>
       <NextSeo
@@ -108,15 +89,10 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           url: `https://tudominio.com/${frontMatter.slug}`,
           title: frontMatter.title,
           description: frontMatter.excerpt,
-          images: [
-            {
-              url: frontMatter.image,
-              alt: frontMatter.title,
-            },
-          ],
+          images: [{ url: frontMatter.image, alt: frontMatter.title }],
         }}
       />
-      
+
       <Head>
         <script
           type="application/ld+json"
@@ -129,20 +105,20 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               image: frontMatter.image,
               author: {
                 "@type": "Person",
-                name: "Tu Nombre o Marca"
+                name: "Tu Nombre o Marca",
               },
               publisher: {
                 "@type": "Organization",
                 name: "Tu Web",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://tudominio.com/logo.png"
-                }
+                  url: "https://tudominio.com/logo.png",
+                },
               },
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": `https://tudominio.com/${frontMatter.slug}`
-              }
+                "@id": `https://tudominio.com/${frontMatter.slug}`,
+              },
             }),
           }}
         />
@@ -150,7 +126,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
 
       <article className="prose prose-neutral dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6">
         <header className="mb-6">
-          <h1 className="text-3xl font-bold leading-tight">{frontMatter.title}</h1>
+          <h1 className="text-3xl font-bold">{frontMatter.title}</h1>
           <p className="text-sm text-gray-500">
             Publicado el {new Date(frontMatter.date).toLocaleDateString('es-ES')}
           </p>
@@ -159,34 +135,39 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               src={frontMatter.image}
               alt={frontMatter.title}
               className="rounded-lg mt-4 shadow-md w-full h-auto"
-              loading="eager"
             />
           )}
         </header>
 
-        {/* Optional Table of Contents could go here */}
+        <MDXRemote
+          {...source}
+          components={{
+            InternalLink,
+            AffiliateCard,
+            ProductTable,
+            ProductDetailCard,
+          }}
+          scope={{
+            products: products,
+          }}
+        />
 
-        <section className="my-8">
-          <MDXRemote {...source} components={{ InternalLink, AffiliateCard, ProductTable}} />
-        </section>
-
-        {productCards.length > 0 && (
+        {/* Detailed Product Cards Section */}
+        {frontMatter.products?.length > 0 && (
           <section className="my-12">
-            <h2 className="text-2xl font-semibold mb-4">🔍 Productos recomendados</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {productCards}
+            <h2 className="text-2xl font-semibold mb-6">Análisis detallado de productos</h2>
+            <div className="space-y-12">
+              {frontMatter.products.map((product, index) => (
+                <ProductDetailCard key={product.asin || index} product={product as DetailedProduct} />
+              ))}
             </div>
           </section>
         )}
 
-        {/* Optional FAQ or related posts section can be added here */}
-
+        {frontMatter.products?.length > 0 && (
+          <StickyBuyCTA product={frontMatter.products[0]} />
+        )}
       </article>
-
-      {/* Mobile-only sticky CTA */}
-      {productCards.length > 0 && (
-        <StickyBuyCTA product={productCards[0]?.props?.product} />
-      )}
     </Layout>
   );
 }

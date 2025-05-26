@@ -1,0 +1,19 @@
+{
+    "name": "generate-mdx",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@mozilla/readability": "^0.6.0",
+        "axios": "^1.6.7",
+        "dotenv": "^16.5.0",
+        "jsdom": "^26.1.0",
+        "openai": "^4.103.0",
+        "playwright": "^1.52.0",
+        "slugify": "^1.6.6",
+        "turndown": "^7.2.0"
+    }
+}
