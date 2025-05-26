@@ -47,7 +47,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
   const filename = filenames.find((fn) => fn.replace(/\\.mdx?$/, '') === slug);
-  const filePath = path.join(postsDirectory, filename!);
+  if (!filename) {
+    return { notFound: true };
+  }
+  const filePath = path.join(postsDirectory, filename);
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
   const mdxSource = await serialize(content);

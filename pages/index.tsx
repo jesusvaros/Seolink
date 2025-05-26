@@ -4,23 +4,32 @@ import matter from 'gray-matter';
 import Link from 'next/link';
 import Layout from './layouts/BaseLayout';
 
+interface PostMeta {
+  slug: string;
+  date: string;
+  title: string;
+  excerpt?: string;
+}
+
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
-  const posts = filenames.map((filename) => {
+  const posts: PostMeta[] = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
     return {
-      ...data,
-      slug: data.slug || filename.replace(/\\.mdx?$/, ''),
+      slug: data.slug || filename.replace(/\.mdx?$/, ''),
+      date: data.date || '',
+      title: data.title || '',
+      excerpt: data.excerpt || '',
     };
   });
   posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return { props: { posts } };
 }
 
-export default function Home({ posts }: { posts: any[] }) {
+export default function Home({ posts }: { posts: PostMeta[] }) {
   return (
     <Layout>
       <h1 className="text-3xl font-bold mb-6">Artículos</h1>
