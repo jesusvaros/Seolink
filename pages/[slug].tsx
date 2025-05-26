@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import Layout from './layouts/BaseLayout';
+import Layout from '../layouts/BaseLayout';
 import AffiliateCard from '../components/AffiliateCard';
 import products from '../data/products.json';
 import { NextSeo } from 'next-seo';
@@ -31,29 +31,53 @@ type PostProps = {
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
+  
   const paths = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
+    const slug = data.slug || filename.replace(/\\.mdx?$/, '');
     return {
-      params: { slug: data.slug || filename.replace(/\\.mdx?$/, '') },
+      params: { slug },
     };
   });
+  
   return { paths, fallback: false };
+
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
+  
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
-  const filename = filenames.find((fn) => fn.replace(/\\.mdx?$/, '') === slug);
-  if (!filename) {
+  
+  // First try to find a file with exact matching slug in frontmatter
+  let matchedFile = null;
+  for (const filename of filenames) {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContents);
+    if (data.slug === slug) {
+      matchedFile = filename;
+      break;
+    }
+  }
+  
+  // If no exact match found in frontmatter, try filename match
+  if (!matchedFile) {
+    matchedFile = filenames.find((fn) => fn.replace(/\.mdx?$/, '') === slug);
+  }
+  
+  if (!matchedFile) {
     return { notFound: true };
   }
-  const filePath = path.join(postsDirectory, filename);
+  
+  const filePath = path.join(postsDirectory, matchedFile);
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
   const mdxSource = await serialize(content);
+  
   return {
     props: {
       source: mdxSource,

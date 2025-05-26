@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import Layout from './layouts/BaseLayout';
+import Layout from '../layouts/BaseLayout';
 
 interface PostMeta {
   slug: string;
@@ -13,7 +13,7 @@ interface PostMeta {
 
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = fs.readdirSync(postsDirectory);
+  const filenames = fs.readdirSync(postsDirectory).filter(fn => fn.endsWith('.mdx'));
   const posts: PostMeta[] = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
