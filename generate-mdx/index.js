@@ -53,15 +53,20 @@ products:
     image: "https://..."
     affiliateLink: "https://..."
     price: "Texto visible del precio"
+    # Propiedades importantes que se mostrarán en la tabla
     capacity: "xx L"
-    limpieza: "Texto sobre limpieza (ej. Pirolítico)"
-    peso: "xx kg"
-    dimensiones: "xx x xx x xx cm"
     potencia: "xx W"
-    pros: "Pros del producto"
-    cons: "Cons del producto"
-    ... si el artículo tiene más campos, añádelos aquí
-    ... si el articulo no menciona nada sobre alguno de los campos eliminalo
+    dimensiones: "xx x xx x xx cm"
+    peso: "xx kg"
+    # Si es aplicable para electrodomésticos de cocina
+    vapor: true/false    # solo incluir si es relevante para el tipo de producto
+    limpieza: "Texto sobre limpieza"
+    # Propiedades para detalles
+    pros: "Ventaja 1, Ventaja 2, Ventaja 3"
+    cons: "Desventaja 1, Desventaja 2"
+    detailedDescription: "Descripción completa del producto con al menos 2-3 frases sobre sus principales características, ventajas y casos de uso. Esto debe ser un texto explicativo, no una lista."
+    # Si hay otras propiedades importantes para el tipo de producto, añádelas aquí
+    # Elimina las propiedades que no sean relevantes para ese tipo de producto
 ---
 
 ---
@@ -79,19 +84,27 @@ Aquí usa este componente JSX (sin usar frontMatter):
 
 <ProductTable products={products} />
 
-## ## Detalles de cada producto
-
-Escribe un bloque con texto único por cada producto explicando por qué es recomendable (basado en sus características, pros, contras).
-
 ## ## Consejos antes de comprar
 
 Incluye contenido SEO útil que venga del artículo original: cómo elegir, errores comunes, diferencias entre tipos, etc.
 
-## ## Opiniones o valoración
+## ## Valoraciones 
 
 Comparte texto general sobre opiniones o experiencia, como haría un autor experto o un blog confiable.
 
-## ## Conclusión y llamado a la acción
+## ## Análisis detallado
+
+Después de la tabla, añade una sección para cada producto con su análisis detallado. Asegúrate de numerarlos para mantener la coherencia con la tabla. Usa el siguiente formato para cada producto (reemplaza "Nombre del producto" con el nombre exacto del producto y "index" con su número):
+
+<ProductHeading product={products.find(p => p.name === "Nombre del producto")} index={1} />
+
+Aquí agrega una pequeña introducción del producto (1-2 frases).
+
+<ProductDetailCard product={products.find(p => p.name === "Nombre del producto")} />
+
+Repite esta estructura para cada producto, usando un encabezado H3 y el componente ProductDetailCard para cada uno.
+
+## ## Conclusión
 
 Cierra con una invitación directa y útil a que el usuario compare y compre. Termina con un tono útil y motivador.
 

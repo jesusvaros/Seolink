@@ -4,5 +4,46 @@
 
 body {
   @apply bg-gray-50 text-gray-900 min-h-screen;
+}
 
+/* Estilos globales para encabezados */
+h1 {
+  @apply text-4xl font-bold mb-6 text-blue-900;
+}
+
+h2 {
+  @apply text-3xl font-semibold mb-4 text-blue-800 border-b border-gray-200 pb-2;
+}
+
+h3 {
+  @apply text-2xl font-medium mb-3 text-blue-700;
+}
+
+h4 {
+  @apply text-xl font-medium mb-2 text-blue-600;
+}
+
+h5 {
+  @apply text-lg font-medium mb-2 text-blue-500;
+}
+
+/* Estilos para ProductHeading */
+.product-heading {
+  @apply mt-10 mb-6 border-l-4 border-blue-500 pl-4 py-2;
+}
+
+.product-title {
+  @apply text-2xl font-bold flex flex-col mb-2;
+}
+
+.product-number {
+  @apply bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mb-2;
+}
+
+.product-name {
+  @apply text-gray-800;
+}
+
+.product-feature {
+  @apply text-lg font-medium text-blue-600;
 }
