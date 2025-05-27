@@ -39,7 +39,7 @@ async function fetchCleanContent(url) {
 async function generateMDX({ title, content, url, date, image }) {
   const markdown = turndown.turndown(content);
   const prompt = `
-INSTRUCCIÓN: Crea un archivo MDX para una web de afiliados siguiendo exactamente este formato:
+INSTRUCCIÓN: Crea un archivo MDX para una web de afiliados siguiendo EXACTAMENTE este formato y estructura:
 
 1. NUNCA uses marcas de código tipo \`\`\`mdx o \`\`\`markdown
 2. El archivo debe comenzar EXACTAMENTE con tres guiones --- sin espacios antes
@@ -47,9 +47,9 @@ INSTRUCCIÓN: Crea un archivo MDX para una web de afiliados siguiendo exactament
 4. Todos los campos del frontmatter deben ir entre comillas dobles
 5. IMPORTANTE: Los comentarios en YAML deben comenzar con # y estar en la MISMA LÍNEA del campo que comentan, NUNCA en una línea separada
 6. NO incluyas comentarios multilínea que comiencen con #
-7. Elimina todos los comentarios de ejemplo en tu respuesta final, sólo incluye los datos necesarios
+7. ESTRUCTURA CRÍTICA: El archivo debe seguir EXACTAMENTE este orden: 1) frontmatter YAML entre triple guiones, 2) UNA LÍNEA EN BLANCO, 3) imports de componentes, 4) UNA LÍNEA EN BLANCO, 5) contenido Markdown
 
-EJEMPLO EXACTO DE CÓMO DEBE EMPEZAR (sin espacios al inicio):
+ESTRUCTURA EXACTA QUE DEBE SEGUIR EL ARCHIVO:
 
 ---
 title: "Título del artículo"
@@ -72,8 +72,19 @@ products:
     pros: "Ventaja 1, Ventaja 2, Ventaja 3"
     cons: "Desventaja 1, Desventaja 2"
     description: "Descripción corta"
-    detailedDescription: "Descripción más detallada de unas 2-3 frases sobre el producto principales características, ventajas y casos de uso."
+    detailedDescription: "Descripción más detallada de unas 2-3 frases sobre el producto."
 ---
+
+import ProductDetailCard from '../components/ProductDetailCard'
+import ProductTable from '../components/ProductTable'
+import ProductRankingTable from '../components/ProductRankingTable'
+import ProductHeading from '../components/ProductHeading'
+
+# Título del Artículo
+
+## Resumen de los mejores productos
+
+...resto del contenido Markdown...
 
 ---
 
@@ -158,7 +169,105 @@ ${markdown}
     messages: [{ role: 'user', content: prompt }],
   });
 
-  return chat.choices[0].message.content;
+  let mdxContent = chat.choices[0].message.content;
+  
+  // Post-procesamiento para asegurar la estructura correcta del archivo MDX
+  mdxContent = postProcessMDX(mdxContent);
+  
+  return mdxContent;
+}
+
+// Función para asegurar que el archivo MDX tenga la estructura correcta
+function postProcessMDX(content) {
+  console.log('🔄 Aplicando post-procesamiento al MDX generado...');
+  
+  // Extraer el frontmatter utilizando una expresión regular más precisa
+  const frontmatterRegex = /^\s*---\s*([\s\S]*?)\s*---\s*/;
+  const match = content.match(frontmatterRegex);
+  
+  if (!match) {
+    console.error('❌ No se pudo encontrar un frontmatter válido');
+    
+    // Intentar construir un frontmatter básico
+    const titleMatch = content.match(/# ([^\n]+)/);
+    const title = titleMatch ? titleMatch[1] : 'Artículo sin título';
+    
+    const basicFrontmatter = `title: "${title}"
+date: "${new Date().toISOString().split('T')[0]}"
+slug: "${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
+image: "https://example.com/placeholder.jpg"
+excerpt: "Artículo sobre ${title}"
+category: "general"
+products: []`;
+    
+    console.log('⚠️ Creando frontmatter básico de emergencia');
+    
+    // Separar el contenido del título
+    let bodyContent = content;
+    if (titleMatch) {
+      bodyContent = content.replace(titleMatch[0], '');
+    }
+    
+    // Crear imports estándar
+    const defaultImports = [
+      "import ProductDetailCard from '../components/ProductDetailCard'",
+      "import ProductTable from '../components/ProductTable'",
+      "import ProductRankingTable from '../components/ProductRankingTable'",
+      "import ProductHeading from '../components/ProductHeading'",
+      "import ArticleCard from '../components/ArticleCard'"
+    ].join('\n');
+    
+    // Reconstruir el contenido con una estructura forzada correcta
+    return `---\n${basicFrontmatter}\n---\n\n${defaultImports}\n\n# ${title}\n\n${bodyContent.trim()}`;
+  }
+  
+  // Extraer el frontmatter y el contenido
+  const frontmatter = match[1].trim();
+  const restContent = content.replace(match[0], '').trim();
+  
+  // Verificar si hay imports en el contenido
+  const importRegex = /import\s+[\w\{\}\s,]+\s+from\s+['"][\.\w\/-]+['"]/g;
+  const importMatches = restContent.match(importRegex) || [];
+  
+  // Extraer los imports y el cuerpo real del contenido
+  let imports = '';
+  let bodyContent = restContent;
+  
+  if (importMatches.length > 0) {
+    imports = importMatches.join('\n');
+    // Quitar los imports del cuerpo
+    for (const importStatement of importMatches) {
+      bodyContent = bodyContent.replace(importStatement, '');
+    }
+  } else {
+    // Si no hay imports, añadir los predeterminados
+    imports = [
+      "import ProductDetailCard from '../components/ProductDetailCard'",
+      "import ProductTable from '../components/ProductTable'",
+      "import ProductRankingTable from '../components/ProductRankingTable'",
+      "import ProductHeading from '../components/ProductHeading'",
+      "import ArticleCard from '../components/ArticleCard'"
+    ].join('\n');
+  }
+  
+  // Limpiar el cuerpo del contenido
+  bodyContent = bodyContent.trim();
+  
+  // Asegurar que el primer encabezado sea un encabezado H1 válido
+  if (!bodyContent.startsWith('# ')) {
+    const titleMatch = frontmatter.match(/title: "([^"]+)"/);
+    if (titleMatch) {
+      bodyContent = `# ${titleMatch[1]}\n\n${bodyContent}`;
+    } else {
+      bodyContent = `# Artículo\n\n${bodyContent}`;
+    }
+  }
+  
+  // Reconstruir el contenido con la estructura correcta
+  const correctedContent = `---\n${frontmatter}\n---\n\n${imports}\n\n${bodyContent}`;
+  
+  console.log('✅ Post-procesamiento completado');
+  return correctedContent;
 }
 
 // Función para actualizar el archivo categories.json
