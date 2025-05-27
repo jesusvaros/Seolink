@@ -1,49 +1,170 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import Link from 'next/link';
 import Layout from '../layouts/BaseLayout';
+import ArticleCard from '../components/ArticleCard';
+import { useState } from 'react';
 
-interface PostMeta {
-  slug: string;
-  date: string;
+// Interfaces para los tipos de datos
+interface Article {
   title: string;
-  excerpt?: string;
+  slug: string;
+  image: string;
 }
 
+interface CategoryData {
+  [category: string]: Article[];
+}
+
+// Mapeo de IDs de categorías a nombres más amigables
+const categoryNames: { [key: string]: string } = {
+  cocina: 'Cocina',
+  belleza: 'Belleza',
+  jardin: 'Jardín',
+  maquillaje: 'Maquillaje',
+  ropa: 'Ropa'
+};
+
+// Función para obtener datos estáticos
 export async function getStaticProps() {
+  // Leer datos de MDX para información adicional si es necesario
   const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = fs.readdirSync(postsDirectory).filter(fn => fn.endsWith('.mdx'));
-  const posts: PostMeta[] = filenames.map((filename) => {
-    const filePath = path.join(postsDirectory, filename);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
-    return {
-      slug: data.slug || filename.replace(/\.mdx?$/, ''),
-      date: data.date || '',
-      title: data.title || '',
-      excerpt: data.excerpt || '',
-    };
+  const filenames = fs.readdirSync(postsDirectory).filter((fn: string) => fn.endsWith('.mdx'));
+  
+  // Leer datos de categorías
+  const categoriesPath = path.join(process.cwd(), 'content/categories/categories.json');
+  const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
+  const categories: CategoryData = JSON.parse(categoriesData);
+  
+  // Limitar a 5 artículos por categoría
+  const limitedCategories: CategoryData = {};
+  Object.keys(categories).forEach(category => {
+    limitedCategories[category] = categories[category].slice(0, 5);
   });
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return { props: { posts } };
+  
+  return { 
+    props: { 
+      categories: limitedCategories 
+    } 
+  };
 }
 
-export default function Home({ posts }: { posts: PostMeta[] }) {
+export default function Home({ categories }: { categories: CategoryData }) {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  
+  // Asegurarse de que categories existe y es un objeto
+  const safeCategories = categories || {};
+  
+  // Obtener categorías con artículos
+  const categoriesWithArticles = Object.keys(safeCategories).filter(
+    category => safeCategories[category]?.length > 0
+  );
+  
+  // Si no hay categoría activa, usar la primera que tenga artículos
+  const currentCategory = activeCategory || 
+    (categoriesWithArticles.length > 0 ? categoriesWithArticles[0] : null);
+  
   return (
     <Layout>
-      <h1 className="text-3xl font-bold mb-6">Artículos</h1>
-      <div className="space-y-6">
-        {posts.map((post) => (
-          <div key={post.slug} className="p-4 bg-white rounded shadow">
-            <Link href={`/${post.slug}`} className="text-2xl font-semibold hover:underline">
-              {post.title}
-            </Link>
-            <p className="text-sm text-gray-500">{new Date(post.date).toLocaleDateString('es-ES')}</p>
-            <p className="mt-2 text-gray-700">{post.excerpt}</p>
-          </div>
-        ))}
+      {/* Hero section */}
+      <div className="bg-gradient-to-r from-gray-100 to-gray-200 py-12 px-4 mb-8 rounded-xl">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Las mejores recomendaciones para ti
+          </h1>
+          <p className="text-xl text-gray-700 mb-6">
+            Descubre productos de calidad con análisis detallados y comparativas
+          </p>
+        </div>
       </div>
+      
+      {/* Navigation Tabs */}
+      <div className="mb-8 border-b border-gray-200">
+        <div className="flex overflow-x-auto pb-1 hide-scrollbar">
+          {categoriesWithArticles.map(category => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-4 py-2 font-medium text-sm whitespace-nowrap mr-2 transition-colors ${currentCategory === category 
+                ? 'text-blue-600 border-b-2 border-blue-600' 
+                : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              {categoryNames[category] || category}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      {/* Featured section - mostrar los artículos más recientes destacados */}
+      {currentCategory && safeCategories[currentCategory]?.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">
+            {categoryNames[currentCategory] || currentCategory}
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {safeCategories[currentCategory].map((article) => (
+              <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
+                <ArticleCard 
+                  title={article.title}
+                  image={article.image}
+                  slug={article.slug}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Sección para otras categorías */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+        {categoriesWithArticles
+          .filter(category => category !== currentCategory && safeCategories[category]?.length > 0)
+          .slice(0, 2)
+          .map(category => (
+            <div key={category}>
+              <h2 className="text-xl font-bold mb-4 flex items-center">
+                <span>{categoryNames[category] || category}</span>
+                <span className="ml-2 text-sm font-normal text-blue-600 cursor-pointer" 
+                  onClick={() => setActiveCategory(category)}>
+                  Ver todos
+                </span>
+              </h2>
+              <div className="space-y-4">
+                {safeCategories[category].slice(0, 2).map(article => (
+                  <div key={article.slug} className="flex items-center bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div className="relative w-24 h-24 flex-shrink-0">
+                      <img 
+                        src={article.image} 
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <a href={`/${article.slug}`} className="text-sm font-medium text-gray-900 hover:text-blue-600 line-clamp-2">
+                        {article.title}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      
+      {/* Añadir un estilo global para ocultar la barra de desplazamiento */}
+      <style jsx global>{
+        `
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        `
+      }</style>
     </Layout>
   );
 }
