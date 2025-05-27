@@ -1,8 +1,11 @@
 import fs from 'fs';
+import path from 'path';
 import { chromium } from 'playwright';
 
 const SEARCH_URL = 'https://www.elle.com/es/search/?q=las+mejores+2025';
-const OUTPUT_FILE = 'elle-links-2025.json';
+// Modificar para guardar en la carpeta /generate-mdx/urls/
+const OUTPUT_DIR = path.join(process.cwd(), '../../generate-mdx/urls/');
+const OUTPUT_FILE = path.join(OUTPUT_DIR, 'elle-links-2025.json');
 
 async function scrapeElle() {
   const browser = await chromium.launch({ headless: true });
@@ -43,6 +46,14 @@ async function scrapeElle() {
   );
 
   const unique = [...new Set(links)];
+  
+  // Asegurar que la carpeta de destino exista
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    console.log(`📁 Creada carpeta: ${OUTPUT_DIR}`);
+  }
+  
+  // Guardar el archivo
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(unique, null, 2));
 
   console.log(`✅ Guardados ${unique.length} enlaces en ${OUTPUT_FILE}`);

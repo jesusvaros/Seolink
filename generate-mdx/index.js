@@ -1,4 +1,6 @@
 
+import fs from 'fs';
+import path from 'path';
 import slugify from 'slugify';
 import { config } from 'dotenv';
 import { OpenAI } from 'openai';
@@ -43,6 +45,9 @@ INSTRUCCIÓN: Crea un archivo MDX para una web de afiliados siguiendo exactament
 2. El archivo debe comenzar EXACTAMENTE con tres guiones --- sin espacios antes
 3. No uses ninguna comilla invertida (\`) en todo el archivo
 4. Todos los campos del frontmatter deben ir entre comillas dobles
+5. IMPORTANTE: Los comentarios en YAML deben comenzar con # y estar en la MISMA LÍNEA del campo que comentan, NUNCA en una línea separada
+6. NO incluyas comentarios multilínea que comiencen con #
+7. Elimina todos los comentarios de ejemplo en tu respuesta final, sólo incluye los datos necesarios
 
 EJEMPLO EXACTO DE CÓMO DEBE EMPEZAR (sin espacios al inicio):
 
@@ -52,32 +57,22 @@ date: "YYYY-MM-DD"
 slug: "slug-con-guiones"
 image: "https://url-de-la-imagen.jpg"
 excerpt: "Resumen útil del artículo"
-category: "cocina" # Usa SOLO estas categorías: cocina, belleza, jardin, maquillaje, ropa
+category: "cocina"
 products:
   - asin: "ID de Amazon"
     name: "Nombre del producto"
     image: "https://..."
-    affiliateLink: "https://www.amazon.es/dp/ASIN?tag=oferta-limitada-21" # IMPORTANTE: Usa SIEMPRE este tag y reemplaza ASIN con el código del producto
-    price: "Numero visible del precio, si no encuentras el precio estimalo con el precio de Amazon siempre debe ser numerico con moneda €"
-    # Propiedad destacada para la tabla de ranking
-    destacado: "La más barata" # O "La mejor relación calidad-precio", "La más potente", "La más ligera", etc.
-    # Propiedades importantes para la tabla comparativa (MÁXIMO 4 propiedades)
-    # SOLO incluye las propiedades más relevantes para este tipo de producto específico
-    # Ejemplos de propiedades según el tipo de producto:
-    # - Para batidoras: potencia: "xx W", capacidad: "xx L", velocidades: "número", funciones: "value"
-    # - Para aspiradoras: potencia: "xx W", autonomía: "xx min", capacidad: "xx L", nivel_ruido: "xx dB"
-    # - Para hornos: capacidad: "xx L", temperatura_máx: "xxx°C", programas: "número", consumo: "valor"
-    # - Para ropa: material: "tipo", tallas: "rango", colores: "opciones", estilo: "descripción"
-    # - Para comida: ingredientes: "lista", calorías: "valor", origen: "país/región", conservación: "método"
-    # - Para plantas: tipo: "interior/exterior", riego: "frecuencia", luz: "requerimientos", tamaño: "cm"
-    # Asegúrate de seleccionar solo las 4 propiedades más importantes para este producto y eliminar el resto
-    # Otros datos importantes
+    affiliateLink: "https://www.amazon.es/dp/ASIN?tag=oferta-limitada-21"
+    price: "Numero visible del precio con moneda €"
+    destacado: "La más barata"
+    potencia: "xx W"
+    capacidad: "xx L"
+    velocidades: "número"
+    funciones: "value"
     pros: "Ventaja 1, Ventaja 2, Ventaja 3"
     cons: "Desventaja 1, Desventaja 2"
     description: "Descripción corta"
-    detailedDescription: "Descripción más detallada de unas 2-3 frases sobre el producto principales características, ventajas y casos de uso. Esto debe ser un texto explicativo, no una lista."
-    # Si hay otras propiedades importantes para el tipo de producto, añádelas aquí
-    # Elimina las propiedades que no sean relevantes para ese tipo de producto
+    detailedDescription: "Descripción más detallada de unas 2-3 frases sobre el producto principales características, ventajas y casos de uso."
 ---
 
 ---
@@ -228,40 +223,108 @@ function extractMetadataFromMDX(mdxContent) {
   };
 }
 
-// MAIN
-const urls = ['https://www.elle.com/es/gourmet/gastronomia/g41931720/mejores-batidoras-vaso/'
-  , 'https://www.elle.com/es/gourmet/gastronomia/g61673965/mejores-batidoras-de-mano-analisis-comparativa/',
-  'https://www.elle.com/es/belleza/cara-cuerpo/g38450525/mejores-serum-vitamina-c/'
-];
-
+// Rutas de directorios
 const OUTPUT_DIR = '../content/posts';
+const URLS_DIR = './urls';
+const PROCESSED_URLS_FILE = './urls/processed-urls.json';
 
+// Crear directorios si no existen
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+if (!fs.existsSync(URLS_DIR)) fs.mkdirSync(URLS_DIR, { recursive: true });
 
-for (const url of urls) {
+// Cargar URLs ya procesadas
+let processedUrls = [];
+if (fs.existsSync(PROCESSED_URLS_FILE)) {
   try {
-    console.log(`🔍 Procesando ${url}...`);
-    const data = await fetchCleanContent(url);
-
-    if (!data.content || data.content.length < 100) {
-      console.error(`❌ Contenido insuficiente para: ${url} `);
-      continue;
-    }
-
-    const mdx = await generateMDX(data);
-    const slug = slugify(data.title, { lower: true, strict: true });
-    const outputPath = `${OUTPUT_DIR}/${slug}.mdx`;
-    fs.writeFileSync(outputPath, mdx);
-    console.log(`✅ Guardado en: ${outputPath}`);
-    
-    // Extraer metadatos y actualizar categories.json
-    try {
-      const metadata = extractMetadataFromMDX(mdx);
-      await updateCategoriesJson(metadata);
-    } catch (metadataErr) {
-      console.error(`⚠️ Error al actualizar categories.json:`, metadataErr.message);
-    }
-  } catch (err) {
-    console.error(`❌ Error en ${url}:`, err.message);
+    processedUrls = JSON.parse(fs.readFileSync(PROCESSED_URLS_FILE, 'utf8'));
+    console.log(`📋 Cargadas ${processedUrls.length} URLs ya procesadas anteriormente`);
+  } catch (error) {
+    console.error('⚠️ Error al cargar URLs procesadas:', error.message);
   }
 }
+
+// Función para cargar todas las URLs desde los archivos en el directorio 'urls'
+async function loadUrlsFromFiles() {
+  const urlFiles = fs.readdirSync(URLS_DIR)
+    .filter(file => file.endsWith('.json') && file !== 'processed-urls.json');
+  
+  if (urlFiles.length === 0) {
+    console.log('⚠️ No se encontraron archivos de URLs en', URLS_DIR);
+    return [];
+  }
+  
+  let allUrls = [];
+  
+  for (const file of urlFiles) {
+    const filePath = path.join(URLS_DIR, file);
+    try {
+      const fileUrls = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      console.log(`📄 Cargadas ${fileUrls.length} URLs desde ${file}`);
+      allUrls = [...allUrls, ...fileUrls];
+    } catch (error) {
+      console.error(`⚠️ Error al cargar ${file}:`, error.message);
+    }
+  }
+  
+  return allUrls;
+}
+
+// MAIN
+async function main() {
+  // Cargar URLs desde archivos
+  const allUrls = await loadUrlsFromFiles();
+  console.log(`🔢 Total de URLs encontradas: ${allUrls.length}`);
+  
+  // Filtrar URLs ya procesadas
+  const urlsToProcess = allUrls.filter(url => !processedUrls.includes(url));
+  console.log(`🆕 URLs nuevas a procesar: ${urlsToProcess.length}`);
+  
+  if (urlsToProcess.length === 0) {
+    console.log('✅ No hay nuevas URLs para procesar');
+    return;
+  }
+  
+  // Procesar cada URL
+  for (const url of urlsToProcess) {
+    try {
+      console.log(`🔍 Procesando ${url}...`);
+      const data = await fetchCleanContent(url);
+
+      if (!data.content || data.content.length < 100) {
+        console.error(`❌ Contenido insuficiente para: ${url}`);
+        continue;
+      }
+
+      const mdx = await generateMDX(data);
+      const slug = slugify(data.title, { lower: true, strict: true });
+      const outputPath = `${OUTPUT_DIR}/${slug}.mdx`;
+      fs.writeFileSync(outputPath, mdx);
+      console.log(`✅ Guardado en: ${outputPath}`);
+      
+      // Extraer metadatos y actualizar categories.json
+      try {
+        const metadata = extractMetadataFromMDX(mdx);
+        await updateCategoriesJson(metadata);
+      } catch (metadataError) {
+        console.error(`❌ Error al actualizar categories.json:`, metadataError.message);
+      }
+      
+      // Añadir URL a la lista de procesadas
+      processedUrls.push(url);
+      
+      // Guardar la lista actualizada después de cada artículo
+      fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
+      
+      // Añadir un pequeño retraso entre peticiones para no sobrecargar el servidor
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    } catch (error) {
+      console.error(`❌ Error al procesar ${url}:`, error.message);
+    }
+  }
+}
+
+// Ejecutar la función principal
+main().catch(error => {
+  console.error('❌ Error general:', error.message);
+  process.exit(1);
+});
