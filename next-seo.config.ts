@@ -1,11 +1,19 @@
 const defaultSEO = {
-  title: 'Amazon Afiliados',
-  description: 'Web de afiliados de Amazon con artículos y recomendaciones de productos.',
+  title: 'Comparaland - Comparativas y análisis de productos',
+  description: 'Encuentra las mejores comparativas y análisis de productos para tomar decisiones de compra informadas.',
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://tusitio.com',
-    site_name: 'Amazon Afiliados',
+    url: 'https://comparaland.com',
+    site_name: 'Comparaland',
+    images: [
+      {
+        url: 'https://comparaland.com/logo.svg',
+        width: 534,
+        height: 176,
+        alt: 'Comparaland Logo',
+      },
+    ],
   },
 };
 
