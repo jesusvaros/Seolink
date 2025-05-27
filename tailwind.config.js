@@ -13,7 +13,14 @@ module.exports = {
     'justify-between'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'ivory': '#FFFFF0',
+        'purple': {
+          900: '#1A0C2B',  // Color morado oscuro para el texto y logo
+        },
+      }
+    },
   },
   plugins: [],
 };

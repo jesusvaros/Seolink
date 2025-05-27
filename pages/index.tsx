@@ -67,14 +67,23 @@ export default function Home({ categories }: { categories: CategoryData }) {
   return (
     <Layout>
       {/* Hero section */}
-      <div className="bg-gradient-to-r from-gray-100 to-gray-200 py-12 px-4 mb-8 rounded-xl">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Las mejores recomendaciones para ti
-          </h1>
-          <p className="text-xl text-gray-700 mb-6">
-            Descubre productos de calidad con análisis detallados y comparativas
-          </p>
+      <div className="bg-ivory py-12 px-4 mb-8 rounded-xl">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
+          <div className="flex flex-col items-start text-left mb-8 md:mb-0">
+            <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-4 leading-tight">
+              Lo mejor de lo mejor <br />
+              en cada compra.
+            </h1>
+            <a 
+              href="#categorias" 
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300"
+            >
+              Descubrir Mejores Ofertas
+            </a>
+          </div>
+          <div className="w-full md:w-auto">
+            <img src="/logo.svg" alt="Comparaland" className="h-48 w-auto mx-auto" />
+          </div>
         </div>
       </div>
       
