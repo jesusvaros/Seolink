@@ -36,20 +36,20 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
   ].filter(spec => spec !== null); // Filter out null items
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-10 border border-gray-200">
+    <div className="mb-8">
       {/* Header with image and basic info */}
-      <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/3 p-4 flex items-center justify-center bg-gray-50">
+      <div className="flex flex-col md:flex-row mb-4 bg-white p-4 rounded-lg shadow-sm">
+        <div className="md:w-1/4 flex items-center justify-center">
           <img 
             src={product.image} 
             alt={product.name} 
-            className="w-full max-w-xs h-auto object-contain"
+            className="w-full max-h-40 object-contain"
           />
         </div>
-        <div className="md:w-2/3 p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">{product.name}</h2>
+        <div className="md:w-3/4 md:pl-6 pt-4 md:pt-0">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h2>
           {product.subtitle && (
-            <p className="text-lg text-gray-600 mb-4">{product.subtitle}</p>
+            <p className="text-base text-gray-600 mb-4">{product.subtitle}</p>
           )}
           
           <div className="mt-4">
@@ -57,23 +57,43 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
               href={product.affiliateLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 text-center w-full md:w-auto"
+              className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200 text-center w-full md:w-auto mr-3"
             >
               Ver precio: {product.price}
+            </a>
+            <a
+              href={product.affiliateLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center mt-2 md:mt-0"
+            >
+              Ver en Amazon
             </a>
           </div>
         </div>
       </div>
 
-      {/* Pros and Cons - Only show if either pros or cons exist */}
+      {/* Description */}
+      {(product.description || product.detailedDescription) && (
+        <div className="my-6">
+          <div className="text-gray-700 text-base leading-relaxed">
+            {product.detailedDescription ? (
+              <p>{product.detailedDescription}</p>
+            ) : product.description ? (
+              <p>{product.description}</p>
+            ) : null}
+          </div>
+        </div>
+      )}
+
+      {/* Pros and Cons */}
       {(prosList.length > 0 || consList.length > 0) && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <h3 className="text-xl font-semibold mb-4">Pros y Contras</h3>
+        <div className="my-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {prosList.length > 0 && (
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-green-700 mb-2">Pros</h4>
-                <ul className="list-disc pl-5 space-y-1">
+              <div className="bg-green-50 px-4 py-3 rounded-lg">
+                <h3 className="font-semibold text-green-700 mb-1 text-base mt-2">Pros</h3>
+                <ul className="list-disc pl-5 space-y-0.5">
                   {prosList.map((pro, index) => (
                     <li key={`pro-${index}`} className="text-gray-700">{pro}</li>
                   ))}
@@ -81,9 +101,9 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
               </div>
             )}
             {consList.length > 0 && (
-              <div className="bg-red-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-red-700 mb-2">Contras</h4>
-                <ul className="list-disc pl-5 space-y-1">
+              <div className="bg-red-50 px-4 py-3 rounded-lg">
+                <h3 className="font-semibold text-red-700 mb-1 text-base mt-2">Contras</h3>
+                <ul className="list-disc pl-5 space-y-0.5">
                   {consList.map((con, index) => (
                     <li key={`con-${index}`} className="text-gray-700">{con}</li>
                   ))}
@@ -94,32 +114,11 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
         </div>
       )}
 
-      {/* Description */}
-      {(product.description || product.detailedDescription) && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <h3 className="text-xl font-semibold mb-4">Descripción</h3>
-          <div className="text-gray-700 space-y-4">
-            {product.detailedDescription ? (
-              <p>{product.detailedDescription}</p>
-            ) : product.description ? (
-              <>
-                <p>{product.description}</p>
-                <p>
-                  Este {product.name} es una excelente opción para quienes buscan un producto
-                  de calidad con buena relación calidad-precio. Sus características técnicas y su
-                  diseño lo convierten en una opción muy recomendable.
-                </p>
-              </>
-            ) : null}
-          </div>
-        </div>
-      )}
-
-      {/* Specifications Table - Only show if there are specifications */}
+      {/* Specifications */}
       {specifications.length > 0 && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <h3 className="text-xl font-semibold mb-4">Especificaciones</h3>
-          <div className="overflow-x-auto">
+        <div className="my-6">
+          <h3 className="font-semibold text-gray-700 mb-3 text-lg">Especificaciones</h3>
+          <div className="overflow-x-auto bg-white rounded-lg shadow-sm">
             <table className="min-w-full divide-y divide-gray-200">
               <tbody className="bg-white divide-y divide-gray-200">
                 {specifications.map((spec, index) => (
@@ -137,18 +136,6 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
           </div>
         </div>
       )}
-
-      {/* Call to action footer */}
-      <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-        <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 text-center"
-        >
-          Ver más detalles y opiniones
-        </a>
-      </div>
     </div>
   );
 };

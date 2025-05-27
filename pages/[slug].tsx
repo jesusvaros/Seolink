@@ -14,6 +14,7 @@ import ProductTable, { Product } from '../components/ProductTable';
 import ProductDetailCard, { DetailedProduct } from '../components/ProductDetailCard';
 import ProductHeading from '../components/ProductHeading';
 import StickyBuyCTA from '../components/StickyBuyCTA';
+import ProductRankingTable from '../components/ProductRankingTable';
 import products from '../data/products.json';
 
 
@@ -148,6 +149,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
             ProductTable,
             ProductDetailCard,
             ProductHeading,
+            ProductRankingTable,
           }}
           scope={{
             products: frontMatter.products,

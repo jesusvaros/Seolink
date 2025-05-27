@@ -8,36 +8,36 @@ body {
 
 /* Estilos globales para encabezados */
 h1 {
-  @apply text-4xl font-bold mb-6 text-blue-900;
+  @apply text-4xl font-bold mb-10 mt-10 text-gray-900;
 }
 
 h2 {
-  @apply text-3xl font-semibold mb-4 text-blue-800 border-b border-gray-200 pb-2;
+  @apply text-3xl font-semibold mb-8 mt-14 text-gray-800 border-b border-gray-200 pb-3;
 }
 
 h3 {
-  @apply text-2xl font-medium mb-3 text-blue-700;
+  @apply text-2xl font-medium mb-6 mt-10 text-gray-700;
 }
 
 h4 {
-  @apply text-xl font-medium mb-2 text-blue-600;
+  @apply text-xl font-medium mb-4 mt-8 text-gray-600;
 }
 
 h5 {
-  @apply text-lg font-medium mb-2 text-blue-500;
+  @apply text-lg font-medium mb-3 mt-6 text-gray-500;
 }
 
 /* Estilos para ProductHeading */
 .product-heading {
-  @apply mt-10 mb-6 border-l-4 border-blue-500 pl-4 py-2;
+  @apply mt-8 mb-4 border-l-4 border-gray-700 pl-4 py-2;
 }
 
 .product-title {
-  @apply text-2xl font-bold flex flex-col mb-2;
+  @apply text-2xl font-bold flex items-center gap-3 mb-2;
 }
 
 .product-number {
-  @apply bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mb-2;
+  @apply bg-gray-800 text-white rounded-full w-7 h-7 flex items-center justify-center text-base;
 }
 
 .product-name {
@@ -45,5 +45,5 @@ h5 {
 }
 
 .product-feature {
-  @apply text-lg font-medium text-blue-600;
+  @apply text-base font-medium text-gray-600 ml-10;
 }
