@@ -15,8 +15,7 @@ import ProductDetailCard, { DetailedProduct } from '../components/ProductDetailC
 import ProductHeading from '../components/ProductHeading';
 import StickyBuyCTA from '../components/StickyBuyCTA';
 import ProductRankingTable from '../components/ProductRankingTable';
-import products from '../data/products.json';
-
+import RelatedArticles from '../components/RelatedArticles';
 
 type PostProps = {
   source: MDXRemoteSerializeResult;
@@ -26,6 +25,7 @@ type PostProps = {
     image: string;
     excerpt: string;
     slug: string;
+    category: string;
     products: Product[];
   };
 };
@@ -161,6 +161,16 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           <StickyBuyCTA product={frontMatter.products[0]} />
         )}
       </article>
+      
+      {/* Related Articles Section */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-10">
+        {frontMatter.category && (
+          <RelatedArticles 
+            category={frontMatter.category} 
+            currentSlug={frontMatter.slug} 
+          />
+        )}
+      </div>
     </Layout>
   );
 }

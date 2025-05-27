@@ -1,4 +1,4 @@
-import fs from 'fs';
+
 import slugify from 'slugify';
 import { config } from 'dotenv';
 import { OpenAI } from 'openai';
@@ -52,6 +52,7 @@ date: "YYYY-MM-DD"
 slug: "slug-con-guiones"
 image: "https://url-de-la-imagen.jpg"
 excerpt: "Resumen útil del artículo"
+category: "cocina" # Usa SOLO estas categorías: cocina, belleza, jardin, maquillaje, ropa
 products:
   - asin: "ID de Amazon"
     name: "Nombre del producto"
@@ -83,7 +84,17 @@ products:
 
 # BODY DEL ARTÍCULO
 
-Después del frontmatter, el cuerpo debe estar en **Markdown + JSX válido**. Sigue esta estructura obligatoria:
+Después del frontmatter, el cuerpo debe estar en **Markdown + JSX válido**. 
+
+Debes incluir estos imports al principio del archivo (después de las triple rayas del frontmatter):
+
+import ProductDetailCard from '../components/ProductDetailCard'
+import ProductTable from '../components/ProductTable'
+import ProductRankingTable from '../components/ProductRankingTable'
+import ProductHeading from '../components/ProductHeading'
+import ArticleCard from '../components/ArticleCard'
+
+Sigue esta estructura obligatoria:
 
 ## # Título principal (H1)
 Debe repetir el título del frontmatter
@@ -155,6 +166,68 @@ ${markdown}
   return chat.choices[0].message.content;
 }
 
+// Función para actualizar el archivo categories.json
+async function updateCategoriesJson(article) {
+  const categoriesPath = '../content/categories/categories.json';
+  
+  // Leer el archivo de categorías existente
+  const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
+  const categories = JSON.parse(categoriesData);
+  
+  // Verificar si la categoría existe, sino, crearla
+  if (!categories[article.category]) {
+    categories[article.category] = [];
+    console.log(`✨ Nueva categoría creada: ${article.category}`);
+  }
+  
+  // Verificar si el artículo ya existe en la categoría
+  const existingArticleIndex = categories[article.category].findIndex(item => item.title === article.title);
+  
+  if (existingArticleIndex === -1) {
+    // Si no existe, añadir a la categoría correspondiente
+    categories[article.category].push({
+      title: article.title,
+      slug: article.slug,
+      image: article.image
+    });
+    
+    // Guardar el archivo actualizado
+    fs.writeFileSync(categoriesPath, JSON.stringify(categories, null, 2));
+    console.log(`✅ Artículo añadido a la categoría ${article.category} en ${categoriesPath}`);
+  } else {
+    console.log(`ℹ️ El artículo ya existe en la categoría ${article.category}`);
+  }
+}
+
+// Función para extraer metadatos del contenido MDX generado
+function extractMetadataFromMDX(mdxContent) {
+  const frontMatterRegex = /---\n([\s\S]*?)\n---/;
+  const match = mdxContent.match(frontMatterRegex);
+  
+  if (!match || !match[1]) {
+    throw new Error('No se pudo extraer el frontmatter del MDX generado');
+  }
+  
+  const frontMatter = match[1];
+  
+  // Extraer cada campo del frontmatter
+  const titleMatch = frontMatter.match(/title: "([^"]+)"/); 
+  const slugMatch = frontMatter.match(/slug: "([^"]+)"/); 
+  const imageMatch = frontMatter.match(/image: "([^"]+)"/); 
+  const categoryMatch = frontMatter.match(/category: "([^"]+)"/); 
+  
+  if (!titleMatch || !slugMatch || !imageMatch || !categoryMatch) {
+    throw new Error('Falta información requerida en el frontmatter');
+  }
+  
+  return {
+    title: titleMatch[1],
+    slug: slugMatch[1],
+    image: imageMatch[1],
+    category: categoryMatch[1]
+  };
+}
+
 // MAIN
 const urls = ['https://www.elle.com/es/gourmet/gastronomia/g41931720/mejores-batidoras-vaso/'
   , 'https://www.elle.com/es/gourmet/gastronomia/g61673965/mejores-batidoras-de-mano-analisis-comparativa/',
@@ -177,8 +250,17 @@ for (const url of urls) {
 
     const mdx = await generateMDX(data);
     const slug = slugify(data.title, { lower: true, strict: true });
-    fs.writeFileSync(`${OUTPUT_DIR}/${slug}.mdx`, mdx);
-    console.log(`✅ Guardado en: ${OUTPUT_DIR}/${slug}.mdx`);
+    const outputPath = `${OUTPUT_DIR}/${slug}.mdx`;
+    fs.writeFileSync(outputPath, mdx);
+    console.log(`✅ Guardado en: ${outputPath}`);
+    
+    // Extraer metadatos y actualizar categories.json
+    try {
+      const metadata = extractMetadataFromMDX(mdx);
+      await updateCategoriesJson(metadata);
+    } catch (metadataErr) {
+      console.error(`⚠️ Error al actualizar categories.json:`, metadataErr.message);
+    }
   } catch (err) {
     console.error(`❌ Error en ${url}:`, err.message);
   }
