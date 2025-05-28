@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+// We no longer need gray-matter as we're parsing JSON directly
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
+import { extractFrontmatter, preprocessMDX } from '../lib/mdx-utils';
 
 import Layout from '../layouts/BaseLayout';
 import InternalLink from '../components/InternalLink';
@@ -37,7 +38,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
+    
+    // Use our utility function to handle JSON frontmatter
+    const { frontmatter } = extractFrontmatter(fileContents);
+    const data = frontmatter as { slug?: string };
+    
     const slug = data.slug || filename.replace(/\.mdx?$/, '');
     return { params: { slug } };
   });
@@ -54,7 +59,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   for (const filename of filenames) {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
+    
+    // Use the utility function for consistent frontmatter handling
+    const { frontmatter } = extractFrontmatter(fileContents);
+    if (!frontmatter || Object.keys(frontmatter).length === 0) {
+      continue;
+    }
+    const data = frontmatter as { slug?: string };
+    
     if (data.slug === slug) {
       matchedFile = filename;
       break;
@@ -69,8 +81,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const filePath = path.join(postsDirectory, matchedFile);
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(fileContents);
-  const mdxSource = await serialize(content);
+  
+  // Process frontmatter with our utility
+  const { frontmatter, content: processedContent } = extractFrontmatter(fileContents);
+  const data = frontmatter as { slug?: string, [key: string]: any };
+  // Ensure the content is clean from any frontmatter
+  const content = preprocessMDX(processedContent);
+  
+  // Tell serialize not to try parsing frontmatter again and ensure MDX doesn't 
+  // try to parse the content as YAML again
+  const mdxSource = await serialize(content, {
+    parseFrontmatter: false
+  });
 
   return {
     props: {

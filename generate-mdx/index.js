@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import slugify from 'slugify';
@@ -12,6 +11,14 @@ import { chromium } from 'playwright';
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const turndown = new TurndownService();
+
+// Función para indentar texto multilínea en YAML
+function indentMultiline(text, indent = '      ') {
+  return text
+    .split('\n')
+    .map(line => indent + line)
+    .join('\n') + '\n';
+}
 
 // Extraer contenido limpio desde cualquier web
 async function fetchCleanContent(url) {
@@ -38,122 +45,10 @@ async function fetchCleanContent(url) {
 // Generar MDX con GPT-4o
 async function generateMDX({ title, content, url, date, image }) {
   const markdown = turndown.turndown(content);
+  
+  // Prompt simplificado para datos
   const prompt = `
-INSTRUCCIÓN: Crea un archivo MDX para una web de afiliados siguiendo EXACTAMENTE este formato y estructura:
-
-1. NUNCA uses marcas de código tipo \`\`\`mdx o \`\`\`markdown
-2. El archivo debe comenzar EXACTAMENTE con tres guiones --- sin espacios antes
-3. No uses ninguna comilla invertida (\`) en todo el archivo
-4. Todos los campos del frontmatter deben ir entre comillas dobles
-5. IMPORTANTE: Los comentarios en YAML deben comenzar con # y estar en la MISMA LÍNEA del campo que comentan, NUNCA en una línea separada
-6. NO incluyas comentarios multilínea que comiencen con #
-7. ESTRUCTURA CRÍTICA: El archivo debe seguir EXACTAMENTE este orden: 1) frontmatter YAML entre triple guiones, 2) UNA LÍNEA EN BLANCO, 3) imports de componentes, 4) UNA LÍNEA EN BLANCO, 5) contenido Markdown
-
-ESTRUCTURA EXACTA QUE DEBE SEGUIR EL ARCHIVO:
-
----
-title: "Título del artículo"
-date: "YYYY-MM-DD"
-slug: "slug-con-guiones"
-image: "https://url-de-la-imagen.jpg"
-excerpt: "Resumen útil del artículo"
-category: "cocina"
-products:
-  - asin: "ID de Amazon"
-    name: "Nombre del producto"
-    image: "https://..."
-    affiliateLink: "https://www.amazon.es/dp/ASIN?tag=oferta-limitada-21"
-    price: "Numero visible del precio con moneda €"
-    destacado: "La más barata"
-    potencia: "xx W"
-    capacidad: "xx L"
-    velocidades: "número"
-    funciones: "value"
-    pros: "Ventaja 1, Ventaja 2, Ventaja 3"
-    cons: "Desventaja 1, Desventaja 2"
-    description: "Descripción corta"
-    detailedDescription: "Descripción más detallada de unas 2-3 frases sobre el producto."
----
-
-import ProductDetailCard from '../components/ProductDetailCard'
-import ProductTable from '../components/ProductTable'
-import ProductRankingTable from '../components/ProductRankingTable'
-import ProductHeading from '../components/ProductHeading'
-
-# Título del Artículo
-
-## Resumen de los mejores productos
-
-...resto del contenido Markdown...
-
----
-
-# BODY DEL ARTÍCULO
-
-Después del frontmatter, el cuerpo debe estar en **Markdown + JSX válido**. 
-
-Debes incluir estos imports al principio del archivo (después de las triple rayas del frontmatter):
-
-import ProductDetailCard from '../components/ProductDetailCard'
-import ProductTable from '../components/ProductTable'
-import ProductRankingTable from '../components/ProductRankingTable'
-import ProductHeading from '../components/ProductHeading'
-import ArticleCard from '../components/ArticleCard'
-
-Sigue esta estructura obligatoria:
-
-## # Título principal (H1)
-Debe repetir el título del frontmatter
-
-## ## Resumen de los mejores productos
-
-Inserta primero una tabla de ranking con las características destacadas de cada producto:
-
-<ProductRankingTable products={products} />
-
-## ## Consejos antes de comprar
-
-Incluye contenido SEO útil que venga del artículo original: cómo elegir, errores comunes, diferencias entre tipos, etc.
-
-## ## Valoraciones 
-
-Comparte texto general sobre opiniones o experiencia, como haría un autor experto o un blog confiable.
-
-## ## Análisis detallado
-
-Después de la tabla, añade una sección para cada producto con su análisis detallado. Asegúrate de numerarlos para mantener la coherencia con la tabla. Usa el siguiente formato para cada producto (reemplaza "Nombre del producto" con el nombre exacto del producto y "index" con su número):
-
-<ProductHeading product={products.find(p => p.name === "Nombre del producto")} index={1} />
-
-Aquí agrega una pequeña introducción del producto (1-2 frases).
-
-<ProductDetailCard product={products.find(p => p.name === "Nombre del producto")} />
-
-Repite esta estructura para cada producto, usando un encabezado H3 y el componente ProductDetailCard para cada uno.
-
-## ## Comparativa técnica completa
-
-Antes de tomar tu decisión final, compara todas las especificaciones técnicas de los productos analizados:
-
-<ProductTable products={products} />
-
-## ## Conclusión
-
-Cierra con una invitación directa y útil a que el usuario compare y compre. Termina con un tono útil y motivador.
-
----
-
-# PROHIBIDO:
-
-- NO uses HTML como <div>, <img>, <dl>, ni variables tipo frontMatter.products
-- NO pongas JSX en el frontmatter
-- NO uses referencias inexistentes
-- NUNCA uses otro tag que no sea "oferta-limitada-21" en los enlaces de afiliados de Amazon
-- SIEMPRE utiliza el formato https://www.amazon.es/dp/ASIN?tag=oferta-limitada-21 para TODOS los enlaces de afiliados
-
----
-
-CONTENIDO BASE:
+Crea un artículo para una web de comparación de productos basado en este contenido:
 
 Título: ${title}
 Fecha: ${date}
@@ -161,113 +56,141 @@ URL: ${url}
 
 Texto extraído del artículo:
 ${markdown}
-`;
 
-
-  const chat = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-  });
-
-  let mdxContent = chat.choices[0].message.content;
-  
-  // Post-procesamiento para asegurar la estructura correcta del archivo MDX
-  mdxContent = postProcessMDX(mdxContent);
-  
-  return mdxContent;
+Devuelve la siguiente información en formato JSON:
+{
+  "title": "Título SEO optimizado",
+  "slug": "slug-con-guiones",
+  "excerpt": "Descripción breve del contenido",
+  "category": "Elige entre: cocina, belleza, jardin, maquillaje, ropa, moda, general",
+  "products": [
+    {
+      "name": "Nombre del producto principal",
+      "asin": "B0XXXXX",
+      "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg'}",
+      "price": "39,99 €",
+      "pros": "Ventaja 1, Ventaja 2, Ventaja 3",
+      "cons": "Desventaja 1, Desventaja 2"
+    }
+  ],
+  "content": {
+    "intro": "Párrafo introductorio",
+    "buying_tips": "Consejos para comprar",
+    "conclusion": "Conclusión del artículo"
+  }
 }
 
-// Función para asegurar que el archivo MDX tenga la estructura correcta
-function postProcessMDX(content) {
-  console.log('🔄 Aplicando post-procesamiento al MDX generado...');
-  
-  // Extraer el frontmatter utilizando una expresión regular más precisa
-  const frontmatterRegex = /^\s*---\s*([\s\S]*?)\s*---\s*/;
-  const match = content.match(frontmatterRegex);
-  
-  if (!match) {
-    console.error('❌ No se pudo encontrar un frontmatter válido');
+IMPORTANTE: Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
+`;
+
+  try {
+    const chat = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: 'user', content: prompt }],
+    });
+
+    // Obtener la respuesta y extraer el JSON
+    const responseContent = chat.choices[0].message.content;
+    let jsonData;
     
-    // Intentar construir un frontmatter básico
-    const titleMatch = content.match(/# ([^\n]+)/);
-    const title = titleMatch ? titleMatch[1] : 'Artículo sin título';
-    
-    const basicFrontmatter = `title: "${title}"
-date: "${new Date().toISOString().split('T')[0]}"
-slug: "${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
-image: "https://example.com/placeholder.jpg"
-excerpt: "Artículo sobre ${title}"
-category: "general"
-products: []`;
-    
-    console.log('⚠️ Creando frontmatter básico de emergencia');
-    
-    // Separar el contenido del título
-    let bodyContent = content;
-    if (titleMatch) {
-      bodyContent = content.replace(titleMatch[0], '');
+    try {
+      // Intentar parsear directamente, o extraer el JSON si está rodeado de texto
+      const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        jsonData = JSON.parse(jsonMatch[0]);
+      } else {
+        jsonData = JSON.parse(responseContent);
+      }
+      console.log('✅ JSON extraído correctamente');
+    } catch (error) {
+      console.error('❌ Error al parsear el JSON:', error.message);
+      
     }
     
-    // Crear imports estándar
-    const defaultImports = [
-      "import ProductDetailCard from '../components/ProductDetailCard'",
-      "import ProductTable from '../components/ProductTable'",
-      "import ProductRankingTable from '../components/ProductRankingTable'",
-      "import ProductHeading from '../components/ProductHeading'",
-      "import ArticleCard from '../components/ArticleCard'"
-    ].join('\n');
+    // Generar el MDX con estructura garantizada
+    const mdxContent = createValidMDX(jsonData, image);
+    return mdxContent;
     
-    // Reconstruir el contenido con una estructura forzada correcta
-    return `---\n${basicFrontmatter}\n---\n\n${defaultImports}\n\n# ${title}\n\n${bodyContent.trim()}`;
+  } catch (error) {
+    console.error('❌ Error al generar MDX:', error.message);
+    throw error;
   }
-  
-  // Extraer el frontmatter y el contenido
-  const frontmatter = match[1].trim();
-  const restContent = content.replace(match[0], '').trim();
-  
-  // Verificar si hay imports en el contenido
-  const importRegex = /import\s+[\w\{\}\s,]+\s+from\s+['"][\.\w\/-]+['"]/g;
-  const importMatches = restContent.match(importRegex) || [];
-  
-  // Extraer los imports y el cuerpo real del contenido
-  let imports = '';
-  let bodyContent = restContent;
-  
-  if (importMatches.length > 0) {
-    imports = importMatches.join('\n');
-    // Quitar los imports del cuerpo
-    for (const importStatement of importMatches) {
-      bodyContent = bodyContent.replace(importStatement, '');
-    }
-  } else {
-    // Si no hay imports, añadir los predeterminados
-    imports = [
-      "import ProductDetailCard from '../components/ProductDetailCard'",
-      "import ProductTable from '../components/ProductTable'",
-      "import ProductRankingTable from '../components/ProductRankingTable'",
-      "import ProductHeading from '../components/ProductHeading'",
-      "import ArticleCard from '../components/ArticleCard'"
-    ].join('\n');
+}
+
+function createValidMDX(data, fallbackImage) {
+  console.log('🔧 Creando archivo MDX con estructura válida...');
+  const slug = data.slug || slugify(data.title, { lower: true, strict: true });
+
+  // Create frontmatter object for JSON
+  const frontmatterObj = {
+    title: data.title,
+    date: new Date().toISOString().split('T')[0],
+    slug: slug,
+    image: data.products[0]?.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
+    excerpt: data.excerpt,
+    category: data.category || 'general',
+    products: []
+  };
+
+  // Add products to frontmatter
+  if (data.products && data.products.length > 0) {
+    frontmatterObj.products = data.products.map(product => ({
+      asin: product.asin || 'B0XXXXX',
+      name: product.name,
+      image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
+      affiliateLink: `https://www.amazon.es/dp/${product.asin || 'B0XXXXX'}?tag=oferta-limitada-21`,
+      price: product.price || '39,99 €',
+      destacado: product.destacado || 'Producto recomendado',
+      potencia: product.potencia || 'N/A',
+      capacidad: product.capacidad || 'N/A',
+      velocidades: product.velocidades || 'N/A',
+      funciones: product.funciones || 'Funciones básicas',
+      pros: product.pros || 'Calidad, Precio, Durabilidad',
+      cons: product.cons || 'Ninguna desventaja significativa',
+      description: product.description || 'Descripción breve del producto',
+      detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.'
+    }));
   }
-  
-  // Limpiar el cuerpo del contenido
-  bodyContent = bodyContent.trim();
-  
-  // Asegurar que el primer encabezado sea un encabezado H1 válido
-  if (!bodyContent.startsWith('# ')) {
-    const titleMatch = frontmatter.match(/title: "([^"]+)"/);
-    if (titleMatch) {
-      bodyContent = `# ${titleMatch[1]}\n\n${bodyContent}`;
-    } else {
-      bodyContent = `# Artículo\n\n${bodyContent}`;
-    }
+
+  // Convert frontmatter object to JSON string with pretty formatting
+  const frontmatter = JSON.stringify(frontmatterObj, null, 2);
+
+  const imports = [
+    "import ProductDetailCard from '../components/ProductDetailCard'",
+    "import ProductTable from '../components/ProductTable'",
+    "import ProductRankingTable from '../components/ProductRankingTable'",
+    "import ProductHeading from '../components/ProductHeading'",
+    "import ArticleCard from '../components/ArticleCard'"
+  ].join('\n');
+
+  let bodyContent = `# ${data.title}\n\n`;
+  bodyContent += `## Resumen de los mejores productos\n\n`;
+  bodyContent += `<ProductRankingTable products={products} />\n\n`;
+
+  if (data.content?.intro) {
+    bodyContent += `## Introducción\n\n${data.content.intro}\n\n`;
   }
-  
-  // Reconstruir el contenido con la estructura correcta
-  const correctedContent = `---\n${frontmatter}\n---\n\n${imports}\n\n${bodyContent}`;
-  
-  console.log('✅ Post-procesamiento completado');
-  return correctedContent;
+
+  bodyContent += `## Consejos antes de comprar\n\n`;
+  bodyContent += `${data.content?.buying_tips || 'Antes de realizar tu compra, considera factores como el precio, la calidad y las características que necesitas.'}\n\n`;
+
+  bodyContent += `## Valoraciones\n\n`;
+  data.products?.forEach((product, index) => {
+    bodyContent += `<ProductDetailCard product={products[${index}]} />\n\n`;
+  });
+
+  bodyContent += `## Conclusión\n\n`;
+  bodyContent += `${data.content?.conclusion || 'Esperamos que esta guía te haya ayudado a encontrar el producto perfecto para tus necesidades.'}\n`;
+
+  const mdxContent = `---json
+${frontmatter}
+---
+
+${imports}
+
+${bodyContent}`;
+  console.log('✅ Archivo MDX creado correctamente');
+  return mdxContent;
 }
 
 // Función para actualizar el archivo categories.json
@@ -305,31 +228,32 @@ async function updateCategoriesJson(article) {
 
 // Función para extraer metadatos del contenido MDX generado
 function extractMetadataFromMDX(mdxContent) {
-  const frontMatterRegex = /---\n([\s\S]*?)\n---/;
+  // Regex actualizado para frontmatter JSON (---json ... ---)
+  const frontMatterRegex = /---json\n([\s\S]*?)\n---/;
   const match = mdxContent.match(frontMatterRegex);
   
   if (!match || !match[1]) {
     throw new Error('No se pudo extraer el frontmatter del MDX generado');
   }
   
-  const frontMatter = match[1];
-  
-  // Extraer cada campo del frontmatter
-  const titleMatch = frontMatter.match(/title: "([^"]+)"/); 
-  const slugMatch = frontMatter.match(/slug: "([^"]+)"/); 
-  const imageMatch = frontMatter.match(/image: "([^"]+)"/); 
-  const categoryMatch = frontMatter.match(/category: "([^"]+)"/); 
-  
-  if (!titleMatch || !slugMatch || !imageMatch || !categoryMatch) {
-    throw new Error('Falta información requerida en el frontmatter');
+  try {
+    // Parsear directamente el JSON
+    const frontMatterData = JSON.parse(match[1]);
+    
+    // Verificar que existan los campos requeridos
+    if (!frontMatterData.title || !frontMatterData.slug || !frontMatterData.image || !frontMatterData.category) {
+      throw new Error('Falta información requerida en el frontmatter');
+    }
+    
+    return {
+      title: frontMatterData.title,
+      slug: frontMatterData.slug,
+      image: frontMatterData.image,
+      category: frontMatterData.category
+    };
+  } catch (error) {
+    throw new Error(`Error al parsear el JSON del frontmatter: ${error.message}`);
   }
-  
-  return {
-    title: titleMatch[1],
-    slug: slugMatch[1],
-    image: imageMatch[1],
-    category: categoryMatch[1]
-  };
 }
 
 // Rutas de directorios
@@ -378,6 +302,56 @@ async function loadUrlsFromFiles() {
   return allUrls;
 }
 
+// Función para validar la estructura de un archivo MDX
+function validateMDXStructure(mdxContent) {
+  // Si el contenido está vacío, devolvemos un mensaje de error
+  if (!mdxContent || mdxContent.trim() === '') {
+    console.error('❌ Error: El contenido MDX está vacío');
+    return mdxContent;
+  }
+
+  // JSON frontmatter (formato recomendado)
+  if (mdxContent.startsWith('---json')) {
+    const hasClosingDelimiter = mdxContent.includes('\n---\n');
+    if (!hasClosingDelimiter) {
+      console.error('❌ Error: Falta el delimitador de cierre del frontmatter JSON');
+      // Intentar corregir automáticamente
+      return mdxContent.replace(/---json\n([\s\S]*?)\n(import|#)/, '---json\n$1\n---\n\n$2');
+    }
+
+    // Verificar que el JSON es válido
+    try {
+      const jsonMatch = mdxContent.match(/---json\n([\s\S]*?)\n---/);
+      if (jsonMatch && jsonMatch[1]) {
+        JSON.parse(jsonMatch[1]);
+        console.log('✅ Frontmatter JSON validado correctamente');
+      }
+    } catch (error) {
+      console.error('❌ Error: El frontmatter JSON no es válido:', error.message);
+      // No intentamos corregir errores de JSON ya que requeriría un análisis más complejo
+    }
+  } 
+  // YAML frontmatter (legado, convertir a JSON si es posible)
+  else if (mdxContent.startsWith('---\n')) {
+    console.warn('⚠️ Advertencia: Usando formato YAML legado. Se recomienda usar JSON frontmatter.');
+    const hasClosingDelimiter = /---\n[\s\S]*?\n---\n/.test(mdxContent);
+    if (!hasClosingDelimiter) {
+      console.error('❌ Error: Falta el delimitador de cierre del frontmatter YAML');
+      // Intentar corregir automáticamente
+      return mdxContent.replace(/---\n([\s\S]*?)\n(import|#)/, '---\n$1\n---\n\n$2');
+    }
+
+    // TODO: En una versión futura, podríamos convertir automáticamente YAML a JSON frontmatter
+  }
+  // Sin frontmatter o formato no reconocido
+  else {
+    console.error('❌ Error: El archivo MDX no tiene un frontmatter válido');
+    // No intentamos corregir automáticamente ya que no hay suficiente información
+  }
+  
+  return mdxContent;
+}
+
 // MAIN
 async function main() {
   // Cargar URLs desde archivos
@@ -398,42 +372,46 @@ async function main() {
     try {
       console.log(`🔍 Procesando ${url}...`);
       const data = await fetchCleanContent(url);
-
-      if (!data.content || data.content.length < 100) {
-        console.error(`❌ Contenido insuficiente para: ${url}`);
-        continue;
-      }
-
-      const mdx = await generateMDX(data);
-      const slug = slugify(data.title, { lower: true, strict: true });
-      const outputPath = `${OUTPUT_DIR}/${slug}.mdx`;
-      fs.writeFileSync(outputPath, mdx);
-      console.log(`✅ Guardado en: ${outputPath}`);
       
-      // Extraer metadatos y actualizar categories.json
-      try {
-        const metadata = extractMetadataFromMDX(mdx);
-        await updateCategoriesJson(metadata);
-      } catch (metadataError) {
-        console.error(`❌ Error al actualizar categories.json:`, metadataError.message);
-      }
+      console.log(`📝 Generando MDX para "${data.title}"...`);
+      let mdxContent = await generateMDX(data);
       
-      // Añadir URL a la lista de procesadas
+      // Validar y corregir la estructura del MDX antes de guardarlo
+      mdxContent = validateMDXStructure(mdxContent);
+      
+      // Extraer metadatos para el nombre del archivo y actualizar categories.json
+      const metadata = extractMetadataFromMDX(mdxContent);
+      
+      // Crear el slug para el nombre del archivo
+      const fileName = `${metadata.slug}.mdx`;
+      const filePath = path.join(OUTPUT_DIR, fileName);
+      
+      // Guardar el archivo
+      fs.writeFileSync(filePath, mdxContent);
+      console.log(`✅ Guardado en ${filePath}`);
+      
+      // Actualizar categories.json
+      await updateCategoriesJson(metadata);
+      
+      // Marcar como procesada
       processedUrls.push(url);
-      
-      // Guardar la lista actualizada después de cada artículo
       fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
+      console.log(`✅ URL marcada como procesada`);
       
-      // Añadir un pequeño retraso entre peticiones para no sobrecargar el servidor
-      await new Promise(resolve => setTimeout(resolve, 2000));
     } catch (error) {
       console.error(`❌ Error al procesar ${url}:`, error.message);
     }
+    
+    // Pausa entre URLs para evitar sobrecargar la API
+    console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
+    await new Promise(resolve => setTimeout(resolve, 5000));
   }
+  
+  console.log(`✅ Proceso completado. Se procesaron ${urlsToProcess.length} URLs.`);
 }
 
-// Ejecutar la función principal
+// Ejecutar el script
 main().catch(error => {
-  console.error('❌ Error general:', error.message);
+  console.error('❌ Error global:', error);
   process.exit(1);
 });
