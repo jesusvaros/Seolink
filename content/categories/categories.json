@@ -1,5 +1,16 @@
 {
-  "cocina": [],
+  "cocina": [
+    {
+      "title": "Las Mejores Freidoras de Aire para una Cocina Saludable: Análisis 2025",
+      "slug": "mejores-freidoras-aire-cocina-saludable-analisis-2025",
+      "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1716635567-618GZS9a8L.jpg?crop=0.948xw:1xh;center,top&resize=980:*"
+    },
+    {
+      "title": "Los 10 Mejores Microondas del 2025: Análisis y Comparativa",
+      "slug": "los-10-mejores-microondas-del-2025",
+      "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1718306658-61rsSRUfjmL.jpg?crop=0.981xw:1xh;center,top&resize=980:*"
+    }
+  ],
   "belleza": [],
   "jardin": [],
   "maquillaje": [],
