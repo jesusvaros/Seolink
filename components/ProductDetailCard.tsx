@@ -7,51 +7,131 @@ export type DetailedProduct = {
   image: string;
   affiliateLink: string;
   price: string;
-  capacity?: string;
-  vapor?: boolean;
-  limpieza?: string;
-  peso?: string;
-  dimensiones?: string;
-  potencia?: string;
   pros?: string;
   cons?: string;
   description?: string;
   detailedDescription?: string;
+  specifications?: Record<string, any>;
+  technicalSpecifications?: Record<string, any>;
+  especificaciones?: Record<string, any>;
   [key: string]: any; // Allow for additional properties
 };
+
+// Tipo para las especificaciones
+interface Specification {
+  label: string;
+  value: string | number | boolean;
+}
 
 const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) => {
   // Split pros and cons into arrays if they're provided as comma-separated strings
   const prosList = product.pros ? product.pros.split(',').map(item => item.trim()) : [];
   const consList = product.cons ? product.cons.split(',').map(item => item.trim()) : [];
 
-  // Creamos un tipo para las especificaciones
-  interface Specification {
-    label: string;
-    value: string | number | boolean;
-  }
-
-  // Create an array of specification items for the table, only including properties that exist
-  const specifications: Specification[] = [
-    product.capacity ? { label: 'Capacidad', value: product.capacity } : null,
-    product.vapor !== undefined ? { label: 'Función vapor', value: product.vapor ? '✓' : '✗' } : null,
-    product.limpieza ? { label: 'Sistema de limpieza', value: product.limpieza } : null,
-    product.peso ? { label: 'Peso', value: product.peso } : null,
-    product.dimensiones ? { label: 'Dimensiones', value: product.dimensiones } : null,
-    product.potencia ? { label: 'Potencia', value: product.potencia } : null,
-    // Incluimos también cualquier otra propiedad adicional del producto que no sea parte de las propiedades básicas
-    ...Object.entries(product)
-      .filter(([key, value]) => {
-        // Excluimos propiedades básicas y propiedades sin valor
-        const basicProps = ['asin', 'name', 'subtitle', 'image', 'affiliateLink', 'price',
-          'pros', 'cons', 'description', 'detailedDescription'];
-        return !basicProps.includes(key) && value !== undefined && value !== null && value !== '';
-      })
-      .map(([key, value]) => ({
-        label: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
-        value: typeof value === 'boolean' ? (value ? '✓' : '✗') : value
-      }))
-  ].filter((spec): spec is Specification => spec !== null); // Filter out null items con type guard
+  // Función para procesar las especificaciones de cualquier tipo de producto
+  const processTechnicalSpecs = (): Specification[] => {
+    const specs: Specification[] = [];
+    
+    // Lista de propiedades básicas que no queremos mostrar como especificaciones
+    const basicProps = [
+      'asin', 'name', 'subtitle', 'image', 'affiliateLink', 'price',
+      'pros', 'cons', 'description', 'detailedDescription', 'destacado'
+    ];
+    
+    // 1. Procesar objetos de especificaciones anidados
+    const specObjects: Record<string, any>[] = [];
+    
+    // Intentar todos los posibles nombres de objetos de especificaciones
+    if (product.specifications && typeof product.specifications === 'object') {
+      specObjects.push(product.specifications);
+    }
+    if (product.technicalSpecifications && typeof product.technicalSpecifications === 'object') {
+      specObjects.push(product.technicalSpecifications);
+    }
+    if (product.especificaciones && typeof product.especificaciones === 'object') {
+      specObjects.push(product.especificaciones);
+    }
+    
+    // Procesar todos los objetos de especificaciones encontrados
+    specObjects.forEach(specObj => {
+      try {
+        Object.entries(specObj).forEach(([key, value]) => {
+          // Solo procesar valores válidos
+          if (value !== undefined && value !== null && value !== '' && value !== 'N/A') {
+            // Formato del nombre de la propiedad
+            const formattedKey = key
+              .charAt(0).toUpperCase() + 
+              key.slice(1)
+                .replace(/([A-Z])/g, ' $1') // Separar camelCase
+                .replace(/_/g, ' ')          // Cambiar guiones bajos por espacios
+                .replace(/-/g, ' ')          // Cambiar guiones por espacios
+                .trim();
+            
+            // Procesar el valor dependiendo del tipo
+            let processedValue: string | number | boolean;
+            if (value === null || value === undefined) {
+              return; // Saltar valores nulos o indefinidos
+            } else if (typeof value === 'object') {
+              try {
+                processedValue = JSON.stringify(value);
+              } catch {
+                processedValue = 'Objeto complejo';
+              }
+            } else if (typeof value === 'boolean') {
+              processedValue = value ? '✓' : '✗';
+            } else {
+              processedValue = String(value);
+            }
+            
+            specs.push({
+              label: formattedKey,
+              value: processedValue
+            });
+          }
+        });
+      } catch (error) {
+        // Continuar con otras especificaciones si hay algún error
+        console.error('Error procesando especificaciones:', error);
+      }
+    });
+    
+    // 2. Procesar propiedades directas del producto que no son básicas
+    Object.entries(product).forEach(([key, value]) => {
+      // Excluir propiedades básicas, objetos de especificaciones, y valores inválidos
+      if (!basicProps.includes(key) && 
+          key !== 'specifications' && 
+          key !== 'technicalSpecifications' &&
+          key !== 'especificaciones' &&
+          typeof value !== 'object' &&
+          value !== undefined && 
+          value !== null && 
+          value !== '' &&
+          value !== 'N/A') {
+        
+        // Formato del nombre de la propiedad
+        const formattedKey = key
+          .charAt(0).toUpperCase() + 
+          key.slice(1)
+            .replace(/([A-Z])/g, ' $1') // Separar camelCase
+            .replace(/_/g, ' ')          // Cambiar guiones bajos por espacios
+            .replace(/-/g, ' ')          // Cambiar guiones por espacios
+            .trim();
+        
+        // Procesar el valor dependiendo del tipo
+        const processedValue = typeof value === 'boolean' ? (value ? '✓' : '✗') : String(value);
+        
+        specs.push({
+          label: formattedKey,
+          value: processedValue
+        });
+      }
+    });
+    
+    return specs;
+  };
+  
+  // Obtenemos todas las especificaciones procesadas
+  const specifications = processTechnicalSpecs();
 
   return (
     <div className="mb-8">
