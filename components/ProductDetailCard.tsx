@@ -25,24 +25,42 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
   const prosList = product.pros ? product.pros.split(',').map(item => item.trim()) : [];
   const consList = product.cons ? product.cons.split(',').map(item => item.trim()) : [];
 
+  // Creamos un tipo para las especificaciones
+  interface Specification {
+    label: string;
+    value: string | number | boolean;
+  }
+
   // Create an array of specification items for the table, only including properties that exist
-  const specifications = [
+  const specifications: Specification[] = [
     product.capacity ? { label: 'Capacidad', value: product.capacity } : null,
     product.vapor !== undefined ? { label: 'Función vapor', value: product.vapor ? '✓' : '✗' } : null,
     product.limpieza ? { label: 'Sistema de limpieza', value: product.limpieza } : null,
     product.peso ? { label: 'Peso', value: product.peso } : null,
     product.dimensiones ? { label: 'Dimensiones', value: product.dimensiones } : null,
     product.potencia ? { label: 'Potencia', value: product.potencia } : null,
-  ].filter(spec => spec !== null); // Filter out null items
+    // Incluimos también cualquier otra propiedad adicional del producto que no sea parte de las propiedades básicas
+    ...Object.entries(product)
+      .filter(([key, value]) => {
+        // Excluimos propiedades básicas y propiedades sin valor
+        const basicProps = ['asin', 'name', 'subtitle', 'image', 'affiliateLink', 'price',
+          'pros', 'cons', 'description', 'detailedDescription'];
+        return !basicProps.includes(key) && value !== undefined && value !== null && value !== '';
+      })
+      .map(([key, value]) => ({
+        label: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
+        value: typeof value === 'boolean' ? (value ? '✓' : '✗') : value
+      }))
+  ].filter((spec): spec is Specification => spec !== null); // Filter out null items con type guard
 
   return (
     <div className="mb-8">
       {/* Header with image and basic info */}
       <div className="flex flex-col md:flex-row mb-4 bg-white p-4 rounded-lg shadow-sm">
         <div className="md:w-1/4 flex items-center justify-center">
-          <img 
-            src={product.image} 
-            alt={product.name} 
+          <img
+            src={product.image}
+            alt={product.name}
             className="w-full max-h-40 object-contain"
           />
         </div>
@@ -51,7 +69,7 @@ const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) 
           {product.subtitle && (
             <p className="text-base text-gray-600 mb-4">{product.subtitle}</p>
           )}
-          
+
           <div className="mt-4">
             <a
               href={product.affiliateLink}
