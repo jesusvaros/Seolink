@@ -20,6 +20,54 @@ function indentMultiline(text, indent = '      ') {
     .join('\n') + '\n';
 }
 
+// Verificar si una URL contiene enlaces de Amazon antes de procesarla completamente
+async function containsAmazonLinks(url) {
+  console.log(`🔍 Verificando si ${url} contiene enlaces de Amazon...`);
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage();
+  
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    
+    // Buscar enlaces de Amazon o texto que indique comparativas de productos
+    const hasAmazonLinks = await page.evaluate(() => {
+      // Buscar enlaces a Amazon
+      const amazonLinks = Array.from(document.querySelectorAll('a')).filter(a => 
+        a.href.includes('amazon.') || 
+        a.href.includes('/dp/') || 
+        a.href.includes('/gp/product/')
+      );
+      
+      // Buscar términos relacionados con comparativas de productos
+      const productTerms = ['mejor', 'mejores', 'comparativa', 'análisis', 'review', 'opiniones', 'comprar'];
+      const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4'));
+      const hasProductTermsInHeadings = headings.some(h => 
+        productTerms.some(term => h.textContent.toLowerCase().includes(term))
+      );
+      
+      // También buscar menciones de ASIN (código de producto Amazon)
+      const hasASINMentions = document.body.textContent.includes('ASIN') || 
+                             document.body.textContent.match(/B0[0-9A-Z]{8}/g);
+      
+      return amazonLinks.length > 0 || (hasProductTermsInHeadings && hasASINMentions);
+    });
+    
+    await browser.close();
+    
+    if (hasAmazonLinks) {
+      console.log(`✅ La URL ${url} contiene referencias a productos de Amazon.`);
+    } else {
+      console.log(`⚠️ La URL ${url} no parece contener productos de Amazon.`);
+    }
+    
+    return hasAmazonLinks;
+  } catch (error) {
+    console.error(`❌ Error al verificar enlaces de Amazon en ${url}:`, error.message);
+    await browser.close();
+    return false;
+  }
+}
+
 // Extraer contenido limpio desde cualquier web
 async function fetchCleanContent(url) {
   const browser = await chromium.launch({ headless: true });
@@ -46,7 +94,7 @@ async function fetchCleanContent(url) {
 async function generateMDX({ title, content, url, date, image }) {
   const markdown = turndown.turndown(content);
   
-  // Prompt simplificado para datos
+  // Prompt mejorado para extraer múltiples productos
   const prompt = `
 Crea un artículo para una web de comparación de productos basado en este contenido:
 
@@ -65,13 +113,22 @@ Devuelve la siguiente información en formato JSON:
   "category": "Elige entre: cocina, belleza, jardin, maquillaje, ropa, moda, general",
   "products": [
     {
-      "name": "Nombre del producto principal",
+      "name": "Nombre del primer producto",
       "asin": "B0XXXXX",
       "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg'}",
       "price": "39,99 €",
       "pros": "Ventaja 1, Ventaja 2, Ventaja 3",
       "cons": "Desventaja 1, Desventaja 2"
-    }
+    },
+    {
+      "name": "Nombre del segundo producto",
+      "asin": "B0YYYYY",
+      "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-2.jpg'}",
+      "price": "49,99 €",
+      "pros": "Calidad superior, Funcionalidad extra, Garantía extendida",
+      "cons": "Precio elevado, Tamaño grande"
+    },
+    // Incluye tantos productos como encuentres en el artículo, mínimo 3 y máximo 10
   ],
   "content": {
     "intro": "Párrafo introductorio",
@@ -80,7 +137,10 @@ Devuelve la siguiente información en formato JSON:
   }
 }
 
-IMPORTANTE: Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
+IMPORTANTE: 
+1. Analiza el contenido y extrae TODOS los productos mencionados (mínimo 3, máximo 10).
+2. Para cada producto, busca su nombre exacto, características y ASIN de Amazon cuando sea posible.
+3. Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
 `;
 
   try {
@@ -371,6 +431,20 @@ async function main() {
   for (const url of urlsToProcess) {
     try {
       console.log(`🔍 Procesando ${url}...`);
+      
+      // Primero verificar si la URL contiene productos de Amazon
+      const hasAmazonProducts = await containsAmazonLinks(url);
+      
+      if (!hasAmazonProducts) {
+        console.log(`⏩ Saltando ${url} - No contiene productos de Amazon`);
+        // Marcar como procesada aunque no hayamos generado contenido
+        processedUrls.push(url);
+        fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
+        console.log(`✅ URL marcada como procesada y saltada`);
+        continue; // Pasar a la siguiente URL
+      }
+      
+      // Si tiene productos de Amazon, continuamos con el proceso normal
       const data = await fetchCleanContent(url);
       
       console.log(`📝 Generando MDX para "${data.title}"...`);
