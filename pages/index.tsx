@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import Layout from '../layouts/BaseLayout';
 import ArticleCard from '../components/ArticleCard';
+import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 
 // Interfaces para los tipos de datos
@@ -66,6 +67,17 @@ export default function Home({ categories }: { categories: CategoryData }) {
   
   return (
     <Layout>
+      <NextSeo
+        title="Comparaland - Guías de Compra y Análisis de Productos"
+        description="Encuentra análisis detallados, comparativas y recomendaciones de los mejores productos. Guías de compra actualizadas por expertos."
+        canonical="https://comparaland.es/"
+        openGraph={{
+          url: 'https://comparaland.es/',
+          title: 'Comparaland - Guías de Compra y Análisis de Productos',
+          description: 'Encuentra análisis detallados, comparativas y recomendaciones de los mejores productos.',
+          images: [{ url: 'https://comparaland.es/images/og-image.jpg', alt: 'Comparaland - Guías de Compra' }],
+        }}
+      />
       {/* Hero section */}
       <div className="bg-ivory py-12 px-4 mb-8 rounded-xl">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">

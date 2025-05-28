@@ -28,6 +28,8 @@ type PostProps = {
     slug: string;
     category: string;
     products: Product[];
+    updatedAt?: string; // Fecha de actualización opcional
+    tags?: string[];    // Etiquetas opcionales
   };
 };
 
@@ -108,12 +110,19 @@ export default function PostPage({ source, frontMatter }: PostProps) {
       <NextSeo
         title={frontMatter.title}
         description={frontMatter.excerpt}
-        canonical={`https://tudominio.com/${frontMatter.slug}`}
+        canonical={`https://comparaland.es/${frontMatter.slug}`}
         openGraph={{
-          url: `https://tudominio.com/${frontMatter.slug}`,
+          url: `https://comparaland.es/${frontMatter.slug}`,
           title: frontMatter.title,
           description: frontMatter.excerpt,
           images: [{ url: frontMatter.image, alt: frontMatter.title }],
+          type: 'article',
+          article: {
+            publishedTime: frontMatter.date,
+            modifiedTime: frontMatter.updatedAt || frontMatter.date,
+            section: frontMatter.category,
+            tags: frontMatter.tags || [frontMatter.category],
+          }
         }}
       />
 
@@ -123,26 +132,103 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              headline: frontMatter.title,
-              datePublished: frontMatter.date,
-              image: frontMatter.image,
-              author: {
-                "@type": "Person",
-                name: "Tu Nombre o Marca",
-              },
-              publisher: {
+              "@type": "Article",
+              "headline": frontMatter.title,
+              "description": frontMatter.excerpt,
+              "image": frontMatter.image,
+              "datePublished": frontMatter.date,
+              "dateModified": frontMatter.updatedAt || frontMatter.date,
+              "author": {
                 "@type": "Organization",
-                name: "Tu Web",
-                logo: {
+                "name": "comparaland",
+                "url": "https://comparaland.es/nosotros"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "comparaland",
+                "logo": {
                   "@type": "ImageObject",
-                  url: "https://tudominio.com/logo.png",
-                },
+                  "url": "https://comparaland.es/logo.png",
+                  "width": 600,
+                  "height": 60
+                }
               },
-              mainEntityOfPage: {
+              "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": `https://tudominio.com/${frontMatter.slug}`,
+                "@id": `https://comparaland.es/${frontMatter.slug}`
               },
+              // Añadir FAQ si hay productos (esto ayuda a obtener rich snippets)
+              ...(frontMatter.products && frontMatter.products.length > 0 ? {
+                "hasPart": {
+                  "@type": "FAQPage",
+                  "mainEntity": [
+                    {
+                      "@type": "Question",
+                      "name": `¿Cuál es el mejor ${(() => {
+                        // Extraer el tipo de producto del título de forma segura
+                        const title = frontMatter.title.toLowerCase();
+                        if (title.includes('mejores')) {
+                          const parts = title.split('mejores');
+                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'producto';
+                        }
+                        return 'producto';
+                      })()} en ${new Date().getFullYear()}?`,
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": frontMatter.products[0]?.name ? `Según nuestro análisis, ${frontMatter.products[0].name} es actualmente la mejor opción por su relación calidad-precio y prestaciones.` : frontMatter.excerpt
+                      }
+                    },
+                    {
+                      "@type": "Question",
+                      "name": `¿Qué características debo considerar al comprar ${(() => {
+                        // Extraer el tipo de producto del título de forma segura
+                        const title = frontMatter.title.toLowerCase();
+                        if (title.includes('mejores')) {
+                          const parts = title.split('mejores');
+                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'este producto';
+                        }
+                        return 'este producto';
+                      })()}?`,
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": `Debes considerar factores como calidad, precio, funcionalidades específicas y opiniones de otros usuarios. En nuestro artículo analizamos detalladamente estos aspectos para ayudarte a tomar la mejor decisión.`
+                      }
+                    }
+                  ]
+                }
+              } : {}),
+              // Añadir información de producto si hay productos
+              ...(frontMatter.products && frontMatter.products.length > 0 ? {
+                "review": {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "4.8",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Organization",
+                    "name": "comparaland"
+                  },
+                  "itemReviewed": {
+                    "@type": "Product",
+                    "name": frontMatter.products[0].name,
+                    "image": frontMatter.products[0].image,
+                    "description": frontMatter.products[0].description || frontMatter.excerpt,
+                    "brand": {
+                      "@type": "Brand",
+                      "name": frontMatter.products[0].name.split(' ')[0] // Extraemos la primera palabra como marca
+                    },
+                    "offers": {
+                      "@type": "Offer",
+                      "url": frontMatter.products[0].affiliateLink,
+                      "priceCurrency": "EUR",
+                      "price": frontMatter.products[0].price ? frontMatter.products[0].price.replace(/[^0-9,.]/g, '') : "",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  }
+                }
+              } : {})
             }),
           }}
         />
