@@ -2,12 +2,18 @@ import React from 'react';
 import { Product } from './ProductTable';
 
 type ProductHeadingProps = {
-  product: Product;
+  product?: Product;
   index?: number;
   feature?: string;
 };
 
 const ProductHeading: React.FC<ProductHeadingProps> = ({ product, index = 1, feature }) => {
+  // Si el producto es undefined, devolvemos null (no renderizar nada)
+  if (!product) {
+    console.warn('ProductHeading: No se ha proporcionado un producto válido');
+    return null;
+  }
+  
   // Si no se proporciona una característica específica, usar el primer pro del producto
   const displayFeature = feature || (product.pros ? product.pros.split(',')[0].trim() : 'Producto destacado');
   

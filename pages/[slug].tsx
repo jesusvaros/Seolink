@@ -174,7 +174,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
             ProductRankingTable,
           }}
           scope={{
-            products: frontMatter.products,
+            products: Array.isArray(frontMatter.products) ? frontMatter.products : [],
           }}
         />
 

@@ -23,7 +23,13 @@ interface Specification {
   value: string | number | boolean;
 }
 
-const ProductDetailCard: React.FC<{ product: DetailedProduct }> = ({ product }) => {
+const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product }) => {
+  // Si el producto es undefined, devolvemos null (no renderizar nada)
+  if (!product) {
+    console.warn('ProductDetailCard: No se ha proporcionado un producto válido');
+    return null;
+  }
+  
   // Split pros and cons into arrays if they're provided as comma-separated strings
   const prosList = product.pros ? product.pros.split(',').map(item => item.trim()) : [];
   const consList = product.cons ? product.cons.split(',').map(item => item.trim()) : [];

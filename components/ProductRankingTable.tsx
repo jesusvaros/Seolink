@@ -2,10 +2,15 @@ import React from 'react';
 import { Product } from './ProductTable';
 
 interface ProductRankingTableProps {
-  products: Product[];
+  products?: Product[] | null;
 }
 
 export default function ProductRankingTable({ products }: ProductRankingTableProps) {
+  // Si products es undefined, null o no es un array, devolvemos null (no renderizar nada)
+  if (!products || !Array.isArray(products) || products.length === 0) {
+    console.warn('ProductRankingTable: No se han proporcionado productos válidos');
+    return null;
+  }
   return (
     <div className="my-8">
       {/* Vista de escritorio (tabla) - Se oculta en móviles */}
