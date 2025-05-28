@@ -94,7 +94,7 @@ async function fetchCleanContent(url) {
 async function generateMDX({ title, content, url, date, image }) {
   const markdown = turndown.turndown(content);
   
-  // Prompt mejorado para extraer múltiples productos
+  // Prompt mejorado para extraer múltiples productos con especificaciones inteligentes
   const prompt = `
 Crea un artículo para una web de comparación de productos basado en este contenido:
 
@@ -118,7 +118,9 @@ Devuelve la siguiente información en formato JSON:
       "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg'}",
       "price": "39,99 €",
       "pros": "Ventaja 1, Ventaja 2, Ventaja 3",
-      "cons": "Desventaja 1, Desventaja 2"
+      "cons": "Desventaja 1, Desventaja 2",
+      "description": "Descripción breve del producto",
+      "detailedDescription": "Descripción detallada del producto con sus principales características."
     },
     {
       "name": "Nombre del segundo producto",
@@ -126,7 +128,9 @@ Devuelve la siguiente información en formato JSON:
       "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-2.jpg'}",
       "price": "49,99 €",
       "pros": "Calidad superior, Funcionalidad extra, Garantía extendida",
-      "cons": "Precio elevado, Tamaño grande"
+      "cons": "Precio elevado, Tamaño grande",
+      "description": "Descripción breve del segundo producto",
+      "detailedDescription": "Descripción detallada del segundo producto con sus principales características."
     },
     // Incluye tantos productos como encuentres en el artículo, mínimo 3 y máximo 10
   ],
@@ -140,7 +144,18 @@ Devuelve la siguiente información en formato JSON:
 IMPORTANTE: 
 1. Analiza el contenido y extrae TODOS los productos mencionados (mínimo 3, máximo 10).
 2. Para cada producto, busca su nombre exacto, características y ASIN de Amazon cuando sea posible.
-3. Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
+3. MUY IMPORTANTE: Para cada producto, analiza inteligentemente QUÉ TIPO DE PRODUCTO ES y agrega 4-6 campos de especificaciones TÉCNICAS relevantes. Por ejemplo:
+   
+   - Si es un libro: autor, editorial, páginas, idioma, formato, etc.
+   - Si es un electrodoméstico: potencia, capacidad, material, dimensiones, etc.
+   - Si es ropa: material, tallas, colores, estilo, etc.
+   - Si es un producto de belleza: ingredientes, tipo de piel, acabado, cantidad, etc.
+   - Si es una herramienta de jardín: potencia, material, peso, uso recomendado, etc.
+
+   Las propiedades deben ser ESPECÍFICAS y RELEVANTES para el tipo exacto de producto, no genéricas.
+   ELIMINA completamente propiedades que no sean relevantes en lugar de poner "N/A" o sin valor.
+
+4. Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
 `;
 
   try {
@@ -192,24 +207,37 @@ function createValidMDX(data, fallbackImage) {
     products: []
   };
 
-  // Add products to frontmatter
+  // Add products to frontmatter preserving all properties dinámicamente
   if (data.products && data.products.length > 0) {
-    frontmatterObj.products = data.products.map(product => ({
-      asin: product.asin || 'B0XXXXX',
-      name: product.name,
-      image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
-      affiliateLink: `https://www.amazon.es/dp/${product.asin || 'B0XXXXX'}?tag=oferta-limitada-21`,
-      price: product.price || '39,99 €',
-      destacado: product.destacado || 'Producto recomendado',
-      potencia: product.potencia || 'N/A',
-      capacidad: product.capacidad || 'N/A',
-      velocidades: product.velocidades || 'N/A',
-      funciones: product.funciones || 'Funciones básicas',
-      pros: product.pros || 'Calidad, Precio, Durabilidad',
-      cons: product.cons || 'Ninguna desventaja significativa',
-      description: product.description || 'Descripción breve del producto',
-      detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.'
-    }));
+    frontmatterObj.products = data.products.map(product => {
+      // Crear objeto base con propiedades esenciales
+      const productObj = {
+        asin: product.asin || 'B0XXXXX',
+        name: product.name,
+        image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
+        affiliateLink: `https://www.amazon.es/dp/${product.asin || 'B0XXXXX'}?tag=oferta-limitada-21`,
+        price: product.price || '39,99 €',
+        destacado: product.destacado || 'Producto recomendado',
+        pros: product.pros || 'Calidad, Precio, Durabilidad',
+        cons: product.cons || 'Ninguna desventaja significativa',
+        description: product.description || 'Descripción breve del producto',
+        detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.'
+      };
+      
+      // Filtrar propiedades que no queremos incluir en las especificaciones
+      const excludedProps = ['asin', 'name', 'image', 'affiliateLink', 'price', 'destacado', 
+                             'pros', 'cons', 'description', 'detailedDescription'];
+      
+      // Agregar todas las demás propiedades específicas del producto dinámicamente
+      // Estas propiedades vendrían generadas por GPT-4o según el tipo de producto
+      Object.keys(product).forEach(key => {
+        if (!excludedProps.includes(key)) {
+          productObj[key] = product[key];
+        }
+      });
+      
+      return productObj;
+    });
   }
 
   // Convert frontmatter object to JSON string with pretty formatting
