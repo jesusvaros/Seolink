@@ -2,9 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
 
-const SEARCH_URL = 'https://www.elle.com/es/gourmet/';
+const SEARCH_URL = process.argv[2] || 'https://www.elle.com/es/gourmet/';
 const OUTPUT_DIR = path.join(process.cwd(), '../../generate-mdx/urls/');
-const OUTPUT_FILE = path.join(OUTPUT_DIR, `${SEARCH_URL.replace('https://www.', '').replace(/\//g, '_')}.json`);
+// Sanitize filename: remove protocol, replace non-word chars with _
+const outputFileName = SEARCH_URL.replace(/^https?:\/\//, '').replace(/\W+/g, '_') + '.json';
+const OUTPUT_FILE = path.join(OUTPUT_DIR, outputFileName);
 
 async function scrapeElle() {
   const browser = await chromium.launch({ headless: true });

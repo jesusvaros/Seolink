@@ -13,7 +13,7 @@ config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const turndown = new TurndownService();
 
-const URLS_DIR = path.join(process.cwd(), 'generate-mdx', 'urls');
+const URLS_DIR = path.join(process.cwd(), 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
 const OUTPUT_DIR = path.join(process.cwd(), 'content', 'posts');
 const EXCLUDED_DOMAINS = [
@@ -630,6 +630,7 @@ async function updateCategoriesJson(articleMetadata) {
 
 // MAIN
 async function main() {
+  const scrapedResults = []; // Collect all scraped data here
   // Ensure content directories exist
   const postsDir = path.join(process.cwd(), 'content', 'posts');
   const categoriesDir = path.join(process.cwd(), 'content', 'categories');
@@ -642,27 +643,29 @@ async function main() {
     console.log(`Created directory: ${categoriesDir}`);
   }
 
+  // Initialize processedUrls outside the try block so it's available in the catch block
+  let processedUrls = [];
+  
   try {
-    let processedUrls = []; // Initialize to empty array
     processedUrls = loadProcessedUrls();
     const allUrls = await loadUrlsFromFiles();
-  console.log(`🔢 Total de URLs encontradas: ${allUrls.length}`);
-  
-  // Filtrar URLs ya procesadas
-  const uniqueInitialUrls = [...new Set(allUrls)];
-  const urlsToProcess = uniqueInitialUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
-  console.log(`Found ${allUrls.length} URLs in source files, ${uniqueInitialUrls.length} unique URLs initially.`);
-  console.log(`Total URLs to process after filtering processed and excluded: ${urlsToProcess.length}`);
-  
-  if (urlsToProcess.length === 0) {
-    console.log('✅ No hay nuevas URLs para procesar');
-    // Save processedUrls even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
-    saveProcessedUrls(processedUrls);
-    return;
-  }
-  
-  // Procesar cada URL
-  for (const url of urlsToProcess) {
+    console.log(`🔢 Total de URLs encontradas: ${allUrls.length}`);
+    
+    // Filtrar URLs ya procesadas
+    const uniqueInitialUrls = [...new Set(allUrls)];
+    const urlsToProcess = uniqueInitialUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
+    console.log(`Found ${allUrls.length} URLs in source files, ${uniqueInitialUrls.length} unique URLs initially.`);
+    console.log(`Total URLs to process after filtering processed and excluded: ${urlsToProcess.length}`);
+    
+    if (urlsToProcess.length === 0) {
+      console.log('✅ No hay nuevas URLs para procesar');
+      // Save processedUrls even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
+      saveProcessedUrls(processedUrls);
+      return;
+    }
+    
+    // Procesar cada URL
+    for (const url of urlsToProcess) {
     let didAttemptFullProcessing = false;
     try {
       console.log(`🔍 Procesando ${url}...`);
@@ -682,6 +685,17 @@ async function main() {
       // Si tiene productos de Amazon, continuamos con el proceso normal
       didAttemptFullProcessing = true; // Starting full processing attempt
       const data = await fetchCleanContent(url);
+      
+      // Add to scraped results after data is available
+      scrapedResults.push({
+        url,
+        title: data.title,
+        content: data.content,
+        excerpt: data.excerpt,
+        image: data.image,
+        date: data.date,
+        productPrices: data.productPrices
+      });
       
       console.log(`📝 Generando MDX para "${data.title}"...`);
       let mdxContent = await generateMDX({ ...data, productPrices: data.productPrices });
@@ -728,14 +742,19 @@ async function main() {
       console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
       await new Promise(resolve => setTimeout(resolve, 5000));
     }
-  }
-  
-  saveProcessedUrls(processedUrls); // Save all processed URLs at the end
-  console.log('✅ Todas las URLs han sido procesadas.');
+    }
+    
+    // Save all scraped results to a single file
+    const scrapedFilePath = path.join(URLS_DIR, 'scraped_urls.json');
+    fs.writeFileSync(scrapedFilePath, JSON.stringify(scrapedResults, null, 2));
+    console.log(`✅ Todos los resultados guardados en ${scrapedFilePath}`);
+
+    saveProcessedUrls(processedUrls); // Save all processed URLs at the end
+    console.log('✅ Todas las URLs han sido procesadas.');
   } catch (error) {
-  console.error('❌ Error global:', error);
-  // Attempt to save processed URLs even if an error occurred during processing of one URL
-  saveProcessedUrls(processedUrls);
+    console.error('❌ Error global:', error);
+    // Attempt to save processed URLs even if an error occurred during processing of one URL
+    saveProcessedUrls(processedUrls);
   }
 }
 

@@ -32,11 +32,30 @@ export default async function handler(req, res) {
       if (!fs.existsSync(urlsDir)) {
         fs.mkdirSync(urlsDir, { recursive: true });
       }
-      const newUrlFileName = `scraped_url_${Date.now()}.json`;
-      const newUrlFilePath = path.join(urlsDir, newUrlFileName);
-      fs.writeFileSync(newUrlFilePath, JSON.stringify([targetUrl]));
-      // Add a small log to the script output that the URL was saved
-      res.write(`[INFO] Saved URL to ${newUrlFileName}\n`); 
+      const consolidatedFilePath = path.join(urlsDir, 'scraped_urls.json');
+      
+      // Read existing URLs or create empty array
+      let existingUrls = [];
+      if (fs.existsSync(consolidatedFilePath)) {
+        try {
+          existingUrls = JSON.parse(fs.readFileSync(consolidatedFilePath, 'utf8'));
+          if (!Array.isArray(existingUrls)) {
+            existingUrls = [];
+          }
+        } catch (readError) {
+          console.error('Error reading scraped_urls.json:', readError);
+          existingUrls = [];
+        }
+      }
+      
+      // Add new URL if it's not already in the list
+      if (!existingUrls.includes(targetUrl)) {
+        existingUrls.push(targetUrl);
+        fs.writeFileSync(consolidatedFilePath, JSON.stringify(existingUrls, null, 2));
+        res.write(`[INFO] Added URL to scraped_urls.json (total: ${existingUrls.length} URLs)\n`);
+      } else {
+        res.write(`[INFO] URL already exists in scraped_urls.json (total: ${existingUrls.length} URLs)\n`);
+      }
     } catch (error) {
       console.error('Error saving scraped URL to file:', error);
       // Optionally, inform the client, but continue with scraping if possible
