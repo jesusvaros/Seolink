@@ -15,7 +15,8 @@ const turndown = new TurndownService();
 
 const URLS_DIR = path.join(process.cwd(), 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
-const OUTPUT_DIR = path.join(process.cwd(), 'content', 'posts');
+// Fix path to be relative to project root, not generate-mdx subdirectory
+const OUTPUT_DIR = path.join(process.cwd(), '..', 'content', 'posts');
 const EXCLUDED_DOMAINS = [
   'localhost',
   '127.0.0.1',
@@ -569,7 +570,8 @@ function extractMetadataFromMDX(mdxContent) {
   }
 }
 
-const CATEGORIES_PATH = path.join(process.cwd(), 'content', 'categories', 'categories.json');
+// Fix path to be relative to project root, not generate-mdx subdirectory
+const CATEGORIES_PATH = path.join(process.cwd(), '..', 'content', 'categories', 'categories.json');
 
 async function updateCategoriesJson(articleMetadata) {
   console.log(`🔄 Actualizando ${CATEGORIES_PATH} con metadatos del artículo...`);
@@ -632,8 +634,8 @@ async function updateCategoriesJson(articleMetadata) {
 async function main() {
   const scrapedResults = []; // Collect all scraped data here
   // Ensure content directories exist
-  const postsDir = path.join(process.cwd(), 'content', 'posts');
-  const categoriesDir = path.join(process.cwd(), 'content', 'categories');
+  const postsDir = path.join(process.cwd(), '..', 'content', 'posts');
+  const categoriesDir = path.join(process.cwd(), '..', 'content', 'categories');
   if (!fs.existsSync(postsDir)) {
     fs.mkdirSync(postsDir, { recursive: true });
     console.log(`Created directory: ${postsDir}`);
@@ -705,7 +707,8 @@ async function main() {
         // Marcar como procesada aunque no hayamos generado contenido válido
         processedUrls.push(url); // Add to in-memory list
         console.log(`✅ URL ${url} marcada como procesada y saltada (sin productos válidos / criterios no cumplidos).`);
-        // File will be saved at the end by saveProcessedUrls
+        // Save processed URLs immediately to prevent duplicates if script crashes
+        saveProcessedUrls(processedUrls);
         continue; // Pasar a la siguiente URL
       }
       
@@ -729,7 +732,8 @@ async function main() {
       // Marcar como procesada
       processedUrls.push(url); // Add to in-memory list
       console.log(`✅ URL ${url} marcada como procesada.`);
-      // File will be saved at the end by saveProcessedUrls
+      // Save processed URLs immediately to prevent duplicates if script crashes
+      saveProcessedUrls(processedUrls);
       
     } catch (error) {
       console.error(`❌ Error al procesar ${url}:`, error.message);
@@ -749,7 +753,7 @@ async function main() {
     fs.writeFileSync(scrapedFilePath, JSON.stringify(scrapedResults, null, 2));
     console.log(`✅ Todos los resultados guardados en ${scrapedFilePath}`);
 
-    saveProcessedUrls(processedUrls); // Save all processed URLs at the end
+    // No need to save processed URLs here as they're saved after each URL is processed
     console.log('✅ Todas las URLs han sido procesadas.');
   } catch (error) {
     console.error('❌ Error global:', error);

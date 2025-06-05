@@ -10,22 +10,40 @@ interface ImageObject {
 
 interface ArticleCardProps {
   title: string;
-  image: ImageObject;
+  image: ImageObject | string; // Accept either ImageObject or string
   slug: string;
   excerpt?: string; // Opcional para mostrar un extracto del artículo
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }) => {
   const placeholderUrl = '/default-placeholder.jpg';
-  const imageUrlString = (image && typeof image.url === 'string') ? image.url : null;
-  const trimmedUrl = imageUrlString ? imageUrlString.trim() : null;
-
+  
+  // More robust image URL handling
   let finalImageUrl = placeholderUrl; // Default to placeholder
-
-  if (trimmedUrl && 
-      trimmedUrl !== 'PENDIENTE_URL_IMAGEN_PRODUCTO' &&
-      (trimmedUrl.startsWith('/') || trimmedUrl.startsWith('http'))) {
-    finalImageUrl = trimmedUrl;
+  
+  try {
+    // Handle different image formats (string, object with url, etc)
+    const imageUrl = typeof image === 'string' ? image : 
+                    image && typeof image.url === 'string' ? image.url : 
+                    image && typeof image === 'object' ? JSON.stringify(image) : null;
+    
+    // Clean and validate URL
+    if (imageUrl) {
+      const trimmedUrl = imageUrl.trim();
+      
+      // Check for valid URL format and exclude placeholder text
+      if (trimmedUrl && 
+          !trimmedUrl.includes('PENDIENTE') &&
+          !trimmedUrl.includes('undefined') &&
+          (trimmedUrl.startsWith('/') || 
+           trimmedUrl.startsWith('http') || 
+           trimmedUrl.startsWith('https'))) {
+        finalImageUrl = trimmedUrl;
+      }
+    }
+  } catch (error) {
+    console.error('Error processing image URL:', error);
+    // Fallback to placeholder on any error
   }
 
   return (
@@ -34,7 +52,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }
         <div className="relative w-full h-48">
           <Image 
             src={finalImageUrl} 
-            alt={image.caption || title}
+            alt={typeof image === 'object' && image.caption ? image.caption : title}
             fill
             className="object-cover"
           />
