@@ -3,7 +3,8 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://tudominio.com
+Host: https://comparaland.es
 
 # Sitemaps
-Sitemap: https://tudominio.com/sitemap.xml
+Sitemap: https://comparaland.es/sitemap.xml
+Sitemap: https://comparaland.es/sitemap-categories.xml
