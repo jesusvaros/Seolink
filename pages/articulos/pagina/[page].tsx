@@ -8,11 +8,17 @@ import ArticleCard from '../../../components/ArticleCard';
 import Link from 'next/link';
 import Head from 'next/head';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 // Interfaces para los tipos de datos
 interface Article {
   title: string;
   slug: string;
-  image: string;
+  image: ImageObject; // Changed from string
   excerpt: string;
   date: string;
   category: string;
@@ -68,7 +74,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     
     // Extraer JSON frontmatter
-    let frontmatter: Record<string, string> = {};
+    let frontmatter: Record<string, any> = {}; // Allow 'any' for image object
     if (fileContents.startsWith('---json')) {
       const jsonSection = fileContents.split('---json')[1].split('---')[0];
       try {
@@ -92,10 +98,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       });
     }
     
+    let finalImage: ImageObject;
+    if (typeof frontmatter.image === 'object' && frontmatter.image !== null && 'url' in frontmatter.image) {
+      finalImage = frontmatter.image as ImageObject;
+    } else if (typeof frontmatter.image === 'string' && frontmatter.image.trim() !== '') {
+      finalImage = { url: frontmatter.image, caption: frontmatter.title || 'Imagen del artículo' };
+    } else {
+      // Fallback placeholder image
+      finalImage = { url: '/images/placeholder-image.jpg', caption: frontmatter.title || 'Imagen no disponible' };
+    }
+
     return {
       slug: frontmatter.slug || filename.replace(/\.mdx$/, ''),
       title: frontmatter.title || 'Sin título',
-      image: frontmatter.image || '',
+      image: finalImage,
       excerpt: frontmatter.excerpt || '',
       date: frontmatter.date || '',
       category: frontmatter.category || ''

@@ -18,12 +18,18 @@ import StickyBuyCTA from '../components/StickyBuyCTA';
 import ProductRankingTable from '../components/ProductRankingTable';
 import RelatedArticles from '../components/RelatedArticles';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 type PostProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: {
     title: string;
     date: string;
-    image: string;
+    image: ImageObject;
     excerpt: string;
     slug: string;
     category: string;
@@ -96,10 +102,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     parseFrontmatter: false
   });
 
+  // Normalize frontMatter.image to ImageObject
+  let finalImage: ImageObject;
+  if (typeof data.image === 'string') {
+    finalImage = { url: data.image, caption: data.title }; // Or derive caption differently
+  } else if (data.image && typeof data.image === 'object' && 'url' in data.image) {
+    finalImage = data.image as ImageObject;
+  } else {
+    finalImage = { url: '/default-placeholder.jpg', caption: 'Imagen no disponible' }; // Fallback image
+  }
+
+
   return {
     props: {
       source: mdxSource,
-      frontMatter: { ...data, slug },
+      frontMatter: { ...data, slug, image: finalImage },
     },
   };
 };
@@ -115,7 +132,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           url: `https://comparaland.es/${frontMatter.slug}`,
           title: frontMatter.title,
           description: frontMatter.excerpt,
-          images: [{ url: frontMatter.image, alt: frontMatter.title }],
+          images: [{ url: frontMatter.image.url, alt: frontMatter.image.caption || frontMatter.title }],
           type: 'article',
           article: {
             publishedTime: frontMatter.date,
@@ -135,7 +152,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               "@type": "Article",
               "headline": frontMatter.title,
               "description": frontMatter.excerpt,
-              "image": frontMatter.image,
+              "image": frontMatter.image.url,
               "datePublished": frontMatter.date,
               "dateModified": frontMatter.updatedAt || frontMatter.date,
               "author": {
@@ -213,7 +230,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                   "itemReviewed": {
                     "@type": "Product",
                     "name": frontMatter.products[0].name,
-                    "image": frontMatter.products[0].image,
+                    "image": frontMatter.products[0].image.url,
                     "description": frontMatter.products[0].description || frontMatter.excerpt,
                     "brand": {
                       "@type": "Brand",
@@ -242,8 +259,8 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           </p>
           {frontMatter.image && (
             <img
-              src={frontMatter.image}
-              alt={frontMatter.title}
+              src={frontMatter.image.url}
+              alt={frontMatter.image.caption || frontMatter.title}
               className="rounded-lg mt-4 shadow-md w-full h-auto"
             />
           )}

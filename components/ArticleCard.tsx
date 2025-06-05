@@ -2,9 +2,15 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 interface ArticleCardProps {
   title: string;
-  image: string;
+  image: ImageObject;
   slug: string;
   excerpt?: string; // Opcional para mostrar un extracto del artículo
 }
@@ -15,8 +21,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }
       <div className="bg-white shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg pt-3">
         <div className="relative w-full h-48">
           <Image 
-            src={image} 
-            alt={title}
+            src={image.url} 
+            alt={image.caption || title}
             fill
             className="object-cover"
           />

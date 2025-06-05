@@ -1,16 +1,22 @@
 import React from 'react';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 type Product = {
   asin: string;
   name: string;
-  image: string;
+  image: ImageObject;
   affiliateLink: string;
 };
 
 export default function AffiliateCard({ product }: { product: Product }) {
   return (
     <div className="bg-white rounded shadow p-4 flex flex-col items-center">
-      <img src={product?.image} alt={product?.name} className="w-32 h-32 object-contain mb-2" />
+      <img src={product?.image?.url} alt={product?.image?.caption || product?.name} className="w-32 h-32 object-contain mb-2" />
       <h3 className="font-semibold text-lg mb-1 text-center">{product?.name}</h3>
       <a
         href={product?.affiliateLink}

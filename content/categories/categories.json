@@ -695,5 +695,16 @@
       "slug": "ediciones-digitales-elle-tablet",
       "image": "https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg"
     }
+  ],
+  "Cocina": [
+    {
+      "title": "Las Mejores Sartenes Duraderas y Económicas para tu Cocina",
+      "slug": "mejores-sartenes-economicas-2025",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1624258913-41SrnEvDa9L._SL500_.jpg?crop=1xw:1xh;center,top&resize=980:*",
+        "caption": "Efficient Orange de 18 cm, 22 cm y 26 cm"
+      }
+    }
   ]
 }

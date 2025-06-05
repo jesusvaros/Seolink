@@ -35,8 +35,8 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
                 {/* Modelo con imagen */}
                 <td className="flex items-center gap-4 px-4 py-3">
                   <img
-                    src={product.image}
-                    alt={product.name}
+                    src={product.image.url}
+                    alt={product.image.caption || product.name}
                     className="w-12 h-12 object-contain rounded"
                   />
                   <div>
@@ -88,8 +88,8 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
               </div>
               <div className="flex items-center gap-3 flex-grow overflow-hidden">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.image.url}
+                  alt={product.image.caption || product.name}
                   className="w-16 h-16 object-contain rounded flex-shrink-0"
                 />
                 <a

@@ -1,10 +1,16 @@
 import React from 'react';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 export type DetailedProduct = {
   asin: string;
   name: string;
   subtitle?: string;
-  image: string;
+  image: ImageObject;
   affiliateLink: string;
   price: string;
   pros?: string;
@@ -31,8 +37,8 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
   }
   
   // Split pros and cons into arrays if they're provided as comma-separated strings
-  const prosList = product.pros ? product.pros.split(',').map(item => item.trim()) : [];
-  const consList = product.cons ? product.cons.split(',').map(item => item.trim()) : [];
+  const prosList = product.pros ? (Array.isArray(product.pros) ? product.pros : String(product.pros).split(',').map(item => item.trim())) : [];
+  const consList = product.cons ? (Array.isArray(product.cons) ? product.cons : String(product.cons).split(',').map(item => item.trim())) : [];
 
   // Función para procesar las especificaciones de cualquier tipo de producto
   const processTechnicalSpecs = (): Specification[] => {
@@ -145,8 +151,8 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
       <div className="flex flex-col md:flex-row mb-4 bg-white p-4 rounded-lg shadow-sm">
         <div className="md:w-1/4 flex items-center justify-center">
           <img
-            src={product.image}
-            alt={product.name}
+            src={product.image.url}
+            alt={product.image.caption || product.name}
             className="w-full max-h-40 object-contain"
           />
         </div>

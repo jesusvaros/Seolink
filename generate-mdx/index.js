@@ -91,71 +91,131 @@ async function fetchCleanContent(url) {
 }
 
 // Generar MDX con GPT-4o
-async function generateMDX({ title, content, url, date, image }) {
+export async function generateMDX({ title, content, url, date, image }) {
   const markdown = turndown.turndown(content);
   
   // Prompt mejorado para extraer múltiples productos con especificaciones inteligentes
   const prompt = `
-Crea un artículo para una web de comparación de productos basado en este contenido:
+Eres un asistente experto en SEO técnico y creación de contenido para sitios de e-commerce y comparativas de productos.
+Tu tarea es analizar el siguiente texto extraído de una página web y estructurar la información clave en formato JSON.
+Este JSON se utilizará para generar automáticamente una página de artículo optimizada para SEO y para crear datos estructurados schema.org/Product.
 
-Título: ${title}
-Fecha: ${date}
-URL: ${url}
+Información de la fuente:
+Título Original: ${title}
+Fecha de Publicación Original: ${date} // Esta es la fecha del artículo original
+URL Original: ${url}
 
-Texto extraído del artículo:
+Contenido extraído (Markdown):
+---
 ${markdown}
+---
 
-Devuelve la siguiente información en formato JSON:
+Instrucciones para la extracción y generación del JSON:
+1.  **Identifica Productos**: Extrae entre 8 y 10 productos distintos mencionados en el texto. Si hay menos, extrae todos los que encuentres.
+2.  **Datos del Artículo General**:
+    *   \`title\`: Genera un título atractivo y optimizado para SEO para el nuevo artículo de comparación (máximo 60-70 caracteres). Puede basarse en el título original.
+    *   \`slug\`: Genera un slug corto y descriptivo a partir del \`title\` (ej: "mejores-freidoras-aire-2025").
+    *   \`category\`: Infiere la categoría principal del artículo (ej: Cocina, Electrónica, Hogar, Belleza, Jardín).
+    *   \`date\`: Usa la fecha actual en formato YYYY-MM-DD para el nuevo artículo.
+    *   \`metaDescription\`: Escribe una meta descripción única y atractiva (150-160 caracteres) que resuma el contenido del artículo y anime al clic.
+    *   \`introduction\`: Escribe un párrafo introductorio (60-100 palabras) que enganche al lector, presente el tema y mencione brevemente lo que encontrará.
+    *   \`conclusion\`: Escribe un párrafo de conclusión (50-80 palabras) que resuma los puntos clave y, si es apropiado, ofrezca una recomendación general o invite a la acción.
+3.  **Datos Específicos por Producto**: Para cada producto, completa los campos del JSON adjunto. Sigue estas directrices:
+    *   **Prioriza la Exactitud**: Usa la información del texto fuente siempre que sea posible.
+    *   **Inferencia Realista**: Si faltan datos (ej: \`reviewCount\`, \`ratingValue\`, especificaciones exactas), infiérelos de manera realista y coherente con el tipo de producto. No inventes marcas o precios absurdos.
+    *   \`name\`: Nombre completo y claro.
+    *   \`asin\`: Si es un producto de Amazon y el ASIN está disponible o es fácilmente identificable, inclúyelo. Este será usado como \`productID\`.
+    *   \`brand.name\`: Marca reconocible. Si no se menciona, intenta inferirla o usa "Genérico" si es apropiado.
+    *   \`image.url\`: Si el texto fuente incluye URLs de imágenes, úsalas. Si no, usa un placeholder descriptivo como "PENDIENTE_URL_IMAGEN_PRODUCTO". La imagen debe ser de alta calidad y representativa.
+    *   \`description\`: Resumen breve (1-2 frases).
+    *   \`detailedDescription\`: Explicación más extensa (2-4 frases) sobre beneficios y características.
+    *   \`pros\` / \`cons\`: Listas de 3-5 puntos clave para cada uno. Sé objetivo.
+    *   \`offers\`:
+        *   \`priceCurrency\`: Infiere la moneda (ej: "EUR", "USD").
+        *   \`price\`: Número en formato XX.XX (ej: 39.99). Si el precio no está claro, usa 0.00 como placeholder.
+        *   \`availability\`: Usa "https://schema.org/InStock" por defecto, a menos que el texto indique lo contrario ("https://schema.org/OutOfStock", "https://schema.org/PreOrder").
+        *   \`url\`: Usa "PENDIENTE_URL_AFILIADO" como placeholder. Este se llenará después.
+        *   \`priceValidUntil\`: Opcional. Si se conoce la validez de la oferta, inclúyela (YYYY-MM-DD).
+    *   \`review\` / \`aggregateRating\`:
+        *   Si el texto contiene una reseña específica para el producto, usa el objeto \`review\`. \`author.name\` puede ser "Análisis del Experto" o el nombre del sitio. \`datePublished\` debe ser la fecha actual.
+        *   Si hay datos agregados (ej: "4.5 estrellas de 120 opiniones"), usa \`aggregateRating\`.
+        *   Si no hay datos de reseñas, puedes omitir estas secciones o inferir valores modestos y realistas para \`aggregateRating\` (ej: ratingValue 4.0, reviewCount 10-50).
+    *   \`productID\`: Usa el ASIN si está disponible. De lo contrario, un identificador único si lo hay en el texto.
+    *   \`sku\`, \`mpn\`, \`gtin13\`: Inclúyelos si están explícitamente en el texto.
+    *   \`specifications\`: De 4 a 6 especificaciones técnicas *cruciales* para ese tipo de producto. Sé específico (ej: para un móvil: "Pantalla": "6.5 pulgadas OLED", "RAM": "8GB", "Almacenamiento": "128GB", "Batería": "4500mAh").
+    *   \`additionalProperty\`: Para otras características relevantes no cubiertas por los campos estándar.
+4.  **Formato JSON**: Devuelve ÚNICAMENTE el objeto JSON completo. No incluyas explicaciones adicionales antes o después del JSON. Asegúrate de que el JSON sea válido.
+
+JSON Esperado:
+\`\`\`json
 {
-  "title": "Título SEO optimizado",
-  "slug": "slug-con-guiones",
-  "excerpt": "Descripción breve del contenido",
-  "category": "Elige entre: cocina, belleza, jardin, maquillaje, ropa, moda, general",
+  "title": "Título generado para el artículo",
+  "slug": "slug-generado-para-el-articulo",
+  "category": "Categoría Inferida",
+  "date": "YYYY-MM-DD",
+  "metaDescription": "Meta descripción generada (150-160 caracteres)",
+  "introduction": "Párrafo introductorio generado.",
+  "conclusion": "Párrafo de conclusión generado.",
   "products": [
     {
-      "name": "Nombre del primer producto",
-      "asin": "B0XXXXX",
-      "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg'}",
-      "price": "39,99 €",
-      "pros": "Ventaja 1, Ventaja 2, Ventaja 3",
-      "cons": "Desventaja 1, Desventaja 2",
-      "description": "Descripción breve del producto",
-      "detailedDescription": "Descripción detallada del producto con sus principales características."
-    },
-    {
-      "name": "Nombre del segundo producto",
-      "asin": "B0YYYYY",
-      "image": "${image || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-2.jpg'}",
-      "price": "49,99 €",
-      "pros": "Calidad superior, Funcionalidad extra, Garantía extendida",
-      "cons": "Precio elevado, Tamaño grande",
-      "description": "Descripción breve del segundo producto",
-      "detailedDescription": "Descripción detallada del segundo producto con sus principales características."
-    },
-    // Incluye tantos productos como encuentres en el artículo, mínimo 3 y máximo 10
-  ],
-  "content": {
-    "intro": "Párrafo introductorio",
-    "buying_tips": "Consejos para comprar",
-    "conclusion": "Conclusión del artículo"
-  }
+      "name": "Nombre completo y claro del producto",
+      "asin": "ASIN_DEL_PRODUCTO_SI_APLICA",
+      "brand": {
+        "@type": "Brand",
+        "name": "Marca del producto"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "URL_IMAGEN_PRODUCTO_O_PLACEHOLDER",
+        "caption": "Descripción breve de la imagen (opcional)"
+      },
+      "description": "Descripción concisa del producto (1-2 frases).",
+      "detailedDescription": "Descripción más elaborada del producto (2-4 frases).",
+      "pros": ["Ventaja clave 1", "Ventaja clave 2", "Ventaja clave 3"],
+      "cons": ["Desventaja o limitación 1", "Desventaja o limitación 2"],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR", // o USD, etc.
+        "price": "0.00", // Inferir o placeholder
+        "availability": "https://schema.org/InStock", // o OutOfStock, PreOrder
+        "url": "PENDIENTE_URL_AFILIADO",
+        "priceValidUntil": "YYYY-MM-DD" // Opcional
+      },
+      "review": { // Opcional, si hay reseña individual
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Análisis del Experto"}, // o nombre del sitio
+        "datePublished": "YYYY-MM-DD",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "4.0", // Inferir o placeholder
+          "bestRating": "5"
+        },
+        "reviewBody": "Cuerpo de la reseña o resumen de la opinión."
+      },
+      "aggregateRating": { // Opcional, si hay datos agregados o para inferir
+        "@type": "AggregateRating",
+        "ratingValue": "4.0", // Inferir o placeholder
+        "reviewCount": "10",  // Inferir o placeholder
+        "bestRating": "5"
+      },
+      "productID": "ASIN_O_ID_UNICO_PRODUCTO",
+      "sku": "SKU_SI_DISPONIBLE",
+      "mpn": "MPN_SI_DISPONIBLE",
+      "gtin13": "EAN_O_GTIN13_SI_DISPONIBLE", // o gtin8, gtin12 (UPC)
+      "specifications": {
+        "EspecificacionClave1": "Valor1",
+        "EspecificacionClave2": "Valor2",
+        "EspecificacionClave3": "Valor3",
+        "EspecificacionClave4": "Valor4"
+      },
+      "additionalProperty": [ // Para otras características no cubiertas
+        {"@type": "PropertyValue", "name": "Característica Adicional 1", "value": "Valor 1"}
+      ]
+    }
+    // ... más productos (objetivo 8-10)
+  ]
 }
-
-IMPORTANTE: 
-1. Analiza el contenido y extrae TODOS los productos mencionados (mínimo 3, máximo 10).
-2. Para cada producto, busca su nombre exacto, características y ASIN de Amazon cuando sea posible.
-3. MUY IMPORTANTE: Para cada producto, analiza inteligentemente QUÉ TIPO DE PRODUCTO ES y agrega 4-6 campos de especificaciones TÉCNICAS relevantes. Por ejemplo:
-   
-   - Si es un libro: autor, editorial, páginas, idioma, formato, etc.
-   - Si es un electrodoméstico: potencia, capacidad, material, dimensiones, etc.
-   - Si es ropa: material, tallas, colores, estilo, etc.
-   - Si es un producto de belleza: ingredientes, tipo de piel, acabado, cantidad, etc.
-   - Si es una herramienta de jardín: potencia, material, peso, uso recomendado, etc.
-
-   Las propiedades deben ser ESPECÍFICAS y RELEVANTES para el tipo exacto de producto, no genéricas.
-   ELIMINA completamente propiedades que no sean relevantes en lugar de poner "N/A" o sin valor.
-
-4. Responde ÚNICAMENTE con el JSON, sin marcas de código ni texto adicional.
+\`\`\`
 `;
 
   try {
@@ -255,8 +315,8 @@ function createValidMDX(data, fallbackImage) {
   bodyContent += `## Resumen de los mejores productos\n\n`;
   bodyContent += `<ProductRankingTable products={products} />\n\n`;
 
-  if (data.content?.intro) {
-    bodyContent += `## Introducción\n\n${data.content.intro}\n\n`;
+  if (data.introduction) {
+    bodyContent += `## Introducción\n\n${data.introduction}\n\n`;
   }
 
   bodyContent += `## Consejos antes de comprar\n\n`;
@@ -268,7 +328,7 @@ function createValidMDX(data, fallbackImage) {
   });
 
   bodyContent += `## Conclusión\n\n`;
-  bodyContent += `${data.content?.conclusion || 'Esperamos que esta guía te haya ayudado a encontrar el producto perfecto para tus necesidades.'}\n`;
+  bodyContent += `${data.conclusion || 'Esperamos que esta guía te haya ayudado a encontrar el producto perfecto para tus necesidades.'}\n`;
 
   const mdxContent = `---json
 ${frontmatter}
@@ -512,8 +572,10 @@ async function main() {
   console.log(`✅ Proceso completado. Se procesaron ${urlsToProcess.length} URLs.`);
 }
 
-// Ejecutar el script
-main().catch(error => {
-  console.error('❌ Error global:', error);
-  process.exit(1);
-});
+// Ejecutar el script solo si se llama directamente
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch(error => {
+    console.error('❌ Error global:', error);
+    process.exit(1);
+  });
+}

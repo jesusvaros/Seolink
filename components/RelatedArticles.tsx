@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ArticleCard from './ArticleCard';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 interface RelatedArticlesProps {
   category: string;
   currentSlug: string;
@@ -9,7 +15,7 @@ interface RelatedArticlesProps {
 interface ArticleInfo {
   title: string;
   slug: string;
-  image: string;
+  image: ImageObject; // Changed from string
   category?: string; // Categoría del artículo (opcional)
 }
 

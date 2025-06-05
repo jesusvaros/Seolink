@@ -1,10 +1,16 @@
 import React from 'react';
 
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 export type Product = {
   asin: string;
   name: string;
   subtitle?: string;
-  image: string;
+  image: ImageObject;
   affiliateLink: string;
   price: string;
   capacity?: string;
@@ -111,8 +117,8 @@ export default function ProductTable({ products }: { products: Product[] }) {
                     return (
                       <td key={header.key} className="flex items-center gap-4 px-4 py-3">
                         <img
-                          src={product.image}
-                          alt={product.name}
+                          src={product.image.url}
+                          alt={product.image.caption || product.name}
                           className="w-12 h-12 object-contain rounded"
                         />
                         <div>
@@ -167,8 +173,8 @@ export default function ProductTable({ products }: { products: Product[] }) {
               </div>
               <div className="flex items-center gap-3 flex-grow">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.image.url}
+                  alt={product.image.caption || product.name}
                   className="w-16 h-16 object-contain rounded flex-shrink-0"
                 />
                 <a
