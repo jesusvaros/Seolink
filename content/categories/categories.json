@@ -1,5 +1,12 @@
 {
-    "Cocina": [],
-    "Gourmet": [],
-    "Gastronomía": []
+  "Cocina": [
+    {
+      "slug": "mejores-batidoras-mano-2025",
+      "title": "Las mejores batidoras de mano del 2025 para tu cocina",
+      "date": "2025-06-05",
+      "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1679922049-41-N2DG52YL._SL500_.jpg?crop=1xw:0.994xh;center,top&resize=980:*"
+    }
+  ],
+  "Gourmet": [],
+  "Gastronomía": []
 }

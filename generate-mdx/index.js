@@ -7,10 +7,88 @@ import TurndownService from 'turndown';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import { chromium } from 'playwright';
+import { URL } from 'url';
 
 config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const turndown = new TurndownService();
+
+const URLS_DIR = path.join(process.cwd(), 'generate-mdx', 'urls');
+const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
+const OUTPUT_DIR = path.join(process.cwd(), 'content', 'posts');
+const EXCLUDED_DOMAINS = [
+  'localhost',
+  '127.0.0.1',
+  // Add other domains to exclude, e.g., your own site if you're scraping yourself by mistake
+  // 'www.example.com'
+];
+
+async function loadUrlsFromFiles() {
+  let allUrls = [];
+  try {
+    const files = fs.readdirSync(URLS_DIR);
+    for (const file of files) {
+      if (file.endsWith('.json') && file !== 'processed-urls.json') {
+        const filePath = path.join(URLS_DIR, file);
+        try {
+          const data = fs.readFileSync(filePath, 'utf-8');
+          const urlsInFile = JSON.parse(data);
+          if (Array.isArray(urlsInFile)) {
+            allUrls = allUrls.concat(urlsInFile.filter(url => typeof url === 'string' && url.trim() !== ''));
+          } else {
+            console.warn(`⚠️ Contenido de ${file} no es un array, se omitirá.`);
+          }
+        } catch (err) {
+          console.error(`Error al leer o parsear ${filePath}:`, err.message);
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error al leer el directorio de URLs:', error.message);
+  }
+  console.log(`📂 Encontradas ${allUrls.length} URLs en los archivos fuente.`);
+  return allUrls;
+}
+
+
+function loadProcessedUrls() {
+  try {
+    if (fs.existsSync(PROCESSED_URLS_PATH)) {
+      const data = fs.readFileSync(PROCESSED_URLS_PATH, 'utf-8');
+      return JSON.parse(data);
+    } else {
+      // If the file doesn't exist, create it with an empty array
+      fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify([], null, 2));
+      return [];
+    }
+  } catch (error) {
+    console.error('Error loading processed URLs:', error);
+    // If there's an error (e.g., corrupted JSON), start fresh
+    fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify([], null, 2));
+    return [];
+  }
+}
+
+function saveProcessedUrls(urls) {
+  try {
+    fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify(urls, null, 2));
+    console.log(`💾 URLs procesadas guardadas en ${PROCESSED_URLS_PATH}`);
+  } catch (error) {
+    console.error('Error saving processed URLs:', error);
+  }
+}
+
+function isExcludedDomain(urlString) {
+  if (!urlString) return true; // Exclude empty or null URLs
+  try {
+    const parsedUrl = new URL(urlString);
+    const domain = parsedUrl.hostname.startsWith('www.') ? parsedUrl.hostname.substring(4) : parsedUrl.hostname;
+    return EXCLUDED_DOMAINS.includes(domain);
+  } catch (error) {
+    console.warn(`⚠️ URL inválida para exclusión de dominio: ${urlString} - ${error.message}`);
+    return true; // Exclude invalid URLs by default
+  }
+}
 
 // Función para indentar texto multilínea en YAML
 function indentMultiline(text, indent = '      ') {
@@ -31,25 +109,26 @@ async function containsAmazonLinks(url) {
     
     // Buscar enlaces de Amazon o texto que indique comparativas de productos
     // Contar enlaces directos a Amazon
-    const amazonLinkCount = await page.evaluate(() => {
+    const uniqueAmazonLinkCount = await page.evaluate(() => {
       const amazonLinks = Array.from(document.querySelectorAll('a')).filter(a =>
         a.href.includes('amazon.') ||
         a.href.includes('/dp/') ||
         a.href.includes('/gp/product/')
       );
-      return amazonLinks.length;
+      const uniqueHrefs = new Set(amazonLinks.map(a => a.href));
+      return uniqueHrefs.size;
     });
 
     await browser.close();
-    const meetsLinkThreshold = amazonLinkCount >= 3;
+    const meetsLinkThreshold = uniqueAmazonLinkCount >= 3;
 
     if (meetsLinkThreshold) {
-      console.log(`✅ La URL ${url} contiene ${amazonLinkCount} enlaces de Amazon (mínimo 3 requeridos).`);
+      console.log(`🔗 La URL ${url} contiene ${uniqueAmazonLinkCount} enlaces de Amazon únicos.`);
+      return true;
     } else {
-      console.log(`⚠️ La URL ${url} contiene ${amazonLinkCount} enlaces de Amazon. No cumple el mínimo de 3.`);
+      console.warn(`⚠️ La URL ${url} contiene ${uniqueAmazonLinkCount} enlaces de Amazon únicos. No cumple el mínimo de 3.`);
+      return false;
     }
-
-    return meetsLinkThreshold;
   } catch (error) {
     console.error(`❌ Error al verificar enlaces de Amazon en ${url}:`, error.message);
     await browser.close();
@@ -64,9 +143,53 @@ async function fetchCleanContent(url) {
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
   const html = await page.content();
-  const dom = new JSDOM(html, { url });
+  // Remove script and style tags to avoid JSDOM parsing issues with complex CSS/JS
+  const cleanedHtml = html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+  const dom = new JSDOM(cleanedHtml, { url });
   const reader = new Readability(dom.window.document);
   const article = reader.parse();
+
+  // Extract Amazon product prices from buttons/links
+  const productPrices = await page.evaluate(() => {
+    // Find all links/buttons that look like Amazon buy buttons
+    const buttons = Array.from(document.querySelectorAll('a, button'));
+    const amazonButtons = buttons.filter(el => {
+      const href = el.href || '';
+      return (
+        href.includes('amazon.') ||
+        href.includes('/dp/') ||
+        href.includes('/gp/product/') ||
+        (el.textContent && el.textContent.toLowerCase().includes('amazon'))
+      );
+    });
+    // Extract price and ASIN if possible
+    return amazonButtons.map(el => {
+      const text = el.textContent || '';
+      // Match price patterns like 39,99 €, 39.99 €, 39 €
+      const priceMatch = text.match(/(\d{1,3}[\.,]\d{2}|\d{1,3})\s*€|EUR/i);
+      let price = priceMatch ? priceMatch[0].replace(/[^\d.,]/g, '').replace(',', '.') : null;
+      if (price) {
+        // Normalize price to XX.XX format if possible
+        if (!price.includes('.')) price = price + '.00';
+        if (/^\d+\.\d{1}$/.test(price)) price = price + '0';
+      }
+      // Try to extract ASIN from href
+      let asin = null;
+      const href = el.href || '';
+      const asinMatch = href.match(/\/dp\/(B0[0-9A-Z]{8})|\/gp\/product\/(B0[0-9A-Z]{8})/i);
+      if (asinMatch) {
+        asin = asinMatch[1] || asinMatch[2];
+      }
+      return {
+        asin: asin || null,
+        price: price || null,
+        href: href || null,
+        text: text.trim(),
+      };
+    });
+  });
 
   await browser.close();
   return {
@@ -76,18 +199,34 @@ async function fetchCleanContent(url) {
     image: article.image || '',
     date: new Date().toISOString().split('T')[0],
     url,
+    productPrices, // <-- array of {asin, price, href, text}
   };
 }
 
 // Generar MDX con GPT-4o
-export async function generateMDX({ title, content, url, date, image }) {
+export async function generateMDX({ title, content, url, date, image, productPrices = [] }) {
   const markdown = turndown.turndown(content);
   
   // Prompt mejorado para extraer múltiples productos con especificaciones inteligentes
+  // Incluir precios extraídos en el prompt
+  let preciosExtraidos = '';
+  if (productPrices && productPrices.length > 0) {
+    preciosExtraidos = '\n\nPrecios extraídos de la página fuente para los productos (por ASIN si está disponible, o por orden de aparición):\n';
+    productPrices.forEach((p, i) => {
+      preciosExtraidos += `  - Producto ${i + 1}`;
+      if (p.asin) preciosExtraidos += ` (ASIN: ${p.asin})`;
+      if (p.price) preciosExtraidos += `: ${p.price} €`;
+      else preciosExtraidos += ': PRICE_NOT_FOUND';
+      preciosExtraidos += `\n`;
+    });
+    preciosExtraidos += '\n';
+  }
+
   const prompt = `
 Eres un asistente experto en SEO técnico y creación de contenido para sitios de e-commerce y comparativas de productos.
 Tu tarea es analizar el siguiente texto extraído de una página web y estructurar la información clave en formato JSON.
-Este JSON se utilizará para generar automáticamente una página de artículo optimizada para SEO y para crear datos estructurados schema.org/Product.
+${preciosExtraidos}
+IMPORTANTE: Para cada producto, si se ha encontrado un precio en la página fuente, úsalo exactamente como se extrajo (por ejemplo, '39,99'). Si no hay precio, usa la cadena exacta 'PRICE_NOT_FOUND'.\nEste JSON se utilizará para generar automáticamente una página de artículo optimizada para SEO y para crear datos estructurados schema.org/Product.
 
 Información de la fuente:
 Título Original: ${title}
@@ -121,7 +260,7 @@ Instrucciones para la extracción y generación del JSON:
     *   \`pros\` / \`cons\`: Listas de 3-5 puntos clave para cada uno. Sé objetivo.
     *   \`offers\`:
         *   \`priceCurrency\`: Infiere la moneda (ej: "EUR", "USD").
-        *   \`price\`: Número en formato XX.XX (ej: 39.99). Si el precio no está claro, usa 0.00 como placeholder.
+        *   \`price\`: Número en formato XX.XX (ej: 39.99). Si el precio no está claro, usa la cadena exacta 'PRICE_NOT_FOUND' como placeholder.
         *   \`availability\`: Usa "https://schema.org/InStock" por defecto, a menos que el texto indique lo contrario ("https://schema.org/OutOfStock", "https://schema.org/PreOrder").
         *   \`url\`: Usa "PENDIENTE_URL_AFILIADO" como placeholder. Este se llenará después.
         *   \`priceValidUntil\`: Opcional. Si se conoce la validez de la oferta, inclúyela (YYYY-MM-DD).
@@ -228,9 +367,17 @@ JSON Esperado:
       console.log('✅ JSON extraído correctamente');
     } catch (error) {
       console.error('❌ Error al parsear el JSON:', error.message);
-      
+      console.error('Raw OpenAI response that failed to parse:');
+      console.error(responseContent); // Log the problematic string
+      jsonData = null; // Ensure jsonData is null if parsing failed
     }
     
+    // Si jsonData es null (debido a un error de parseo), no podemos continuar.
+    if (jsonData === null) {
+      console.error('❌ No se pudo generar MDX porque el JSON de OpenAI no se pudo parsear.');
+      return null; // Indica que la generación de MDX falló
+    }
+
     // Generar el MDX con estructura garantizada
     const mdxContent = createValidMDX(jsonData, image);
     return mdxContent;
@@ -271,49 +418,42 @@ function createValidMDX(data, fallbackImage) {
   if (data.products && data.products.length > 0) {
     frontmatterObj.products = validProducts.map(product => {
       // Crear objeto base con propiedades esenciales
-      let displayPrice = 'Precio no disponible'; // Default placeholder
-      if (product.offers && typeof product.offers.price === 'string') {
+      let displayPrice = 'Precio no disponible';
+
+      if (product.offers && typeof product.offers.price === 'string' && product.offers.price.trim() !== '') {
         if (product.offers.price.toUpperCase() === 'PRICE_NOT_FOUND') {
           // displayPrice remains 'Precio no disponible'
         } else {
           const priceString = product.offers.price.replace(',', '.');
           const parsedPrice = parseFloat(priceString);
-
-          if (!isNaN(parsedPrice)) { // Check if it's a number
-            if (parsedPrice > 0) { // Check if it's a positive number
-              const priceValue = parsedPrice.toFixed(2);
-              const currency = product.offers.priceCurrency || 'EUR'; // Default to EUR if not specified
-              let currencySymbol = '';
-              switch (currency.toUpperCase()) {
-                case 'EUR': currencySymbol = '€'; break;
-                case 'USD': currencySymbol = '$'; break;
-                default: currencySymbol = currency;
-              }
-
-              if (currency.toUpperCase() === 'EUR') {
-                displayPrice = `${priceValue.replace('.', ',')} ${currencySymbol}`.trim();
-              } else if (currency.toUpperCase() === 'USD') {
-                displayPrice = `${currencySymbol}${priceValue}`.trim();
-              } else {
-                displayPrice = `${priceValue} ${currencySymbol}`.trim();
-              }
-            }
-            // If parsedPrice is 0 or negative (and not 'PRICE_NOT_FOUND'), displayPrice remains 'Precio no disponible'
-          } else if (product.price && typeof product.price === 'string' && product.price.trim() !== '' && product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
-            // Fallback to top-level product.price if offers.price was not a number (and not 'PRICE_NOT_FOUND')
-            const topLevelPriceString = product.price.replace(',', '.');
-            const topLevelParsedPrice = parseFloat(topLevelPriceString);
-            if (!isNaN(topLevelParsedPrice) && topLevelParsedPrice > 0) {
-              displayPrice = product.price; // Use as is, assuming it's pre-formatted or a simple string
+          if (!isNaN(parsedPrice) && parsedPrice > 0) {
+            const priceValue = parsedPrice.toFixed(2);
+            const currency = product.offers.priceCurrency || 'EUR';
+            let currencySymbol = currency === 'EUR' ? '€' : (currency === 'USD' ? '$' : currency);
+            if (currency.toUpperCase() === 'EUR') {
+              displayPrice = `${priceValue.replace('.', ',')} ${currencySymbol}`.trim();
+            } else if (currency.toUpperCase() === 'USD') {
+              displayPrice = `${currencySymbol}${priceValue}`.trim();
+            } else {
+              displayPrice = `${priceValue} ${currencySymbol}`.trim();
             }
           }
+          // If parsedPrice is not > 0, displayPrice remains 'Precio no disponible' for this block
         }
-      } else if (product.price && typeof product.price === 'string' && product.price.trim() !== '' && product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
-        // Fallback if product.offers or product.offers.price is missing (and product.price is not 'PRICE_NOT_FOUND')
-        const topLevelPriceString = product.price.replace(',', '.');
-        const topLevelParsedPrice = parseFloat(topLevelPriceString);
-        if (!isNaN(topLevelParsedPrice) && topLevelParsedPrice > 0) {
-          displayPrice = product.price;
+      }
+
+      // If displayPrice is still 'Precio no disponible', try the fallback product.price
+      if (displayPrice === 'Precio no disponible' && product.price && typeof product.price === 'string' && product.price.trim() !== '') {
+        if (product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
+          const fallbackPriceString = product.price.replace(',', '.');
+          const parsedFallbackPrice = parseFloat(fallbackPriceString);
+          if (!isNaN(parsedFallbackPrice) && parsedFallbackPrice > 0) {
+            // Assuming product.price might be pre-formatted or a simple value string like "19,99" or "$25.50"
+            // We don't re-add currency symbols here, assuming it's already in a displayable format or the AI provides it as such.
+            // If it needs currency formatting similar to offers.price, this part would need to know currency too.
+            // For now, using it as is if it's a positive number.
+            displayPrice = product.price; 
+          }
         }
       }
 
@@ -395,182 +535,135 @@ ${bodyContent}`;
   return mdxContent;
 }
 
-// Función para actualizar el archivo categories.json
-async function updateCategoriesJson(article) {
-  const categoriesPath = '../content/categories/categories.json';
-  
-  // Leer el archivo de categorías existente
-  const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
-  const categories = JSON.parse(categoriesData);
-  
-  // Verificar si la categoría existe, sino, crearla
-  if (!categories[article.category]) {
-    categories[article.category] = [];
-    console.log(`✨ Nueva categoría creada: ${article.category}`);
-  }
-  
-  // Verificar si el artículo ya existe en la categoría
-  const existingArticleIndex = categories[article.category].findIndex(item => item.title === article.title);
-  
-  if (existingArticleIndex === -1) {
-    // Si no existe, añadir a la categoría correspondiente
-    categories[article.category].push({
-      title: article.title,
-      slug: article.slug,
-      image: article.image
-    });
-    
-    // Guardar el archivo actualizado
-    fs.writeFileSync(categoriesPath, JSON.stringify(categories, null, 2));
-    console.log(`✅ Artículo añadido a la categoría ${article.category} en ${categoriesPath}`);
-  } else {
-    console.log(`ℹ️ El artículo ya existe en la categoría ${article.category}`);
-  }
+// Placeholder function for MDX validation
+function validateMDXStructure(mdxContent) {
+  // TODO: Implement actual validation logic if needed
+  // For now, just return the content as is.
+  console.log('🔧 Validando estructura MDX (actualmente es un placeholder)...');
+  return mdxContent;
 }
 
-// Función para extraer metadatos del contenido MDX generado
 function extractMetadataFromMDX(mdxContent) {
-  // Regex actualizado para frontmatter JSON (---json ... ---)
-  const frontMatterRegex = /---json\n([\s\S]*?)\n---/;
-  const match = mdxContent.match(frontMatterRegex);
-  
-  if (!match || !match[1]) {
-    throw new Error('No se pudo extraer el frontmatter del MDX generado');
-  }
-  
+  console.log('ℹ️ Extrayendo metadatos del MDX...');
   try {
-    // Parsear directamente el JSON
-    const frontMatterData = JSON.parse(match[1]);
-    
-    // Verificar que existan los campos requeridos
-    if (!frontMatterData.title || !frontMatterData.slug || !frontMatterData.image || !frontMatterData.category) {
-      throw new Error('Falta información requerida en el frontmatter');
+    const match = mdxContent.match(/^---json\n([\s\S]*?)\n---/m);
+    if (!match || !match[1]) {
+      console.error('❌ No se pudo encontrar el bloque JSON de frontmatter en el MDX.');
+      return { slug: 'error-no-frontmatter', category: 'general', title: 'Error: Sin Frontmatter', date: new Date().toISOString().split('T')[0] };
     }
-    
+    const frontmatterString = match[1];
+    const frontmatter = JSON.parse(frontmatterString);
+    console.log('✅ Metadatos extraídos correctamente.');
     return {
-      title: frontMatterData.title,
-      slug: frontMatterData.slug,
-      image: frontMatterData.image,
-      category: frontMatterData.category
+      slug: frontmatter.slug || 'default-slug',
+      category: frontmatter.category || 'general',
+      title: frontmatter.title || 'Sin Título',
+      date: frontmatter.date || new Date().toISOString().split('T')[0],
+      image: frontmatter.image || '/default-placeholder.jpg',
+      // Add any other fields needed by updateCategoriesJson
     };
   } catch (error) {
-    throw new Error(`Error al parsear el JSON del frontmatter: ${error.message}`);
+    console.error('❌ Error al parsear JSON del frontmatter:', error.message);
+    // Return default/error values to prevent crashing updateCategoriesJson
+    return { slug: 'error-parsing-frontmatter', category: 'general', title: 'Error: Parseo Frontmatter', date: new Date().toISOString().split('T')[0] };
   }
 }
 
-// Rutas de directorios
-const OUTPUT_DIR = '../content/posts';
-const URLS_DIR = './urls';
-const PROCESSED_URLS_FILE = './urls/processed-urls.json';
+const CATEGORIES_PATH = path.join(process.cwd(), 'content', 'categories', 'categories.json');
 
-// Crear directorios si no existen
-if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-if (!fs.existsSync(URLS_DIR)) fs.mkdirSync(URLS_DIR, { recursive: true });
+async function updateCategoriesJson(articleMetadata) {
+  console.log(`🔄 Actualizando ${CATEGORIES_PATH} con metadatos del artículo...`);
+  let categoriesData = {};
 
-// Cargar URLs ya procesadas
-let processedUrls = [];
-if (fs.existsSync(PROCESSED_URLS_FILE)) {
   try {
-    processedUrls = JSON.parse(fs.readFileSync(PROCESSED_URLS_FILE, 'utf8'));
-    console.log(`📋 Cargadas ${processedUrls.length} URLs ya procesadas anteriormente`);
-  } catch (error) {
-    console.error('⚠️ Error al cargar URLs procesadas:', error.message);
-  }
-}
-
-// Función para cargar todas las URLs desde los archivos en el directorio 'urls'
-async function loadUrlsFromFiles() {
-  const urlFiles = fs.readdirSync(URLS_DIR)
-    .filter(file => file.endsWith('.json') && file !== 'processed-urls.json');
-  
-  if (urlFiles.length === 0) {
-    console.log('⚠️ No se encontraron archivos de URLs en', URLS_DIR);
-    return [];
-  }
-  
-  let allUrls = [];
-  
-  for (const file of urlFiles) {
-    const filePath = path.join(URLS_DIR, file);
-    try {
-      const fileUrls = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-      console.log(`📄 Cargadas ${fileUrls.length} URLs desde ${file}`);
-      allUrls = [...allUrls, ...fileUrls];
-    } catch (error) {
-      console.error(`⚠️ Error al cargar ${file}:`, error.message);
-    }
-  }
-  
-  return allUrls;
-}
-
-// Función para validar la estructura de un archivo MDX
-function validateMDXStructure(mdxContent) {
-  // Si el contenido está vacío, devolvemos un mensaje de error
-  if (!mdxContent || mdxContent.trim() === '') {
-    console.error('❌ Error: El contenido MDX está vacío');
-    return mdxContent;
-  }
-
-  // JSON frontmatter (formato recomendado)
-  if (mdxContent.startsWith('---json')) {
-    const hasClosingDelimiter = mdxContent.includes('\n---\n');
-    if (!hasClosingDelimiter) {
-      console.error('❌ Error: Falta el delimitador de cierre del frontmatter JSON');
-      // Intentar corregir automáticamente
-      return mdxContent.replace(/---json\n([\s\S]*?)\n(import|#)/, '---json\n$1\n---\n\n$2');
-    }
-
-    // Verificar que el JSON es válido
-    try {
-      const jsonMatch = mdxContent.match(/---json\n([\s\S]*?)\n---/);
-      if (jsonMatch && jsonMatch[1]) {
-        JSON.parse(jsonMatch[1]);
-        console.log('✅ Frontmatter JSON validado correctamente');
+    if (fs.existsSync(CATEGORIES_PATH)) {
+      const fileContent = fs.readFileSync(CATEGORIES_PATH, 'utf-8');
+      if (fileContent.trim() === '') {
+        console.warn(`⚠️ ${CATEGORIES_PATH} está vacío. Se inicializará.`);
+        categoriesData = {}; // Initialize if empty
+      } else {
+        categoriesData = JSON.parse(fileContent);
       }
-    } catch (error) {
-      console.error('❌ Error: El frontmatter JSON no es válido:', error.message);
-      // No intentamos corregir errores de JSON ya que requeriría un análisis más complejo
+    } else {
+      console.log(`ℹ️ ${CATEGORIES_PATH} no encontrado. Se creará uno nuevo.`);
+      // Ensure directory exists
+      const categoriesDir = path.dirname(CATEGORIES_PATH);
+      if (!fs.existsSync(categoriesDir)) {
+        fs.mkdirSync(categoriesDir, { recursive: true });
+      }
     }
-  } 
-  // YAML frontmatter (legado, convertir a JSON si es posible)
-  else if (mdxContent.startsWith('---\n')) {
-    console.warn('⚠️ Advertencia: Usando formato YAML legado. Se recomienda usar JSON frontmatter.');
-    const hasClosingDelimiter = /---\n[\s\S]*?\n---\n/.test(mdxContent);
-    if (!hasClosingDelimiter) {
-      console.error('❌ Error: Falta el delimitador de cierre del frontmatter YAML');
-      // Intentar corregir automáticamente
-      return mdxContent.replace(/---\n([\s\S]*?)\n(import|#)/, '---\n$1\n---\n\n$2');
-    }
+  } catch (error) {
+    console.error(`❌ Error al leer o parsear ${CATEGORIES_PATH}. Se usará un objeto vacío. Error: ${error.message}`);
+    categoriesData = {}; // Reset on error to prevent further issues
+  }
 
-    // TODO: En una versión futura, podríamos convertir automáticamente YAML a JSON frontmatter
+  const categoryKey = articleMetadata.category || 'general';
+  if (!categoriesData[categoryKey]) {
+    categoriesData[categoryKey] = [];
   }
-  // Sin frontmatter o formato no reconocido
-  else {
-    console.error('❌ Error: El archivo MDX no tiene un frontmatter válido');
-    // No intentamos corregir automáticamente ya que no hay suficiente información
+
+  // Evitar duplicados basados en el slug
+  const existingArticleIndex = categoriesData[categoryKey].findIndex(article => article.slug === articleMetadata.slug);
+  const newArticleEntry = {
+    slug: articleMetadata.slug,
+    title: articleMetadata.title,
+    date: articleMetadata.date,
+    image: articleMetadata.image,
+    // excerpt: articleMetadata.excerpt, // Consider if excerpt is needed here
+  };
+
+  if (existingArticleIndex > -1) {
+    console.log(`덮 Actualizando artículo existente en categoría '${categoryKey}': ${articleMetadata.slug}`);
+    categoriesData[categoryKey][existingArticleIndex] = newArticleEntry;
+  } else {
+    console.log(`➕ Añadiendo nuevo artículo a categoría '${categoryKey}': ${articleMetadata.slug}`);
+    categoriesData[categoryKey].push(newArticleEntry);
   }
-  
-  return mdxContent;
+
+  try {
+    fs.writeFileSync(CATEGORIES_PATH, JSON.stringify(categoriesData, null, 2));
+    console.log(`✅ ${CATEGORIES_PATH} actualizado correctamente.`);
+  } catch (error) {
+    console.error(`❌ Error al guardar ${CATEGORIES_PATH}: ${error.message}`);
+  }
 }
 
 // MAIN
 async function main() {
-  // Cargar URLs desde archivos
-  const allUrls = await loadUrlsFromFiles();
+  // Ensure content directories exist
+  const postsDir = path.join(process.cwd(), 'content', 'posts');
+  const categoriesDir = path.join(process.cwd(), 'content', 'categories');
+  if (!fs.existsSync(postsDir)) {
+    fs.mkdirSync(postsDir, { recursive: true });
+    console.log(`Created directory: ${postsDir}`);
+  }
+  if (!fs.existsSync(categoriesDir)) {
+    fs.mkdirSync(categoriesDir, { recursive: true });
+    console.log(`Created directory: ${categoriesDir}`);
+  }
+
+  try {
+    let processedUrls = []; // Initialize to empty array
+    processedUrls = loadProcessedUrls();
+    const allUrls = await loadUrlsFromFiles();
   console.log(`🔢 Total de URLs encontradas: ${allUrls.length}`);
   
   // Filtrar URLs ya procesadas
-  const urlsToProcess = allUrls.filter(url => !processedUrls.includes(url));
-  console.log(`🆕 URLs nuevas a procesar: ${urlsToProcess.length}`);
+  const uniqueInitialUrls = [...new Set(allUrls)];
+  const urlsToProcess = uniqueInitialUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
+  console.log(`Found ${allUrls.length} URLs in source files, ${uniqueInitialUrls.length} unique URLs initially.`);
+  console.log(`Total URLs to process after filtering processed and excluded: ${urlsToProcess.length}`);
   
   if (urlsToProcess.length === 0) {
     console.log('✅ No hay nuevas URLs para procesar');
+    // Save processedUrls even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
+    saveProcessedUrls(processedUrls);
     return;
   }
   
   // Procesar cada URL
   for (const url of urlsToProcess) {
+    let didAttemptFullProcessing = false;
     try {
       console.log(`🔍 Procesando ${url}...`);
       
@@ -580,24 +673,25 @@ async function main() {
       if (!hasAmazonProducts) {
         console.log(`⏩ Saltando ${url} - No contiene productos de Amazon`);
         // Marcar como procesada aunque no hayamos generado contenido
-        processedUrls.push(url);
-        fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
-        console.log(`✅ URL marcada como procesada y saltada`);
+        processedUrls.push(url); // Add to in-memory list
+        console.log(`✅ URL ${url} marcada como procesada y saltada (no Amazon links).`);
+        // File will be saved at the end by saveProcessedUrls
         continue; // Pasar a la siguiente URL
       }
       
       // Si tiene productos de Amazon, continuamos con el proceso normal
+      didAttemptFullProcessing = true; // Starting full processing attempt
       const data = await fetchCleanContent(url);
       
       console.log(`📝 Generando MDX para "${data.title}"...`);
-      let mdxContent = await generateMDX(data);
+      let mdxContent = await generateMDX({ ...data, productPrices: data.productPrices });
 
       if (mdxContent === null) {
         console.log(`⏩ Saltando ${url} - No se encontraron productos con ASIN válido o no se cumplieron los criterios de generación.`);
         // Marcar como procesada aunque no hayamos generado contenido válido
-        processedUrls.push(url);
-        fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
-        console.log(`✅ URL marcada como procesada y saltada (sin productos válidos / criterios no cumplidos)`);
+        processedUrls.push(url); // Add to in-memory list
+        console.log(`✅ URL ${url} marcada como procesada y saltada (sin productos válidos / criterios no cumplidos).`);
+        // File will be saved at the end by saveProcessedUrls
         continue; // Pasar a la siguiente URL
       }
       
@@ -619,20 +713,30 @@ async function main() {
       await updateCategoriesJson(metadata);
       
       // Marcar como procesada
-      processedUrls.push(url);
-      fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
-      console.log(`✅ URL marcada como procesada`);
+      processedUrls.push(url); // Add to in-memory list
+      console.log(`✅ URL ${url} marcada como procesada.`);
+      // File will be saved at the end by saveProcessedUrls
       
     } catch (error) {
       console.error(`❌ Error al procesar ${url}:`, error.message);
+      // If an error occurs during main processing, we still consider it an attempt for rate-limiting purposes
+      didAttemptFullProcessing = true; 
     }
     
-    // Pausa entre URLs para evitar sobrecargar la API
-    console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    // Pausa entre URLs para evitar sobrecargar la API, solo si se intentó procesamiento completo
+    if (didAttemptFullProcessing && urlsToProcess.indexOf(url) < urlsToProcess.length - 1) {
+      console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
   }
   
-  console.log(`✅ Proceso completado. Se procesaron ${urlsToProcess.length} URLs.`);
+  saveProcessedUrls(processedUrls); // Save all processed URLs at the end
+  console.log('✅ Todas las URLs han sido procesadas.');
+  } catch (error) {
+  console.error('❌ Error global:', error);
+  // Attempt to save processed URLs even if an error occurred during processing of one URL
+  saveProcessedUrls(processedUrls);
+  }
 }
 
 // Ejecutar el script solo si se llama directamente
