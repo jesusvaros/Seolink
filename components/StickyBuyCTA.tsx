@@ -11,7 +11,7 @@ interface ImageObject {
 interface Product {
   name?: string;
   title?: string; // Para mantener compatibilidad
-  price?: string;
+  price?: string | { display: string; schema: string };
   affiliateLink: string;
   image?: ImageObject; // Changed from string to ImageObject
 }
@@ -27,7 +27,9 @@ export default function StickyBuyCTA({ product }: { product: Product }) {
       <div className="flex flex-col mr-2 overflow-hidden">
         <p className="text-xs font-bold text-gray-600">PRODUCTO RECOMENDADO</p>
         <p className="text-sm font-medium truncate">{productName}</p>
-        {product.price && <p className="text-sm font-bold text-orange-600">{product.price}</p>}
+        {product.price && <p className="text-sm font-bold text-orange-600">
+          {typeof product.price === 'string' ? product.price : product.price.display}
+        </p>}
       </div>
       <Link
         href={product.affiliateLink}
