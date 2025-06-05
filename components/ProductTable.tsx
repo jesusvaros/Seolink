@@ -12,7 +12,7 @@ export type Product = {
   subtitle?: string;
   image: ImageObject;
   affiliateLink: string;
-  price: string;
+  price: string | { display: string; schema: string };
   capacity?: string;
   vapor?: boolean;
   limpieza?: string;

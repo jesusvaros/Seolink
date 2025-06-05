@@ -281,7 +281,20 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                       "@type": "Offer",
                       "url": frontMatter.products[0].affiliateLink,
                       "priceCurrency": "EUR",
-                      "price": frontMatter.products[0].price ? frontMatter.products[0].price.replace(/[^0-9,.]/g, '') : "",
+                      "price": (() => {
+                        // Handle both string and object price formats
+                        if (frontMatter.products[0].price) {
+                          if (typeof frontMatter.products[0].price === 'object' && frontMatter.products[0].price.schema) {
+                            // Use the schema format which already has periods
+                            return frontMatter.products[0].price.schema;
+                          } else {
+                            // For string prices, convert commas to periods for schema.org
+                            const priceStr = String(frontMatter.products[0].price);
+                            return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                          }
+                        }
+                        return "";
+                      })(),
                       "availability": "https://schema.org/InStock"
                     }
                   }

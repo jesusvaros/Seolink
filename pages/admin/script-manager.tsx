@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 interface UrlStats {
   totalUrlsInSourceFiles: number;
   pendingUrlsCount: number;
-  allSourceUrlsFromFiles: string[];
+  allSourceUrlsFromFiles: Array<string | { url: string }>;
   manuallySubmittedUrls: string[];
   generatedPostsCount: number;
   generatedPostsDetails: Array<{ title: string; slug: string }>;
@@ -168,17 +168,25 @@ const ScriptManagerPage = () => {
       </section>
       {/* Moved URL Lists to the bottom - this comment seems out of place, URL lists are further down. Will proceed with adding Generated Posts section. */}
 
-      {urlStats && urlStats.generatedPostsDetails && urlStats.generatedPostsDetails.length > 0 && (
+      {urlStats && urlStats.generatedPostsDetails && Array.isArray(urlStats.generatedPostsDetails) && urlStats.generatedPostsDetails.length > 0 && (
         <section style={{ marginBottom: '30px', padding: '20px', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
           <h2 style={{ borderBottom: '2px solid #16a085', paddingBottom: '10px', color: '#16a085' }}>Generated MDX Posts ({urlStats.generatedPostsCount})</h2>
           <ul style={{ listStyleType: 'none', paddingLeft: 0, maxHeight: '300px', overflowY: 'auto' }}>
-            {urlStats.generatedPostsDetails.map((post, index) => (
-              <li key={index} style={{ marginBottom: '8px', padding: '5px', borderBottom: '1px solid #eee' }}>
-                <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#2980b9' }}>
-                  {post.title}
-                </a>
-              </li>
-            ))}
+            {urlStats.generatedPostsDetails
+              .filter(post => post && typeof post === 'object')
+              .map((post, index) => {
+                // Extract title and slug safely
+                const title = post && typeof post.title === 'string' ? post.title : 'Untitled Post';
+                const slug = post && typeof post.slug === 'string' ? post.slug : '';
+                
+                return (
+                  <li key={index} style={{ marginBottom: '8px', padding: '5px', borderBottom: '1px solid #eee' }}>
+                    <a href={`/${slug}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#2980b9' }}>
+                      {title}
+                    </a>
+                  </li>
+                );
+              })}
           </ul>
         </section>
       )}
@@ -265,9 +273,16 @@ const ScriptManagerPage = () => {
               <h3 style={{ color: '#2980b9' }}>All Source URLs ({urlStats.allSourceUrlsFromFiles.length})</h3>
               <ul style={{ listStyleType: 'none', paddingLeft: 0, maxHeight: '200px', overflowY: 'auto', border: '1px solid #ddd', padding: '10px', borderRadius: '4px' }}>
                 {urlStats.allSourceUrlsFromFiles.map((srcUrl, index) => (
+                  typeof srcUrl === 'string' ? (
                   <li key={`source-${index}`} style={{ marginBottom: '5px' }}>
                      <a href={srcUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#2980b9' }}>{srcUrl}</a>
                   </li>
+                  )
+                  :(
+                  <li key={`source-${index}`} style={{ marginBottom: '5px' }}>
+                    {srcUrl.url}
+                  </li>
+                  )
                 ))}
               </ul>
             </div>

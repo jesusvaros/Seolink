@@ -12,7 +12,7 @@ export type DetailedProduct = {
   subtitle?: string;
   image: ImageObject;
   affiliateLink: string;
-  price: string;
+  price: string | { display: string; schema: string };
   pros?: string;
   cons?: string;
   description?: string;
@@ -169,7 +169,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
               rel="noopener noreferrer"
               className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200 text-center w-full md:w-auto mr-3"
             >
-              Ver precio: {product.price}
+              Ver precio: {typeof product.price === 'object' ? product.price.display : product.price}
             </a>
             <a
               href={product.affiliateLink}

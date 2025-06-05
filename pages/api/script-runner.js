@@ -112,15 +112,38 @@ export default async function handler(req, res) {
       if (fs.existsSync(categoriesFilePath)) {
         try {
           const categoriesData = JSON.parse(fs.readFileSync(categoriesFilePath, 'utf-8'));
-          for (const categoryKey in categoriesData) {
-            if (Array.isArray(categoriesData[categoryKey])) {
-              categoriesData[categoryKey].forEach(post => {
-                if (post && post.title && post.slug) {
-                  generatedPostsDetails.push({ title: post.title, slug: post.slug });
-                }
-              });
+          
+          // Ensure categoriesData is an object
+          if (categoriesData && typeof categoriesData === 'object') {
+            for (const categoryKey in categoriesData) {
+              // Ensure the category contains an array
+              if (categoriesData[categoryKey] && Array.isArray(categoriesData[categoryKey])) {
+                categoriesData[categoryKey].forEach(post => {
+                  try {
+                    // Only process valid post objects
+                    if (post && typeof post === 'object') {
+                      // Ensure we only extract string properties
+                      const title = typeof post.title === 'string' ? post.title : 'Untitled Post';
+                      const slug = typeof post.slug === 'string' ? post.slug : '';
+                      
+                      // Only add posts with valid title and slug
+                      if (title && slug) {
+                        // Create a clean object with only the properties we need
+                        generatedPostsDetails.push({ 
+                          title: title, 
+                          slug: slug 
+                        });
+                      }
+                    }
+                  } catch (postError) {
+                    console.error('Error processing post:', postError);
+                    // Skip this post on error
+                  }
+                });
+              }
             }
           }
+          
           generatedPostsCount = generatedPostsDetails.length;
         } catch (e) {
           console.error('Error parsing categories.json:', e);
