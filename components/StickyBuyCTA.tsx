@@ -1,11 +1,19 @@
 import Link from 'next/link';
 
+// It's better to import shared types if available
+// For now, defining ImageObject here if not globally accessible
+interface ImageObject {
+  '@type'?: 'ImageObject';
+  url: string;
+  caption?: string;
+}
+
 interface Product {
   name?: string;
   title?: string; // Para mantener compatibilidad
   price?: string;
   affiliateLink: string;
-  image?: string;
+  image?: ImageObject; // Changed from string to ImageObject
 }
 
 export default function StickyBuyCTA({ product }: { product: Product }) {

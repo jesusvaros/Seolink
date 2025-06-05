@@ -16,12 +16,24 @@ interface ArticleCardProps {
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }) => {
+  const placeholderUrl = '/default-placeholder.jpg';
+  const imageUrlString = (image && typeof image.url === 'string') ? image.url : null;
+  const trimmedUrl = imageUrlString ? imageUrlString.trim() : null;
+
+  let finalImageUrl = placeholderUrl; // Default to placeholder
+
+  if (trimmedUrl && 
+      trimmedUrl !== 'PENDIENTE_URL_IMAGEN_PRODUCTO' &&
+      (trimmedUrl.startsWith('/') || trimmedUrl.startsWith('http'))) {
+    finalImageUrl = trimmedUrl;
+  }
+
   return (
     <Link href={`/${slug}`} className="block w-full">
       <div className="bg-white shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg pt-3">
         <div className="relative w-full h-48">
           <Image 
-            src={image.url} 
+            src={finalImageUrl} 
             alt={image.caption || title}
             fill
             className="object-cover"
@@ -39,3 +51,5 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }
 };
 
 export default ArticleCard;
+
+

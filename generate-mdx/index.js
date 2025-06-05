@@ -30,37 +30,26 @@ async function containsAmazonLinks(url) {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     
     // Buscar enlaces de Amazon o texto que indique comparativas de productos
-    const hasAmazonLinks = await page.evaluate(() => {
-      // Buscar enlaces a Amazon
-      const amazonLinks = Array.from(document.querySelectorAll('a')).filter(a => 
-        a.href.includes('amazon.') || 
-        a.href.includes('/dp/') || 
+    // Contar enlaces directos a Amazon
+    const amazonLinkCount = await page.evaluate(() => {
+      const amazonLinks = Array.from(document.querySelectorAll('a')).filter(a =>
+        a.href.includes('amazon.') ||
+        a.href.includes('/dp/') ||
         a.href.includes('/gp/product/')
       );
-      
-      // Buscar términos relacionados con comparativas de productos
-      const productTerms = ['mejor', 'mejores', 'comparativa', 'análisis', 'review', 'opiniones', 'comprar'];
-      const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4'));
-      const hasProductTermsInHeadings = headings.some(h => 
-        productTerms.some(term => h.textContent.toLowerCase().includes(term))
-      );
-      
-      // También buscar menciones de ASIN (código de producto Amazon)
-      const hasASINMentions = document.body.textContent.includes('ASIN') || 
-                             document.body.textContent.match(/B0[0-9A-Z]{8}/g);
-      
-      return amazonLinks.length > 0 || (hasProductTermsInHeadings && hasASINMentions);
+      return amazonLinks.length;
     });
-    
+
     await browser.close();
-    
-    if (hasAmazonLinks) {
-      console.log(`✅ La URL ${url} contiene referencias a productos de Amazon.`);
+    const meetsLinkThreshold = amazonLinkCount >= 3;
+
+    if (meetsLinkThreshold) {
+      console.log(`✅ La URL ${url} contiene ${amazonLinkCount} enlaces de Amazon (mínimo 3 requeridos).`);
     } else {
-      console.log(`⚠️ La URL ${url} no parece contener productos de Amazon.`);
+      console.log(`⚠️ La URL ${url} contiene ${amazonLinkCount} enlaces de Amazon. No cumple el mínimo de 3.`);
     }
-    
-    return hasAmazonLinks;
+
+    return meetsLinkThreshold;
   } catch (error) {
     console.error(`❌ Error al verificar enlaces de Amazon en ${url}:`, error.message);
     await browser.close();
@@ -124,7 +113,7 @@ Instrucciones para la extracción y generación del JSON:
     *   **Prioriza la Exactitud**: Usa la información del texto fuente siempre que sea posible.
     *   **Inferencia Realista**: Si faltan datos (ej: \`reviewCount\`, \`ratingValue\`, especificaciones exactas), infiérelos de manera realista y coherente con el tipo de producto. No inventes marcas o precios absurdos.
     *   \`name\`: Nombre completo y claro.
-    *   \`asin\`: Si es un producto de Amazon y el ASIN está disponible o es fácilmente identificable, inclúyelo. Este será usado como \`productID\`.
+    *   \`asin\`: Si es un producto de Amazon y el ASIN está disponible o es fácilmente identificable (formato B0XXXXXXXX), inclúyelo. **Si no se encuentra un ASIN válido y extraíble del texto, usa la cadena exacta 'NO_ASIN_FOUND'. No inventes ASINs ni uses 'PENDIENTE_ASIN'.** Este será usado como \`productID\`.
     *   \`brand.name\`: Marca reconocible. Si no se menciona, intenta inferirla o usa "Genérico" si es apropiado.
     *   \`image.url\`: Si el texto fuente incluye URLs de imágenes, úsalas. Si no, usa un placeholder descriptivo como "PENDIENTE_URL_IMAGEN_PRODUCTO". La imagen debe ser de alta calidad y representativa.
     *   \`description\`: Resumen breve (1-2 frases).
@@ -140,7 +129,7 @@ Instrucciones para la extracción y generación del JSON:
         *   Si el texto contiene una reseña específica para el producto, usa el objeto \`review\`. \`author.name\` puede ser "Análisis del Experto" o el nombre del sitio. \`datePublished\` debe ser la fecha actual.
         *   Si hay datos agregados (ej: "4.5 estrellas de 120 opiniones"), usa \`aggregateRating\`.
         *   Si no hay datos de reseñas, puedes omitir estas secciones o inferir valores modestos y realistas para \`aggregateRating\` (ej: ratingValue 4.0, reviewCount 10-50).
-    *   \`productID\`: Usa el ASIN si está disponible. De lo contrario, un identificador único si lo hay en el texto.
+    *   \`productID\`: Usa el ASIN si está disponible y es válido (formato B0XXXXXXXX). **Si el ASIN es 'NO_ASIN_FOUND', usa 'NO_ASIN_FOUND' aquí también.**
     *   \`sku\`, \`mpn\`, \`gtin13\`: Inclúyelos si están explícitamente en el texto.
     *   \`specifications\`: De 4 a 6 especificaciones técnicas *cruciales* para ese tipo de producto. Sé específico (ej: para un móvil: "Pantalla": "6.5 pulgadas OLED", "RAM": "8GB", "Almacenamiento": "128GB", "Batería": "4500mAh").
     *   \`additionalProperty\`: Para otras características relevantes no cubiertas por los campos estándar.
@@ -176,7 +165,7 @@ JSON Esperado:
       "offers": {
         "@type": "Offer",
         "priceCurrency": "EUR", // o USD, etc.
-        "price": "0.00", // Inferir o placeholder
+        "price": "EXTRAER_PRECIO_REAL", // EXTRAE EL PRECIO NUMÉRICO REAL DEL PRODUCTO (ej: "19.99"). SI ES ABSOLUTAMENTE IMPOSIBLE ENCONTRAR UN PRECIO, USA LA CADENA EXACTA 'PRICE_NOT_FOUND'. No uses '0.00' como placeholder a menos que sea el precio real (muy improbable).
         "availability": "https://schema.org/InStock", // o OutOfStock, PreOrder
         "url": "PENDIENTE_URL_AFILIADO",
         "priceValidUntil": "YYYY-MM-DD" // Opcional
@@ -254,6 +243,17 @@ JSON Esperado:
 
 function createValidMDX(data, fallbackImage) {
   console.log('🔧 Creando archivo MDX con estructura válida...');
+  const validASINRegex = /^B0[0-9A-Z]{8}$/;
+  const validProducts = (data.products || []).filter(product =>
+    product.asin && typeof product.asin === 'string' && validASINRegex.test(product.asin.trim()) && product.asin.trim() !== 'NO_ASIN_FOUND' && product.asin.trim() !== 'PENDIENTE_ASIN'
+  ).map(p => ({ ...p, asin: p.asin.trim() })); // Trim ASIN for good measure
+
+  if (validProducts.length === 0) {
+    console.log('ℹ️ No se encontraron productos con ASIN válido. No se generará MDX para esta URL.');
+    return null; // Signal to main function not to create MDX
+  }
+  console.log(`ℹ️ Encontrados ${validProducts.length} productos con ASINs válidos.`);
+
   const slug = data.slug || slugify(data.title, { lower: true, strict: true });
 
   // Create frontmatter object for JSON
@@ -261,7 +261,7 @@ function createValidMDX(data, fallbackImage) {
     title: data.title,
     date: new Date().toISOString().split('T')[0],
     slug: slug,
-    image: data.products[0]?.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
+    image: validProducts[0]?.image?.url || validProducts[0]?.image || fallbackImage || '/default-placeholder.jpg', // Use validProducts and prefer .url
     excerpt: data.excerpt,
     category: data.category || 'general',
     products: []
@@ -269,19 +269,66 @@ function createValidMDX(data, fallbackImage) {
 
   // Add products to frontmatter preserving all properties dinámicamente
   if (data.products && data.products.length > 0) {
-    frontmatterObj.products = data.products.map(product => {
+    frontmatterObj.products = validProducts.map(product => {
       // Crear objeto base con propiedades esenciales
+      let displayPrice = 'Precio no disponible'; // Default placeholder
+      if (product.offers && typeof product.offers.price === 'string') {
+        if (product.offers.price.toUpperCase() === 'PRICE_NOT_FOUND') {
+          // displayPrice remains 'Precio no disponible'
+        } else {
+          const priceString = product.offers.price.replace(',', '.');
+          const parsedPrice = parseFloat(priceString);
+
+          if (!isNaN(parsedPrice)) { // Check if it's a number
+            if (parsedPrice > 0) { // Check if it's a positive number
+              const priceValue = parsedPrice.toFixed(2);
+              const currency = product.offers.priceCurrency || 'EUR'; // Default to EUR if not specified
+              let currencySymbol = '';
+              switch (currency.toUpperCase()) {
+                case 'EUR': currencySymbol = '€'; break;
+                case 'USD': currencySymbol = '$'; break;
+                default: currencySymbol = currency;
+              }
+
+              if (currency.toUpperCase() === 'EUR') {
+                displayPrice = `${priceValue.replace('.', ',')} ${currencySymbol}`.trim();
+              } else if (currency.toUpperCase() === 'USD') {
+                displayPrice = `${currencySymbol}${priceValue}`.trim();
+              } else {
+                displayPrice = `${priceValue} ${currencySymbol}`.trim();
+              }
+            }
+            // If parsedPrice is 0 or negative (and not 'PRICE_NOT_FOUND'), displayPrice remains 'Precio no disponible'
+          } else if (product.price && typeof product.price === 'string' && product.price.trim() !== '' && product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
+            // Fallback to top-level product.price if offers.price was not a number (and not 'PRICE_NOT_FOUND')
+            const topLevelPriceString = product.price.replace(',', '.');
+            const topLevelParsedPrice = parseFloat(topLevelPriceString);
+            if (!isNaN(topLevelParsedPrice) && topLevelParsedPrice > 0) {
+              displayPrice = product.price; // Use as is, assuming it's pre-formatted or a simple string
+            }
+          }
+        }
+      } else if (product.price && typeof product.price === 'string' && product.price.trim() !== '' && product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
+        // Fallback if product.offers or product.offers.price is missing (and product.price is not 'PRICE_NOT_FOUND')
+        const topLevelPriceString = product.price.replace(',', '.');
+        const topLevelParsedPrice = parseFloat(topLevelPriceString);
+        if (!isNaN(topLevelParsedPrice) && topLevelParsedPrice > 0) {
+          displayPrice = product.price;
+        }
+      }
+
       const productObj = {
-        asin: product.asin || 'B0XXXXX',
+        asin: product.asin, // Direct use of validated ASIN
         name: product.name,
         image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
-        affiliateLink: `https://www.amazon.es/dp/${product.asin || 'B0XXXXX'}?tag=oferta-limitada-21`,
-        price: product.price || '39,99 €',
+        affiliateLink: `https://www.amazon.es/dp/${product.asin}?tag=oferta-limitada-21`, // Direct use of validated ASIN
+        price: displayPrice,
         destacado: product.destacado || 'Producto recomendado',
-        pros: product.pros || 'Calidad, Precio, Durabilidad',
-        cons: product.cons || 'Ninguna desventaja significativa',
+        pros: product.pros || ['Calidad', 'Precio', 'Durabilidad'], // Default to array
+        cons: product.cons || ['Ninguna desventaja significativa'], // Default to array
         description: product.description || 'Descripción breve del producto',
-        detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.'
+        detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.',
+        offers: product.offers // Keep the original offers object for schema.org and other uses
       };
       
       // Filtrar propiedades que no queremos incluir en las especificaciones
@@ -298,6 +345,13 @@ function createValidMDX(data, fallbackImage) {
       
       return productObj;
     });
+  }
+
+  // Ensure main image in frontmatter is a string URL and normalized
+  if (typeof frontmatterObj.image === 'object' && frontmatterObj.image !== null) {
+    frontmatterObj.image = frontmatterObj.image.url || fallbackImage || '/default-placeholder.jpg';
+  } else if (typeof frontmatterObj.image !== 'string' || frontmatterObj.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || frontmatterObj.image === 'NO_URL_IMAGEN') {
+    frontmatterObj.image = fallbackImage || '/default-placeholder.jpg';
   }
 
   // Convert frontmatter object to JSON string with pretty formatting
@@ -537,6 +591,15 @@ async function main() {
       
       console.log(`📝 Generando MDX para "${data.title}"...`);
       let mdxContent = await generateMDX(data);
+
+      if (mdxContent === null) {
+        console.log(`⏩ Saltando ${url} - No se encontraron productos con ASIN válido o no se cumplieron los criterios de generación.`);
+        // Marcar como procesada aunque no hayamos generado contenido válido
+        processedUrls.push(url);
+        fs.writeFileSync(PROCESSED_URLS_FILE, JSON.stringify(processedUrls, null, 2));
+        console.log(`✅ URL marcada como procesada y saltada (sin productos válidos / criterios no cumplidos)`);
+        continue; // Pasar a la siguiente URL
+      }
       
       // Validar y corregir la estructura del MDX antes de guardarlo
       mdxContent = validateMDXStructure(mdxContent);

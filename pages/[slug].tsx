@@ -104,12 +104,53 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   // Normalize frontMatter.image to ImageObject
   let finalImage: ImageObject;
+  const placeholderUrl = '/default-placeholder.jpg'; // Define your actual placeholder image
+  const placeholderCaption = 'Imagen no disponible';
+
   if (typeof data.image === 'string') {
-    finalImage = { url: data.image, caption: data.title }; // Or derive caption differently
+    if (data.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || !data.image.startsWith('/') && !data.image.startsWith('http')) {
+      finalImage = { url: placeholderUrl, caption: data.title || placeholderCaption };
+    } else {
+      finalImage = { url: data.image, caption: data.title || placeholderCaption };
+    }
   } else if (data.image && typeof data.image === 'object' && 'url' in data.image) {
-    finalImage = data.image as ImageObject;
+    const imageUrl = (data.image as ImageObject).url;
+    if (imageUrl === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || !imageUrl.startsWith('/') && !imageUrl.startsWith('http')) {
+      finalImage = { url: placeholderUrl, caption: (data.image as ImageObject).caption || data.title || placeholderCaption };
+    } else {
+      finalImage = data.image as ImageObject;
+    }
   } else {
-    finalImage = { url: '/default-placeholder.jpg', caption: 'Imagen no disponible' }; // Fallback image
+    finalImage = { url: placeholderUrl, caption: placeholderCaption }; // Fallback image
+  }
+
+  // Normalize images within data.products
+  if (data.products && Array.isArray(data.products)) {
+    data.products = data.products.map(product => {
+      if (!product) return product; // Should not happen, but good for safety
+
+      let productImage: ImageObject;
+      const productCaption = product.name || placeholderCaption;
+
+      if (typeof product.image === 'string') {
+        if (product.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || (!product.image.startsWith('/') && !product.image.startsWith('http'))) {
+          productImage = { url: placeholderUrl, caption: productCaption };
+        } else {
+          productImage = { url: product.image, caption: productCaption };
+        }
+      } else if (product.image && typeof product.image === 'object' && 'url' in product.image) {
+        const imageUrl = (product.image as ImageObject).url;
+        if (imageUrl === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || (!imageUrl.startsWith('/') && !imageUrl.startsWith('http'))) {
+          productImage = { url: placeholderUrl, caption: (product.image as ImageObject).caption || productCaption };
+        } else {
+          productImage = product.image as ImageObject;
+        }
+      } else {
+        // If image is missing or not in a recognized format, use placeholder
+        productImage = { url: placeholderUrl, caption: productCaption };
+      }
+      return { ...product, image: productImage };
+    });
   }
 
 
