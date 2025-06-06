@@ -13,10 +13,32 @@ config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const turndown = new TurndownService();
 
-const URLS_DIR = path.join(process.cwd(), 'urls');
+// Get the current script directory
+const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
+// Path for the URLs directory inside generate-mdx
+const URLS_DIR = path.join(SCRIPT_DIR, 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
-// Fix path to be relative to project root, not generate-mdx subdirectory
-const OUTPUT_DIR = path.join(process.cwd(), '..', 'content', 'posts');
+
+// Create the directory if it doesn't exist
+if (!fs.existsSync(URLS_DIR)) {
+  fs.mkdirSync(URLS_DIR, { recursive: true });
+  console.log(`📁 Directorio creado: ${URLS_DIR}`);
+}
+
+// Path to content directories at the project root level (not inside generate-mdx)
+const OUTPUT_DIR = path.join(process.cwd(), 'content', 'posts');
+const CATEGORIES_DIR = path.join(process.cwd(), 'content', 'categories');
+
+// Create the content directories if they don't exist
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  console.log(`📁 Directorio creado: ${OUTPUT_DIR}`);
+}
+
+if (!fs.existsSync(CATEGORIES_DIR)) {
+  fs.mkdirSync(CATEGORIES_DIR, { recursive: true });
+  console.log(`📁 Directorio creado: ${CATEGORIES_DIR}`);
+}
 const EXCLUDED_DOMAINS = [
   'localhost',
   '127.0.0.1',
@@ -204,9 +226,68 @@ async function fetchCleanContent(url) {
   };
 }
 
+// Función para estimar tokens (aproximado)
+function estimateTokens(text) {
+  // Aproximación: 1 token ≈ 4 caracteres en inglés/español
+  return Math.ceil(text.length / 4);
+}
+
+// Función para truncar texto manteniendo información relevante sobre productos
+function truncateContent(markdown, maxTokens = 10000) {
+  // Si el contenido es menor que el límite, devolver tal cual
+  if (estimateTokens(markdown) <= maxTokens) {
+    return markdown;
+  }
+  
+  console.log(`⚠️ Contenido demasiado largo (aprox. ${estimateTokens(markdown)} tokens). Truncando...`);
+  
+  // Dividir por párrafos para preservar estructura
+  const paragraphs = markdown.split('\n\n');
+  
+  // Buscar párrafos que probablemente contengan información de productos
+  const productParagraphs = paragraphs.filter(p => 
+    /precio|euros|€|amazon|comprar|B0[0-9A-Z]{8}|producto|oferta|descuento/i.test(p)
+  );
+  
+  // Tomar una selección de párrafos importantes y algunos normales
+  let selectedContent = '';
+  let tokenCount = 0;
+  
+  // Añadir primero el título y los primeros párrafos (contexto)
+  const introParas = paragraphs.slice(0, 3).join('\n\n');
+  selectedContent += introParas + '\n\n';
+  tokenCount += estimateTokens(introParas);
+  
+  // Añadir párrafos con información de productos hasta alcanzar el límite
+  for (const para of productParagraphs) {
+    const paraTokens = estimateTokens(para);
+    if (tokenCount + paraTokens <= maxTokens) {
+      selectedContent += para + '\n\n';
+      tokenCount += paraTokens;
+    } else {
+      break;
+    }
+  }
+  
+  // Si queda espacio, añadir algunos párrafos más del final
+  if (tokenCount < maxTokens) {
+    const remainingTokens = maxTokens - tokenCount;
+    const endParas = paragraphs.slice(-3).join('\n\n');
+    if (estimateTokens(endParas) <= remainingTokens) {
+      selectedContent += '\n\n[Contenido intermedio omitido por longitud]\n\n' + endParas;
+    }
+  }
+  
+  console.log(`✅ Contenido truncado a aproximadamente ${estimateTokens(selectedContent)} tokens`);
+  return selectedContent;
+}
+
 // Generar MDX con GPT-4o
 export async function generateMDX({ title, content, url, date, image, productPrices = [] }) {
   const markdown = turndown.turndown(content);
+  
+  // Truncar el contenido para evitar exceder límites de tokens
+  const truncatedMarkdown = truncateContent(markdown, 8000); // Ajustar este valor según sea necesario
   
   // Prompt mejorado para extraer múltiples productos con especificaciones inteligentes
   // Incluir precios extraídos en el prompt
@@ -234,9 +315,9 @@ Título Original: ${title}
 Fecha de Publicación Original: ${date} // Esta es la fecha del artículo original
 URL Original: ${url}
 
-Contenido extraído (Markdown):
+Contenido extraído (Markdown) - Nota: puede estar truncado para ajustarse a límites de tokens:
 ---
-${markdown}
+${truncatedMarkdown}
 ---
 
 Instrucciones para la extracción y generación del JSON:
@@ -348,15 +429,45 @@ JSON Esperado:
 `;
 
   try {
-    const chat = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: 'user', content: prompt }],
-    });
-
-    // Obtener la respuesta y extraer el JSON
-    const responseContent = chat.choices[0].message.content;
-    let jsonData;
+    // Función para hacer la llamada a la API con reintentos
+    async function callOpenAIWithRetry(maxRetries = 3, initialDelay = 2000) {
+      let retries = 0;
+      let delay = initialDelay;
+      
+      while (retries <= maxRetries) {
+        try {
+          console.log(`📡 Llamando a OpenAI API${retries > 0 ? ` (intento ${retries + 1}/${maxRetries + 1})` : ''}...`);
+          
+          const chat = await openai.chat.completions.create({
+            model: 'gpt-4o',
+            messages: [{ role: 'user', content: prompt }],
+            max_tokens: 4000, // Limitar tokens de respuesta
+          });
+          
+          console.log('✅ Respuesta de OpenAI recibida correctamente');
+          return chat.choices[0].message.content;
+        } catch (error) {
+          if (error.status === 429) { // Rate limit error
+            retries++;
+            if (retries <= maxRetries) {
+              console.log(`⚠️ Límite de tasa excedido. Reintentando en ${delay/1000} segundos...`);
+              await new Promise(resolve => setTimeout(resolve, delay));
+              delay *= 2; // Backoff exponencial
+            } else {
+              throw new Error(`Límite de tasa excedido después de ${maxRetries} intentos: ${error.message}`);
+            }
+          } else {
+            throw error; // Otros errores
+          }
+        }
+      }
+    }
     
+    // Llamar a la API con reintentos
+    const responseContent = await callOpenAIWithRetry();
+    
+    // Procesar la respuesta
+    let jsonData;
     try {
       // Intentar parsear directamente, o extraer el JSON si está rodeado de texto
       const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
@@ -369,7 +480,7 @@ JSON Esperado:
     } catch (error) {
       console.error('❌ Error al parsear el JSON:', error.message);
       console.error('Raw OpenAI response that failed to parse:');
-      console.error(responseContent); // Log the problematic string
+      console.error(responseContent.substring(0, 500) + '...'); // Log solo una parte para evitar spam
       jsonData = null; // Ensure jsonData is null if parsing failed
     }
     
@@ -617,8 +728,8 @@ function extractMetadataFromMDX(mdxContent) {
   }
 }
 
-// Fix path to be relative to project root, not generate-mdx subdirectory
-const CATEGORIES_PATH = path.join(process.cwd(), '..', 'content', 'categories', 'categories.json');
+// Use the CATEGORIES_DIR constant defined earlier
+const CATEGORIES_PATH = path.join(CATEGORIES_DIR, 'categories.json');
 
 async function updateCategoriesJson(articleMetadata) {
   console.log(`🔄 Actualizando ${CATEGORIES_PATH} con metadatos del artículo...`);
@@ -680,17 +791,8 @@ async function updateCategoriesJson(articleMetadata) {
 // MAIN
 async function main() {
   const scrapedResults = []; // Collect all scraped data here
-  // Ensure content directories exist
-  const postsDir = path.join(process.cwd(), '..', 'content', 'posts');
-  const categoriesDir = path.join(process.cwd(), '..', 'content', 'categories');
-  if (!fs.existsSync(postsDir)) {
-    fs.mkdirSync(postsDir, { recursive: true });
-    console.log(`Created directory: ${postsDir}`);
-  }
-  if (!fs.existsSync(categoriesDir)) {
-    fs.mkdirSync(categoriesDir, { recursive: true });
-    console.log(`Created directory: ${categoriesDir}`);
-  }
+  // Content directories are already created earlier in the script
+  // We're using OUTPUT_DIR and CATEGORIES_DIR constants
 
   // Initialize processedUrls outside the try block so it's available in the catch block
   let processedUrls = [];
