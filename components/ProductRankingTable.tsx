@@ -68,7 +68,7 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
                     rel="noopener noreferrer"
                     className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 transition-colors duration-200 text-center w-36"
                   >
-                    Comprar {product.price && `· ${typeof product.price === 'object' ? product.price.display : product.price}`}
+                    Comprar {product.price && `· ${product.price}`}
                   </a>
                 </td>
               </tr>
@@ -123,7 +123,7 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
                 rel="noopener noreferrer"
                 className="block w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-md text-center transition-colors duration-200"
               >
-                Comprar {product.price && `· ${typeof product.price === 'object' ? product.price.display : product.price}`}
+                Comprar {product.price && `· ${product.price}`}
               </a>
             </div>
           </div>

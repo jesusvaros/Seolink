@@ -39,6 +39,64 @@ if (!fs.existsSync(CATEGORIES_DIR)) {
   fs.mkdirSync(CATEGORIES_DIR, { recursive: true });
   console.log(`📁 Directorio creado: ${CATEGORIES_DIR}`);
 }
+
+/**
+ * Generates a unique destacado value for a product based on its features, pros, or name
+ * @param {Object} product - The product object
+ * @returns {string} - A unique destacado value
+ */
+function generateDestacadoValue(product) {
+  // Check if we have pros to use
+  if (product.pros && Array.isArray(product.pros) && product.pros.length > 0) {
+    // Use the first pro as the main feature
+    const mainFeature = product.pros[0];
+    return mainFeature;
+  }
+  
+  // Check if we have specifications to use
+  if (product.specifications) {
+    const specs = Object.entries(product.specifications);
+    if (specs.length > 0) {
+      // Use the first specification as a feature
+      const [key, value] = specs[0];
+      return `${value} ${key}`;
+    }
+  }
+  
+  // Check if the name contains useful information
+  if (product.name) {
+    const nameParts = product.name.split(' ');
+    if (nameParts.length > 1) {
+      // Use the second word of the name (often a descriptor)
+      return `${nameParts[1]} destacado`;
+    }
+  }
+  
+  // Check if we have a description to use
+  if (product.description) {
+    const words = product.description.split(' ');
+    if (words.length > 2) {
+      // Use the first 2-3 words of the description
+      return `${words.slice(0, 2).join(' ')}`;
+    }
+  }
+  
+  // Fallback to a generic but slightly varied message
+  const variations = [
+    'Calidad superior',
+    'Mejor relación calidad-precio',
+    'Producto destacado',
+    'Opción recomendada',
+    'Alta durabilidad'
+  ];
+  
+  // Use a random variation based on the product's ASIN to ensure consistency
+  const index = product.asin ? 
+    product.asin.charCodeAt(product.asin.length - 1) % variations.length : 
+    Math.floor(Math.random() * variations.length);
+  
+  return variations[index];
+}
 const EXCLUDED_DOMAINS = [
   'localhost',
   '127.0.0.1',
@@ -622,7 +680,7 @@ function createValidMDX(data, fallbackImage) {
         image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
         affiliateLink: `https://www.amazon.es/dp/${product.asin}?tag=oferta-limitada-21`, // Direct use of validated ASIN
         price: displayPrice,
-        destacado: product.destacado || 'Producto recomendado',
+        destacado: product.destacado || generateDestacadoValue(product),
         pros: product.pros || ['Calidad', 'Precio', 'Durabilidad'], // Default to array
         cons: product.cons || ['Ninguna desventaja significativa'], // Default to array
         description: product.description || 'Descripción breve del producto',
