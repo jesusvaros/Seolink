@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 
 interface UrlStats {
   totalUrlsInSourceFiles: number;
+  uniqueUrlsCount: number;
+  processedUrlsCount: number;
   pendingUrlsCount: number;
+  orphanedUrlsCount: number;
+  duplicateUrlsCount: number;
   allSourceUrlsFromFiles: Array<string | { url: string }>;
   manuallySubmittedUrls: string[];
   generatedPostsCount: number;
@@ -155,8 +159,20 @@ const ScriptManagerPage = () => {
             <div style={{ padding: '10px', backgroundColor: '#e8f6f3', borderRadius: '4px'}}>
               <strong>Total URLs in Source Files:</strong> {urlStats.totalUrlsInSourceFiles}
             </div>
+            <div style={{ padding: '10px', backgroundColor: '#d6eaf8', borderRadius: '4px'}}>
+              <strong>Unique URLs:</strong> {urlStats.uniqueUrlsCount || 'N/A'}
+            </div>
             <div style={{ padding: '10px', backgroundColor: '#fdebd0', borderRadius: '4px'}}>
+              <strong>Processed URLs:</strong> {urlStats.processedUrlsCount || 'N/A'}
+            </div>
+            <div style={{ padding: '10px', backgroundColor: '#ebdef0', borderRadius: '4px'}}>
               <strong>Pending URLs:</strong> {urlStats.pendingUrlsCount}
+            </div>
+            <div style={{ padding: '10px', backgroundColor: '#fadbd8', borderRadius: '4px'}}>
+              <strong>Orphaned URLs:</strong> {urlStats.orphanedUrlsCount || 'N/A'}
+            </div>
+            <div style={{ padding: '10px', backgroundColor: '#f9e79f', borderRadius: '4px'}}>
+              <strong>Duplicate URLs:</strong> {urlStats.duplicateUrlsCount || 'N/A'}
             </div>
             <div style={{ padding: '10px', backgroundColor: '#d6eaf8', borderRadius: '4px'}}>
               <strong>Generated MDX Posts:</strong> {urlStats.generatedPostsCount}

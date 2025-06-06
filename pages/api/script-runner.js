@@ -84,6 +84,13 @@ export default async function handler(req, res) {
       let totalUrlsInSourceFiles = 0;
       let allSourceUrlsFromFiles = [];
       let manuallySubmittedUrls = [];
+      let duplicateUrls = [];
+      let duplicateUrlsCount = 0;
+      let domainCounts = {};
+      
+      // Track URL occurrences to find duplicates
+      const urlOccurrences = {};
+      
       for (const fileName of sourceUrlFiles) {
         try {
           const sourceFilePath = path.join(urlsDir, fileName);
@@ -95,14 +102,44 @@ export default async function handler(req, res) {
             if (fileName.startsWith('scraped_url_')) {
               manuallySubmittedUrls.push(...urlsInFile);
             }
+            
+            // Track URL occurrences for duplicate detection
+            urlsInFile.forEach(url => {
+              if (typeof url === 'string') {
+                urlOccurrences[url] = (urlOccurrences[url] || 0) + 1;
+                
+                // Count domains
+                try {
+                  const domain = new URL(url).hostname;
+                  domainCounts[domain] = (domainCounts[domain] || 0) + 1;
+                } catch (e) {
+                  // Invalid URL, skip domain counting
+                }
+              }
+            });
           }
         } catch (e) {
           console.error(`Error reading or parsing source URL file ${fileName}:`, e);
           // Optionally skip this file or handle error
         }
       }
-
-      const pendingUrlsCount = totalUrlsInSourceFiles - processedUrlsList.length;
+      
+      // Find duplicate URLs (appear more than once)
+      Object.entries(urlOccurrences)
+        .filter(([_, count]) => count > 1)
+        .forEach(([url, count]) => {
+          duplicateUrls.push([url, count]);
+          duplicateUrlsCount++;
+        });
+      
+      // Find orphaned URLs (in processed but not in source)
+      const uniqueSourceUrls = [...new Set(allSourceUrlsFromFiles.filter(url => typeof url === 'string'))];
+      const orphanedUrls = processedUrlsList.filter(url => !uniqueSourceUrls.includes(url));
+      const orphanedUrlsCount = orphanedUrls.length;
+      
+      const uniqueUrlsCount = uniqueSourceUrls.length;
+      const processedUrlsCount = processedUrlsList.length;
+      const pendingUrlsCount = uniqueUrlsCount - processedUrlsCount;
 
       // Get generated post details from categories.json
       const categoriesFilePath = path.join(process.cwd(), 'content', 'categories', 'categories.json');
@@ -155,7 +192,11 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         totalUrlsInSourceFiles,
+        uniqueUrlsCount,
+        processedUrlsCount,
         pendingUrlsCount,
+        orphanedUrlsCount,
+        duplicateUrlsCount,
         allSourceUrlsFromFiles,
         manuallySubmittedUrls,
         generatedPostsCount,

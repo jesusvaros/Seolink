@@ -106,28 +106,31 @@ const EXCLUDED_DOMAINS = [
 
 async function loadUrlsFromFiles() {
   let allUrls = [];
+  
   try {
+    // Load URLs from all source files
     const files = fs.readdirSync(URLS_DIR);
     for (const file of files) {
-      if (file.endsWith('.json') && file !== 'processed-urls.json') {
+      if (file.endsWith('.json') && file !== 'processed-urls.json' && file !== 'pending-urls.json') {
         const filePath = path.join(URLS_DIR, file);
         try {
           const data = fs.readFileSync(filePath, 'utf-8');
           const urlsInFile = JSON.parse(data);
           if (Array.isArray(urlsInFile)) {
-            allUrls = allUrls.concat(urlsInFile.filter(url => typeof url === 'string' && url.trim() !== ''));
+            const validUrls = urlsInFile.filter(url => typeof url === 'string' && url.trim() !== '');
+            allUrls = allUrls.concat(validUrls);
           } else {
             console.warn(`⚠️ Contenido de ${file} no es un array, se omitirá.`);
           }
         } catch (err) {
-          console.error(`Error al leer o parsear ${filePath}:`, err.message);
+          console.error(`❌ Error al leer o parsear ${filePath}:`, err.message);
         }
       }
     }
   } catch (error) {
-    console.error('Error al leer el directorio de URLs:', error.message);
+    console.error('❌ Error al leer el directorio de URLs:', error.message);
   }
-  console.log(`📂 Encontradas ${allUrls.length} URLs en los archivos fuente.`);
+  
   return allUrls;
 }
 
@@ -857,18 +860,61 @@ async function main() {
   
   try {
     processedUrls = loadProcessedUrls();
+    // Load URLs from files
     const allUrls = await loadUrlsFromFiles();
-    console.log(`🔢 Total de URLs encontradas: ${allUrls.length}`);
+    
+    // Get processed URLs for comparison
+    const processedUrlsSet = new Set(processedUrls);
+    
+    // Calculate URL statistics
+    const uniqueUrls = [...new Set(allUrls)];
+    const totalSourceUrls = allUrls.length;
+    const uniqueSourceUrls = uniqueUrls.length;
+    const processedUrlsCount = processedUrls.length;
+    const pendingUrls = uniqueUrls.filter(url => !processedUrlsSet.has(url));
+    const pendingUrlsCount = pendingUrls.length;
+    const orphanedUrls = processedUrls.filter(url => !uniqueUrls.includes(url));
+    const orphanedUrlsCount = orphanedUrls.length;
+    
+    // Count duplicate URLs
+    const urlCounts = {};
+    allUrls.forEach(url => {
+      urlCounts[url] = (urlCounts[url] || 0) + 1;
+    });
+    const duplicateUrls = Object.entries(urlCounts).filter(([_, count]) => count > 1);
+    const duplicateUrlsCount = duplicateUrls.length;
+    
+    // Count URLs by domain
+    const domainCounts = {};
+    uniqueUrls.forEach(url => {
+      try {
+        const domain = new URL(url).hostname;
+        domainCounts[domain] = (domainCounts[domain] || 0) + 1;
+      } catch (error) {
+        console.warn(`⚠️ URL inválida: ${url}`);
+      }
+    });
+    
+    // Calculate statistics for later use
     
     // Filtrar URLs ya procesadas
     const uniqueInitialUrls = [...new Set(allUrls)];
-    const urlsToProcess = uniqueInitialUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
-    console.log(`Found ${allUrls.length} URLs in source files, ${uniqueInitialUrls.length} unique URLs initially.`);
-    console.log(`Total URLs to process after filtering processed and excluded: ${urlsToProcess.length}`);
+    const urlsToProcess = uniqueUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
+    
+    // URL statistics section
+    console.log(`\n📊 ESTADÍSTICAS DE URLS:`);
+    console.log(`🔗 Total URLs en archivos fuente: ${allUrls.length}`);
+    console.log(`🔄 URLs únicas: ${uniqueSourceUrls}`);
+    console.log(`✅ URLs procesadas: ${processedUrlsCount}`);
+    console.log(`⏳ URLs pendientes: ${pendingUrlsCount}`);
+    console.log(`🗑️ URLs huérfanas: ${orphanedUrlsCount}`);
+    console.log(`🔄 URLs duplicadas: ${duplicateUrlsCount}`);
+    console.log(`🔍 URLs a procesar ahora: ${urlsToProcess.length}`);
+    console.log(`\n`);
     
     if (urlsToProcess.length === 0) {
       console.log('✅ No hay nuevas URLs para procesar');
-      // Save processedUrls even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
+    // Save processed URLs even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
       saveProcessedUrls(processedUrls);
       return;
     }
