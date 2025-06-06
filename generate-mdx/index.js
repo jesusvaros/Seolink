@@ -933,7 +933,7 @@ async function main() {
         // Marcar como procesada aunque no hayamos generado contenido
         processedUrls.push(url); // Add to in-memory list
         console.log(`✅ URL ${url} marcada como procesada y saltada (no Amazon links).`);
-        // File will be saved at the end by saveProcessedUrls
+        saveProcessedUrls(processedUrls);
         continue; // Pasar a la siguiente URL
       }
       
