@@ -67,7 +67,9 @@ export default async function handler(req, res) {
     scriptCwd = path.join(scriptCwd, 'scraping', 'Elle');
   } else if (action === 'generate') {
     scriptPath = path.join(scriptCwd, 'generate-mdx', 'index.js');
-    scriptCwd = path.join(scriptCwd, 'generate-mdx');
+    // Keep the working directory at the project root, not in generate-mdx
+    // This ensures content is generated in /content/ not in /generate-mdx/content/
+    scriptCwd = process.cwd();
   } else if (action === 'get_url_stats') {
     try {
       const urlsDir = path.join(scriptCwd, 'generate-mdx', 'urls');
