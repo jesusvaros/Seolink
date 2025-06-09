@@ -1,1021 +1,190 @@
 import fs from 'fs';
 import path from 'path';
-import slugify from 'slugify';
-import { config } from 'dotenv';
-import { OpenAI } from 'openai';
-import TurndownService from 'turndown';
-import { JSDOM } from 'jsdom';
-import { Readability } from '@mozilla/readability';
-import { chromium } from 'playwright';
 import { URL } from 'url';
 
-config();
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const turndown = new TurndownService();
+// Import configuration
+import {
+  URLS_DIR,
+  OUTPUT_DIR,
+  PROCESSED_URLS_PATH
+} from './config/paths.js';
 
-// Get the current script directory
-const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
-// Path for the URLs directory inside generate-mdx
-const URLS_DIR = path.join(SCRIPT_DIR, 'urls');
-const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
+// Import URL handling utilities
+import {
+  loadUrlsFromFiles,
+  loadProcessedUrls,
+  saveProcessedUrls,
+  isExcludedDomain,
+  calculateUrlStats
+} from './utils/urlHandler.js';
 
-// Create the directory if it doesn't exist
-if (!fs.existsSync(URLS_DIR)) {
-  fs.mkdirSync(URLS_DIR, { recursive: true });
-  console.log(`📁 Directorio creado: ${URLS_DIR}`);
-}
+// Import MDX handling utilities
+import {
+  validateMDXStructure,
+  extractMetadataFromMDX,
+  updateCategoriesJson,
+  generateDestacadoValue
+} from './utils/mdxHandler.js';
 
-// Path to content directories at the project root level (not inside generate-mdx)
-const OUTPUT_DIR = path.join(process.cwd(), 'content', 'posts');
-const CATEGORIES_DIR = path.join(process.cwd(), 'content', 'categories');
+// Import content extraction services
+import {
+  containsAmazonLinks,
+  fetchCleanContent
+} from './services/contentExtractor.js';
 
-// Create the content directories if they don't exist
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  console.log(`📁 Directorio creado: ${OUTPUT_DIR}`);
-}
+// Import OpenAI service
+import { generateMDX } from './services/openaiService.js';
 
-if (!fs.existsSync(CATEGORIES_DIR)) {
-  fs.mkdirSync(CATEGORIES_DIR, { recursive: true });
-  console.log(`📁 Directorio creado: ${CATEGORIES_DIR}`);
+// Helper function for text indentation (kept in index.js as it's a simple utility)
+function indentMultiline(text, indent = '      ') {
+  if (!text) return '';
+  return text.split('\n').join(`\n${indent}`);
 }
 
 /**
- * Generates a unique destacado value for a product based on its features, pros, or name
- * @param {Object} product - The product object
- * @returns {string} - A unique destacado value
+ * Process a single URL to extract content and generate MDX
+ * @param {string} url - The URL to process
+ * @returns {Object} - Processing result and status
  */
-function generateDestacadoValue(product) {
-  // Check if we have pros to use
-  if (product.pros && Array.isArray(product.pros) && product.pros.length > 0) {
-    // Use the first pro as the main feature
-    const mainFeature = product.pros[0];
-    return mainFeature;
-  }
-  
-  // Check if we have specifications to use
-  if (product.specifications) {
-    const specs = Object.entries(product.specifications);
-    if (specs.length > 0) {
-      // Use the first specification as a feature
-      const [key, value] = specs[0];
-      return `${value} ${key}`;
-    }
-  }
-  
-  // Check if the name contains useful information
-  if (product.name) {
-    const nameParts = product.name.split(' ');
-    if (nameParts.length > 1) {
-      // Use the second word of the name (often a descriptor)
-      return `${nameParts[1]} destacado`;
-    }
-  }
-  
-  // Check if we have a description to use
-  if (product.description) {
-    const words = product.description.split(' ');
-    if (words.length > 2) {
-      // Use the first 2-3 words of the description
-      return `${words.slice(0, 2).join(' ')}`;
-    }
-  }
-  
-  // Fallback to a generic but slightly varied message
-  const variations = [
-    'Calidad superior',
-    'Mejor relación calidad-precio',
-    'Producto destacado',
-    'Opción recomendada',
-    'Alta durabilidad'
-  ];
-  
-  // Use a random variation based on the product's ASIN to ensure consistency
-  const index = product.asin ? 
-    product.asin.charCodeAt(product.asin.length - 1) % variations.length : 
-    Math.floor(Math.random() * variations.length);
-  
-  return variations[index];
-}
-const EXCLUDED_DOMAINS = [
-  'localhost',
-  '127.0.0.1',
-  // Add other domains to exclude, e.g., your own site if you're scraping yourself by mistake
-  // 'www.example.com'
-];
-
-async function loadUrlsFromFiles() {
-  let allUrls = [];
+async function processUrl(url) {
+  let didAttemptFullProcessing = false;
   
   try {
-    // Load URLs from all source files
-    const files = fs.readdirSync(URLS_DIR);
-    for (const file of files) {
-      if (file.endsWith('.json') && file !== 'processed-urls.json' && file !== 'pending-urls.json') {
-        const filePath = path.join(URLS_DIR, file);
-        try {
-          const data = fs.readFileSync(filePath, 'utf-8');
-          const urlsInFile = JSON.parse(data);
-          if (Array.isArray(urlsInFile)) {
-            const validUrls = urlsInFile.filter(url => typeof url === 'string' && url.trim() !== '');
-            allUrls = allUrls.concat(validUrls);
-          } else {
-            console.warn(`⚠️ Contenido de ${file} no es un array, se omitirá.`);
-          }
-        } catch (err) {
-          console.error(`❌ Error al leer o parsear ${filePath}:`, err.message);
-        }
-      }
-    }
-  } catch (error) {
-    console.error('❌ Error al leer el directorio de URLs:', error.message);
-  }
-  
-  return allUrls;
-}
-
-
-function loadProcessedUrls() {
-  try {
-    if (fs.existsSync(PROCESSED_URLS_PATH)) {
-      const data = fs.readFileSync(PROCESSED_URLS_PATH, 'utf-8');
-      return JSON.parse(data);
-    } else {
-      // If the file doesn't exist, create it with an empty array
-      fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify([], null, 2));
-      return [];
-    }
-  } catch (error) {
-    console.error('Error loading processed URLs:', error);
-    // If there's an error (e.g., corrupted JSON), start fresh
-    fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify([], null, 2));
-    return [];
-  }
-}
-
-function saveProcessedUrls(urls) {
-  try {
-    fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify(urls, null, 2));
-    console.log(`💾 URLs procesadas guardadas en ${PROCESSED_URLS_PATH}`);
-  } catch (error) {
-    console.error('Error saving processed URLs:', error);
-  }
-}
-
-function isExcludedDomain(urlString) {
-  if (!urlString) return true; // Exclude empty or null URLs
-  try {
-    const parsedUrl = new URL(urlString);
-    const domain = parsedUrl.hostname.startsWith('www.') ? parsedUrl.hostname.substring(4) : parsedUrl.hostname;
-    return EXCLUDED_DOMAINS.includes(domain);
-  } catch (error) {
-    console.warn(`⚠️ URL inválida para exclusión de dominio: ${urlString} - ${error.message}`);
-    return true; // Exclude invalid URLs by default
-  }
-}
-
-// Función para indentar texto multilínea en YAML
-function indentMultiline(text, indent = '      ') {
-  return text
-    .split('\n')
-    .map(line => indent + line)
-    .join('\n') + '\n';
-}
-
-// Verificar si una URL contiene enlaces de Amazon antes de procesarla completamente
-async function containsAmazonLinks(url) {
-  console.log(`🔍 Verificando si ${url} contiene enlaces de Amazon...`);
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  
-  try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    console.log(`\n🔍 Procesando URL: ${url}`);
     
-    // Buscar enlaces de Amazon o texto que indique comparativas de productos
-    // Contar enlaces directos a Amazon
-    const uniqueAmazonLinkCount = await page.evaluate(() => {
-      const amazonLinks = Array.from(document.querySelectorAll('a')).filter(a =>
-        a.href.includes('amazon.') ||
-        a.href.includes('/dp/') ||
-        a.href.includes('/gp/product/')
-      );
-      const uniqueHrefs = new Set(amazonLinks.map(a => a.href));
-      return uniqueHrefs.size;
-    });
-
-    await browser.close();
-    const meetsLinkThreshold = uniqueAmazonLinkCount >= 3;
-
-    if (meetsLinkThreshold) {
-      console.log(`🔗 La URL ${url} contiene ${uniqueAmazonLinkCount} enlaces de Amazon únicos.`);
-      return true;
-    } else {
-      console.warn(`⚠️ La URL ${url} contiene ${uniqueAmazonLinkCount} enlaces de Amazon únicos. No cumple el mínimo de 3.`);
-      return false;
-    }
-  } catch (error) {
-    console.error(`❌ Error al verificar enlaces de Amazon en ${url}:`, error.message);
-    await browser.close();
-    return false;
-  }
-}
-
-// Extraer contenido limpio desde cualquier web
-async function fetchCleanContent(url) {
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-
-  const html = await page.content();
-  // Remove script and style tags to avoid JSDOM parsing issues with complex CSS/JS
-  const cleanedHtml = html
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-  const dom = new JSDOM(cleanedHtml, { url });
-  const reader = new Readability(dom.window.document);
-  const article = reader.parse();
-
-  // Extract Amazon product prices from buttons/links
-  const productPrices = await page.evaluate(() => {
-    // Find all links/buttons that look like Amazon buy buttons
-    const buttons = Array.from(document.querySelectorAll('a, button'));
-    const amazonButtons = buttons.filter(el => {
-      const href = el.href || '';
-      return (
-        href.includes('amazon.') ||
-        href.includes('/dp/') ||
-        href.includes('/gp/product/') ||
-        (el.textContent && el.textContent.toLowerCase().includes('amazon'))
-      );
-    });
-    // Extract price and ASIN if possible
-    return amazonButtons.map(el => {
-      const text = el.textContent || '';
-      // Match price patterns like 39,99 €, 39.99 €, 39 €
-      const priceMatch = text.match(/(\d{1,3}[\.,]\d{2}|\d{1,3})\s*€|EUR/i);
-      let price = priceMatch ? priceMatch[0].replace(/[^\d.,]/g, '').replace(',', '.') : null;
-      if (price) {
-        // Normalize price to XX.XX format if possible
-        if (!price.includes('.')) price = price + '.00';
-        if (/^\d+\.\d{1}$/.test(price)) price = price + '0';
-      }
-      // Try to extract ASIN from href
-      let asin = null;
-      const href = el.href || '';
-      const asinMatch = href.match(/\/dp\/(B0[0-9A-Z]{8})|\/gp\/product\/(B0[0-9A-Z]{8})/i);
-      if (asinMatch) {
-        asin = asinMatch[1] || asinMatch[2];
-      }
-      return {
-        asin: asin || null,
-        price: price || null,
-        href: href || null,
-        text: text.trim(),
-      };
-    });
-  });
-
-  await browser.close();
-  return {
-    title: article.title || 'Sin título',
-    content: article.content || '',
-    excerpt: article.excerpt || '',
-    image: article.image || '',
-    date: new Date().toISOString().split('T')[0],
-    url,
-    productPrices, // <-- array of {asin, price, href, text}
-  };
-}
-
-// Función para estimar tokens (aproximado)
-function estimateTokens(text) {
-  // Aproximación: 1 token ≈ 4 caracteres en inglés/español
-  return Math.ceil(text.length / 4);
-}
-
-// Función para truncar texto manteniendo información relevante sobre productos
-function truncateContent(markdown, maxTokens = 10000) {
-  // Si el contenido es menor que el límite, devolver tal cual
-  if (estimateTokens(markdown) <= maxTokens) {
-    return markdown;
-  }
-  
-  console.log(`⚠️ Contenido demasiado largo (aprox. ${estimateTokens(markdown)} tokens). Truncando...`);
-  
-  // Dividir por párrafos para preservar estructura
-  const paragraphs = markdown.split('\n\n');
-  
-  // Buscar párrafos que probablemente contengan información de productos
-  const productParagraphs = paragraphs.filter(p => 
-    /precio|euros|€|amazon|comprar|B0[0-9A-Z]{8}|producto|oferta|descuento/i.test(p)
-  );
-  
-  // Tomar una selección de párrafos importantes y algunos normales
-  let selectedContent = '';
-  let tokenCount = 0;
-  
-  // Añadir primero el título y los primeros párrafos (contexto)
-  const introParas = paragraphs.slice(0, 3).join('\n\n');
-  selectedContent += introParas + '\n\n';
-  tokenCount += estimateTokens(introParas);
-  
-  // Añadir párrafos con información de productos hasta alcanzar el límite
-  for (const para of productParagraphs) {
-    const paraTokens = estimateTokens(para);
-    if (tokenCount + paraTokens <= maxTokens) {
-      selectedContent += para + '\n\n';
-      tokenCount += paraTokens;
-    } else {
-      break;
-    }
-  }
-  
-  // Si queda espacio, añadir algunos párrafos más del final
-  if (tokenCount < maxTokens) {
-    const remainingTokens = maxTokens - tokenCount;
-    const endParas = paragraphs.slice(-3).join('\n\n');
-    if (estimateTokens(endParas) <= remainingTokens) {
-      selectedContent += '\n\n[Contenido intermedio omitido por longitud]\n\n' + endParas;
-    }
-  }
-  
-  console.log(`✅ Contenido truncado a aproximadamente ${estimateTokens(selectedContent)} tokens`);
-  return selectedContent;
-}
-
-// Generar MDX con GPT-4o
-export async function generateMDX({ title, content, url, date, image, productPrices = [] }) {
-  const markdown = turndown.turndown(content);
-  
-  // Truncar el contenido para evitar exceder límites de tokens
-  const truncatedMarkdown = truncateContent(markdown, 8000); // Ajustar este valor según sea necesario
-  
-  // Prompt mejorado para extraer múltiples productos con especificaciones inteligentes
-  // Incluir precios extraídos en el prompt
-  let preciosExtraidos = '';
-  if (productPrices && productPrices.length > 0) {
-    preciosExtraidos = '\n\nPrecios extraídos de la página fuente para los productos (por ASIN si está disponible, o por orden de aparición):\n';
-    productPrices.forEach((p, i) => {
-      preciosExtraidos += `  - Producto ${i + 1}`;
-      if (p.asin) preciosExtraidos += ` (ASIN: ${p.asin})`;
-      if (p.price) preciosExtraidos += `: ${p.price} €`;
-      else preciosExtraidos += ': PRICE_NOT_FOUND';
-      preciosExtraidos += `\n`;
-    });
-    preciosExtraidos += '\n';
-  }
-
-  const prompt = `
-Eres un asistente experto en SEO técnico y creación de contenido para sitios de e-commerce y comparativas de productos.
-Tu tarea es analizar el siguiente texto extraído de una página web y estructurar la información clave en formato JSON.
-${preciosExtraidos}
-IMPORTANTE: Para cada producto, si se ha encontrado un precio en la página fuente, úsalo exactamente como se extrajo (por ejemplo, '39,99'). Si no hay precio, usa la cadena exacta 'PRICE_NOT_FOUND'.\nEste JSON se utilizará para generar automáticamente una página de artículo optimizada para SEO y para crear datos estructurados schema.org/Product.
-
-Información de la fuente:
-Título Original: ${title}
-Fecha de Publicación Original: ${date} // Esta es la fecha del artículo original
-URL Original: ${url}
-
-Contenido extraído (Markdown) - Nota: puede estar truncado para ajustarse a límites de tokens:
----
-${truncatedMarkdown}
----
-
-Instrucciones para la extracción y generación del JSON:
-1.  **Identifica Productos**: Extrae entre 8 y 10 productos distintos mencionados en el texto. Si hay menos, extrae todos los que encuentres.
-2.  **Datos del Artículo General**:
-    *   \`title\`: Genera un título atractivo y optimizado para SEO para el nuevo artículo de comparación (máximo 60-70 caracteres). Puede basarse en el título original.
-    *   \`slug\`: Genera un slug corto y descriptivo a partir del \`title\` (ej: "mejores-freidoras-aire-2025").
-    *   \`category\`: Infiere la categoría principal del artículo (ej: Cocina, Electrónica, Hogar, Belleza, Jardín).
-    *   \`date\`: Usa la fecha actual en formato YYYY-MM-DD para el nuevo artículo.
-    *   \`metaDescription\`: Escribe una meta descripción única y atractiva (150-160 caracteres) que resuma el contenido del artículo y anime al clic.
-    *   \`introduction\`: Escribe un párrafo introductorio (60-100 palabras) que enganche al lector, presente el tema y mencione brevemente lo que encontrará.
-    *   \`conclusion\`: Escribe un párrafo de conclusión (50-80 palabras) que resuma los puntos clave y, si es apropiado, ofrezca una recomendación general o invite a la acción.
-3.  **Datos Específicos por Producto**: Para cada producto, completa los campos del JSON adjunto. Sigue estas directrices:
-    *   **Prioriza la Exactitud**: Usa la información del texto fuente siempre que sea posible.
-    *   **Inferencia Realista**: Si faltan datos (ej: \`reviewCount\`, \`ratingValue\`, especificaciones exactas), infiérelos de manera realista y coherente con el tipo de producto. No inventes marcas o precios absurdos.
-    *   \`name\`: Nombre completo y claro.
-    *   \`asin\`: Si es un producto de Amazon y el ASIN está disponible o es fácilmente identificable (formato B0XXXXXXXX), inclúyelo. **Si no se encuentra un ASIN válido y extraíble del texto, usa la cadena exacta 'NO_ASIN_FOUND'. No inventes ASINs ni uses 'PENDIENTE_ASIN'.** Este será usado como \`productID\`.
-    *   \`brand.name\`: Marca reconocible. Si no se menciona, intenta inferirla o usa "Genérico" si es apropiado.
-    *   \`image.url\`: Si el texto fuente incluye URLs de imágenes, úsalas. Si no, usa un placeholder descriptivo como "PENDIENTE_URL_IMAGEN_PRODUCTO". La imagen debe ser de alta calidad y representativa.
-    *   \`description\`: Resumen breve (1-2 frases).
-    *   \`detailedDescription\`: Explicación más extensa (2-4 frases) sobre beneficios y características.
-    *   \`pros\` / \`cons\`: Listas de 3-5 puntos clave para cada uno. Sé objetivo.
-    *   \`offers\`:
-        *   \`priceCurrency\`: Infiere la moneda (ej: "EUR", "USD").
-        *   \`price\`: Número en formato XX.XX (ej: 39.99). Si el precio no está claro, usa la cadena exacta 'PRICE_NOT_FOUND' como placeholder.
-        *   \`availability\`: Usa "https://schema.org/InStock" por defecto, a menos que el texto indique lo contrario ("https://schema.org/OutOfStock", "https://schema.org/PreOrder").
-        *   \`url\`: Usa "PENDIENTE_URL_AFILIADO" como placeholder. Este se llenará después.
-        *   \`priceValidUntil\`: Opcional. Si se conoce la validez de la oferta, inclúyela (YYYY-MM-DD).
-    *   \`review\` / \`aggregateRating\`:
-        *   Si el texto contiene una reseña específica para el producto, usa el objeto \`review\`. \`author.name\` puede ser "Análisis del Experto" o el nombre del sitio. \`datePublished\` debe ser la fecha actual.
-        *   Si hay datos agregados (ej: "4.5 estrellas de 120 opiniones"), usa \`aggregateRating\`.
-        *   Si no hay datos de reseñas, puedes omitir estas secciones o inferir valores modestos y realistas para \`aggregateRating\` (ej: ratingValue 4.0, reviewCount 10-50).
-    *   \`productID\`: Usa el ASIN si está disponible y es válido (formato B0XXXXXXXX). **Si el ASIN es 'NO_ASIN_FOUND', usa 'NO_ASIN_FOUND' aquí también.**
-    *   \`sku\`, \`mpn\`, \`gtin13\`: Inclúyelos si están explícitamente en el texto.
-    *   \`specifications\`: De 4 a 6 especificaciones técnicas *cruciales* para ese tipo de producto. Sé específico (ej: para un móvil: "Pantalla": "6.5 pulgadas OLED", "RAM": "8GB", "Almacenamiento": "128GB", "Batería": "4500mAh").
-    *   \`additionalProperty\`: Para otras características relevantes no cubiertas por los campos estándar.
-4.  **Formato JSON**: Devuelve ÚNICAMENTE el objeto JSON completo. No incluyas explicaciones adicionales antes o después del JSON. Asegúrate de que el JSON sea válido.
-
-JSON Esperado:
-\`\`\`json
-{
-  "title": "Título generado para el artículo",
-  "slug": "slug-generado-para-el-articulo",
-  "category": "Categoría Inferida",
-  "date": "YYYY-MM-DD",
-  "metaDescription": "Meta descripción generada (150-160 caracteres)",
-  "introduction": "Párrafo introductorio generado.",
-  "conclusion": "Párrafo de conclusión generado.",
-  "products": [
-    {
-      "name": "Nombre completo y claro del producto",
-      "asin": "ASIN_DEL_PRODUCTO_SI_APLICA",
-      "brand": {
-        "@type": "Brand",
-        "name": "Marca del producto"
-      },
-      "image": {
-        "@type": "ImageObject",
-        "url": "URL_IMAGEN_PRODUCTO_O_PLACEHOLDER",
-        "caption": "Descripción breve de la imagen (opcional)"
-      },
-      "description": "Descripción concisa del producto (1-2 frases).",
-      "detailedDescription": "Descripción más elaborada del producto (2-4 frases).",
-      "pros": ["Ventaja clave 1", "Ventaja clave 2", "Ventaja clave 3"],
-      "cons": ["Desventaja o limitación 1", "Desventaja o limitación 2"],
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "EUR", // o USD, etc.
-        "price": "EXTRAER_PRECIO_REAL", // EXTRAE EL PRECIO NUMÉRICO REAL DEL PRODUCTO (ej: "19.99"). SI ES ABSOLUTAMENTE IMPOSIBLE ENCONTRAR UN PRECIO, USA LA CADENA EXACTA 'PRICE_NOT_FOUND'. No uses '0.00' como placeholder a menos que sea el precio real (muy improbable).
-        "availability": "https://schema.org/InStock", // o OutOfStock, PreOrder
-        "url": "PENDIENTE_URL_AFILIADO",
-        "priceValidUntil": "YYYY-MM-DD" // Opcional
-      },
-      "review": { // Opcional, si hay reseña individual
-        "@type": "Review",
-        "author": {"@type": "Person", "name": "Análisis del Experto"}, // o nombre del sitio
-        "datePublished": "YYYY-MM-DD",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "4.0", // Inferir o placeholder
-          "bestRating": "5"
-        },
-        "reviewBody": "Cuerpo de la reseña o resumen de la opinión."
-      },
-      "aggregateRating": { // Opcional, si hay datos agregados o para inferir
-        "@type": "AggregateRating",
-        "ratingValue": "4.0", // Inferir o placeholder
-        "reviewCount": "10",  // Inferir o placeholder
-        "bestRating": "5"
-      },
-      "productID": "ASIN_O_ID_UNICO_PRODUCTO",
-      "sku": "SKU_SI_DISPONIBLE",
-      "mpn": "MPN_SI_DISPONIBLE",
-      "gtin13": "EAN_O_GTIN13_SI_DISPONIBLE", // o gtin8, gtin12 (UPC)
-      "specifications": {
-        "EspecificacionClave1": "Valor1",
-        "EspecificacionClave2": "Valor2",
-        "EspecificacionClave3": "Valor3",
-        "EspecificacionClave4": "Valor4"
-      },
-      "additionalProperty": [ // Para otras características no cubiertas
-        {"@type": "PropertyValue", "name": "Característica Adicional 1", "value": "Valor 1"}
-      ]
-    }
-    // ... más productos (objetivo 8-10)
-  ]
-}
-\`\`\`
-`;
-
-  try {
-    // Función para hacer la llamada a la API con reintentos
-    async function callOpenAIWithRetry(maxRetries = 3, initialDelay = 2000) {
-      let retries = 0;
-      let delay = initialDelay;
-      
-      while (retries <= maxRetries) {
-        try {
-          console.log(`📡 Llamando a OpenAI API${retries > 0 ? ` (intento ${retries + 1}/${maxRetries + 1})` : ''}...`);
-          
-          const chat = await openai.chat.completions.create({
-            model: 'gpt-4o',
-            messages: [{ role: 'user', content: prompt }],
-            max_tokens: 4000, // Limitar tokens de respuesta
-          });
-          
-          console.log('✅ Respuesta de OpenAI recibida correctamente');
-          return chat.choices[0].message.content;
-        } catch (error) {
-          if (error.status === 429) { // Rate limit error
-            retries++;
-            if (retries <= maxRetries) {
-              console.log(`⚠️ Límite de tasa excedido. Reintentando en ${delay/1000} segundos...`);
-              await new Promise(resolve => setTimeout(resolve, delay));
-              delay *= 2; // Backoff exponencial
-            } else {
-              throw new Error(`Límite de tasa excedido después de ${maxRetries} intentos: ${error.message}`);
-            }
-          } else {
-            throw error; // Otros errores
-          }
-        }
-      }
+    // Check if URL contains Amazon links
+    console.log('🔎 Comprobando si la URL contiene enlaces de Amazon...');
+    const hasAmazonLinks = await containsAmazonLinks(url);
+    
+    if (!hasAmazonLinks) {
+      console.log('⏩ Saltando URL - No contiene enlaces de Amazon');
+      return { success: true, skipped: true, reason: 'no-amazon-links' };
     }
     
-    // Llamar a la API con reintentos
-    const responseContent = await callOpenAIWithRetry();
+    console.log('✅ La URL contiene enlaces de Amazon');
     
-    // Procesar la respuesta
-    let jsonData;
-    try {
-      // Intentar parsear directamente, o extraer el JSON si está rodeado de texto
-      const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        jsonData = JSON.parse(jsonMatch[0]);
-      } else {
-        jsonData = JSON.parse(responseContent);
-      }
-      console.log('✅ JSON extraído correctamente');
-    } catch (error) {
-      console.error('❌ Error al parsear el JSON:', error.message);
-      console.error('Raw OpenAI response that failed to parse:');
-      console.error(responseContent.substring(0, 500) + '...'); // Log solo una parte para evitar spam
-      jsonData = null; // Ensure jsonData is null if parsing failed
+    // Extract clean content from URL
+    console.log('📄 Extrayendo contenido limpio...');
+    const data = await fetchCleanContent(url);
+    didAttemptFullProcessing = true;
+    
+    if (!data || !data.title || !data.content) {
+      console.log('⏩ Saltando URL - No se pudo extraer contenido válido');
+      return { success: true, skipped: true, reason: 'invalid-content' };
     }
     
-    // Si jsonData es null (debido a un error de parseo), no podemos continuar.
-    if (jsonData === null) {
-      console.error('❌ No se pudo generar MDX porque el JSON de OpenAI no se pudo parsear.');
-      return null; // Indica que la generación de MDX falló
-    }
-
-    // Generar el MDX con estructura garantizada
-    const mdxContent = createValidMDX(jsonData, image);
-    return mdxContent;
+    console.log(`✅ Contenido extraído: "${data.title}"`);
     
-  } catch (error) {
-    console.error('❌ Error al generar MDX:', error.message);
-    throw error;
-  }
-}
+    // Generate MDX content
+    console.log('🤖 Generando contenido MDX...');
+    let mdxContent = await generateMDX(data);
 
-function createValidMDX(data, fallbackImage) {
-  console.log('🔧 Creando archivo MDX con estructura válida...');
-  const validASINRegex = /^B0[0-9A-Z]{8}$/;
-  const validProducts = (data.products || []).filter(product =>
-    product.asin && typeof product.asin === 'string' && validASINRegex.test(product.asin.trim()) && product.asin.trim() !== 'NO_ASIN_FOUND' && product.asin.trim() !== 'PENDIENTE_ASIN'
-  ).map(p => ({ ...p, asin: p.asin.trim() })); // Trim ASIN for good measure
-
-  if (validProducts.length === 0) {
-    console.log('ℹ️ No se encontraron productos con ASIN válido. No se generará MDX para esta URL.');
-    return null; // Signal to main function not to create MDX
-  }
-  console.log(`ℹ️ Encontrados ${validProducts.length} productos con ASINs válidos.`);
-
-  const slug = data.slug || slugify(data.title, { lower: true, strict: true });
-
-  // Create frontmatter object for JSON
-  const frontmatterObj = {
-    title: data.title,
-    date: new Date().toISOString().split('T')[0],
-    slug: slug,
-    image: validProducts[0]?.image?.url || validProducts[0]?.image || fallbackImage || '/default-placeholder.jpg', // Use validProducts and prefer .url
-    excerpt: data.excerpt,
-    category: data.category || 'general',
-    products: []
-  };
-
-  // Add products to frontmatter preserving all properties dinámicamente
-  if (data.products && data.products.length > 0) {
-    frontmatterObj.products = validProducts.map(product => {
-      // Crear objeto base con propiedades esenciales
-      let displayPrice = 'Precio no disponible';
-      
-      // Check if product has review data and add it if not present
-      if (!product.review && product.description) {
-        // Only create a default review if we have a description to use
-        product.review = {
-          "@type": "Review",
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "4.5",
-            "bestRating": "5"
-          },
-          "author": {
-            "@type": "Person",
-            "name": "Editor"
-          }
-        };
-      }
-      
-      // Check if product has aggregateRating and add it if not present
-      if (!product.aggregateRating) {
-        product.aggregateRating = {
-          "@type": "AggregateRating",
-          "ratingValue": "4.5",
-          "reviewCount": "10"
-        };
-      }
-
-      if (product.offers && typeof product.offers.price === 'string' && product.offers.price.trim() !== '') {
-        if (product.offers.price.toUpperCase() === 'PRICE_NOT_FOUND') {
-          // displayPrice remains 'Precio no disponible'
-        } else {
-          // Always normalize price string to use period as decimal separator for parsing
-          const priceString = product.offers.price.replace(',', '.');
-          const parsedPrice = parseFloat(priceString);
-          if (!isNaN(parsedPrice) && parsedPrice > 0) {
-            const priceValue = parsedPrice.toFixed(2); // This ensures period as decimal separator
-            const currency = product.offers.priceCurrency || 'EUR';
-            let currencySymbol = currency === 'EUR' ? '€' : (currency === 'USD' ? '$' : currency);
-            
-            // For display in the UI (with comma for EUR)
-            const displayPriceFormatted = currency.toUpperCase() === 'EUR' ? 
-              `${priceValue.replace('.', ',')} ${currencySymbol}`.trim() : 
-              currency.toUpperCase() === 'USD' ? 
-              `${currencySymbol}${priceValue}`.trim() : 
-              `${priceValue} ${currencySymbol}`.trim();
-              
-            // For schema.org, always use period as decimal separator
-            const schemaPriceFormatted = priceValue; // Already has period as decimal separator
-            
-            // Store both formats
-            displayPrice = {
-              display: displayPriceFormatted,
-              schema: schemaPriceFormatted
-            };
-            
-            // Also update the original product.offers.price to use correct schema.org format
-            product.offers.price = priceValue;
-            
-            // Add priceValidUntil if not present (optional field)
-            if (!product.offers.priceValidUntil) {
-              // Set price valid until 1 year from now as a default
-              const oneYearFromNow = new Date();
-              oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-              product.offers.priceValidUntil = oneYearFromNow.toISOString().split('T')[0]; // YYYY-MM-DD format
-            }
-          }
-          // If parsedPrice is not > 0, displayPrice remains 'Precio no disponible' for this block
-        }
-      }
-
-      // If displayPrice is still 'Precio no disponible', try the fallback product.price
-      if (displayPrice === 'Precio no disponible' && product.price && typeof product.price === 'string' && product.price.trim() !== '') {
-        if (product.price.toUpperCase() !== 'PRICE_NOT_FOUND') {
-          const fallbackPriceString = product.price.replace(',', '.');
-          const parsedFallbackPrice = parseFloat(fallbackPriceString);
-          if (!isNaN(parsedFallbackPrice) && parsedFallbackPrice > 0) {
-            // Assuming product.price might be pre-formatted or a simple value string like "19,99" or "$25.50"
-            // We don't re-add currency symbols here, assuming it's already in a displayable format or the AI provides it as such.
-            // If it needs currency formatting similar to offers.price, this part would need to know currency too.
-            // For now, using it as is if it's a positive number.
-            displayPrice = product.price; 
-          }
-        }
-      }
-
-      const productObj = {
-        asin: product.asin, // Direct use of validated ASIN
-        name: product.name,
-        image: product.image || fallbackImage || 'https://hips.hearstapps.com/hmg-prod/images/placeholder-1.jpg',
-        affiliateLink: `https://www.amazon.es/dp/${product.asin}?tag=oferta-limitada-21`, // Direct use of validated ASIN
-        price: displayPrice,
-        destacado: product.destacado || generateDestacadoValue(product),
-        pros: product.pros || ['Calidad', 'Precio', 'Durabilidad'], // Default to array
-        cons: product.cons || ['Ninguna desventaja significativa'], // Default to array
-        description: product.description || 'Descripción breve del producto',
-        detailedDescription: product.detailedDescription || 'Descripción detallada del producto con sus principales características.',
-        offers: product.offers // Keep the original offers object for schema.org and other uses
-      };
-      
-      // Filtrar propiedades que no queremos incluir en las especificaciones
-      const excludedProps = ['asin', 'name', 'image', 'affiliateLink', 'price', 'destacado', 
-                             'pros', 'cons', 'description', 'detailedDescription'];
-      
-      // Agregar todas las demás propiedades específicas del producto dinámicamente
-      // Estas propiedades vendrían generadas por GPT-4o según el tipo de producto
-      Object.keys(product).forEach(key => {
-        if (!excludedProps.includes(key)) {
-          productObj[key] = product[key];
-        }
-      });
-      
-      return productObj;
-    });
-  }
-
-  // Ensure main image in frontmatter is a string URL and normalized
-  if (typeof frontmatterObj.image === 'object' && frontmatterObj.image !== null) {
-    frontmatterObj.image = frontmatterObj.image.url || fallbackImage || '/default-placeholder.jpg';
-  } else if (typeof frontmatterObj.image !== 'string' || frontmatterObj.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || frontmatterObj.image === 'NO_URL_IMAGEN') {
-    frontmatterObj.image = fallbackImage || '/default-placeholder.jpg';
-  }
-
-  // Convert frontmatter object to JSON string with pretty formatting
-  const frontmatter = JSON.stringify(frontmatterObj, null, 2);
-
-  const imports = [
-    "import ProductDetailCard from '../components/ProductDetailCard'",
-    "import ProductTable from '../components/ProductTable'",
-    "import ProductRankingTable from '../components/ProductRankingTable'",
-    "import ProductHeading from '../components/ProductHeading'",
-    "import ArticleCard from '../components/ArticleCard'"
-  ].join('\n');
-
-  let bodyContent = `# ${data.title}\n\n`;
-  bodyContent += `## Resumen de los mejores productos\n\n`;
-  bodyContent += `<ProductRankingTable products={products} />\n\n`;
-
-  if (data.introduction) {
-    bodyContent += `## Introducción\n\n${data.introduction}\n\n`;
-  }
-
-  bodyContent += `## Consejos antes de comprar\n\n`;
-  bodyContent += `${data.content?.buying_tips || 'Antes de realizar tu compra, considera factores como el precio, la calidad y las características que necesitas.'}\n\n`;
-
-  bodyContent += `## Valoraciones\n\n`;
-  data.products?.forEach((product, index) => {
-    bodyContent += `<ProductDetailCard product={products[${index}]} />\n\n`;
-  });
-
-  bodyContent += `## Conclusión\n\n`;
-  bodyContent += `${data.conclusion || 'Esperamos que esta guía te haya ayudado a encontrar el producto perfecto para tus necesidades.'}\n`;
-
-  const mdxContent = `---json
-${frontmatter}
----
-
-${imports}
-
-${bodyContent}`;
-  console.log('✅ Archivo MDX creado correctamente');
-  return mdxContent;
-}
-
-// Placeholder function for MDX validation
-function validateMDXStructure(mdxContent) {
-  // TODO: Implement actual validation logic if needed
-  // For now, just return the content as is.
-  console.log('🔧 Validando estructura MDX (actualmente es un placeholder)...');
-  return mdxContent;
-}
-
-function extractMetadataFromMDX(mdxContent) {
-  console.log('ℹ️ Extrayendo metadatos del MDX...');
-  try {
-    const match = mdxContent.match(/^---json\n([\s\S]*?)\n---/m);
-    if (!match || !match[1]) {
-      console.error('❌ No se pudo encontrar el bloque JSON de frontmatter en el MDX.');
-      return { slug: 'error-no-frontmatter', category: 'general', title: 'Error: Sin Frontmatter', date: new Date().toISOString().split('T')[0] };
+    if (mdxContent === null) {
+      console.log(`⏩ Saltando ${url} - No se encontraron productos con ASIN válido o no se cumplieron los criterios`);
+      return { success: true, skipped: true, reason: 'invalid-products' };
     }
-    const frontmatterString = match[1];
-    const frontmatter = JSON.parse(frontmatterString);
-    console.log('✅ Metadatos extraídos correctamente.');
-    return {
-      slug: frontmatter.slug || 'default-slug',
-      category: frontmatter.category || 'general',
-      title: frontmatter.title || 'Sin Título',
-      date: frontmatter.date || new Date().toISOString().split('T')[0],
-      image: frontmatter.image || '/default-placeholder.jpg',
-      // Add any other fields needed by updateCategoriesJson
-    };
+    
+    // Validate and correct MDX structure before saving
+    mdxContent = validateMDXStructure(mdxContent);
+    
+    // Extract metadata for filename and categories update
+    const metadata = extractMetadataFromMDX(mdxContent);
+    
+    // Create slug for filename
+    const fileName = `${metadata.slug}.mdx`;
+    const filePath = path.join(OUTPUT_DIR, fileName);
+    
+    // Save the file
+    fs.writeFileSync(filePath, mdxContent);
+    console.log(`✅ Guardado en ${filePath}`);
+    
+    // Update categories.json
+    await updateCategoriesJson(metadata);
+    
+    console.log(`✅ URL ${url} procesada correctamente`);
+    
+    return { success: true, skipped: false, metadata };
   } catch (error) {
-    console.error('❌ Error al parsear JSON del frontmatter:', error.message);
-    // Return default/error values to prevent crashing updateCategoriesJson
-    return { slug: 'error-parsing-frontmatter', category: 'general', title: 'Error: Parseo Frontmatter', date: new Date().toISOString().split('T')[0] };
+    console.error(`❌ Error al procesar ${url}:`, error.message);
+    return { success: false, error: error.message, didAttemptFullProcessing };
   }
 }
 
-// Use the CATEGORIES_DIR constant defined earlier
-const CATEGORIES_PATH = path.join(CATEGORIES_DIR, 'categories.json');
-
-async function updateCategoriesJson(articleMetadata) {
-  console.log(`🔄 Actualizando ${CATEGORIES_PATH} con metadatos del artículo...`);
-  let categoriesData = {};
-
-  try {
-    if (fs.existsSync(CATEGORIES_PATH)) {
-      const fileContent = fs.readFileSync(CATEGORIES_PATH, 'utf-8');
-      if (fileContent.trim() === '') {
-        console.warn(`⚠️ ${CATEGORIES_PATH} está vacío. Se inicializará.`);
-        categoriesData = {}; // Initialize if empty
-      } else {
-        categoriesData = JSON.parse(fileContent);
-      }
-    } else {
-      console.log(`ℹ️ ${CATEGORIES_PATH} no encontrado. Se creará uno nuevo.`);
-      // Ensure directory exists
-      const categoriesDir = path.dirname(CATEGORIES_PATH);
-      if (!fs.existsSync(categoriesDir)) {
-        fs.mkdirSync(categoriesDir, { recursive: true });
-      }
-    }
-  } catch (error) {
-    console.error(`❌ Error al leer o parsear ${CATEGORIES_PATH}. Se usará un objeto vacío. Error: ${error.message}`);
-    categoriesData = {}; // Reset on error to prevent further issues
-  }
-
-  const categoryKey = articleMetadata.category || 'general';
-  if (!categoriesData[categoryKey]) {
-    categoriesData[categoryKey] = [];
-  }
-
-  // Evitar duplicados basados en el slug
-  const existingArticleIndex = categoriesData[categoryKey].findIndex(article => article.slug === articleMetadata.slug);
-  const newArticleEntry = {
-    slug: articleMetadata.slug,
-    title: articleMetadata.title,
-    date: articleMetadata.date,
-    image: articleMetadata.image,
-    // excerpt: articleMetadata.excerpt, // Consider if excerpt is needed here
-  };
-
-  if (existingArticleIndex > -1) {
-    console.log(`덮 Actualizando artículo existente en categoría '${categoryKey}': ${articleMetadata.slug}`);
-    categoriesData[categoryKey][existingArticleIndex] = newArticleEntry;
-  } else {
-    console.log(`➕ Añadiendo nuevo artículo a categoría '${categoryKey}': ${articleMetadata.slug}`);
-    categoriesData[categoryKey].push(newArticleEntry);
-  }
-
-  try {
-    fs.writeFileSync(CATEGORIES_PATH, JSON.stringify(categoriesData, null, 2));
-    console.log(`✅ ${CATEGORIES_PATH} actualizado correctamente.`);
-  } catch (error) {
-    console.error(`❌ Error al guardar ${CATEGORIES_PATH}: ${error.message}`);
-  }
-}
-
-// MAIN
+/**
+ * Main function to process all URLs
+ */
 async function main() {
   const scrapedResults = []; // Collect all scraped data here
-  // Content directories are already created earlier in the script
-  // We're using OUTPUT_DIR and CATEGORIES_DIR constants
 
-  // Initialize processedUrls outside the try block so it's available in the catch block
-  let processedUrls = [];
-  
   try {
-    processedUrls = loadProcessedUrls();
-    // Load URLs from files
-    const allUrls = await loadUrlsFromFiles();
+    console.log('\n🚀 Iniciando generador de MDX...');
     
-    // Get processed URLs for comparison
-    const processedUrlsSet = new Set(processedUrls);
+    // Load processed URLs
+    const processedUrls = loadProcessedUrls();
+    console.log(`\n📊 URLs ya procesadas: ${processedUrls.length}`);
+    
+    // Load URLs from files
+    const allUrls = await loadUrlsFromFiles(URLS_DIR);
+    console.log(`\n📋 Total URLs encontradas: ${allUrls.length}`);
     
     // Calculate URL statistics
-    const uniqueUrls = [...new Set(allUrls)];
-    const totalSourceUrls = allUrls.length;
-    const uniqueSourceUrls = uniqueUrls.length;
-    const processedUrlsCount = processedUrls.length;
-    const pendingUrls = uniqueUrls.filter(url => !processedUrlsSet.has(url));
-    const pendingUrlsCount = pendingUrls.length;
-    const orphanedUrls = processedUrls.filter(url => !uniqueUrls.includes(url));
-    const orphanedUrlsCount = orphanedUrls.length;
+    const stats = calculateUrlStats(allUrls, processedUrls);
     
-    // Count duplicate URLs
-    const urlCounts = {};
-    allUrls.forEach(url => {
-      urlCounts[url] = (urlCounts[url] || 0) + 1;
-    });
-    const duplicateUrls = Object.entries(urlCounts).filter(([_, count]) => count > 1);
-    const duplicateUrlsCount = duplicateUrls.length;
-    
-    // Count URLs by domain
-    const domainCounts = {};
-    uniqueUrls.forEach(url => {
-      try {
-        const domain = new URL(url).hostname;
-        domainCounts[domain] = (domainCounts[domain] || 0) + 1;
-      } catch (error) {
-        console.warn(`⚠️ URL inválida: ${url}`);
-      }
-    });
-    
-    // Calculate statistics for later use
-    
-    // Filtrar URLs ya procesadas
-    const uniqueInitialUrls = [...new Set(allUrls)];
-    const urlsToProcess = uniqueUrls.filter(url => url && !processedUrls.includes(url) && !isExcludedDomain(url));
-    
-    // URL statistics section
-    console.log(`\n📊 ESTADÍSTICAS DE URLS:`);
-    console.log(`🔗 Total URLs en archivos fuente: ${allUrls.length}`);
-    console.log(`🔄 URLs únicas: ${uniqueSourceUrls}`);
-    console.log(`✅ URLs procesadas: ${processedUrlsCount}`);
-    console.log(`⏳ URLs pendientes: ${pendingUrlsCount}`);
-    console.log(`🗑️ URLs huérfanas: ${orphanedUrlsCount}`);
-    console.log(`🔄 URLs duplicadas: ${duplicateUrlsCount}`);
-    console.log(`🔍 URLs a procesar ahora: ${urlsToProcess.length}`);
-    console.log(`\n`);
+    // Filter URLs to process (not processed and not excluded)
+    const urlsToProcess = stats.pendingList.filter(url => !isExcludedDomain(url));
+    console.log(`\n🔍 URLs válidas para procesar: ${urlsToProcess.length}`);
     
     if (urlsToProcess.length === 0) {
-      console.log('✅ No hay nuevas URLs para procesar');
-    // Save processed URLs even if no new URLs were processed, in case the file was cleaned up or new exclusions were added
-      saveProcessedUrls(processedUrls);
+      console.log('\n✅ No hay nuevas URLs para procesar');
       return;
     }
     
-    // Procesar cada URL
-    for (const url of urlsToProcess) {
-    let didAttemptFullProcessing = false;
-    try {
-      console.log(`🔍 Procesando ${url}...`);
+    // Process each URL
+    for (let i = 0; i < urlsToProcess.length; i++) {
+      const url = urlsToProcess[i];
+      const result = await processUrl(url);
       
-      // Primero verificar si la URL contiene productos de Amazon
-      const hasAmazonProducts = await containsAmazonLinks(url);
-      
-      if (!hasAmazonProducts) {
-        console.log(`⏩ Saltando ${url} - No contiene productos de Amazon`);
-        // Marcar como procesada aunque no hayamos generado contenido
-        processedUrls.push(url); // Add to in-memory list
-        console.log(`✅ URL ${url} marcada como procesada y saltada (no Amazon links).`);
-        saveProcessedUrls(processedUrls);
-        continue; // Pasar a la siguiente URL
+      // If successful and not skipped, add to scraped results
+      if (result.success && !result.skipped) {
+        scrapedResults.push({
+          url,
+          title: result.metadata.title,
+          slug: result.metadata.slug
+        });
       }
       
-      // Si tiene productos de Amazon, continuamos con el proceso normal
-      didAttemptFullProcessing = true; // Starting full processing attempt
-      const data = await fetchCleanContent(url);
-      
-      // Add to scraped results after data is available
-      scrapedResults.push({
-        url,
-        title: data.title,
-        content: data.content,
-        excerpt: data.excerpt,
-        image: data.image,
-        date: data.date,
-        productPrices: data.productPrices
-      });
-      
-      console.log(`📝 Generando MDX para "${data.title}"...`);
-      let mdxContent = await generateMDX({ ...data, productPrices: data.productPrices });
-
-      if (mdxContent === null) {
-        console.log(`⏩ Saltando ${url} - No se encontraron productos con ASIN válido o no se cumplieron los criterios de generación.`);
-        // Marcar como procesada aunque no hayamos generado contenido válido
-        processedUrls.push(url); // Add to in-memory list
-        console.log(`✅ URL ${url} marcada como procesada y saltada (sin productos válidos / criterios no cumplidos).`);
-        // Save processed URLs immediately to prevent duplicates if script crashes
-        saveProcessedUrls(processedUrls);
-        continue; // Pasar a la siguiente URL
-      }
-      
-      // Validar y corregir la estructura del MDX antes de guardarlo
-      mdxContent = validateMDXStructure(mdxContent);
-      
-      // Extraer metadatos para el nombre del archivo y actualizar categories.json
-      const metadata = extractMetadataFromMDX(mdxContent);
-      
-      // Crear el slug para el nombre del archivo
-      const fileName = `${metadata.slug}.mdx`;
-      const filePath = path.join(OUTPUT_DIR, fileName);
-      
-      // Guardar el archivo
-      fs.writeFileSync(filePath, mdxContent);
-      console.log(`✅ Guardado en ${filePath}`);
-      
-      // Actualizar categories.json
-      await updateCategoriesJson(metadata);
-      
-      // Marcar como procesada
-      processedUrls.push(url); // Add to in-memory list
-      console.log(`✅ URL ${url} marcada como procesada.`);
-      // Save processed URLs immediately to prevent duplicates if script crashes
+      // Mark as processed regardless of outcome
+      processedUrls.push(url);
       saveProcessedUrls(processedUrls);
       
-    } catch (error) {
-      console.error(`❌ Error al procesar ${url}:`, error.message);
-      // If an error occurs during main processing, we still consider it an attempt for rate-limiting purposes
-      didAttemptFullProcessing = true; 
+      // Pause between URLs to avoid overloading the API
+      if (result.didAttemptFullProcessing && i < urlsToProcess.length - 1) {
+        console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
     }
     
-    // Pausa entre URLs para evitar sobrecargar la API, solo si se intentó procesamiento completo
-    if (didAttemptFullProcessing && urlsToProcess.indexOf(url) < urlsToProcess.length - 1) {
-      console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
-      await new Promise(resolve => setTimeout(resolve, 5000));
-    }
-    }
+    // Display final statistics
+    const finalStats = calculateUrlStats(allUrls, processedUrls);
+    console.log('\n📊 Estadísticas finales:');
+    console.log(`   - URLs procesadas: ${finalStats.processed}`);
+    console.log(`   - URLs pendientes: ${finalStats.pending}`);
+    console.log(`   - URLs huérfanas: ${finalStats.orphaned}`);
+    console.log('\n🎉 Proceso completado!');
     
-    // Save all scraped results to a single file
+  } catch (error) {
+    console.error('\n❌ Error en el proceso principal:', error);
+  }
+  
+  // Save all scraped results to a single file if any were collected
+  if (scrapedResults.length > 0) {
     const scrapedFilePath = path.join(URLS_DIR, 'scraped_urls.json');
     fs.writeFileSync(scrapedFilePath, JSON.stringify(scrapedResults, null, 2));
-    console.log(`✅ Todos los resultados guardados en ${scrapedFilePath}`);
-
-    // No need to save processed URLs here as they're saved after each URL is processed
-    console.log('✅ Todas las URLs han sido procesadas.');
-  } catch (error) {
-    console.error('❌ Error global:', error);
-    // Attempt to save processed URLs even if an error occurred during processing of one URL
-    saveProcessedUrls(processedUrls);
+    console.log(`✅ Resultados guardados en ${scrapedFilePath}`);
   }
 }
 
-// Ejecutar el script solo si se llama directamente
+// Execute the script only if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(error => {
     console.error('❌ Error global:', error);
