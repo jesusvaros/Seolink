@@ -9,8 +9,9 @@ const ROOT_DIR = process.cwd();
 // Path constants
 const URLS_DIR = path.join(SCRIPT_DIR, '..', 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'content', 'posts');
-const CATEGORIES_DIR = path.join(ROOT_DIR, 'content', 'categories');
+const CONTENT_DIR = path.join(ROOT_DIR, 'content');
+const OUTPUT_DIR = path.join(CONTENT_DIR, 'posts');
+const CATEGORIES_DIR = path.join(CONTENT_DIR, 'categories');
 const CATEGORIES_PATH = path.join(CATEGORIES_DIR, 'categories.json');
 
 // Configuration constants
@@ -44,8 +45,10 @@ export {
   ROOT_DIR,
   URLS_DIR,
   PROCESSED_URLS_PATH,
+  CONTENT_DIR,
   OUTPUT_DIR,
   CATEGORIES_DIR,
   CATEGORIES_PATH,
-  EXCLUDED_DOMAINS
+  EXCLUDED_DOMAINS,
+  createDirectories
 };
