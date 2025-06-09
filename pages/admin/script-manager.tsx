@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 interface UrlStats {
   totalUrlsInSourceFiles: number;
@@ -15,13 +17,15 @@ interface UrlStats {
 
 const ScriptManagerPage = () => {
   const [url, setUrl] = useState('');
-  const [output, setOutput] = useState('');
   const [scriptOutput, setScriptOutput] = useState('');
   const [isScriptRunning, setIsScriptRunning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [urlStats, setUrlStats] = useState<UrlStats | null>(null);
   const [statsError, setStatsError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
   const outputEndRef = useRef<null | HTMLDivElement>(null);
+  const router = useRouter();
 
   const scrollToBottom = () => {
     outputEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -30,8 +34,34 @@ const ScriptManagerPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [scriptOutput]); // Changed from output to scriptOutput to ensure scroll on new script messages
-
+  
+  // Fetch URL stats function
   const fetchUrlStats = async () => {
+    try {
+      const response = await fetch('/api/script-runner', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'get_url_stats' }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to fetch stats' }));
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+      const data: UrlStats = await response.json();
+      setUrlStats(data);
+      setStatsError(null);
+    } catch (error: any) {
+      console.error('Failed to fetch URL stats:', error);
+      setStatsError(error.message || 'An unknown error occurred while fetching stats.');
+      setUrlStats(null);
+    }
+  };
+
+  // Check authentication status when component mounts
+  useEffect(() => {
+    const checkAuth = async () => {
       try {
         const response = await fetch('/api/script-runner', {
           method: 'POST',
@@ -40,23 +70,60 @@ const ScriptManagerPage = () => {
           },
           body: JSON.stringify({ action: 'get_url_stats' }),
         });
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: 'Failed to fetch stats' }));
-          throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        
+        if (response.ok) {
+          setIsAuthenticated(true);
+          // Only fetch stats if authenticated
+          fetchUrlStats();
+        } else {
+          // If unauthorized, redirect to login page
+          router.push('/admin/login');
         }
-        const data: UrlStats = await response.json();
-        setUrlStats(data);
-        setStatsError(null);
-      } catch (error: any) {
-        console.error('Failed to fetch URL stats:', error);
-        setStatsError(error.message || 'An unknown error occurred while fetching stats.');
-        setUrlStats(null);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        router.push('/admin/login');
+      } finally {
+        setAuthChecked(true);
       }
     };
-  // Initial fetch of URL stats
-  useEffect(() => {
-    fetchUrlStats();
-  }, []);
+    
+    checkAuth();
+  }, [router]);
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'logout' }),
+      });
+      router.push('/admin/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  // Show loading screen while checking authentication
+  if (!authChecked) {
+    return (
+      <div className="container mx-auto p-4 flex items-center justify-center min-h-screen">
+        <Head>
+          <title>Cargando... - Amazon Afiliados</title>
+        </Head>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-lg">Verificando autenticación...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, redirect should have happened
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleRunScript = async (action: 'scrape' | 'generate') => {
     setScriptOutput(''); // Clear previous output
@@ -137,6 +204,9 @@ const ScriptManagerPage = () => {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto' }}>
+      <Head>
+        <title>Gestor de Scripts - Amazon Afiliados</title>
+      </Head>
       <style jsx global>{`
         body {
           background-color: #f4f7f6;
@@ -147,8 +217,22 @@ const ScriptManagerPage = () => {
           cursor: not-allowed;
         }
       `}</style>
-      <header style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1 style={{ color: '#2c3e50' }}>Script Manager</h1>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', padding: '10px', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+        <h1 style={{ color: '#2c3e50', margin: 0 }}>Gestor de Scripts</h1>
+        <button 
+          onClick={handleLogout}
+          style={{ 
+            backgroundColor: '#e74c3c', 
+            color: 'white', 
+            border: 'none', 
+            padding: '8px 16px', 
+            borderRadius: '4px', 
+            cursor: 'pointer',
+            fontWeight: 'bold'
+          }}
+        >
+          Cerrar sesión
+        </button>
       </header>
 
       <section style={{ marginBottom: '30px', padding: '20px', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>

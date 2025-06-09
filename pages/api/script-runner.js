@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import { isAuthenticated } from '../../middleware/authMiddleware';
 
 let currentScriptProcess = null; // Define at module level
 
@@ -8,6 +9,11 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+  
+  // Check if the user is authenticated
+  if (!isAuthenticated(req)) {
+    return res.status(401).json({ error: 'Unauthorized. Please log in to access this feature.' });
   }
 
   const { action, url: targetUrl } = req.body;
