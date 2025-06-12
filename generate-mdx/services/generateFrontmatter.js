@@ -33,6 +33,7 @@ export async function generateFrontmatter(data,processedData) {
             pros: Array.isArray(p.pros) ? p.pros : [],
             cons: Array.isArray(p.cons) ? p.cons : [],
             especificaciones: Array.isArray(p.especificaciones) ? p.especificaciones : [],
+            analisis: p.analisis || 'Análisis del producto',
             brand: p.brand || {
               '@type': 'Brand',
               name: 'Marca no especificada'

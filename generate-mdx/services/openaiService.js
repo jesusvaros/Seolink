@@ -33,6 +33,7 @@ export async function contentProcessingAI(data) {
       - cons - Lista de 1-3 puntos débiles
       - destacado - Para cada producto extraído, genera una frase corta y atractiva (máximo 5 palabras) que destaque la característica principal o el beneficio más importante del producto. Las frases deben ser impactantes y persuasivas, ideales para mostrar como "destacado" en una página de producto.Ejemplos: "El más potente", "Mejor relación calidad-precio", "Ideal para principiantes"
       - especificaciones - Lista de especificaciones relevantes entre  del producto 3 y 6 las cuales deben tener nombre de la especificación y valor de la especificación
+      - analisis - Genera un análisis detallado del producto, incluyendo sus ventajas y desventajas, y cómo se compara con otros productos similares debe ser un texto de al menos dos parrafos.
       
       2. category:
       Asigna una categoría adecuada al contenido. 
@@ -71,6 +72,7 @@ export async function contentProcessingAI(data) {
             "destacado": "Frase destacada",
             "asin": "ASIN del producto",
             "image": "URL de la imagen del producto",
+            "analisis": "Análisis del producto",
             "especificaciones": [
               {
                 "nombre": "Nombre de la especificación",
