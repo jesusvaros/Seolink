@@ -12,7 +12,7 @@ h1 {
 }
 
 h2 {
-  @apply text-3xl font-semibold mb-8 mt-14 text-gray-800 border-b border-gray-200 pb-3;
+  @apply text-3xl font-semibold mb-8 mt-6 text-gray-800;
 }
 
 h3 {

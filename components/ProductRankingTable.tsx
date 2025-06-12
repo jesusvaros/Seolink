@@ -21,7 +21,7 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
               <th className="px-4 py-3 w-16">#</th>
               <th className="px-4 py-3">Modelo</th>
               <th className="px-4 py-3">Destacado</th>
-              <th className="px-4 py-3">Comprar</th>
+              <th className="px-4 py-3"> </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -66,7 +66,7 @@ export default function ProductRankingTable({ products }: ProductRankingTablePro
                     href={product.affiliateLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 transition-colors duration-200 text-center w-36"
+                    className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 transition-colors duration-200 text-center min-w-48"
                   >
                     Comprar {product.price && `· ${product.price}`}
                   </a>

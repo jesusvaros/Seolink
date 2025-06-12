@@ -42,15 +42,15 @@ ${frontmatter}
 
 ${processedData.introduction}
 
-## Tabla comparativa
+## 
 
 <ProductRankingTable products={${productsVar}} />
 
-## Valoraciones
+## 
 
-${processedData.products.map((_, index) => `<ProductDetailCard product={${productsVar}[${index}]} />
+${processedData.products.map((_, index) => `<ProductDetailCard product={${productsVar}[${index}]} index={${index}} />
 
-`).join('')}## Conclusión
+`).join('')}## 
 
 ${processedData.conclusion}
 `;

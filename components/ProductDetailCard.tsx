@@ -29,7 +29,7 @@ interface Specification {
   value: string | number | boolean;
 }
 
-const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product }) => {
+const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }> = ({ product, index }) => {
   if (!product) {
     console.warn('ProductDetailCard: No se ha proporcionado un producto válido');
     return null;
@@ -38,6 +38,8 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
   // Split pros and cons into arrays if they're provided as comma-separated strings
   const prosList = product.pros ? (Array.isArray(product.pros) ? product.pros : String(product.pros).split(',').map(item => item.trim())) : [];
   const consList = product.cons ? (Array.isArray(product.cons) ? product.cons : String(product.cons).split(',').map(item => item.trim())) : [];
+
+  console.log(product)
 
   // Helper function to process specification arrays with nombre/valor format
   const processSpecificationsArray = (specArray: any[], specs: Specification[]) => {
@@ -173,7 +175,11 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
     <div className="mb-8">
       {/* Header with image and basic info */}
       <div className="flex flex-col md:flex-row mb-4 bg-white p-4 rounded-lg shadow-sm">
-        <div className="md:w-1/4 flex items-center justify-center">
+        {index && (
+          <span className=" text-2xl font-bold text-gray-600">{index + 1}</span>
+        )}
+        <div className="md:w-1/4 flex items-center justify-center relative">
+
           <img
             src={product.image.url}
             alt={product.image.caption || product.name}
@@ -182,11 +188,11 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
         </div>
         <div className="md:w-3/4 md:pl-6 pt-4 md:pt-0">
           <h2 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h2>
-          {product.subtitle && (
-            <p className="text-base text-gray-600 mb-4">{product.subtitle}</p>
+          {product.destacado && (
+            <p className="text-gray-600 mb-4">{product.destacado}</p>
           )}
 
-          <div className="mt-4">
+          <div className="mt-8">
             <a
               href={product.affiliateLink}
               target="_blank"
@@ -235,9 +241,9 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
         </div>
       )}
 
-       {/* Description */}
+      {/* Description */}
 
-       {productDescription ? (
+      {productDescription ? (
         <div className="my-6">
           <div className="text-gray-700 text-base leading-relaxed">
             <p>{productDescription}</p>

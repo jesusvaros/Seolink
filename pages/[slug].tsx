@@ -46,11 +46,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = filenames.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    
+
     // Use our utility function to handle JSON frontmatter
     const { frontmatter } = extractFrontmatter(fileContents);
     const data = frontmatter as { slug?: string };
-    
+
     const slug = data.slug || filename.replace(/\.mdx?$/, '');
     return { params: { slug } };
   });
@@ -67,14 +67,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   for (const filename of filenames) {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    
+
     // Use the utility function for consistent frontmatter handling
     const { frontmatter } = extractFrontmatter(fileContents);
     if (!frontmatter || Object.keys(frontmatter).length === 0) {
       continue;
     }
     const data = frontmatter as { slug?: string };
-    
+
     if (data.slug === slug) {
       matchedFile = filename;
       break;
@@ -89,13 +89,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const filePath = path.join(postsDirectory, matchedFile);
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  
+
   // Process frontmatter with our utility
   const { frontmatter, content: processedContent } = extractFrontmatter(fileContents);
   const data = frontmatter as { slug?: string, [key: string]: any };
   // Ensure the content is clean from any frontmatter
   const content = preprocessMDX(processedContent);
-  
+
   // Tell serialize not to try parsing frontmatter again and ensure MDX doesn't 
   // try to parse the content as YAML again
   const mdxSource = await serialize(content, {
@@ -320,6 +320,17 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           )}
         </header>
 
+        {/* Related Articles Section */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-10">
+          {frontMatter.category && (
+            <RelatedArticles
+              category={frontMatter.category}
+              currentSlug={frontMatter.slug}
+              showImage={false}
+            />
+          )}
+        </div>
+
         <MDXRemote
           {...source}
           components={{
@@ -340,13 +351,14 @@ export default function PostPage({ source, frontMatter }: PostProps) {
           <StickyBuyCTA product={frontMatter.products[0]} />
         )}
       </article>
-      
+
       {/* Related Articles Section */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-10">
         {frontMatter.category && (
-          <RelatedArticles 
-            category={frontMatter.category} 
-            currentSlug={frontMatter.slug} 
+          <RelatedArticles
+            category={frontMatter.category}
+            currentSlug={frontMatter.slug}
+            showImage={true}
           />
         )}
       </div>
