@@ -78,7 +78,6 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
       specObjects.push(product.technicalSpecifications);
     }
     if (product.especificaciones && typeof product.especificaciones === 'object') {
-      console.log(product.especificaciones)
       specObjects.push(product.especificaciones);
     }
 
