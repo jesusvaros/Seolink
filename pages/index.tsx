@@ -40,7 +40,12 @@ export async function getStaticProps() {
   // Limitar a 5 artículos por categoría
   const limitedCategories: CategoryData = {};
   Object.keys(categories).forEach(category => {
-    limitedCategories[category] = categories[category].slice(0, 5);
+    if (Array.isArray(categories[category])) {
+      limitedCategories[category] = categories[category].slice(0, 5);
+    } else {
+      limitedCategories[category] = categories[category]; // If not an array, use as is
+      console.log(`Warning: Category ${category} is not an array`);
+    }
   });
   
   return { 

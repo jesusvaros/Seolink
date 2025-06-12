@@ -4,11 +4,13 @@ import fs from 'fs';
 
 // Get the current script directory
 const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
-const ROOT_DIR = process.cwd();
+// Get the project root directory (one level up from generate-mdx)
+const ROOT_DIR = path.join(path.dirname(SCRIPT_DIR), '..');
 
 // Path constants
 const URLS_DIR = path.join(SCRIPT_DIR, '..', 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
+// Content directory is now at the project root level
 const CONTENT_DIR = path.join(ROOT_DIR, 'content');
 const OUTPUT_DIR = path.join(CONTENT_DIR, 'posts');
 const CATEGORIES_DIR = path.join(CONTENT_DIR, 'categories');

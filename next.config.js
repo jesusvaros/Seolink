@@ -3,18 +3,62 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   images: {
-    domains: [
-      'hips.hearstapps.com',
-      'vader-prod.s3.amazonaws.com',
-      'www.elle.com',
-      'hmg-prod.s3.amazonaws.com',
-      'example.com', // Para imágenes de placeholder
-      'comparaland.com' // Para futuras imágenes propias
-    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'hips.hearstapps.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'vader-prod.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.elle.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hmg-prod.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'example.com', // Para imágenes de placeholder
+      },
+      {
+        protocol: 'https',
+        hostname: 'comparaland.com', // Para futuras imágenes propias
+      },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-na.ssl-images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-eu.ssl-images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'amazon.es',
+      },
+      {
+        protocol: 'https',
+        hostname: 'amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
       },
     ],
   },

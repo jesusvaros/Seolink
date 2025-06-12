@@ -40,8 +40,26 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
   const prosList = product.pros ? (Array.isArray(product.pros) ? product.pros : String(product.pros).split(',').map(item => item.trim())) : [];
   const consList = product.cons ? (Array.isArray(product.cons) ? product.cons : String(product.cons).split(',').map(item => item.trim())) : [];
 
+  // Helper function to process specification arrays with nombre/valor format
+  const processSpecificationsArray = (specArray: any[], specs: Specification[]) => {
+    specArray.forEach(spec => {
+      // Skip invalid specs
+      if (!spec || typeof spec !== 'object') return;
+      
+      // Process specs with nombre/valor format
+      if (spec.nombre && spec.valor) {
+        specs.push({
+          label: spec.nombre,
+          value: spec.valor
+        });
+      } else {
+        console.warn('Especificación sin formato nombre/valor:', spec);
+      }
+    });
+  };
+
   // Función para procesar las especificaciones de cualquier tipo de producto
-  const processTechnicalSpecs = (): Specification[] => {
+  const processTechnicalSpecs = (product: DetailedProduct): Specification[] => {
     const specs: Specification[] = [];
     
     // Lista de propiedades básicas que no queremos mostrar como especificaciones
@@ -61,46 +79,53 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
       specObjects.push(product.technicalSpecifications);
     }
     if (product.especificaciones && typeof product.especificaciones === 'object') {
+      console.log(product.especificaciones)
       specObjects.push(product.especificaciones);
     }
     
     // Procesar todos los objetos de especificaciones encontrados
     specObjects.forEach(specObj => {
       try {
-        Object.entries(specObj).forEach(([key, value]) => {
-          // Solo procesar valores válidos
-          if (value !== undefined && value !== null && value !== '' && value !== 'N/A') {
-            // Formato del nombre de la propiedad
-            const formattedKey = key
-              .charAt(0).toUpperCase() + 
-              key.slice(1)
-                .replace(/([A-Z])/g, ' $1') // Separar camelCase
-                .replace(/_/g, ' ')          // Cambiar guiones bajos por espacios
-                .replace(/-/g, ' ')          // Cambiar guiones por espacios
-                .trim();
-            
-            // Procesar el valor dependiendo del tipo
-            let processedValue: string | number | boolean;
-            if (value === null || value === undefined) {
-              return; // Saltar valores nulos o indefinidos
-            } else if (typeof value === 'object') {
-              try {
-                processedValue = JSON.stringify(value);
-              } catch {
-                processedValue = 'Objeto complejo';
+        if (Array.isArray(specObj)) {
+          // Procesar array de especificaciones
+          processSpecificationsArray(specObj, specs);
+        } else {
+          // Procesar objeto de especificaciones tradicional
+          Object.entries(specObj).forEach(([key, value]) => {
+            // Solo procesar valores válidos
+            if (value !== undefined && value !== null && value !== '' && value !== 'N/A') {
+              // Formato del nombre de la propiedad
+              const formattedKey = key
+                .charAt(0).toUpperCase() + 
+                key.slice(1)
+                  .replace(/([A-Z])/g, ' $1') // Separar camelCase
+                  .replace(/_/g, ' ')          // Cambiar guiones bajos por espacios
+                  .replace(/-/g, ' ')          // Cambiar guiones por espacios
+                  .trim();
+              
+              // Procesar el valor dependiendo del tipo
+              let processedValue: string | number | boolean;
+              if (value === null || value === undefined) {
+                return; // Saltar valores nulos o indefinidos
+              } else if (typeof value === 'object') {
+                try {
+                  processedValue = JSON.stringify(value);
+                } catch {
+                  processedValue = 'Objeto complejo';
+                }
+              } else if (typeof value === 'boolean') {
+                processedValue = value ? '✓' : '✗';
+              } else {
+                processedValue = String(value);
               }
-            } else if (typeof value === 'boolean') {
-              processedValue = value ? '✓' : '✗';
-            } else {
-              processedValue = String(value);
+              
+              specs.push({
+                label: formattedKey,
+                value: processedValue
+              });
             }
-            
-            specs.push({
-              label: formattedKey,
-              value: processedValue
-            });
-          }
-        });
+          });
+        }
       } catch (error) {
         // Continuar con otras especificaciones si hay algún error
         console.error('Error procesando especificaciones:', error);
@@ -143,7 +168,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct }> = ({ product })
   };
   
   // Obtenemos todas las especificaciones procesadas
-  const specifications = processTechnicalSpecs();
+  const specifications = processTechnicalSpecs(product);
 
   return (
     <div className="mb-8">

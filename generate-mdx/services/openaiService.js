@@ -4,363 +4,131 @@ import { config } from 'dotenv';
 // Initialize environment variables
 config();
 
-// Initialize OpenAI client
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Initialize OpenAI API client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-/**
- * Generate MDX content using OpenAI
- * @param {Object} data - Content data to use for generation
- * @returns {Object} - Generated MDX content and metadata
- */
-async function generateMDX(data) {
-  console.log(`🤖 Generando MDX para "${data.title}"...`);
-  
+
+export async function contentProcessingAI(data) {
+  console.log('🔍 Iniciando procesamiento unificado del contenido...');
+
   try {
-    // Extract Amazon products from the content
-    const extractedProducts = await extractAmazonProducts(data);
-    
-    if (!extractedProducts || extractedProducts.length === 0) {
-      console.log('⚠️ No se encontraron productos de Amazon válidos.');
-      return null;
-    }
-    
-    // Generate frontmatter
-    const frontmatter = await generateFrontmatter(data, extractedProducts);
-    
-    // Generate imports section
-    const imports = `import { ProductShowcase, ProductComparison, Conclusion } from '../components';\n`;
-    
-    // Generate body content
-    let bodyContent = '';
-    
-    // Introduction
-    bodyContent += `# ${data.title}\n\n`;
-    bodyContent += `${data.excerpt || 'Bienvenido a nuestra guía de productos.'}\n\n`;
-    
-    // Product showcases
-    for (const product of extractedProducts) {
-      bodyContent += `<ProductShowcase
-  name="${product.name || 'Producto'}"
-  image="${product.image || '/placeholder.jpg'}"
-  description="${product.description || 'Descripción no disponible'}"
-  price="${product.price || 'Precio no disponible'}"
-  link="${product.link || '#'}"
-  destacado="${product.destacado || 'Producto destacado'}"
-/>\n\n`;
-    }
-    
-    // Product comparison if there are multiple products
-    if (extractedProducts.length > 1) {
-      // Ensure all product properties are properly stringified to avoid [object Object]
-      const sanitizedProducts = extractedProducts.map(product => {
-        const sanitized = {...product};
-        // Ensure price is always a string
-        if (typeof sanitized.price === 'object') {
-          sanitized.price = sanitized.price.toString ? sanitized.price.toString() : JSON.stringify(sanitized.price);
-        }
-        return sanitized;
-      });
-      bodyContent += `<ProductComparison products={${JSON.stringify(sanitizedProducts, null, 2)}} />\n\n`;
-    }
-    
-    // Conclusion
-    bodyContent += `${data.conclusion || 'Esperamos que esta guía te haya ayudado a encontrar el producto perfecto para tus necesidades.'}\n`;
-    
-    const mdxContent = `---json
-${frontmatter}
----
-
-${imports}
-
-${bodyContent}`;
-
-    console.log('✅ Archivo MDX creado correctamente');
-    return mdxContent;
-  } catch (error) {
-    console.error('❌ Error al generar MDX:', error.message);
-    throw error;
-  }
-}
-
-/**
- * Extract Amazon products from content
- * @param {Object} data - Content data
- * @returns {Array} - Extracted products
- */
-async function extractAmazonProducts(data) {
-  console.log('🔍 Extrayendo productos de Amazon del contenido...');
-  
-  try {
+    // Create a single comprehensive prompt that handles all tasks
+    console.log(data.content);
     const prompt = `
-      Analiza el siguiente contenido y extrae información sobre productos de Amazon.
-      Para cada producto, proporciona:
-      - Nombre del producto
-      - Descripción breve
-      - Precio (si está disponible)
-      - Enlace de Amazon
-      - Características principales (si están disponibles)
-      - Pros y contras (si están disponibles)
+      Analiza el siguiente contenido y realiza las siguientes tareas:
 
+      1. EXTRACCIÓN DE PRODUCTOS:
+      Extrae información detallada sobre los productos de Amazon mencionados.
+      Para cada producto, proporciona:
+      - name - nombre del producto
+      - description - descripción breve
+      - price - precio
+      - link - enlace de Amazon
+      - asin - ASIN
+      - image - imagen
+      - brand - marca 
+      - pros - Lista de 3-4 puntos fuertes
+      - cons - Lista de 1-3 puntos débiles
+      - destacado - Para cada producto extraído, genera una frase corta y atractiva (máximo 5 palabras) que destaque la característica principal o el beneficio más importante del producto. Las frases deben ser impactantes y persuasivas, ideales para mostrar como "destacado" en una página de producto.Ejemplos: "El más potente", "Mejor relación calidad-precio", "Ideal para principiantes"
+      - especificaciones - Lista de especificaciones relevantes entre  del producto 3 y 6 las cuales deben tener nombre de la especificación y valor de la especificación
+      
+      2. category:
+      Asigna una categoría adecuada al contenido. 
+      Elige entre: tecnologia, hogar, belleza, deportes, mascotas, jardin, cocina, moda, juguetes, libros.
+
+      3. conclusion:
+      Genera una conclusión de al menos dos parrafos con la información más relevante del contenido.
+
+      4. introduction:
+      Genera una introducción de al menos dos parrafos con la información más relevante del contenido.
+
+      5.titulo:
+      Genera un título para el artículo que sea atractivo y que refleje el contenido del artículo para long-tail keywords.
+      
       Contenido:
       ${data.content}
+      Array de precios de los productos:
+
+      ${data.productPrices}
+
+      FORMATO DE RESPUESTA (en JSON):
+      {
+        "category": "nombre_de_categoría",
+        "introduction": "Introducción",
+        "conclusion": "Conclusión",
+        "title": "titulo",
+        "products": [
+          {
+            "name": "Nombre del producto",
+            "description": "Descripción del producto",
+            "price": "Precio",
+            "link": "URL del producto",
+            "brand": "Marca del producto",
+            "pros": ["Ventaja 1", "Ventaja 2", "Ventaja 3"],
+            "cons": ["Desventaja 1", "Desventaja 2"],
+            "destacado": "Frase destacada",
+            "asin": "ASIN del producto",
+            "image": "URL de la imagen del producto",
+            "especificaciones": [
+              {
+                "nombre": "Nombre de la especificación",
+                "valor": "Valor de la especificación"
+              },
+              {
+                "nombre": "Nombre de la especificación",
+                "valor": "Valor de la especificación"
+              } ...
+            ]
+          }
+        ]
+      }
     `;
-    
+
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Eres un asistente especializado en extraer información de productos de Amazon de contenido web." },
+        { role: "system", content: "Eres un asistente especializado en análisis de productos, marketing y categorización de contenido. Generas contenido para una web que quiere pelear por el seo de long-tail keywords.  Responde en formato JSON." },
         { role: "user", content: prompt }
       ],
       temperature: 0.3,
-      max_tokens: 1500
+      max_tokens: 2500
     });
-    
-    // Parse the response to extract product information
-    const productData = response.choices[0].message.content;
-    
-    // Process the extracted products
-    const products = parseProductData(productData, data.productLinks);
-    
-    console.log(`✅ Se encontraron ${products.length} productos.`);
-    return products;
-  } catch (error) {
-    console.error('❌ Error al extraer productos:', error.message);
-    return [];
-  }
-}
 
-/**
- * Parse product data from OpenAI response
- * @param {string} productData - Raw product data from OpenAI
- * @param {Array} productLinks - Product links from the page
- * @returns {Array} - Parsed products
- */
-function parseProductData(productData, productLinks) {
-  // This is a simplified parser - in a real implementation, you would
-  // need more robust parsing logic based on the actual response format
-  const products = [];
-  
-  // Simple regex-based parsing for demonstration
-  const productBlocks = productData.split(/Producto \d+:|Producto:/);
-  
-  for (let i = 1; i < productBlocks.length; i++) {
-    const block = productBlocks[i].trim();
-    
-    // Extract name
-    const nameMatch = block.match(/Nombre:?\s*([^\n]+)/i);
-    const name = nameMatch ? nameMatch[1].trim() : 'Producto sin nombre';
-    
-    // Extract description
-    const descMatch = block.match(/Descripción:?\s*([^\n]+)/i);
-    const description = descMatch ? descMatch[1].trim() : '';
-    
-    // Extract price
-    const priceMatch = block.match(/Precio:?\s*([^\n]+)/i);
-    let price = priceMatch ? priceMatch[1].trim() : 'Precio no disponible';
-    
-    // Ensure price is a string, not an object
-    if (typeof price === 'object') {
-      // If it's an object, try to get a string representation or use a default
-      price = price.toString ? price.toString() : JSON.stringify(price);
-      console.log(`\u26A0️ Converted price object to string: ${price}`);
+    // Get the response content
+    const content = response.choices[0].message.content;
+    console.log('\ud83d\udd0d Respuesta recibida de OpenAI, intentando parsear JSON...');
+
+    let responseData;
+    try {
+      // Try to extract JSON if it's wrapped in markdown code blocks
+      const jsonMatch = content.match(/```(?:json)?\s*([\s\S]+?)\s*```/) ||
+        content.match(/\{[\s\S]*\}/);
+
+      const jsonContent = jsonMatch ? jsonMatch[1] || jsonMatch[0] : content;
+      responseData = JSON.parse(jsonContent);
+
+      console.log(`\u2705 JSON parseado correctamente. Encontrados ${responseData.products?.length || 0} productos.`);
+    } catch (error) {
+      console.error('\u274c Error al parsear JSON:', error.message);
+      console.log('Contenido de la respuesta:', content.substring(0, 200) + '...');
     }
-    
-    // Extract link - use the first available product link if not found in text
-    const linkMatch = block.match(/Enlace:?\s*([^\n]+)/i);
-    const link = linkMatch ? linkMatch[1].trim() : (productLinks[i-1] || '#');
-    
-    // Extract ASIN if available in the link
-    const asinMatch = link.match(/\/([A-Z0-9]{10})(?:[/?]|$)/);
-    const asin = asinMatch ? asinMatch[1] : '';
-    
-    // Extract pros
-    const prosMatch = block.match(/Pros:?\s*([\s\S]*?)(?=Contras:|$)/i);
-    const prosText = prosMatch ? prosMatch[1].trim() : '';
-    const pros = prosText.split(/\n-|\n\*/g).map(p => p.trim()).filter(p => p);
-    
-    // Extract cons
-    const consMatch = block.match(/Contras:?\s*([\s\S]*?)(?=\n\n|$)/i);
-    const consText = consMatch ? consMatch[1].trim() : '';
-    const cons = consText.split(/\n-|\n\*/g).map(c => c.trim()).filter(c => c);
-    
-    // Create product object with all required schema.org fields
-    const product = {
-      name,
-      description,
-      price,
-      link,
-      asin,
-      pros,
-      cons,
-      destacado: `Producto destacado ${i}`,
-      // Add required schema.org fields
-      brand: {
-        '@type': 'Brand',
-        name: block.match(/Marca:?\s*([^\n]+)/i)?.[1]?.trim() || 'Marca no especificada'
-      },
-      offers: {
-        '@type': 'Offer',
-        price: price !== 'Precio no disponible' ? parseFloat(price.replace(/[^0-9,.]/g, '').replace(',', '.')) || 0 : 0,
-        priceCurrency: 'EUR',
-        availability: 'http://schema.org/InStock',
-        url: link,
-        // Add priceValidUntil (one year from now)
-        priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
-      },
-      // Add optional fields that were missing
-      review: {
-        '@type': 'Review',
-        author: {'@type': 'Person', name: 'Análisis del Experto'},
-        datePublished: new Date().toISOString().split('T')[0],
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: '4.5',
-          bestRating: '5'
-        },
-        reviewBody: description || 'Análisis detallado del producto.'
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.0',
-        reviewCount: '5'
-      }
-    };
-    
-    products.push(product);
-  }
-  
-  return products;
-}
 
-/**
- * Generate frontmatter for MDX
- * @param {Object} data - Content data
- * @param {Array} products - Extracted products
- * @returns {string} - Generated frontmatter
- */
-async function generateFrontmatter(data, products) {
-  console.log('📝 Generando frontmatter para MDX...');
-  
-  try {
-    // Generate slug from title
-    const slug = data.title
-      .toLowerCase()
-      .replace(/[^\w\s]/g, '')
-      .replace(/\s+/g, '-');
-    
-    // Generate category based on content
-    const categoryPrompt = `
-      Basándote en el siguiente título y contenido, asigna una categoría adecuada.
-      Elige entre: tecnologia, hogar, belleza, deportes, mascotas, jardin, cocina, moda, juguetes, libros.
-      Solo responde con una palabra, la categoría más adecuada.
+    console.log(`\u2705 Procesamiento unificado completado: ${responseData.products.length} productos encontrados, categoría: ${responseData.category || 'productos'}`);
 
-      Título: ${data.title}
-      Contenido: ${data.excerpt || ''}
-    `;
-    
-    const categoryResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "Asigna una categoría basada en el contenido. Responde solo con una palabra." },
-        { role: "user", content: categoryPrompt }
-      ],
-      temperature: 0.3,
-      max_tokens: 20
-    });
-    
-    const category = categoryResponse.choices[0].message.content.trim().toLowerCase();
-    
-    // Create frontmatter object
-    const frontmatterObj = {
-      title: data.title,
-      slug,
-      date: data.date,
-      category,
-      image: data.image || '/default-image.jpg',
-      excerpt: data.excerpt || `Guía de los mejores productos de ${category}`,
-      products: products.map(p => {
-        // Ensure price is always a string for display
-        let displayPrice = p.price || 'Precio no disponible';
-        if (typeof displayPrice === 'object') {
-          displayPrice = displayPrice.toString ? displayPrice.toString() : JSON.stringify(displayPrice);
-        }
-        
-        // Ensure offers.price is a number for schema.org
-        let offerPrice = 0;
-        if (p.offers && p.offers.price) {
-          offerPrice = p.offers.price;
-        } else if (displayPrice !== 'Precio no disponible') {
-          offerPrice = parseFloat(displayPrice.replace(/[^0-9,.]/g, '').replace(',', '.')) || 0;
-        }
-        
-        // Get today's date for defaults
-        const today = new Date().toISOString().split('T')[0];
-        const nextYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
-        
-        return {
-          name: p.name,
-          asin: p.asin || '',
-          image: p.image || '',
-          price: displayPrice,
-          link: p.link || '#',
-          destacado: p.destacado || 'Producto destacado',
-          // Include all schema.org fields
-          brand: p.brand || {
-            '@type': 'Brand',
-            name: 'Marca no especificada'
-          },
-          offers: p.offers || {
-            '@type': 'Offer',
-            price: offerPrice,
-            priceCurrency: 'EUR',
-            availability: 'http://schema.org/InStock',
-            url: p.link || '#',
-            priceValidUntil: nextYear
-          },
-          review: p.review || {
-            '@type': 'Review',
-            author: {'@type': 'Person', name: 'Análisis del Experto'},
-            datePublished: today,
-            reviewRating: {
-              '@type': 'Rating',
-              ratingValue: '4.5',
-              bestRating: '5'
-            },
-            reviewBody: p.description || 'Análisis detallado del producto.'
-          },
-          aggregateRating: p.aggregateRating || {
-            '@type': 'AggregateRating',
-            ratingValue: '4.0',
-            reviewCount: '5'
-          }
-        };
-      })
+    console.log(responseData.products)
+
+    return {
+      products: responseData.products,
+      category: responseData.category || 'productos',
+      title: responseData.title,
+      conclusion: responseData.conclusion,
+      introduction: responseData.introduction
     };
-    
-    // Convert to JSON string with proper indentation
-    return JSON.stringify(frontmatterObj, null, 2);
   } catch (error) {
-    console.error('❌ Error al generar frontmatter:', error.message);
-    
-    // Return a basic frontmatter if there's an error
-    const basicFrontmatter = {
-      title: data.title,
-      slug: data.title.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-'),
-      date: data.date,
-      category: 'general',
-      image: data.image || '/default-image.jpg',
-      excerpt: data.excerpt || 'Guía de productos',
-      products: products.map(p => ({
-        name: p.name,
-        link: p.link || '#',
-        destacado: 'Producto destacado'
-      }))
-    };
-    
-    return JSON.stringify(basicFrontmatter, null, 2);
+    console.error('❌ Error en el procesamiento unificado:', error.message);
   }
 }
 
-export {
-  generateMDX
-};
+

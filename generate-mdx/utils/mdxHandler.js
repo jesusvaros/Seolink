@@ -1,59 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { CATEGORIES_PATH } from '../config/paths.js';
-
-/**
- * Generate a unique destacado value for a product
- * @param {Object} product - The product object
- * @returns {string} - A unique destacado value
- */
-function generateDestacadoValue(product) {
-  // Check if we have pros to use
-  if (product.pros && Array.isArray(product.pros) && product.pros.length > 0) {
-    return product.pros[0];
-  }
-  
-  // Check if we have specifications to use
-  if (product.specifications) {
-    const specs = Object.entries(product.specifications);
-    if (specs.length > 0) {
-      const [key, value] = specs[0];
-      return `${value} ${key}`;
-    }
-  }
-  
-  // Check if the name contains useful information
-  if (product.name) {
-    const nameParts = product.name.split(' ');
-    if (nameParts.length > 1) {
-      return `${nameParts[1]} destacado`;
-    }
-  }
-  
-  // Check if we have a description to use
-  if (product.description) {
-    const words = product.description.split(' ');
-    if (words.length > 2) {
-      return `${words.slice(0, 2).join(' ')}`;
-    }
-  }
-  
-  // Fallback to a generic but slightly varied message
-  const variations = [
-    'Calidad superior',
-    'Mejor relación calidad-precio',
-    'Producto destacado',
-    'Opción recomendada',
-    'Alta durabilidad'
-  ];
-  
-  // Use a random variation based on the product's ASIN to ensure consistency
-  const index = product.asin ? 
-    product.asin.charCodeAt(product.asin.length - 1) % variations.length : 
-    Math.floor(Math.random() * variations.length);
-  
-  return variations[index];
-}
+import { CATEGORIES_PATH } from '../services/paths.js';
+import { generateDestacadoValue } from '../services/openaiService.js';
 
 /**
  * Validate and correct MDX structure
@@ -74,9 +22,9 @@ function validateMDXStructure(mdxContent) {
 function extractMetadataFromMDX(mdxContent) {
   console.log('ℹ️ Extrayendo metadatos del MDX...');
   try {
-    const match = mdxContent.match(/^---json\\n([\\s\\S]*?)\\n---/m);
+    const match = mdxContent.match(/^---\n([\s\S]*?)\n---/m);
     if (!match || !match[1]) {
-      console.error('❌ No se pudo encontrar el bloque JSON de frontmatter en el MDX.');
+      console.error('❌ No se pudo encontrar el bloque de frontmatter en el MDX.');
       return { 
         slug: 'error-no-frontmatter', 
         category: 'general', 
@@ -86,7 +34,44 @@ function extractMetadataFromMDX(mdxContent) {
     }
     
     const frontmatterString = match[1];
-    const frontmatter = JSON.parse(frontmatterString);
+    // Parse YAML-style frontmatter
+    const frontmatter = {};
+    
+    // Extract title
+    const titleMatch = frontmatterString.match(/title:\s*"([^"]*)"/i);
+    if (titleMatch && titleMatch[1]) frontmatter.title = titleMatch[1];
+    
+    // Extract slug
+    const slugMatch = frontmatterString.match(/slug:\s*"([^"]*)"/i);
+    if (slugMatch && slugMatch[1]) frontmatter.slug = slugMatch[1];
+    
+    // Extract date
+    const dateMatch = frontmatterString.match(/date:\s*"([^"]*)"/i);
+    if (dateMatch && dateMatch[1]) frontmatter.date = dateMatch[1];
+    
+    // Extract category
+    const categoryMatch = frontmatterString.match(/category:\s*"([^"]*)"/i);
+    if (categoryMatch && categoryMatch[1]) frontmatter.category = categoryMatch[1];
+    
+    // Extract image
+    const imageMatch = frontmatterString.match(/image:\s*"([^"]*)"/i);
+    if (imageMatch && imageMatch[1]) frontmatter.image = imageMatch[1];
+    
+    // Extract excerpt
+    const excerptMatch = frontmatterString.match(/excerpt:\s*"([^"]*)"/i);
+    if (excerptMatch && excerptMatch[1]) frontmatter.excerpt = excerptMatch[1];
+    
+    // Extract products (this is still in JSON format)
+    const productsMatch = frontmatterString.match(/products:\s*(\[\s*\{[\s\S]*?\}\s*\])/i);
+    if (productsMatch && productsMatch[1]) {
+      try {
+        frontmatter.products = JSON.parse(productsMatch[1]);
+      } catch (e) {
+        console.error('❌ Error al parsear productos:', e.message);
+        frontmatter.products = [];
+      }
+    }
+    
     console.log('✅ Metadatos extraídos correctamente.');
     
     return {
@@ -179,6 +164,8 @@ async function updateCategoriesJson(articleMetadata) {
     console.error(`❌ Error al actualizar ${CATEGORIES_PATH}:`, error.message);
   }
 }
+
+// generateDestacadoValue is now imported from openaiService.js
 
 export {
   generateDestacadoValue,

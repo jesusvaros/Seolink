@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { URL } from 'url';
-import { PROCESSED_URLS_PATH, EXCLUDED_DOMAINS } from '../config/paths.js';
+import { PROCESSED_URLS_PATH, EXCLUDED_DOMAINS } from '../services/paths.js';
 
 /**
  * Load URLs from all source files in the URLs directory

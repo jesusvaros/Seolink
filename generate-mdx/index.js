@@ -6,7 +6,7 @@ import {
   URLS_DIR,
   OUTPUT_DIR,
   CONTENT_DIR
-} from './config/paths.js';
+} from './services/paths.js';
 
 // Import URL handling utilities
 import {
@@ -21,8 +21,7 @@ import {
 import {
   validateMDXStructure,
   extractMetadataFromMDX,
-  updateCategoriesJson,
-  generateDestacadoValue
+  updateCategoriesJson
 } from './utils/mdxHandler.js';
 
 // Import content extraction services
