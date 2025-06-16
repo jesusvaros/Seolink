@@ -64,29 +64,19 @@ export const getStaticProps: GetStaticProps = async () => {
       } catch (e) {
         console.error(`Error parsing JSON frontmatter in ${filename}:`, e);
       }
-    } 
-    // Extraer YAML frontmatter (para archivos antiguos)
-    else if (fileContents.startsWith('---')) {
-      const yamlSection = fileContents.split('---')[1];
-      // Procesamiento básico de YAML
-      const frontmatterLines = yamlSection.split('\n').filter(line => line.includes(':'));
-      frontmatterLines.forEach(line => {
-        const [key, ...valueParts] = line.split(':');
-        if (key && valueParts.length) {
-          const value = valueParts.join(':').trim();
-          // Eliminar comillas si existen
-          frontmatter[key.trim()] = value.replace(/^["'](.*)["']$/, '$1');
-        }
-      });
     }
-    
+    // Initialize frontmatter as an empty object if it's null
+    if(frontmatter === null){
+      console.log('No frontmatter found in', filename);
+      frontmatter = {};
+    }
+  
     let finalImage: ImageObject;
     if (typeof frontmatter.image === 'object' && frontmatter.image !== null && 'url' in frontmatter.image) {
       finalImage = frontmatter.image as ImageObject;
     } else if (typeof frontmatter.image === 'string' && frontmatter.image.trim() !== '') {
       finalImage = { url: frontmatter.image, caption: frontmatter.title || 'Imagen del artículo' };
     } else {
-      // Fallback placeholder image
       finalImage = { url: '/images/placeholder-image.jpg', caption: frontmatter.title || 'Imagen no disponible' };
     }
 

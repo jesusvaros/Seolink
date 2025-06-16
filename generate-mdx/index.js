@@ -71,6 +71,12 @@ async function processUrl(url) {
 
     // Extract metadata for filename and categories update
     const metadata = extractMetadataFromMDX(mdxContent);
+    
+    // Validate metadata before proceeding
+    if (!metadata || !metadata.slug || metadata.slug === 'undefined') {
+      console.log('⏩ Saltando URL - Metadatos inválidos o incompletos');
+      return { success: true, skipped: true, reason: 'invalid-metadata' };
+    }
 
     // Create slug for filename
     const fileName = `${metadata.slug}.mdx`;
