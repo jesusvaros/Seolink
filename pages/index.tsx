@@ -17,15 +17,6 @@ interface CategoryData {
   [category: string]: Article[];
 }
 
-// Mapeo de IDs de categorías a nombres más amigables
-const categoryNames: { [key: string]: string } = {
-  cocina: 'Cocina',
-  belleza: 'Belleza',
-  jardin: 'Jardín',
-  maquillaje: 'Maquillaje',
-  ropa: 'Ropa'
-};
-
 // Función para obtener datos estáticos
 export async function getStaticProps() {
   // Leer datos de MDX para información adicional si es necesario
@@ -41,9 +32,9 @@ export async function getStaticProps() {
   const limitedCategories: CategoryData = {};
   Object.keys(categories).forEach(category => {
     if (Array.isArray(categories[category])) {
-      limitedCategories[category] = categories[category].slice(0, 5);
+      limitedCategories[category] = categories[category].slice(0, 12);
     } else {
-      limitedCategories[category] = categories[category]; // If not an array, use as is
+      limitedCategories[category] = categories[category];
       console.log(`Warning: Category ${category} is not an array`);
     }
   });
@@ -115,7 +106,7 @@ export default function Home({ categories }: { categories: CategoryData }) {
                 ? 'text-blue-600 border-b-2 border-blue-600' 
                 : 'text-gray-500 hover:text-gray-700'}`}
             >
-              {categoryNames[category] || category}
+              <span className="capitalize">{category}</span>
             </button>
           ))}
         </div>
@@ -125,7 +116,7 @@ export default function Home({ categories }: { categories: CategoryData }) {
       {currentCategory && safeCategories[currentCategory]?.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">
-            {categoryNames[currentCategory] || currentCategory}
+            <span className="capitalize">{currentCategory}</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,7 +141,7 @@ export default function Home({ categories }: { categories: CategoryData }) {
           .map(category => (
             <div key={category}>
               <h2 className="text-xl font-bold mb-4 flex items-center">
-                <span>{categoryNames[category] || category}</span>
+                <span className="capitalize">{category}</span>
                 <span className="ml-2 text-sm font-normal text-blue-600 cursor-pointer" 
                   onClick={() => setActiveCategory(category)}>
                   Ver todos

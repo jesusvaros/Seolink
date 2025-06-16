@@ -175,7 +175,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }>
     <div className="mb-8">
       {/* Header with image and basic info */}
       <div className="flex flex-col md:flex-row mb-4 bg-white p-4 rounded-lg shadow-sm">
-        {index && (
+        {index !== undefined && (
           <span className=" text-2xl font-bold text-gray-600">{index + 1}</span>
         )}
         <div className="md:w-1/4 flex items-center justify-center relative">
