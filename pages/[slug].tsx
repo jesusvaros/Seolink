@@ -48,9 +48,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     // Use our utility function to handle JSON frontmatter
     const { frontmatter } = extractFrontmatter(fileContents);
-    const data = frontmatter as { slug?: string };
+    const data = frontmatter as { slug?: string } | null;
 
-    const slug = data.slug || filename.replace(/\.mdx?$/, '');
+    // Ensure data exists and has a slug property, or fall back to filename
+    const slug = (data && data.slug) ? data.slug : filename.replace(/\.mdx?$/, '');
     return { params: { slug } };
   });
 

@@ -1,4 +1,188 @@
 [
-  "https://www.elle.com/es/search/?q=las+mejores+verano",
-  "https://www.elle.com/es/search/?q=+verano+amazon"
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/mejores-gadgets-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/star-style/el-estilo-de/jennifer-lopez-looks-de-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/star-style/el-estilo-de/mejores-looks-verano-2019-instagram-street-style/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/mejores-festivales-musica-verano-espana-2018/"
+  },
+  {
+    "url": "https://www.elle.com/es/star-style/el-estilo-de/looks-primavera-verano-carolina-de-monaco/"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/pelo/peinados-verano-2021/"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/salud-fitness/pompadour-reto-supertu/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/viajes/mejores-islas-mediterraneo/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/streetstyle/como-llevar-una-camiseta-blanca-looks-estilo-ciudad/",
+    "title": "Camisetas Blancas: La Prenda Esencial para Cada Estilo",
+    "slug": "camisetas-blancas-la-prenda-esencial-para-cada-estilo"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/cara-cuerpo/perfumes-para-oler-siempre-a-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/cara-cuerpo/verano-proteccion-solar-la-roche-posay/"
+  },
+  {
+    "url": "https://www.elle.com/es/gourmet/recetas-cocina/recetas-ricas-marisco-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/star-style/el-estilo-de/evento-casa-mo-multiopticas-invitadas-mejor-vestidas/"
+  },
+  {
+    "url": "https://www.elle.com/es/gourmet/donde-comer/chiringuitos-beach-club-moda-verano-marbella/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/viajes/mejores-casas-alquiler-playa-piscina-espana-verano-lujo/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/viajes/galicia-mejores-playas/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/las-mejores-series-del-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/noticias/invitadas-boda-verano-inspiracion-mejores-looks-vestidos/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/pareja-sexo/verano-libido/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/streetstyle/vestidos-largos-midi-cortos-flores-blancos-bohemios-tendencias-primavera-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/pelo/tratamientos-peluqueria-encrespamiento-pelo-verano/"
+  },
+  {
+    "url": "https://www.elle.com/es/gourmet/gastronomia/mesas-comer-junto-al-mar-a-tutiplen-andres-galisteo/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/compras-elle/vestidos-largos-fluidos-de-verano-expertas-en-moda/",
+    "title": "Vestidos Largos y Fluidos: Tendencias para el Verano 2025",
+    "slug": "vestidos-largos-y-fluidos-tendencias-para-el-verano-2025"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/cara-cuerpo/novedades-perfumes-verano/",
+    "title": "Los Mejores Perfumes de Verano: Frescura y Estilo en Cada Frasco",
+    "slug": "los-mejores-perfumes-de-verano-frescura-y-estilo-en-cada-frasco"
+  },
+  {
+    "url": "https://www.elle.com/es/living/viajes/mallorca-que-ver-hacer-iberia-express/",
+    "title": "Descubre Mallorca: Cultura, Naturaleza y Gastronomía en un Solo Viaje",
+    "slug": "descubre-mallorca-cultura-naturaleza-y-gastronomia-en-un-solo-viaje"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/tendencias-novedades/cejas-maybelline-tattoo-brow/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/streetstyle/vestidos-largos-mujer-verano-como-combinar/",
+    "title": "Los mejores vestidos largos para el verano: Estilos y tendencias imperdibles",
+    "slug": "los-mejores-vestidos-largos-para-el-verano-estilos-y-tendencias-imperdibles"
+  },
+  {
+    "url": "https://www.elle.com/es/gourmet/gastronomia/cocteles-verano-barman/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/planes-verano-amazon-prime-video/"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/noticias/tobillera-tendencia-verano-2020-conchas-ojo-barata-amazon/",
+    "title": "Cómo las Cookies Transforman la Publicidad Digital: Personalización y Efectividad",
+    "slug": "como-las-cookies-transforman-la-publicidad-digital-personalizacion-y-efectividad"
+  },
+  {
+    "url": "https://www.elle.com/es/star-style/belleza-vip/productos-belleza-dua-lipa-amazon/",
+    "title": "Los 5 productos de belleza de Dua Lipa para un verano radiante",
+    "slug": "los-5-productos-de-belleza-de-dua-lipa-para-un-verano-radiante"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/se-lo-que-hicisteis-el-ultimo-verano-serie-amazon-prime-video/",
+    "title": "Descubre 'Sé lo que hicisteis el último verano': La nueva serie de terror en Amazon Prime Video",
+    "slug": "descubre-se-lo-que-hicisteis-el-ultimo-verano-la-nueva-serie-de-terror-en-amazon-prime-video"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/el-verano-en-que-me-enamore-serie-amazon/",
+    "title": "El verano en que me enamoré: La serie juvenil que no te puedes perder",
+    "slug": "el-verano-en-que-me-enamore-la-serie-juvenil-que-no-te-puedes-perder"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/libros-top-ventas-amazon-verano/",
+    "title": "Los mejores libros para leer en vacaciones: superventas que transforman vidas",
+    "slug": "los-mejores-libros-para-leer-en-vacaciones-superventas-que-transforman-vidas"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/libros-mas-vendidos-de-amazon-vacaciones-de-verano/",
+    "title": "Los libros más adictivos del verano 2023 que debes leer",
+    "slug": "los-libros-mas-adictivos-del-verano-2023-que-debes-leer"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/belleza-novedades/protector-termico-pelo-verano-barato-mas-recomendado-en-amazon-rebajas/",
+    "title": "Protector Térmico Revlon: Cuidado Esencial para tu Cabello en Verano",
+    "slug": "protector-termico-revlon-cuidado-esencial-para-tu-cabello-en-verano"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/mejores-series-peliculas-verano-2020-netflix-amazon-movistar-hbo-filmin/"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/smartwatch-barato-amazon-comprar/",
+    "title": "YOOUS Band 5: El Smartwatch Asequible para Mejorar tu Salud",
+    "slug": "yoous-band-5-el-smartwatch-asequible-para-mejorar-tu-salud"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/libros-misterio-suspense-mas-vendidos-de-amazon-verano/",
+    "title": "Los mejores thrillers y novelas negras para leer en verano 2023",
+    "slug": "los-mejores-thrillers-y-novelas-negras-para-leer-en-verano-2023"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/compras-elle/vestido-mujer-amazon-tipazo-talla-grande/",
+    "title": "Cómo la Personalización de la Publicidad Mejora la Experiencia del Usuario",
+    "slug": "como-la-personalizacion-de-la-publicidad-mejora-la-experiencia-del-usuario"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/noticias/5-looks-de-amazon-en-tendencia-para-ir-a-la-oficina-este-verano-2024/",
+    "title": "Tendencias de moda verano 2024: Looks imprescindibles de Amazon Fashion",
+    "slug": "tendencias-de-moda-verano-2024-looks-imprescindibles-de-amazon-fashion"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/noticias/vestido-camisero-lino-mujer-barato-find-amazon-editoras-moda/",
+    "title": "Cómo las Cookies Transforman la Publicidad Digital: Personalización y Privacidad",
+    "slug": "como-las-cookies-transforman-la-publicidad-digital-personalizacion-y-privacidad"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/amazon-kindle-paperwhite-oferta-amazon-prime-day-2024/",
+    "title": "Descubre el Kindle Paperwhite: Tu compañero ideal para la lectura digital",
+    "slug": "descubre-el-kindle-paperwhite-tu-companero-ideal-para-la-lectura-digital"
+  },
+  {
+    "url": "https://www.elle.com/es/moda/tendencias/sandalias-tacon-bajo-amazon/",
+    "title": "Cómo las Cookies Transforman la Publicidad Digital: Un Análisis Detallado",
+    "slug": "como-las-cookies-transforman-la-publicidad-digital-un-analisis-detallado"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/pelo/protector-termico-pelo-verano-nuggela-sule-amazon/",
+    "title": "Protector Solar para Cabello: Nuggela & Sulé, El Mejor del Verano",
+    "slug": "protector-solar-para-cabello-nuggela-sule-el-mejor-del-verano"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/fiesta-ofertas-amazon/"
+  },
+  {
+    "url": "https://www.elle.com/es/belleza/cara-cuerpo/perfume-citrico-floral-fresco-heredado-madre-repito-cada-verano-menos-15-euros-amazon/",
+    "title": "Los Mejores Perfumes Frescos para el Verano: Aromas Cítricos y Florales",
+    "slug": "los-mejores-perfumes-frescos-para-el-verano-aromas-citricos-y-florales"
+  },
+  {
+    "url": "https://www.elle.com/es/living/ocio-cultura/prime-day-live-concierto-gratuito/"
+  }
 ]
