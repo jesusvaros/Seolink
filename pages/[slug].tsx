@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-// We no longer need gray-matter as we're parsing JSON directly
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -12,7 +11,7 @@ import Layout from '../layouts/BaseLayout';
 import InternalLink from '../components/InternalLink';
 import AffiliateCard from '../components/AffiliateCard';
 import ProductTable, { Product } from '../components/ProductTable';
-import ProductDetailCard, { DetailedProduct } from '../components/ProductDetailCard';
+import ProductDetailCard from '../components/ProductDetailCard';
 import ProductHeading from '../components/ProductHeading';
 import StickyBuyCTA from '../components/StickyBuyCTA';
 import ProductRankingTable from '../components/ProductRankingTable';
