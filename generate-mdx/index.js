@@ -35,11 +35,8 @@ async function processUrl(url) {
   let didAttemptFullProcessing = false;
 
   try {
-    console.log(`\n🔍 Procesando URL: ${url}`);
-
-    // Check if URL contains Amazon links
-    console.log('🔎 Comprobando si la URL contiene enlaces de Amazon...');
-    const hasAmazonLinks = await containsAmazonLinks(url);
+    const cleanUrl = url.trim().replace(/['"`]+$/, '');
+    const hasAmazonLinks = await containsAmazonLinks(cleanUrl);
 
     if (!hasAmazonLinks) {
       console.log('⏩ Saltando URL - No contiene enlaces de Amazon');
@@ -102,7 +99,7 @@ async function processUrl(url) {
  * Main function to process all URLs
  */
 async function main() {
-  const scrapedResults = []; // Collect all scraped data here
+  const scrapedResults = []; 
 
   try {
     console.log('\n🚀 Iniciando generador de MDX...');

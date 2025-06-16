@@ -2,8 +2,19 @@ import { chromium } from 'playwright';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
+import fetch from 'node-fetch';
 
 const turndown = new TurndownService();
+
+async function resolveShortUrl(shortUrl) {
+  try {
+    const response = await fetch(shortUrl, { method: 'HEAD', redirect: 'follow' });
+    return response.url;
+  } catch (error) {
+    console.error(`❌ Error al resolver URL acortada ${shortUrl}:`, error.message);
+    return shortUrl; // Return original URL if resolution fails
+  }
+}
 
 /**
  * Check if a URL contains Amazon product links
@@ -21,16 +32,22 @@ async function containsAmazonLinks(url) {
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
-    // Check for Amazon links
-    const amazonLinks = await page.evaluate(() => {
-      const links = Array.from(document.querySelectorAll('a[href*="amazon"]'));
-      return links.map(link => link.href);
+    const links = await page.evaluate(() => {
+      const amazonLinks = Array.from(document.querySelectorAll('a[href*="amazon"]'));
+      const chollometroLinks = Array.from(document.querySelectorAll('a[href*="chollometro"]'));
+      const amznToLinks = Array.from(document.querySelectorAll('a[href*="amzn.to"]'));
+
+      console.log(`🔍 Enlaces de Amazon encontrados: ${amazonLinks.length}`);
+      console.log(`🔍 Enlaces de Amazon acortados encontrados: ${amznToLinks.length}`);  
+      
+      // Combine all links
+      return [...amazonLinks, ...amznToLinks, ...chollometroLinks].map(link => link.href);
     });
 
     await browser.close();
 
-    if (amazonLinks.length > 0) {
-      console.log(`✅ La URL contiene ${amazonLinks.length} enlaces de Amazon.`);
+    if (links.length > 0) {
+      console.log(`✅ La URL contiene ${links.length} enlaces de productos Amazon (directos o acortados).`);
       return true;
     } else {
       console.log(`❌ La URL no contiene enlaces de Amazon.`);
@@ -43,11 +60,6 @@ async function containsAmazonLinks(url) {
   }
 }
 
-/**
- * Fetch and clean content from a URL
- * @param {string} url - URL to fetch content from
- * @returns {Object} - Extracted content data
- */
 async function fetchCleanContent(url) {
   console.log(`🌐 Extrayendo contenido de ${url}...`);
   let browser = null;
@@ -91,11 +103,34 @@ async function fetchCleanContent(url) {
       return significantImages.length > 0 ? significantImages[0].src : null;
     });
 
-    // Extract Amazon product links and details
-    const productLinks = await page.evaluate(() => {
-      const links = Array.from(document.querySelectorAll('a[href*="amazon"]'));
-      return links.map(link => link.href);
+    // Extract Amazon product links and details (including shortened links)
+    const rawProductLinks = await page.evaluate(() => {
+      const amazonLinks = Array.from(document.querySelectorAll('a[href*="amazon"]'));
+      const amznToLinks = Array.from(document.querySelectorAll('a[href*="amzn.to"]'));
+      const chollometroLinks = Array.from(document.querySelectorAll('a[href*="chollometro"]'));
+      
+      // Combine all links
+      return [...amazonLinks, ...amznToLinks, ...chollometroLinks].map(link => link.href);
     });
+    
+    // Resolve shortened URLs
+    const productLinks = [];
+    for (const link of rawProductLinks) {
+      if (link.includes('amzn.to') || link.includes('tidd.ly')) {
+        console.log(`🔗 Resolviendo URL acortada: ${link}`);
+        const resolvedUrl = await resolveShortUrl(link);
+        console.log(`✅ URL resuelta: ${resolvedUrl}`);
+        productLinks.push({
+          original: link,
+          resolved: resolvedUrl
+        });
+      } else {
+        productLinks.push({
+          original: link,
+          resolved: link
+        });
+      }
+    }
 
     // Extract product prices if available
     const productPrices = await page.evaluate(() => {
@@ -161,5 +196,6 @@ async function fetchCleanContent(url) {
 
 export {
   containsAmazonLinks,
-  fetchCleanContent
+  fetchCleanContent,
+  resolveShortUrl
 };

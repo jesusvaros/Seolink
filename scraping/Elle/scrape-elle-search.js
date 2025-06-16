@@ -2,63 +2,101 @@ import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
 
-const SEARCH_URL = process.argv[2] || 'https://www.elle.com/es/gourmet/';
+// Define URLs to scrape - can be provided as command line arguments or use defaults
+const SEARCH_URLS = process.argv.length > 2 
+  ? process.argv.slice(2) 
+  : [
+      'https://www.elle.com/es/gourmet/',
+      'https://www.elle.com/es/belleza/',
+      'https://www.elle.com/es/moda/'
+    ];
+
+// Ensure output directory exists
 const OUTPUT_DIR = path.join(process.cwd(), '../../generate-mdx/urls/');
-// Sanitize filename: remove protocol, replace non-word chars with _
-const outputFileName = SEARCH_URL.replace(/^https?:\/\//, '').replace(/\W+/g, '_') + '.json';
-const OUTPUT_FILE = path.join(OUTPUT_DIR, outputFileName);
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  console.log(`📁 Creado directorio: ${OUTPUT_DIR}`);
+}
 
-async function scrapeElle() {
-  const browser = await chromium.launch({ headless: true });
+/**
+ * Scrape a single URL and extract all relevant links
+ * @param {string} url - The URL to scrape
+ * @param {import('playwright').Browser} browser - Playwright browser instance
+ * @returns {Promise<string[]>} - Array of unique links found
+ */
+async function scrapeUrl(url, browser) {
+  console.log(`🔍 Procesando: ${url}`);
+  
   const page = await browser.newPage();
-
-  await page.goto(SEARCH_URL, { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(2000);
-
-  console.log('🔁 Cargando todos los resultados con click forzado...');
-  let clickCount = 0;
-
-  // while (true) {
-  //   const verMas = await page.$('button:has-text("Ver más")');
-  //   if (!verMas) break;
-
-  //   try {
-  //     await page.evaluate((btn) => btn.click(), verMas);
-  //     clickCount++;
-  //     console.log(`🖱 Click forzado en "Ver más" (${clickCount})`);
-  //     await page.waitForTimeout(2500);
-  //   } catch (err) {
-  //     console.warn("⚠️ No se pudo hacer clic, saliendo.");
-  //     break;
-  //   }
-  // }
-
-  await page.waitForTimeout(1500);
-
-  const links = await page.$$eval('a[href]', (elements) =>
-    elements
-      .map((el) => el.href)
-      .filter((href) =>
-        href.startsWith('https://www.elle.com/es/') &&
-        !href.includes('?q=') &&
-        !href.includes('#') &&
-        href.length > 40
-      )
-  );
-
-  const unique = [...new Set(links)];
   
-  // Asegurar que la carpeta de destino exista
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-    console.log(`📁 Creada carpeta: ${OUTPUT_DIR}`);
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForTimeout(2000);
+
+    const links = await page.$$eval('a[href]', (elements) =>
+      elements
+        .map((el) => el.href)
+        .filter((href) =>
+          href.startsWith('https://www.elle.com/es/') &&
+          !href.includes('?q=') &&
+          !href.includes('#') &&
+          href.length > 40
+        )
+    );
+
+    const unique = [...new Set(links)];
+    console.log(`  📊 Encontrados ${unique.length} enlaces únicos`);
+    
+    return unique;
+  } catch (error) {
+    console.error(`  ❌ Error procesando ${url}: ${error.message}`);
+    return [];
+  } finally {
+    await page.close();
   }
-  
-  // Guardar el archivo
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(unique, null, 2));
+}
 
-  console.log(`✅ Guardados ${unique.length} enlaces en ${OUTPUT_FILE}`);
-  await browser.close();
+/**
+ * Main function to process all URLs
+ */
+async function scrapeElle() {
+  console.log(`🚀 Iniciando scraping de ${SEARCH_URLS.length} URLs...`);
+  
+  const browser = await chromium.launch({ 
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  
+  try {
+    const allResults = {};
+    
+    // Process each URL
+    for (const url of SEARCH_URLS) {
+      // Create a sanitized filename for this URL
+      const outputFileName = url.replace(/^https?:\/\//, '').replace(/\W+/g, '_') + '.json';
+      const outputFile = path.join(OUTPUT_DIR, outputFileName);
+      
+      // Scrape the URL
+      const links = await scrapeUrl(url, browser);
+      
+      // Save results to individual file
+      fs.writeFileSync(outputFile, JSON.stringify(links, null, 2));
+      console.log(`  💾 Guardados ${links.length} enlaces en ${outputFileName}`);
+      
+      // Add to combined results
+      allResults[url] = links;
+    }
+    
+    // Save combined results
+    const combinedFile = path.join(OUTPUT_DIR, 'elle-combined-links.json');
+    fs.writeFileSync(combinedFile, JSON.stringify(allResults, null, 2));
+    console.log(`\n✅ Proceso completado. Resultados combinados guardados en elle-combined-links.json`);
+    
+  } catch (error) {
+    console.error(`\n❌ Error general: ${error.message}`);
+  } finally {
+    await browser.close();
+  }
 }
 
 scrapeElle();

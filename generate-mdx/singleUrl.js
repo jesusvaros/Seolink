@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 // Define the URL to process
 // Using the Elle coffee machine article with confirmed Amazon links
-const url = 'https://www.elle.com/es/gourmet/gastronomia/g43215985/mejores-cafeteras-capsulas/';
+const url = 'https://www.chollometro.com/search?q=amazon&sortBy=new&hide_local=1&temperatureFrom=20&retailers=173';
 
 // Define the output directory for MDX files
 const CONTENT_DIR = path.join(__dirname, '..', 'content', 'posts');
