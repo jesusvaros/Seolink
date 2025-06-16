@@ -199,7 +199,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }>
               rel="noopener noreferrer"
               className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200 text-center w-full md:w-auto mr-3"
             >
-              Mas informcion
+              Mas información
             </a>
             <a
               href={product.affiliateLink}
