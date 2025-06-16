@@ -56,10 +56,19 @@ async function processCoffeeMachines() {
     // Create a slug from the title
     const slug = extractedData.title
       .toLowerCase()
-      .replace(/[^\w\s]/gi, '')
+      // Normalize accented characters to their ASCII equivalents
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      // Replace non-alphanumeric characters (except spaces) with empty string
+      .replace(/[^\w\s-]/g, '')
+      // Replace spaces with hyphens
       .replace(/\s+/g, '-')
+      // Replace multiple hyphens with a single hyphen
       .replace(/--+/g, '-')
+      // Remove leading and trailing hyphens
       .replace(/^-+|-+$/g, '');
+      
+    console.log(`🔤 Slug generado: ${slug}`);
     
     // Save the MDX file
     const mdxFilePath = path.join(CONTENT_DIR, `${slug}.mdx`);

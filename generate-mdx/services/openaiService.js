@@ -95,13 +95,13 @@ export async function contentProcessingAI(data) {
         { role: "user", content: prompt }
       ],
       temperature: 0.3,
-      max_tokens: 2500
+      max_tokens: 3500
     });
 
     // Get the response content
     const content = response.choices[0].message.content;
     console.log('\ud83d\udd0d Respuesta recibida de OpenAI, intentando parsear JSON...');
-
+console.log('content',content);
     let responseData;
     try {
       // Try to extract JSON if it's wrapped in markdown code blocks

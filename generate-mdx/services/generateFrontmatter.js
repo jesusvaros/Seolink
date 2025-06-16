@@ -4,8 +4,19 @@ export async function generateFrontmatter(data,processedData) {
     try {
       const slug = processedData.title
         .toLowerCase()
-        .replace(/[^\w\s]/g, '')
-        .replace(/\s+/g, '-');
+        // Normalize accented characters to their ASCII equivalents
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        // Replace non-alphanumeric characters (except spaces) with empty string
+        .replace(/[^\w\s-]/g, '')
+        // Replace spaces with hyphens
+        .replace(/\s+/g, '-')
+        // Replace multiple hyphens with a single hyphen
+        .replace(/--+/g, '-')
+        // Remove leading and trailing hyphens
+        .replace(/^-+|-+$/g, '');
+        
+      console.log(`🔤 Slug generado: ${slug}`);
       
       const category = processedData.category || 'productos';
       

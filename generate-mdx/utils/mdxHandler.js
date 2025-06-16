@@ -7,7 +7,8 @@ import { CATEGORIES_PATH } from '../services/paths.js';
 function extractMetadataFromMDX(mdxContent) {
   console.log('ℹ️ Extrayendo metadatos del MDX...');
   try {
-    const match = mdxContent.match(/^---\n([\s\S]*?)\n---/m);
+    // Updated regex to handle frontmatter that starts with ---json or other variants
+    const match = mdxContent.match(/^---(?:json)?\n([\s\S]*?)\n---/m);
     if (!match || !match[1]) {
       console.error('❌ No se pudo encontrar el bloque de frontmatter en el MDX.');
       return { 
@@ -19,8 +20,20 @@ function extractMetadataFromMDX(mdxContent) {
     }
     
     const frontmatterString = match[1];
-    // Parse YAML-style frontmatter
-    const frontmatter = {};
+    // Parse frontmatter (could be YAML or JSON)
+    let frontmatter = {};
+    
+    // Check if it's JSON format
+    if (frontmatterString.trim().startsWith('{')) {
+      try {
+        frontmatter = JSON.parse(frontmatterString);
+        console.log('✅ Frontmatter extraído correctamente.');
+        return frontmatter; // Return parsed JSON directly
+      } catch (e) {
+        console.error('❌ Error parsing JSON frontmatter:', e);
+        // Fall back to regex parsing if JSON parsing fails
+      }
+    }
     
     // Extract title
     const titleMatch = frontmatterString.match(/title:\s*"([^"]*)"/i);
@@ -60,11 +73,11 @@ function extractMetadataFromMDX(mdxContent) {
     console.log('✅ Metadatos extraídos correctamente.');
     
     return {
-      slug: frontmatter.slug || 'default-slug',
-      category: frontmatter.category || 'general',
-      title: frontmatter.title || 'Sin Título',
-      date: frontmatter.date || new Date().toISOString().split('T')[0],
-      image: frontmatter.image || '/default-placeholder.jpg',
+      slug: frontmatter.slug,
+      category: frontmatter.category,
+      title: frontmatter.title,
+      date: frontmatter.date,
+      image: frontmatter.image,
     };
   } catch (error) {
     console.error('❌ Error al parsear JSON del frontmatter:', error.message);
@@ -78,10 +91,7 @@ function extractMetadataFromMDX(mdxContent) {
   }
 }
 
-/**
- * Update categories.json with article metadata
- * @param {Object} articleMetadata - Metadata from the article
- */
+
 async function updateCategoriesJson(articleMetadata) {
   console.log(`🔄 Actualizando categorías con metadatos del artículo...`);
   let categoriesData = {};
@@ -102,24 +112,12 @@ async function updateCategoriesJson(articleMetadata) {
       if (!fs.existsSync(categoriesDir)) {
         fs.mkdirSync(categoriesDir, { recursive: true });
       }
-    }
+    } 
+    
+    // Normalize category to lowercase for consistent keys
+    const category = articleMetadata.category.toLowerCase();
 
-    // Get the category from the article metadata
-    const category = articleMetadata.category || 'general';
-    
-    // Initialize the category if it doesn't exist
-    if (!categoriesData[category]) {
-      categoriesData[category] = {
-        name: category.charAt(0).toUpperCase() + category.slice(1), // Capitalize first letter
-        description: `Artículos sobre ${category}`,
-        articles: []
-      };
-    }
-    
-    // Check if the article already exists in the category
-    const existingArticleIndex = categoriesData[category].articles.findIndex(
-      article => article.slug === articleMetadata.slug
-    );
+    console.log('category', category, articleMetadata);
     
     // Create the article entry
     const articleEntry = {
@@ -129,17 +127,34 @@ async function updateCategoriesJson(articleMetadata) {
       image: articleMetadata.image || '/default-placeholder.jpg'
     };
     
-    // Update or add the article
-    if (existingArticleIndex !== -1) {
-      categoriesData[category].articles[existingArticleIndex] = articleEntry;
-    } else {
-      categoriesData[category].articles.push(articleEntry);
+    // Handle different category formats (array or object with articles property)
+    if (!categoriesData[category]) {
+      // Category doesn't exist, create it as an array (current format)
+      categoriesData[category] = [];
     }
     
-    // Sort articles by date (newest first)
-    categoriesData[category].articles.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    });
+    // Check if the category is an array or an object with articles
+    if (Array.isArray(categoriesData[category])) {
+      // It's an array format, add directly
+      categoriesData[category].push(articleEntry);
+      
+      // Sort articles by date (newest first)
+      categoriesData[category].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    } else {
+      // It's an object format with articles property
+      if (!categoriesData[category].articles) {
+        categoriesData[category].articles = [];
+      }
+      
+      categoriesData[category].articles.push(articleEntry);
+      
+      // Sort articles by date (newest first)
+      categoriesData[category].articles.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    }
     
     // Write the updated categories data to the file
     fs.writeFileSync(CATEGORIES_PATH, JSON.stringify(categoriesData, null, 2));

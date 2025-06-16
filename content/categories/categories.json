@@ -1,5 +1,11 @@
 {
-  "Cocina": [
+  "cocina": [
+    {
+      "slug": "las-mejores-cafeteras-de-capsulas-para-disfrutar-del-cafe-en-casa",
+      "title": "Las Mejores Cafeteras de Cápsulas para Disfrutar del Café en Casa",
+      "date": "2025-06-16",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-611228874-6408e3d12587d.jpg?crop=0.998xw:0.748xh;0,0.247xh&resize=1200:*"
+    },
     {
       "slug": "mejores-ollas-eficientes-2025",
       "title": "Las Mejores Ollas Eficientes y Duraderas del 2025",
@@ -55,7 +61,7 @@
       "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1745934432-612wx7Kku-L.jpg?crop=1xw:1xh;center,top&resize=980:*"
     }
   ],
-  "Gastronomía": [
+  "gastronomía": [
     {
       "slug": "mejores-regalos-cocina-gastronomia-2025",
       "title": "Los Mejores Regalos de Cocina y Gastronomía para 2025",
@@ -63,12 +69,20 @@
       "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1735555633-ninja-blast-azul-elle-gourmet-67727869ea259.jpg?crop=1xw:1xh;center,top&resize=980:*"
     }
   ],
-  "Hogar": [
+  "hogar": [
     {
       "slug": "mejores-batidoras-vaso-2025",
       "title": "Las Mejores Batidoras de Vaso para el Hogar en 2025",
       "date": "2025-06-06",
       "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1708510350-51kBoEUxr9L.jpg?crop=1xw:1.00xh;center,top&resize=980:*"
+    }
+  ],
+  "moda": [
+    {
+      "slug": "los-mejores-sombreros-de-verano-para-elevar-tu-estilo",
+      "title": "Los mejores sombreros de verano para elevar tu estilo",
+      "date": "2025-06-16",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1458737140-683dc4e660ee6.jpg?crop=1.00xw:0.335xh;0,0.172xh&resize=1200:*"
     }
   ]
 }
