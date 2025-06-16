@@ -24,9 +24,6 @@ if (!fs.existsSync(CONTENT_DIR)) {
   fs.mkdirSync(CONTENT_DIR, { recursive: true });
 }
 
-/**
- * Process the coffee machine article and generate MDX
- */
 async function processCoffeeMachines() {
   console.log('🚀 Iniciando procesamiento del artículo de cafeteras...');
   console.log(`🔗 URL: ${url}`);

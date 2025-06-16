@@ -2,11 +2,6 @@ import fs from 'fs';
 import { URL } from 'url';
 import { PROCESSED_URLS_PATH, EXCLUDED_DOMAINS } from '../services/paths.js';
 
-/**
- * Load URLs from all source files in the URLs directory
- * @param {string} urlsDir - Directory containing URL files
- * @returns {Array} - Array of URLs
- */
 async function loadUrlsFromFiles(urlsDir) {
   let allUrls = [];
   
@@ -36,10 +31,6 @@ async function loadUrlsFromFiles(urlsDir) {
   return allUrls;
 }
 
-/**
- * Load processed URLs from the JSON file
- * @returns {Array} - Array of processed URLs
- */
 function loadProcessedUrls() {
   try {
     if (fs.existsSync(PROCESSED_URLS_PATH)) {
@@ -58,10 +49,6 @@ function loadProcessedUrls() {
   }
 }
 
-/**
- * Save processed URLs to the JSON file
- * @param {Array} urls - Array of processed URLs
- */
 function saveProcessedUrls(urls) {
   try {
     fs.writeFileSync(PROCESSED_URLS_PATH, JSON.stringify(urls, null, 2));
@@ -71,11 +58,6 @@ function saveProcessedUrls(urls) {
   }
 }
 
-/**
- * Check if a URL's domain is in the excluded list
- * @param {string} urlString - URL to check
- * @returns {boolean} - True if domain is excluded
- */
 function isExcludedDomain(urlString) {
   try {
     const domain = new URL(urlString).hostname;
@@ -86,12 +68,6 @@ function isExcludedDomain(urlString) {
   }
 }
 
-/**
- * Calculate URL statistics
- * @param {Array} allUrls - All URLs found in files
- * @param {Array} processedUrls - Already processed URLs
- * @returns {Object} - Statistics object
- */
 function calculateUrlStats(allUrls, processedUrls) {
   const uniqueUrls = [...new Set(allUrls)];
   const orphanedUrls = processedUrls.filter(url => !allUrls.includes(url));

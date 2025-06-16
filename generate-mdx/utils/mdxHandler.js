@@ -1,24 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { CATEGORIES_PATH } from '../services/paths.js';
-import { generateDestacadoValue } from '../services/openaiService.js';
 
-/**
- * Validate and correct MDX structure
- * @param {string} mdxContent - The MDX content to validate
- * @returns {string} - Validated MDX content
- */
-function validateMDXStructure(mdxContent) {
-  // TODO: Implement actual validation logic if needed
-  console.log('🔧 Validando estructura MDX...');
-  return mdxContent;
-}
 
-/**
- * Extract metadata from MDX content
- * @param {string} mdxContent - The MDX content
- * @returns {Object} - Extracted metadata
- */
+
 function extractMetadataFromMDX(mdxContent) {
   console.log('ℹ️ Extrayendo metadatos del MDX...');
   try {
@@ -165,11 +150,7 @@ async function updateCategoriesJson(articleMetadata) {
   }
 }
 
-// generateDestacadoValue is now imported from openaiService.js
-
 export {
-  generateDestacadoValue,
-  validateMDXStructure,
   extractMetadataFromMDX,
   updateCategoriesJson
 };
