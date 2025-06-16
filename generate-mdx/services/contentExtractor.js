@@ -6,49 +6,152 @@ import fetch from 'node-fetch';
 
 const turndown = new TurndownService();
 
+/**
+ * Setup a browser instance with optimized settings
+ * @returns {Promise<{browser: Browser, page: Page}>} - Browser and page objects
+ */
+async function setupBrowser(url, timeout = 60000) {
+  // Launch with more browser-like settings
+  const browser = await chromium.launch({ 
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+  });
+  
+  // Create a context with realistic browser settings
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 800 },
+    deviceScaleFactor: 1,
+    hasTouch: false,
+    ignoreHTTPSErrors: true,
+    javaScriptEnabled: true
+  });
+  
+  const page = await context.newPage();
+  
+  // Add console logging from the page
+  page.on('console', msg => console.log(`🌐 Browser console: ${msg.text()}`));
+  
+  console.log(`🌐 Navegando a ${url}...`);
+  await page.goto(url, { 
+    waitUntil: 'networkidle',
+    timeout: timeout
+  });
+  
+  return { browser, page };
+}
+
+/**
+ * Resolve a shortened URL to its final destination
+ */
 async function resolveShortUrl(shortUrl) {
   try {
     const response = await fetch(shortUrl, { method: 'HEAD', redirect: 'follow' });
     return response.url;
   } catch (error) {
-    console.error(`❌ Error al resolver URL acortada ${shortUrl}:`, error.message);
-    return shortUrl; // Return original URL if resolution fails
+    console.error(`Error resolving shortened URL:`, error.message);
+    return shortUrl;
   }
 }
 
 /**
+ * Extract product IDs from Amazon URLs
+ * @param {string} url - Amazon URL
+ * @returns {string|null} - Product ID or null if not found
+ */
+function extractProductId(url) {
+  try {
+    // Common Amazon product ID patterns
+    const patterns = [
+      /\/dp\/([A-Z0-9]{10})(?:\/|\?|$)/, // /dp/XXXXXXXXXX
+      /\/gp\/product\/([A-Z0-9]{10})(?:\/|\?|$)/, // /gp/product/XXXXXXXXXX
+      /\/([A-Z0-9]{10})(?:\/|\?|$)/, // /XXXXXXXXXX directly in path
+      /(?:\?|&)ASIN=([A-Z0-9]{10})(?:&|$)/, // ASIN=XXXXXXXXXX in query
+      /(?:\?|&)asin=([A-Z0-9]{10})(?:&|$)/, // asin=XXXXXXXXXX in query
+    ];
+    
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        return match[1]; // Return the first captured group (product ID)
+      }
+    }
+    
+    return null; // No product ID found
+  } catch (error) {
+    console.error(`Error extracting product ID from ${url}:`, error.message);
+    return null;
+  }
+}
+
+/**
+ * Extract Amazon product links from a page
+ */
+async function extractProductLinks(page) {
+  return await page.evaluate(() => {
+    const amazonLinks = Array.from(document.querySelectorAll('a[href*="amazon"]'));
+    const chollometroLinks = Array.from(document.querySelectorAll('a[href*="chollometro"]'));
+    const amznToLinks = Array.from(document.querySelectorAll('a[href*="amzn.to"]'));
+
+    console.log(`🔍 Enlaces de Amazon encontrados: ${amazonLinks.length}`);
+    console.log(`🔍 Enlaces de Amazon acortados encontrados: ${amznToLinks.length}`);  
+    
+    // Combine all links
+    return [...amazonLinks, ...amznToLinks, ...chollometroLinks].map(link => link.href);
+  });
+}
+
+/**
  * Check if a URL contains Amazon product links
- * @param {string} url - URL to check
- * @returns {boolean} - True if URL contains Amazon products
  */
 async function containsAmazonLinks(url) {
   console.log(`🔍 Verificando si ${url} contiene productos de Amazon...`);
   let browser = null;
+  let page = null;
 
   try {
-    browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-
-    const links = await page.evaluate(() => {
-      const amazonLinks = Array.from(document.querySelectorAll('a[href*="amazon"]'));
-      const chollometroLinks = Array.from(document.querySelectorAll('a[href*="chollometro"]'));
-      const amznToLinks = Array.from(document.querySelectorAll('a[href*="amzn.to"]'));
-
-      console.log(`🔍 Enlaces de Amazon encontrados: ${amazonLinks.length}`);
-      console.log(`🔍 Enlaces de Amazon acortados encontrados: ${amznToLinks.length}`);  
+    // Setup browser and navigate to URL
+    const setup = await setupBrowser(url);
+    browser = setup.browser;
+    page = setup.page;
+    
+    // Extract product links
+    const links = await extractProductLinks(page);
+    
+    // Extract unique product IDs from the links
+    const productIds = new Set();
+    
+    // For each link, try to extract a product ID
+    for (const link of links) {
+      // Skip non-Amazon links
+      if (!link.includes('amazon') && !link.includes('amzn.to')) continue;
       
-      // Combine all links
-      return [...amazonLinks, ...amznToLinks, ...chollometroLinks].map(link => link.href);
-    });
-
+      // For shortened URLs, we need to resolve them first
+      if (link.includes('amzn.to')) {
+        try {
+          const resolvedUrl = await resolveShortUrl(link);
+          const productId = extractProductId(resolvedUrl);
+          if (productId) productIds.add(productId);
+        } catch (error) {
+          console.error(`Error resolving shortened URL ${link}:`, error.message);
+        }
+      } else {
+        // Direct Amazon links
+        const productId = extractProductId(link);
+        if (productId) productIds.add(productId);
+      }
+    }
+    
     await browser.close();
-
-    if (links.length > 0) {
-      console.log(`✅ La URL contiene ${links.length} enlaces de productos Amazon (directos o acortados).`);
+    
+    // Check if we have at least 2 unique product IDs
+    if (productIds.size >= 2) {
+      console.log(`✅ La URL contiene ${links.length} enlaces con ${productIds.size} productos Amazon diferentes.`);
+      console.log(`✅ La URL contiene enlaces de Amazon`);
       return true;
+    } else if (links.length > 0) {
+      console.log(`⚠️ La URL contiene ${links.length} enlaces de Amazon pero solo ${productIds.size} producto(s) único(s).`);
+      return false;
     } else {
       console.log(`❌ La URL no contiene enlaces de Amazon.`);
       return false;
@@ -60,16 +163,25 @@ async function containsAmazonLinks(url) {
   }
 }
 
+/**
+ * Fetch and clean content from a URL
+ */
 async function fetchCleanContent(url) {
-  console.log(`🌐 Extrayendo contenido de ${url}...`);
+  console.log(`📄 Extrayendo contenido limpio...`);
   let browser = null;
+  let page = null;
 
   try {
-    browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+    // Setup browser with longer timeout for content extraction
+    const setup = await setupBrowser(url, 90000);
+    browser = setup.browser;
+    page = setup.page;
+    
+    // Wait a bit more to ensure JavaScript has executed
+    await page.waitForTimeout(2000);
+    
+    // Wait a bit more to ensure JavaScript has executed
+    await page.waitForTimeout(2000);
 
     // Extract basic page info
     const title = await page.title();
@@ -104,14 +216,7 @@ async function fetchCleanContent(url) {
     });
 
     // Extract Amazon product links and details (including shortened links)
-    const rawProductLinks = await page.evaluate(() => {
-      const amazonLinks = Array.from(document.querySelectorAll('a[href*="amazon"]'));
-      const amznToLinks = Array.from(document.querySelectorAll('a[href*="amzn.to"]'));
-      const chollometroLinks = Array.from(document.querySelectorAll('a[href*="chollometro"]'));
-      
-      // Combine all links
-      return [...amazonLinks, ...amznToLinks, ...chollometroLinks].map(link => link.href);
-    });
+    const rawProductLinks = await extractProductLinks(page);
     
     // Resolve shortened URLs
     const productLinks = [];

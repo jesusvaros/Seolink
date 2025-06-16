@@ -8,7 +8,11 @@ const SEARCH_URLS = process.argv.length > 2
   : [
       'https://www.elle.com/es/gourmet/',
       'https://www.elle.com/es/belleza/',
-      'https://www.elle.com/es/moda/'
+      'https://www.elle.com/es/moda/',
+      'https://www.elle.com/es/',
+      'https://www.elle.com/es/living/',
+      'https://www.elle.com/es/amazon-ofertas-rebajas-moda-belleza/',
+      'https://www.elle.com/es/search/?q=2025',
     ];
 
 // Ensure output directory exists
@@ -18,12 +22,6 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   console.log(`📁 Creado directorio: ${OUTPUT_DIR}`);
 }
 
-/**
- * Scrape a single URL and extract all relevant links
- * @param {string} url - The URL to scrape
- * @param {import('playwright').Browser} browser - Playwright browser instance
- * @returns {Promise<string[]>} - Array of unique links found
- */
 async function scrapeUrl(url, browser) {
   console.log(`🔍 Procesando: ${url}`);
   
@@ -56,9 +54,6 @@ async function scrapeUrl(url, browser) {
   }
 }
 
-/**
- * Main function to process all URLs
- */
 async function scrapeElle() {
   console.log(`🚀 Iniciando scraping de ${SEARCH_URLS.length} URLs...`);
   
@@ -68,8 +63,6 @@ async function scrapeElle() {
   });
   
   try {
-    const allResults = {};
-    
     // Process each URL
     for (const url of SEARCH_URLS) {
       // Create a sanitized filename for this URL
@@ -82,15 +75,7 @@ async function scrapeElle() {
       // Save results to individual file
       fs.writeFileSync(outputFile, JSON.stringify(links, null, 2));
       console.log(`  💾 Guardados ${links.length} enlaces en ${outputFileName}`);
-      
-      // Add to combined results
-      allResults[url] = links;
     }
-    
-    // Save combined results
-    const combinedFile = path.join(OUTPUT_DIR, 'elle-combined-links.json');
-    fs.writeFileSync(combinedFile, JSON.stringify(allResults, null, 2));
-    console.log(`\n✅ Proceso completado. Resultados combinados guardados en elle-combined-links.json`);
     
   } catch (error) {
     console.error(`\n❌ Error general: ${error.message}`);
