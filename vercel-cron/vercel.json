@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "crons": [
+    {
+      "path": "/api/cron?task=scrape",
+      "schedule": "0 16 * * 5"
+    },
+    {
+      "path": "/api/cron?task=mdx",
+      "schedule": "0 17 * * 5"
+    }
+  ],
+  "env": {
+    "CRON_SECRET": "@cron_secret"
+  }
+}
