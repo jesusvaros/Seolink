@@ -2,19 +2,26 @@ import path from 'path';
 import { URL } from 'url';
 import fs from 'fs';
 
-// Get the current script directory
-const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
-// Get the project root directory (one level up from generate-mdx)
-const ROOT_DIR = path.join(path.dirname(SCRIPT_DIR), '..');
+// Get the current script directory using import.meta.url (ES modules approach)
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+
+// Get the project root directory (two levels up from services directory)
+const ROOT_DIR = path.resolve(__dirname, '../..');
 
 // Path constants
-const URLS_DIR = path.join(SCRIPT_DIR, '..', 'urls');
+const URLS_DIR = path.join(ROOT_DIR, 'generate-mdx', 'urls');
 const PROCESSED_URLS_PATH = path.join(URLS_DIR, 'processed-urls.json');
-// Content directory is now at the project root level
+// Content directory is at the project root level
 const CONTENT_DIR = path.join(ROOT_DIR, 'content');
 const OUTPUT_DIR = path.join(CONTENT_DIR, 'posts');
 const CATEGORIES_DIR = path.join(CONTENT_DIR, 'categories');
 const CATEGORIES_PATH = path.join(CATEGORIES_DIR, 'categories.json');
+
+// Log the paths for debugging
+console.log(`📂 Project root: ${ROOT_DIR}`);
+console.log(`📂 URLs directory: ${URLS_DIR}`);
+console.log(`📂 Content directory: ${CONTENT_DIR}`);
 
 // Configuration constants
 const EXCLUDED_DOMAINS = [
@@ -43,7 +50,6 @@ function createDirectories() {
 createDirectories();
 
 export {
-  SCRIPT_DIR,
   ROOT_DIR,
   URLS_DIR,
   PROCESSED_URLS_PATH,

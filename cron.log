@@ -1,0 +1,165 @@
+[2025-06-17T11:14:03.491Z] ==================================================
+[2025-06-17T11:14:03.496Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:14:03.496Z] ==================================================
+[2025-06-17T11:14:03.496Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:14:03.496Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:14:19.926Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:14:19.926Z] Output: 📁 Creado directorio: /Users/aa/generate-mdx/urls/
+🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_...(truncated)
+[2025-06-17T11:14:19.927Z] ==================================================
+[2025-06-17T11:14:19.927Z] ✅ All tasks completed successfully
+[2025-06-17T11:14:19.927Z] ==================================================
+[2025-06-17T11:15:37.298Z] ==================================================
+[2025-06-17T11:15:37.301Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:15:37.301Z] ==================================================
+[2025-06-17T11:15:37.302Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:15:37.302Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:15:53.716Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:15:53.717Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:15:53.717Z] ==================================================
+[2025-06-17T11:15:53.717Z] ✅ All tasks completed successfully
+[2025-06-17T11:15:53.717Z] ==================================================
+[2025-06-17T11:18:27.002Z] ==================================================
+[2025-06-17T11:18:27.005Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:18:27.005Z] ==================================================
+[2025-06-17T11:18:27.005Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:18:27.005Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:18:43.020Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:18:43.020Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:18:43.020Z] ==================================================
+[2025-06-17T11:18:43.020Z] ✅ All tasks completed successfully
+[2025-06-17T11:18:43.021Z] ==================================================
+[2025-06-17T11:20:27.864Z] ==================================================
+[2025-06-17T11:20:27.867Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:20:27.867Z] ==================================================
+[2025-06-17T11:20:27.867Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:20:27.867Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:20:28.107Z] ❌ Error executing Elle scraping: Command failed: node /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+file:///Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js:18
+const PROJECT_ROOT = path.resolve(__dirname, '../..');
+                                  ^
+
+ReferenceError: __dirname is not defined in ES module scope
+This file is being treated as an ES module because it has a '.js' file extension and '/Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+    at file:///Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js:18:35
+    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.16.0
+
+[2025-06-17T11:20:28.107Z] ❌ Scraping failed, aborting MDX generation
+[2025-06-17T11:21:14.897Z] ==================================================
+[2025-06-17T11:21:14.900Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:21:14.900Z] ==================================================
+[2025-06-17T11:21:14.900Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:21:14.900Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:21:31.273Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:21:31.273Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:21:31.273Z] ==================================================
+[2025-06-17T11:21:31.273Z] ✅ All tasks completed successfully
+[2025-06-17T11:21:31.274Z] ==================================================
+[2025-06-17T11:32:18.359Z] ==================================================
+[2025-06-17T11:32:18.363Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:32:18.364Z] ==================================================
+[2025-06-17T11:32:18.364Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:32:18.364Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:32:34.753Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:32:34.754Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:32:34.754Z] ==================================================
+[2025-06-17T11:32:34.754Z] ✅ All tasks completed successfully
+[2025-06-17T11:32:34.755Z] ==================================================
+[2025-06-17T11:34:19.161Z] ==================================================
+[2025-06-17T11:34:19.164Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:34:19.164Z] ==================================================
+[2025-06-17T11:34:19.164Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:34:19.164Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:34:35.205Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:34:35.206Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:34:35.206Z] ==================================================
+[2025-06-17T11:34:35.206Z] ✅ All tasks completed successfully
+[2025-06-17T11:34:35.206Z] ==================================================
+[2025-06-17T11:35:22.663Z] ==================================================
+[2025-06-17T11:35:22.667Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T11:35:22.667Z] ==================================================
+[2025-06-17T11:35:22.667Z] 🚀 Starting Elle scraping...
+[2025-06-17T11:35:22.667Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T11:35:38.615Z] ✅ Elle scraping completed successfully
+[2025-06-17T11:35:38.615Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T11:35:38.615Z] 🚀 Starting MDX generation...
+[2025-06-17T11:35:38.615Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js

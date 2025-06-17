@@ -3,9 +3,7 @@ import path from 'path';
 import { chromium } from 'playwright';
 
 // Define URLs to scrape - can be provided as command line arguments or use defaults
-const SEARCH_URLS = process.argv.length > 2 
-  ? process.argv.slice(2) 
-  : [
+const SEARCH_URLS = [
       'https://www.elle.com/es/gourmet/',
       'https://www.elle.com/es/belleza/',
       'https://www.elle.com/es/moda/',
@@ -16,7 +14,15 @@ const SEARCH_URLS = process.argv.length > 2
     ];
 
 // Ensure output directory exists
-const OUTPUT_DIR = path.join(process.cwd(), '../../generate-mdx/urls/');
+// Use absolute path to ensure files are saved in the project directory
+// For ES modules, we need to use import.meta.url instead of __dirname
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PROJECT_ROOT = path.resolve(__dirname, '../..');
+const OUTPUT_DIR = path.join(PROJECT_ROOT, 'generate-mdx/urls/');
+
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   console.log(`📁 Creado directorio: ${OUTPUT_DIR}`);
