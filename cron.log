@@ -265,3 +265,943 @@ Node.js v22.16.0
 [2025-06-17T15:04:39.175Z] ❌ Error executing MDX generation: stdout maxBuffer length exceeded
 [2025-06-17T15:04:39.177Z] ❌ MDX generation failed
 [2025-06-17T15:04:39.177Z] ❌ MDX generation failed
+[2025-06-17T15:30:00.283Z] ==================================================
+[2025-06-17T15:30:00.283Z] ==================================================
+[2025-06-17T15:30:00.285Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T15:30:00.285Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T15:30:00.285Z] ==================================================
+[2025-06-17T15:30:00.285Z] ==================================================
+[2025-06-17T15:30:00.286Z] 🚀 Starting Elle scraping...
+[2025-06-17T15:30:00.286Z] 🚀 Starting Elle scraping...
+[2025-06-17T15:30:00.286Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T15:30:00.286Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T15:30:19.674Z] ✅ Elle scraping completed successfully
+[2025-06-17T15:30:19.674Z] ✅ Elle scraping completed successfully
+[2025-06-17T15:30:19.676Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T15:30:19.676Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T15:30:19.676Z] 🚀 Starting MDX generation...
+[2025-06-17T15:30:19.676Z] 🚀 Starting MDX generation...
+[2025-06-17T15:30:19.676Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-17T15:30:19.676Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-17T15:53:44.900Z] ⚠️ Script warning: Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13603 (line 272 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13728 (line 226 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13486 (line 246 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13667 (line 210 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 12043 (line 219 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+
+[2025-06-17T15:53:44.900Z] ⚠️ Script warning: Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13603 (line 272 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13728 (line 226 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13486 (line 246 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 13667 (line 210 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 12043 (line 219 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+Error: Could not parse CSS stylesheet
+    at exports.createStylesheet (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/helpers/stylesheets.js:37:21)
+    at HTMLStyleElementImpl._updateAStyleBlock (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:67:5)
+    at HTMLStyleElementImpl._poppedOffStackOfOpenElements (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/living/nodes/HTMLStyleElement-impl.js:41:10)
+    at JSDOMParse5Adapter.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/jsdom/lib/jsdom/browser/parser/html.js:175:43)
+    at Parser.onItemPop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:176:90)
+    at OpenElementStack.pop (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/open-element-stack.js:83:22)
+    at endTagInText (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:2353:20)
+    at Parser._endTagOutsideForeignContent (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:992:17)
+    at Parser.onEndTag (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/parser/index.js:957:18)
+    at Tokenizer.emitCurrentTagToken (/Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/node_modules/parse5/dist/cjs/tokenizer/index.js:385:26) .index-module_container__JS--m {
+  a {
+    color: inherit;
+  }
+}
+
+
+[2025-06-17T15:53:44.901Z] ✅ MDX generation completed successfully
+[2025-06-17T15:53:44.901Z] ✅ MDX generation completed successfully
+[2025-06-17T15:53:44.901Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 385
+
+📋 Total URLs encontradas: 815
+
+🔍 URLs válidas para procesar: 188
+🔍 Verificando si https://www.elle.com/es/gourmet/gastronomia/g60859457/sartenes-tefal-mejores-modelos/ contiene productos de Amazon...
+🌐 Navegando a https:...(truncated)
+[2025-06-17T15:53:44.901Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 385
+
+📋 Total URLs encontradas: 815
+
+🔍 URLs válidas para procesar: 188
+🔍 Verificando si https://www.elle.com/es/gourmet/gastronomia/g60859457/sartenes-tefal-mejores-modelos/ contiene productos de Amazon...
+🌐 Navegando a https:...(truncated)
+[2025-06-17T15:53:44.901Z] ==================================================
+[2025-06-17T15:53:44.901Z] ==================================================
+[2025-06-17T15:53:44.901Z] ✅ All tasks completed successfully
+[2025-06-17T15:53:44.901Z] ✅ All tasks completed successfully
+[2025-06-17T15:53:44.901Z] ==================================================
+[2025-06-17T15:53:44.901Z] ==================================================
