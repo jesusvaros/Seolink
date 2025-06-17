@@ -31,6 +31,8 @@ export async function GET(request) {
   // Check for authorization header
   const authHeader = request.headers.get('Authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+
+    console.log(`Unauthorized access attempt: ${authHeader}`);
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
