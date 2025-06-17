@@ -221,3 +221,47 @@ Node.js v22.16.0
 [2025-06-17T14:37:29.097Z] 🚀 Starting MDX generation...
 [2025-06-17T14:37:29.097Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
 [2025-06-17T14:37:29.097Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-17T14:45:00.995Z] ==================================================
+[2025-06-17T14:45:00.995Z] ==================================================
+[2025-06-17T14:45:01.004Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T14:45:01.004Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-17T14:45:01.004Z] ==================================================
+[2025-06-17T14:45:01.004Z] ==================================================
+[2025-06-17T14:45:01.004Z] 🚀 Starting Elle scraping...
+[2025-06-17T14:45:01.004Z] 🚀 Starting Elle scraping...
+[2025-06-17T14:45:01.004Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T14:45:01.004Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-17T14:45:21.036Z] ✅ Elle scraping completed successfully
+[2025-06-17T14:45:21.036Z] ✅ Elle scraping completed successfully
+[2025-06-17T14:45:21.037Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T14:45:21.037Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-17T14:45:21.037Z] 🚀 Starting MDX generation...
+[2025-06-17T14:45:21.037Z] 🚀 Starting MDX generation...
+[2025-06-17T14:45:21.037Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-17T14:45:21.037Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-17T15:04:39.175Z] ❌ Error executing MDX generation: stdout maxBuffer length exceeded
+[2025-06-17T15:04:39.175Z] ❌ Error executing MDX generation: stdout maxBuffer length exceeded
+[2025-06-17T15:04:39.177Z] ❌ MDX generation failed
+[2025-06-17T15:04:39.177Z] ❌ MDX generation failed

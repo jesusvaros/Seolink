@@ -34,7 +34,12 @@ async function runScript(scriptPath, description) {
     log(`🚀 Starting ${description}...`);
     log(`Running script: ${scriptPath}`);
     
-    const { stdout, stderr } = await execAsync(`node ${scriptPath}`);
+    // Increase maxBuffer to 10MB (default is 1MB)
+    const options = {
+      maxBuffer: 100 * 1024 * 1024 // 100MB buffer
+    };
+    
+    const { stdout, stderr } = await execAsync(`node ${scriptPath}`, options);
     
     if (stderr) {
       log(`⚠️ Script warning: ${stderr}`);
