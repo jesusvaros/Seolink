@@ -253,10 +253,8 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                       }
                     }
                   ]
-                }
-              } : {}),
-              // Añadir información de producto si hay productos
-              ...(frontMatter.products && frontMatter.products.length > 0 ? {
+                },
+                // Añadir review para el primer producto
                 "review": {
                   "@type": "Review",
                   "reviewRating": {
@@ -298,6 +296,41 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                       "availability": "https://schema.org/InStock"
                     }
                   }
+                },
+                // Add ItemList schema for multiple products
+                "mainEntity": {
+                  "@type": "ItemList",
+                  "itemListElement": frontMatter.products.map((product, index) => ({
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "item": {
+                      "@type": "Product",
+                      "name": product.name,
+                      "image": product.image.url,
+                      "description": product.description || frontMatter.excerpt,
+                      "brand": {
+                        "@type": "Brand",
+                        "name": product.name.split(' ')[0]
+                      },
+                      "offers": {
+                        "@type": "Offer",
+                        "url": product.affiliateLink,
+                        "priceCurrency": "EUR",
+                        "price": (() => {
+                          if (product.price) {
+                            if (typeof product.price === 'object' && product.price.schema) {
+                              return product.price.schema;
+                            } else {
+                              const priceStr = String(product.price);
+                              return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                            }
+                          }
+                          return "";
+                        })(),
+                        "availability": "https://schema.org/InStock"
+                      }
+                    }
+                  }))
                 }
               } : {})
             }),
