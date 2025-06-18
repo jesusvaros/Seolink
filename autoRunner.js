@@ -15,7 +15,8 @@ const fs = require('fs');
 const execAsync = promisify(exec);
 
 // Define paths to our scripts
-const SCRAPING_SCRIPT = path.join(__dirname, 'scraping', 'Elle', 'index.js');
+const ELLE_SCRAPING_SCRIPT = path.join(__dirname, 'scraping', 'Elle', 'index.js');
+const COMPRAMEJOR_SCRAPING_SCRIPT = path.join(__dirname, 'scraping', 'Compramejor', 'index.js');
 const MDX_SCRIPT = path.join(__dirname, 'generate-mdx', 'index.js');
 const LOG_FILE = path.join(__dirname, 'cron.log');
 
@@ -61,15 +62,23 @@ async function main() {
   log('='.repeat(50));
   
   try {
-    // Step 1: Run the scraping script
-    const scrapeResult = await runScript(SCRAPING_SCRIPT, 'Elle scraping');
+    // Step 1: Run the Elle scraping script
+    const elleScrapeResult = await runScript(ELLE_SCRAPING_SCRIPT, 'Elle scraping');
     
-    if (!scrapeResult.success) {
-      log('❌ Scraping failed, aborting MDX generation');
-      process.exit(1);
+    if (!elleScrapeResult.success) {
+      log('❌ Elle scraping failed, continuing with Compramejor scraping');
+      // Continue execution instead of aborting
     }
     
-    // Step 2: Run the MDX generation script
+    // Step 2: Run the Compramejor scraping script
+    const compramejorScrapeResult = await runScript(COMPRAMEJOR_SCRAPING_SCRIPT, 'Compramejor scraping');
+    
+    if (!compramejorScrapeResult.success) {
+      log('❌ Compramejor scraping failed, continuing with MDX generation');
+      // Continue execution instead of aborting
+    }
+    
+    // Step 3: Run the MDX generation script
     const mdxResult = await runScript(MDX_SCRIPT, 'MDX generation');
     
     if (!mdxResult.success) {
