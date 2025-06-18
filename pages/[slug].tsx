@@ -293,7 +293,38 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                         }
                         return "";
                       })(),
-                      "availability": "https://schema.org/InStock"
+                      "availability": "https://schema.org/InStock",
+                      "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                          "@type": "MonetaryAmount",
+                          "value": "0",
+                          "currency": "EUR"
+                        },
+                        "deliveryTime": {
+                          "@type": "ShippingDeliveryTime",
+                          "handlingTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 0,
+                            "maxValue": 1,
+                            "unitCode": "DAY"
+                          },
+                          "transitTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "unitCode": "DAY"
+                          }
+                        }
+                      },
+                      "hasMerchantReturnPolicy": {
+                        "@type": "MerchantReturnPolicy",
+                        "applicableCountry": "ES",
+                        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                        "merchantReturnDays": 30,
+                        "returnMethod": "https://schema.org/ReturnByMail",
+                        "returnFees": "https://schema.org/FreeReturn"
+                      }
                     }
                   }
                 },
@@ -327,7 +358,38 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                           }
                           return "";
                         })(),
-                        "availability": "https://schema.org/InStock"
+                        "availability": "https://schema.org/InStock",
+                        "shippingDetails": {
+                          "@type": "OfferShippingDetails",
+                          "shippingRate": {
+                            "@type": "MonetaryAmount",
+                            "value": "0",
+                            "currency": "EUR"
+                          },
+                          "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 0,
+                              "maxValue": 1,
+                              "unitCode": "DAY"
+                            },
+                            "transitTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 1,
+                              "maxValue": 3,
+                              "unitCode": "DAY"
+                            }
+                          }
+                        },
+                        "hasMerchantReturnPolicy": {
+                          "@type": "MerchantReturnPolicy",
+                          "applicableCountry": "ES",
+                          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                          "merchantReturnDays": 30,
+                          "returnMethod": "https://schema.org/ReturnByMail",
+                          "returnFees": "https://schema.org/FreeReturn"
+                        }
                       }
                     }
                   }))
