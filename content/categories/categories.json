@@ -95,9 +95,7 @@
       "title": "Los Mejores Hornillos de Gas Portátiles para Emergencias",
       "date": "2025-06-06",
       "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1745934432-612wx7Kku-L.jpg?crop=1xw:1xh;center,top&resize=980:*"
-    }
-  ],
-  "gastronomía": [
+    },
     {
       "slug": "mejores-regalos-cocina-gastronomia-2025",
       "title": "Los Mejores Regalos de Cocina y Gastronomía para 2025",
@@ -113,6 +111,18 @@
       "image": "https://www.compramejor.es/wp-content/uploads/2021/12/pistola-calor-1.jpg"
     },
     {
+      "slug": "las-mejores-sombrillas-de-playa-para-disfrutar-del-sol-sin-preocupaciones",
+      "title": "Las mejores sombrillas de playa para disfrutar del sol sin preocupaciones",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2019/06/beach-1265928_1920-e1629281058865.jpg"
+    },
+    {
+      "slug": "mejores-dispositivos-de-seguridad-para-el-hogar-mirilla-digital-y-camara-de-vigilancia",
+      "title": "Mejores dispositivos de seguridad para el hogar: Mirilla digital y cámara de vigilancia",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/01/mirilla-digital-pantalla-tactil-seguridad-hogar.jpg"
+    },
+    {
       "slug": "mejores-batidoras-vaso-2025",
       "title": "Las Mejores Batidoras de Vaso para el Hogar en 2025",
       "date": "2025-06-06",
@@ -121,16 +131,16 @@
   ],
   "moda": [
     {
-      "slug": "las-mejores-zapatillas-ligeras-para-2025-estilo-y-comodidad",
-      "title": "Las Mejores Zapatillas Ligeras para 2025: Estilo y Comodidad",
+      "slug": "los-mejores-banadores-de-verano-en-amazon-estilo-y-comodidad-para-todos",
+      "title": "Los Mejores Bañadores de Verano en Amazon: Estilo y Comodidad para Todos",
       "date": "2025-06-18",
-      "image": "https://hips.hearstapps.com/hmg-prod/images/milano-str-s23-1105-68430d754797f.jpg?crop=0.768xw:0.574xh;0.232xw,0.426xh&resize=1200:*"
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/06/mejores-banadores-e1623941345104.jpg"
     },
     {
-      "slug": "los-mejores-sombreros-de-verano-para-elevar-tu-estilo",
-      "title": "Los Mejores Sombreros de Verano para Elevar tu Estilo",
-      "date": "2025-06-17",
-      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1458737140-683dc4e660ee6.jpg?crop=1.00xw:0.335xh;0,0.172xh&resize=1200:*"
+      "slug": "las-mejores-zapatillas-skechers-para-comodidad-y-estilo-en-verano",
+      "title": "Las mejores zapatillas Skechers para comodidad y estilo en verano",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/06/vista-posterior-retrato-cuerpo-entero-joven-deportista-corriendo-1.jpg"
     },
     {
       "slug": "los-mejores-regalos-para-mujeres-de-20-anos-estilo-y-funcionalidad",
@@ -149,12 +159,6 @@
       "title": "Las mejores sandalias minimalistas para el verano 2025",
       "date": "2025-06-17",
       "image": "https://hips.hearstapps.com/hmg-prod/images/sandalias-684bccdb3ca8b.jpg?crop=1.00xw:0.335xh;0,0.606xh&resize=1200:*"
-    },
-    {
-      "slug": "las-mejores-zapatillas-ligeras-para-el-verano-2025-estilo-y-comodidad",
-      "title": "Las mejores zapatillas ligeras para el verano 2025: estilo y comodidad",
-      "date": "2025-06-17",
-      "image": "https://hips.hearstapps.com/hmg-prod/images/milano-str-s23-1105-68430d754797f.jpg?crop=0.768xw:0.574xh;0.232xw,0.426xh&resize=1200:*"
     },
     {
       "slug": "las-mejores-zapatillas-ligeras-para-el-verano-2025-estilo-y-comodidad",
@@ -211,6 +215,12 @@
       "title": "Las Mejores Cremas Reafirmantes para Combatir Arrugas en Mujeres de 45 Años",
       "date": "2025-06-18",
       "image": "https://www.compramejor.es/wp-content/uploads/2023/06/mujer-joven-cerca-sosteniendo-crema-hidratante-demuestra-1.jpg"
+    },
+    {
+      "slug": "suplementos-naturales-para-combatir-la-ansiedad-ansioser-vs-ashwagandha",
+      "title": "Suplementos Naturales para Combatir la Ansiedad: Ansioser vs Ashwagandha",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/06/Diseno-sin-titulo-27.jpg"
     },
     {
       "slug": "las-mejores-cremas-hidratantes-para-piel-seca-y-sensible-en-amazon",
@@ -361,6 +371,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "los-mejores-auriculares-inalambricos-calidad-y-comodidad-para-todos",
+      "title": "Los mejores auriculares inalámbricos: calidad y comodidad para todos",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/01/Los-mejores-auriculares-inalambricos.jpg"
+    },
+    {
       "slug": "como-las-cookies-transforman-la-publicidad-digital-personalizacion-y-efectividad",
       "title": "Cómo las Cookies Transforman la Publicidad Digital: Personalización y Efectividad",
       "date": "2025-06-16",
@@ -479,6 +495,26 @@
       "title": "Los Mejores Regalos para Bebés: Juguetes y Accesorios Prácticos",
       "date": "2025-06-17",
       "image": "https://hips.hearstapps.com/hmg-prod/images/penelope-cruz-bebe-1672823076.jpeg?crop=1.00xw:0.753xh;0,0.117xh&resize=1200:*"
+    }
+  ],
+  "jardin": [
+    {
+      "slug": "las-mejores-mesas-colgantes-para-balcones-pequenos",
+      "title": "Las mejores mesas colgantes para balcones pequeños",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/06/Diseno-sin-titulo-71.jpg"
+    },
+    {
+      "slug": "las-mejores-mesas-plegables-para-tu-jardin-comodidad-y-estilo",
+      "title": "Las Mejores Mesas Plegables para Tu Jardín: Comodidad y Estilo",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/06/91mqPLige5L._AC_SX679_.jpg"
+    },
+    {
+      "slug": "los-mejores-productos-para-decorar-tu-terraza-este-verano",
+      "title": "Los Mejores Productos para Decorar tu Terraza Este Verano",
+      "date": "2025-06-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/05/pexels-pixabay-271815.jpg"
     }
   ]
 }
