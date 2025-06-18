@@ -213,7 +213,27 @@ async function fetchCleanContent(url) {
     }
 
     // Convert HTML to Markdown
-    const markdown = turndown.turndown(article.content);
+    let markdown = turndown.turndown(article.content);
+    
+    // Clean up the markdown to reduce token usage
+    markdown = markdown
+      .replace(/\n{3,}/g, '\n\n') // Replace multiple newlines with just two
+      .replace(/\[\s*\n+\s*\]/g, '[]') // Clean up empty markdown links
+      .replace(/\n+\[\s*\n+/g, '[') // Clean up newlines in markdown links
+      .replace(/\n+\]\s*\n+/g, ']') // Clean up newlines in markdown links
+      .replace(/\n+\(\s*\n+/g, '(') // Clean up newlines in markdown links
+      .replace(/\n+\)\s*\n+/g, ')') // Clean up newlines in markdown links
+      .replace(/Publicidad[^\n]*\n[^\n]*debajo/g, '') // Remove advertising markers
+      .replace(/\*\*([^*]+)\*\*\n+[-]+/g, '**$1**') // Remove unnecessary separator lines after headers
+      .replace(/\n+Crédito:[^\n]+/g, '') // Remove credit lines
+      .replace(/\]\n+\(/g, '](') // Fix broken markdown links
+      
+      // Advanced product listing cleanup
+      .replace(/\[!\[([^\]]+)\]\([^)]+\)\s*"([^"]+)"\)\s*\n+\s*\]\([^)]+\)/g, '**$1**') // Convert complex image links to simple product names
+      .replace(/\n+[-]+\s*\n+/g, '\n') // Remove horizontal lines
+      .replace(/\n+[A-Za-z\s]+\s*[-]+\s*\n+/g, '\n') // Remove title underlines
+      .replace(/\*\*([^*]+)\*\*\s*\n+\*\*([^*]+)\*\*\s*/g, '**$1 - $2**\n') // Combine consecutive headers
+      .replace(/\n+\*\*/g, '\n**') // Clean up newlines before bold text
 
     // Extract images
     const mainImage = await page.evaluate(() => {
@@ -263,15 +283,37 @@ async function fetchCleanContent(url) {
         source: 'class'
       }));
 
-      // Find prices inside anchor tags with $ or € symbols
-      const priceRegex = /\s*([0-9]+[.,]?[0-9]*)\s*[$€]\s*|\s*[$€]\s*([0-9]+[.,]?[0-9]*)\s*/;
+      // Find prices inside anchor tags with various formats
+      // Handle formats like "87 € en Amazon" and standard price formats
+      const amazonPriceRegex = /([0-9]+(?:[.,][0-9]+)?)\s*[€$]\s+en\s+Amazon/i;
+      const standardPriceRegex = /\s*([0-9]+[.,]?[0-9]*)\s*[$€]\s*|\s*[$€]\s*([0-9]+[.,]?[0-9]*)\s*/;
+      
       const anchorElements = Array.from(document.querySelectorAll('a'));
       const anchorPrices = anchorElements
-        .filter(a => priceRegex.test(a.textContent))
+        .filter(a => amazonPriceRegex.test(a.textContent) || standardPriceRegex.test(a.textContent))
         .map(a => {
-          const match = a.textContent.match(priceRegex);
-          const priceValue = match[1] || match[2]; // Get the captured group with the number
-          const currencySymbol = a.textContent.includes('$') ? '$' : '€';
+          let priceValue, currencySymbol;
+          
+          // Try Amazon specific format first
+          const amazonMatch = a.textContent.match(amazonPriceRegex);
+          if (amazonMatch && amazonMatch[1]) {
+            priceValue = amazonMatch[1];
+            currencySymbol = '€'; // Default to Euro for Amazon.es
+          } else {
+            // Fall back to standard price format
+            const standardMatch = a.textContent.match(standardPriceRegex);
+            priceValue = standardMatch[1] || standardMatch[2]; // Get the captured group with the number
+            currencySymbol = a.textContent.includes('$') ? '$' : '€';
+          }
+          
+          // Extract ASIN from href if it's an Amazon link
+          let asin = null;
+          if (a.href && (a.href.includes('amazon') || a.href.includes('amzn.to'))) {
+            const asinMatch = a.href.match(/\/dp\/([A-Z0-9]{10})|\/gp\/product\/([A-Z0-9]{10})/);
+            if (asinMatch) {
+              asin = asinMatch[1] || asinMatch[2];
+            }
+          }
 
           return {
             text: a.textContent.trim(),
@@ -279,6 +321,7 @@ async function fetchCleanContent(url) {
             currency: currencySymbol,
             selector: getSelector(a),
             href: a.href,
+            asin,
             source: 'anchor'
           };
         });

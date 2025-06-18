@@ -50,7 +50,7 @@ async function processUrl(url) {
     const data = await fetchCleanContent(url);
     didAttemptFullProcessing = true;
 
-    if (!data || !data.title || !data.content) {
+    if (!data || !data.title || !data.content || !data.productPrices || data.productPrices.length === 0) {
       console.log('⏩ Saltando URL - No se pudo extraer contenido válido');
       return { success: true, skipped: true, reason: 'invalid-content' };
     }

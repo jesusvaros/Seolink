@@ -12,15 +12,14 @@ const openai = new OpenAI({
 
 export async function contentProcessingAI(data) {
   console.log('🔍 Iniciando procesamiento unificado del contenido...');
-
+  console.log('Contenido:', data.content);
+  console.log('Array de precios:', data.productPrices);
+  console.log(data);
   try {
-    // Create a single comprehensive prompt that handles all tasks
-    console.log(data.content);
     const prompt = `
       Analiza el siguiente contenido y realiza las siguientes tareas:
 
-      1. EXTRACCIÓN DE PRODUCTOS:
-      Extrae información detallada sobre los productos de Amazon mencionados.
+      1. EXTRACCIÓN DE PRODUCTOS: Extrae TODOS los productos de Amazon mencionados en el contenido.
       Para cada producto, proporciona:
       - name - nombre del producto
       - description - descripción breve
@@ -50,9 +49,9 @@ export async function contentProcessingAI(data) {
       
       Contenido:
       ${data.content}
-      Array de precios de los productos:
-
+      Array de precios de los productos, el numero total de productos es de ${data.productPrices.length} y los precios son los siguientes:
       ${data.productPrices}
+
 
       FORMATO DE RESPUESTA (en JSON):
       {
@@ -91,17 +90,17 @@ export async function contentProcessingAI(data) {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Eres un asistente especializado en análisis de productos, marketing y categorización de contenido. Generas contenido para una web que quiere pelear por el seo de long-tail keywords.  Responde en formato JSON." },
+        { role: "system", content: "Eres un asistente especializado en análisis de productos, marketing y categorización de contenido. Generas contenido para una web que quiere pelear por el seo de long-tail keywords.  Responde en formato JSON. Extrae siempre TODOS los productos mencionados en el contenido." },
         { role: "user", content: prompt }
       ],
       temperature: 0.3,
-      max_tokens: 3500
+      max_tokens: 10000
     });
 
     // Get the response content
     const content = response.choices[0].message.content;
     console.log('\ud83d\udd0d Respuesta recibida de OpenAI, intentando parsear JSON...');
-console.log('content',content);
+    console.log('content',content);
     let responseData;
     try {
       // Try to extract JSON if it's wrapped in markdown code blocks
