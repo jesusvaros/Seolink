@@ -60,6 +60,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 's3.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.compramejor.es',
+      },
     ],
   },
   // Exclude specific pages from the build process
