@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
 import fetch from 'node-fetch';
@@ -188,7 +188,23 @@ async function fetchCleanContent(url) {
     const html = await page.content();
 
     // Use Readability to extract the main content
-    const dom = new JSDOM(html, { url });
+    // Configure JSDOM to ignore CSS errors
+    const virtualConsole = new VirtualConsole();
+    virtualConsole.on("error", (err) => {
+      // Silently ignore CSS parsing errors
+      if (err.message && err.message.includes("Could not parse CSS stylesheet")) {
+        return;
+      }
+      console.error("JSDOM Error:", err.message);
+    });
+    
+    const dom = new JSDOM(html, { 
+      url,
+      // Disable CSS processing to avoid parsing errors
+      runScripts: "outside-only",
+      resources: "usable",
+      virtualConsole
+    });
     const reader = new Readability(dom.window.document);
     const article = reader.parse();
 
