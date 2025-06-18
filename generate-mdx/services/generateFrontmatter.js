@@ -34,10 +34,17 @@ export async function generateFrontmatter(data,processedData) {
           const today = new Date().toISOString().split('T')[0];
           const nextYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
           
+          // Find the matching product from our extracted data using ASIN or product name
+          const extractedProduct = data.productPrices.find(ep => 
+            (p.asin && ep.asin === p.asin) || 
+            (ep.text && p.name && ep.text.includes(p.name.substring(0, 15)))
+          );
+          
           return {
             name: p.name,
             asin: p.asin || '',
-            image: p.image || '',
+            // Prioritize the image from our extraction over the one from OpenAI
+            image: (extractedProduct && extractedProduct.image) ? extractedProduct.image : (p.image || ''),
             price: `${price.priceValue} ${price.currency}`,
             affiliateLink: (p.asin ? `https://www.amazon.es/dp/${p.asin}?tag=oferta-limitada-21` : '#'),
             destacado: p.destacado || 'Producto destacado',

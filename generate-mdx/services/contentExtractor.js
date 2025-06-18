@@ -275,6 +275,100 @@ async function fetchCleanContent(url) {
 
     // Extract product prices if available
     const productPrices = await page.evaluate(() => {
+      // Helper function to get a CSS selector for an element
+      function getSelector(el) {
+        if (el.id) return `#${el.id}`;
+        if (el.className) return `.${el.className.split(' ').join('.')}`;
+        return el.tagName.toLowerCase();
+      }
+      
+      // Determine which website we're on for specialized extraction
+      const hostname = window.location.hostname;
+      let siteSpecificPrices = [];
+
+      console.log(`🌐 Detectado sitio: ${hostname}`);
+      if(hostname.includes('compramejor.es')) {
+        // Extract prices from AAWP product price spans
+        const aawpProducts = Array.from(document.querySelectorAll('.aawp-product'));
+        siteSpecificPrices = aawpProducts.map(product => {
+            const priceElement = product.querySelector('.aawp-product__price--current');
+            const linkElement = product.querySelector('a.aawp-product__title');
+            
+            // Get the image from the background-image CSS property of the anchor element
+            const imageAnchor = product.querySelector('a.aawp-product__image--link');
+            let imageUrl = '';
+            
+            if (imageAnchor) {
+              // Extract URL from inline style background-image
+              const style = imageAnchor.getAttribute('style');
+              if (style) {
+                const bgMatch = style.match(/background-image:\s*url\(['"]?([^'")]+)['"]?\)/);
+                if (bgMatch && bgMatch[1]) {
+                  // Check if the URL is an image.php URL that contains the real image URL
+                  if (bgMatch[1].includes('image.php?url=')) {
+                    // This is a proxy URL, extract the real image URL
+                    const encodedUrl = bgMatch[1].split('image.php?url=')[1];
+                    if (encodedUrl) {
+                      try {
+                        // Decode the base64 URL parameter to get the actual Amazon image URL
+                        imageUrl = atob(encodedUrl);
+                      } catch (e) {
+                        // If decoding fails, use the original URL
+                        imageUrl = bgMatch[1];
+                      }
+                    }
+                  } else {
+                    imageUrl = bgMatch[1];
+                  }
+                }
+              }
+            }
+            
+            // Never use the thumb-spacer.png placeholder
+            if (imageUrl.includes('thumb-spacer.png')) {
+              imageUrl = '';
+            }
+            
+            // Try to extract ASIN from URL
+            let asin = null;
+            if (linkElement && linkElement.href) {
+              const asinMatch = linkElement.href.match(/\/([A-Z0-9]{10})(\/|\?|$)/);
+              if (asinMatch) {
+                asin = asinMatch[1];
+              }
+            }
+            
+            // Format price to match expected format
+            const priceText = priceElement ? priceElement.textContent.trim() : '';
+            const priceMatch = priceText.match(/([0-9]+(?:[.,][0-9]+)?)\s*([€$]|EUR)/i);
+            let priceValue = '';
+            let currencySymbol = '€';
+            
+            if (priceMatch) {
+              priceValue = priceMatch[1];
+              currencySymbol = priceMatch[2] === 'EUR' ? '€' : priceMatch[2];
+            }
+            
+            return {
+              text: linkElement ? linkElement.textContent.trim() : '',
+              priceValue,
+              currency: currencySymbol,
+              selector: getSelector(priceElement),
+              href: linkElement ? linkElement.href : '',
+              asin,
+              image: imageUrl,
+              source: 'compramejor'
+            };
+          }).filter(item => item.priceValue && item.href); // Filter out items without price or href
+          
+          console.log(`Found ${siteSpecificPrices.length} products with prices on Compramejor page`);
+          
+          // If we found prices with the specialized method, return them directly
+          if (siteSpecificPrices.length > 0) {
+            return siteSpecificPrices;
+          }
+      }
+      
       // Find prices by class names
       const priceElements = Array.from(document.querySelectorAll('.price, [class*="price"], [class*="Price"]'));
       const classPrices = priceElements.map(el => ({
@@ -287,25 +381,22 @@ async function fetchCleanContent(url) {
       // Handle formats like "87 € en Amazon" and standard price formats
       const amazonPriceRegex = /([0-9]+(?:[.,][0-9]+)?)\s*[€$]\s+en\s+Amazon/i;
       const standardPriceRegex = /\s*([0-9]+[.,]?[0-9]*)\s*[$€]\s*|\s*[$€]\s*([0-9]+[.,]?[0-9]*)\s*/;
-      
       const anchorElements = Array.from(document.querySelectorAll('a'));
       const anchorPrices = anchorElements
         .filter(a => amazonPriceRegex.test(a.textContent) || standardPriceRegex.test(a.textContent))
         .map(a => {
           let priceValue, currencySymbol;
-          
-          // Try Amazon specific format first
           const amazonMatch = a.textContent.match(amazonPriceRegex);
           if (amazonMatch && amazonMatch[1]) {
             priceValue = amazonMatch[1];
-            currencySymbol = '€'; // Default to Euro for Amazon.es
+            currencySymbol = '€';
           } else {
             // Fall back to standard price format
             const standardMatch = a.textContent.match(standardPriceRegex);
             priceValue = standardMatch[1] || standardMatch[2]; // Get the captured group with the number
-            currencySymbol = a.textContent.includes('$') ? '$' : '€';
+            currencySymbol = a.textContent.includes('€') ? '€' : '$';
           }
-          
+
           // Extract ASIN from href if it's an Amazon link
           let asin = null;
           if (a.href && (a.href.includes('amazon') || a.href.includes('amzn.to'))) {
@@ -326,14 +417,7 @@ async function fetchCleanContent(url) {
           };
         });
 
-      // Combine both price sources
       return [...classPrices, ...anchorPrices];
-
-      function getSelector(el) {
-        if (el.id) return `#${el.id}`;
-        if (el.className) return `.${el.className.split(' ').join('.')}`;
-        return el.tagName.toLowerCase();
-      }
     });
 
     await browser.close();
