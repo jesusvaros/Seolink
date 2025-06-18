@@ -194,8 +194,27 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               "headline": frontMatter.title,
               "description": frontMatter.excerpt,
               "image": frontMatter.image.url,
-              "datePublished": frontMatter.date,
-              "dateModified": frontMatter.updatedAt || frontMatter.date,
+              "datePublished": (() => {
+                // Convert date string to ISO 8601 format with timezone
+                try {
+                  const date = new Date(frontMatter.date);
+                  return date.toISOString(); // Returns format: YYYY-MM-DDTHH:mm:ss.sssZ
+                } catch (e) {
+                  // Fallback if date parsing fails
+                  return new Date().toISOString();
+                }
+              })(),
+              "dateModified": (() => {
+                // Use updatedAt if available, otherwise use date
+                const dateStr = frontMatter.updatedAt || frontMatter.date;
+                try {
+                  const date = new Date(dateStr);
+                  return date.toISOString(); // Returns format: YYYY-MM-DDTHH:mm:ss.sssZ
+                } catch (e) {
+                  // Fallback if date parsing fails
+                  return new Date().toISOString();
+                }
+              })(),
               "author": {
                 "@type": "Organization",
                 "name": "comparaland",
