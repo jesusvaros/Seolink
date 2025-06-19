@@ -28,12 +28,25 @@ module.exports = {
         lastmod: new Date().toISOString(),
       };
     }
-    // Mayor prioridad a artículos de categorías populares
-    if (path.startsWith('/cocina') || path.startsWith('/belleza')) {
+    // Mayor prioridad a artículos de categorías populares (tanto directos como por categoría)
+    if (path.startsWith('/cocina') || 
+        path.startsWith('/belleza') || 
+        path.startsWith('/categorias/cocina') || 
+        path.startsWith('/categorias/belleza')) {
       return {
         loc: path,
         changefreq: 'weekly',
         priority: 0.8,
+        lastmod: new Date().toISOString(),
+      };
+    }
+    
+    // Prioridad para las páginas de categorías
+    if (path.startsWith('/categorias/')) {
+      return {
+        loc: path,
+        changefreq: 'weekly',
+        priority: 0.75,
         lastmod: new Date().toISOString(),
       };
     }

@@ -21,21 +21,31 @@ async function generateCategoriesSitemap() {
     categories.forEach(category => {
       sitemap += `
 <url>
-  <loc>https://comparaland.es/categoria/${category}</loc>
+  <loc>https://comparaland.es/categorias/${category}</loc>
   <lastmod>${new Date().toISOString()}</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>`;
     });
 
-    // Añadir URLs de artículos
+    // Añadir URLs de artículos (tanto directos como por categoría)
     for (const category of categories) {
       const articles = categoriesData[category];
       
       articles.forEach(article => {
+        // Añadir URL directa del artículo
         sitemap += `
 <url>
   <loc>https://comparaland.es/${article.slug}</loc>
+  <lastmod>${new Date(article.date).toISOString()}</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>`;
+        
+        // Añadir URL del artículo con ruta de categoría
+        sitemap += `
+<url>
+  <loc>https://comparaland.es/categorias/${category}/${article.slug}</loc>
   <lastmod>${new Date(article.date).toISOString()}</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
