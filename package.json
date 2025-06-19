@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap",
+    "build": "next build && next-sitemap && node scripts/generate-categories-sitemap.js",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "next-sitemap",
-    "generate-sitemap": "next-sitemap"
+    "generate-sitemap": "next-sitemap",
+    "generate-categories-sitemap": "node scripts/generate-categories-sitemap.js"
   },
   "dependencies": {
     "@types/node": "20.11.30",
