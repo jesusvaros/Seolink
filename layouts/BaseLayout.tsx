@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Link>
             <nav className="hidden md:flex space-x-6">
               <Link href="/" className="text-gray-800 hover:text-purple-900 font-medium">Inicio</Link>
-              <Link href="/#categorias" className="text-gray-800 hover:text-purple-900 font-medium">Categorías</Link>
+              <Link href="/categorias" className="text-gray-800 hover:text-purple-900 font-medium">Categorías</Link>
               <Link href="/articulos" className="text-gray-800 hover:text-purple-900 font-medium">Artículos</Link>
             </nav>
           </div>

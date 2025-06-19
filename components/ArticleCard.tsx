@@ -58,7 +58,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }
           />
         </div>
         <div className="p-4">
-          <h3 className="text-lg font-medium text-gray-900 line-clamp-2">{title}</h3>
+          <h3 className="text-lg font-medium text-gray-900 line-clamp-2 mt-2">{title}</h3>
           {excerpt && (
             <p className="mt-2 text-sm text-gray-600 line-clamp-3">{excerpt}</p>
           )}

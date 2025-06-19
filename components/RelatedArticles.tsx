@@ -19,6 +19,7 @@ interface ArticleInfo {
   slug: string;
   image: ImageObject; // Changed from string
   category?: string; // Categoría del artículo (opcional)
+  excerpt?: string; // Extracto del artículo (opcional)
 }
 
 const RelatedArticles: React.FC<RelatedArticlesProps> = ({ category, currentSlug ,showImage}) => {
@@ -79,6 +80,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({ category, currentSlug
               title={article.title}
               image={article.image}
               slug={article.slug}
+              excerpt={article.excerpt}
             />
             {article.category && article.category !== category && (
               <span className="inline-block mt-2 px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">

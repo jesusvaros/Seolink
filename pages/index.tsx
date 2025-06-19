@@ -4,62 +4,68 @@ import matter from 'gray-matter';
 import Layout from '../layouts/BaseLayout';
 import ArticleCard from '../components/ArticleCard';
 import { NextSeo } from 'next-seo';
-import { useState } from 'react';
+import Link from 'next/link';
 
 // Interfaces para los tipos de datos
 interface Article {
   title: string;
   slug: string;
   image: string;
-}
-
-interface CategoryData {
-  [category: string]: Article[];
+  date: string;
+  excerpt?: string;
 }
 
 // Función para obtener datos estáticos
 export async function getStaticProps() {
-  // Leer datos de MDX para información adicional si es necesario
-  const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = fs.readdirSync(postsDirectory).filter((fn: string) => fn.endsWith('.mdx'));
-  
   // Leer datos de categorías
   const categoriesPath = path.join(process.cwd(), 'content/categories/categories.json');
   const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
-  const categories: CategoryData = JSON.parse(categoriesData);
+  const categoriesObj = JSON.parse(categoriesData);
   
-  // Limitar a 5 artículos por categoría
-  const limitedCategories: CategoryData = {};
-  Object.keys(categories).forEach(category => {
-    if (Array.isArray(categories[category])) {
-      limitedCategories[category] = categories[category].slice(0, 12);
-    } else {
-      limitedCategories[category] = categories[category];
-      console.log(`Warning: Category ${category} is not an array`);
+  // Recopilar todos los artículos de todas las categorías
+  let allArticles: Article[] = [];
+  Object.keys(categoriesObj).forEach(category => {
+    if (Array.isArray(categoriesObj[category])) {
+      allArticles = [...allArticles, ...categoriesObj[category]];
     }
   });
   
+  // Ordenar artículos por fecha para obtener los más nuevos
+  const newestArticles = [...allArticles].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  }).slice(0, 6); // Mostrar los 6 más recientes
+  
+  // Generar artículos "hottest" basados en la semana actual
+  // Esto asegura que sean los mismos cada semana
+  const currentDate = new Date();
+  const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
+  const weekNumber = Math.floor((currentDate.getTime() - startOfYear.getTime()) / (7 * 24 * 60 * 60 * 1000));
+  
+  // Usar el número de semana como semilla para la selección
+  const shuffledArticles = [...allArticles];
+  
+  // Fisher-Yates shuffle con semilla determinista basada en la semana
+  const seededRandom = (seed: number, max: number) => {
+    const x = Math.sin(seed) * 10000;
+    return Math.floor((x - Math.floor(x)) * max);
+  };
+  
+  for (let i = shuffledArticles.length - 1; i > 0; i--) {
+    const j = seededRandom(weekNumber + i, i + 1);
+    [shuffledArticles[i], shuffledArticles[j]] = [shuffledArticles[j], shuffledArticles[i]];
+  }
+  
+  const hottestArticles = shuffledArticles.slice(0, 6);
+  
   return { 
     props: { 
-      categories: limitedCategories 
+      newestArticles,
+      hottestArticles
     } 
   };
 }
 
-export default function Home({ categories }: { categories: CategoryData }) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  
-  // Asegurarse de que categories existe y es un objeto
-  const safeCategories = categories || {};
-  
-  // Obtener categorías con artículos
-  const categoriesWithArticles = Object.keys(safeCategories).filter(
-    category => safeCategories[category]?.length > 0
-  );
-  
-  // Si no hay categoría activa, usar la primera que tenga artículos
-  const currentCategory = activeCategory || 
-    (categoriesWithArticles.length > 0 ? categoriesWithArticles[0] : null);
+export default function Home({ newestArticles, hottestArticles }: { newestArticles: Article[], hottestArticles: Article[] }) {
   
   return (
     <Layout>
@@ -83,7 +89,7 @@ export default function Home({ categories }: { categories: CategoryData }) {
               en cada compra.
             </h1>
             <a 
-              href="#categorias" 
+              href="#newest" 
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300"
             >
               Descubrir Mejores Ofertas
@@ -95,79 +101,44 @@ export default function Home({ categories }: { categories: CategoryData }) {
         </div>
       </div>
       
-      {/* Navigation Tabs */}
-      <div className="mb-8 border-b border-gray-200">
-        <div className="flex overflow-x-auto pb-1 hide-scrollbar">
-          {categoriesWithArticles.map(category => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 font-medium text-sm whitespace-nowrap mr-2 transition-colors ${currentCategory === category 
-                ? 'text-blue-600 border-b-2 border-blue-600' 
-                : 'text-gray-500 hover:text-gray-700'}`}
-            >
-              <span className="capitalize">{category}</span>
-            </button>
+      {/* Newest section */}
+      <div id="newest" className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">
+          <span>Lo Más Nuevo</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {newestArticles.map((article) => (
+            <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
+              <ArticleCard 
+                title={article.title}
+                image={article.image}
+                slug={article.slug}
+                excerpt={article.excerpt}
+              />
+            </div>
           ))}
         </div>
       </div>
       
-      {/* Featured section - mostrar los artículos más recientes destacados */}
-      {currentCategory && safeCategories[currentCategory]?.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">
-            <span className="capitalize">{currentCategory}</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {safeCategories[currentCategory].map((article) => (
-              <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
-                <ArticleCard 
-                  title={article.title}
-                  image={article.image}
-                  slug={article.slug}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      
-      {/* Sección para otras categorías */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
-        {categoriesWithArticles
-          .filter(category => category !== currentCategory && safeCategories[category]?.length > 0)
-          .slice(0, 2)
-          .map(category => (
-            <div key={category}>
-              <h2 className="text-xl font-bold mb-4 flex items-center">
-                <span className="capitalize">{category}</span>
-                <span className="ml-2 text-sm font-normal text-blue-600 cursor-pointer" 
-                  onClick={() => setActiveCategory(category)}>
-                  Ver todos
-                </span>
-              </h2>
-              <div className="space-y-4">
-                {safeCategories[category].slice(0, 2).map(article => (
-                  <div key={article.slug} className="flex items-center bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                    <div className="relative w-24 h-24 flex-shrink-0">
-                      <img 
-                        src={article.image} 
-                        alt={article.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <a href={`/${article.slug}`} className="text-sm font-medium text-gray-900 hover:text-blue-600 line-clamp-2">
-                        {article.title}
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* Hottest section */}
+      <div id="hottest" className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">
+          <span>Lo Más Popular</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {hottestArticles.map((article) => (
+            <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
+              <ArticleCard 
+                title={article.title}
+                image={article.image}
+                slug={article.slug}
+                excerpt={article.excerpt}
+              />
             </div>
-          ))
-        }
+          ))}
+        </div>
       </div>
       
       {/* Añadir un estilo global para ocultar la barra de desplazamiento */}
