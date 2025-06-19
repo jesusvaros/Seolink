@@ -128,6 +128,8 @@ export default function CategoryPage({
               image={article.image}
               slug={article.slug}
               excerpt={article.excerpt}
+              category={category}
+              useCategory={true}
             />
           </div>
         ))}

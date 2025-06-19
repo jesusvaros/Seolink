@@ -13,9 +13,11 @@ interface ArticleCardProps {
   image: ImageObject | string; // Accept either ImageObject or string
   slug: string;
   excerpt?: string; // Opcional para mostrar un extracto del artículo
+  category?: string; // Opcional para especificar la categoría del artículo
+  useCategory?: boolean; // Opcional para indicar si usar la ruta con categoría
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt, category, useCategory = false }) => {
   const placeholderUrl = '/default-placeholder.jpg';
   
   // More robust image URL handling
@@ -46,8 +48,13 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ title, image, slug, excerpt }
     // Fallback to placeholder on any error
   }
 
+  // Determine the correct URL path based on props
+  const articleUrl = useCategory && category 
+    ? `/categorias/${category}/${slug}` 
+    : `/${slug}`;
+
   return (
-    <Link href={`/${slug}`} className="block w-full">
+    <Link href={articleUrl} className="block w-full">
       <div className="bg-white shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg pt-3">
         <div className="relative w-full h-48">
           <Image 

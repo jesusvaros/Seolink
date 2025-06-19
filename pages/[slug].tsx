@@ -6,6 +6,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import { extractFrontmatter, preprocessMDX } from '../lib/mdx-utils';
+import Link from 'next/link';
 
 import Layout from '../layouts/BaseLayout';
 import InternalLink from '../components/InternalLink';
@@ -420,6 +421,37 @@ export default function PostPage({ source, frontMatter }: PostProps) {
       </Head>
 
       <article className="prose prose-neutral dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6">
+        {/* Breadcrumb navigation */}
+        <div className="text-sm text-gray-500 mb-4">
+          <nav className="flex" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-gray-500 hover:text-blue-600">
+                  Inicio
+                </Link>
+              </li>
+              {frontMatter.category && (
+                <li>
+                  <div className="flex items-center">
+                    <span className="mx-2">/</span>
+                    <Link href={`/categorias/${frontMatter.category}`} className="text-gray-500 hover:text-blue-600">
+                      <span className="capitalize">{frontMatter.category}</span>
+                    </Link>
+                  </div>
+                </li>
+              )}
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <span className="mx-2">/</span>
+                  <span className="text-gray-700 truncate max-w-[150px] md:max-w-xs">
+                    {frontMatter.title}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
         <header className="mb-6">
           <h1 className="text-3xl font-bold">{frontMatter.title}</h1>
           <p className="text-sm text-gray-500">
