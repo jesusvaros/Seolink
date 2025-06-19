@@ -1,6 +1,18 @@
 {
   "cocina": [
     {
+      "slug": "las-mejores-ollas-multicooker-de-2025-comparativa-y-analisis",
+      "title": "Las Mejores Ollas Multicooker de 2025: Comparativa y Análisis",
+      "date": "2025-06-19",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/81i2rmxhsql-ac-sl1500-664730a13ad79.jpg?crop=1.00xw:0.504xh;0,0.206xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-cuchillos-arcos-para-cocinar-calidad-y-durabilidad-en-tu-cocina",
+      "title": "Los Mejores Cuchillos Arcos para Cocinar: Calidad y Durabilidad en tu Cocina",
+      "date": "2025-06-19",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/arcos-640855e303f24.png?crop=1.00xw:0.888xh;0,0.112xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-cafeteras-cecotec-para-disfrutar-de-un-cafe-perfecto-en-casa",
       "title": "Las mejores cafeteras Cecotec para disfrutar de un café perfecto en casa",
       "date": "2025-06-18",
@@ -99,6 +111,12 @@
   ],
   "hogar": [
     {
+      "slug": "las-mejores-mosquiteras-para-proteger-tu-hogar-de-insectos",
+      "title": "Las Mejores Mosquiteras para Proteger tu Hogar de Insectos",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/05/woman-hand-hold-retractable-pleated-insect-screen-holder-to-open-or-close-the-window-mosquito-nets-1200x800-1.jpg"
+    },
+    {
       "slug": "las-mejores-pistolas-de-calor-para-bricolaje-comparativa-y-recomendaciones",
       "title": "Las Mejores Pistolas de Calor para Bricolaje: Comparativa y Recomendaciones",
       "date": "2025-06-18",
@@ -124,6 +142,30 @@
     }
   ],
   "moda": [
+    {
+      "slug": "las-mejores-zapatillas-comodas-y-economicas-para-caminar-reebok-y-skechers",
+      "title": "Las mejores zapatillas cómodas y económicas para caminar: Reebok y Skechers",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/03/Las-zapatillas-adidas-Samba.jpg"
+    },
+    {
+      "slug": "las-mejores-sandalias-de-skechers-para-este-verano-comodidad-y-estilo",
+      "title": "Las Mejores Sandalias de Skechers para Este Verano: Comodidad y Estilo",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/05/Compramejor-3.png"
+    },
+    {
+      "slug": "los-mejores-vestidos-de-verano-para-la-oficina-comodidad-y-estilo",
+      "title": "Los Mejores Vestidos de Verano para la Oficina: Comodidad y Estilo",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/06/P_895755312FM-1-1.jpg"
+    },
+    {
+      "slug": "los-mejores-relojes-casio-para-hombres-estilo-y-funcionalidad",
+      "title": "Los mejores relojes Casio para hombres: estilo y funcionalidad",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/12/maxresdefault-2.jpg"
+    },
     {
       "slug": "los-mejores-banadores-de-verano-en-amazon-estilo-y-comodidad-para-todos",
       "title": "Los Mejores Bañadores de Verano en Amazon: Estilo y Comodidad para Todos",
@@ -198,6 +240,30 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-perfumes-frescos-para-el-verano-por-menos-de-25",
+      "title": "Los Mejores Perfumes Frescos para el Verano por Menos de 25€",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/05/calvin-klein-ck-one-eau-de-toilette-200ml-1.jpg"
+    },
+    {
+      "slug": "mejor-crema-solar-coreana-para-el-cuidado-de-la-piel",
+      "title": "Mejor crema solar coreana para el cuidado de la piel",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/04/Acaba-con-las-ojeras-las-arrugas-y-las-bolsas-con-este-set-rebajadisimo.jpg"
+    },
+    {
+      "slug": "los-mejores-productos-para-brontouring-maquillaje-natural-y-radiante",
+      "title": "Los Mejores Productos para Brontouring: Maquillaje Natural y Radiante",
+      "date": "2025-06-19",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/brontouring-6853be64bd987.jpg?crop=1.00xw:0.334xh;0,0.263xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-serums-con-retinol-para-una-piel-radiante-en-2025",
+      "title": "Los Mejores Sérums con Retinol para una Piel Radiante en 2025",
+      "date": "2025-06-19",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/retinol-1624004774.jpg?crop=1.00xw:0.502xh;0,0.0849xh&resize=1200:*"
+    },
     {
       "slug": "los-mejores-masajeadores-anticeluliticos-de-amazon-guia-de-compra-2023",
       "title": "Los Mejores Masajeadores Anticelulíticos de Amazon: Guía de Compra 2023",
@@ -365,6 +431,24 @@
   ],
   "tecnologia": [
     {
+      "slug": "las-mejores-maletas-de-cabina-en-amazon-resenas-y-comparativas",
+      "title": "Las Mejores Maletas de Cabina en Amazon: Reseñas y Comparativas",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/08/close-up-tourist-carrying-luggage-1.jpg"
+    },
+    {
+      "slug": "los-mejores-purificadores-de-aire-para-alergicos-en-amazon",
+      "title": "Los Mejores Purificadores de Aire para Alérgicos en Amazon",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/06/pexels-edward-jenner-4031632.jpg"
+    },
+    {
+      "slug": "los-mejores-aires-acondicionados-portatiles-para-un-verano-fresco",
+      "title": "Los mejores aires acondicionados portátiles para un verano fresco",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/07/51tV3gLpxaL._AC_SL1000_-2.jpg"
+    },
+    {
       "slug": "los-mejores-auriculares-inalambricos-calidad-y-comodidad-para-todos",
       "title": "Los mejores auriculares inalámbricos: calidad y comodidad para todos",
       "date": "2025-06-18",
@@ -485,6 +569,12 @@
   ],
   "juguetes": [
     {
+      "slug": "los-5-juguetes-mas-populares-para-ninos-este-verano-por-menos-de-40-euros",
+      "title": "Los 5 juguetes más populares para niños este verano por menos de 40 euros",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/11/lindas-ninas-moldeadas-plastilina-mesa-rosa.jpg"
+    },
+    {
       "slug": "los-mejores-regalos-para-bebes-juguetes-y-accesorios-practicos",
       "title": "Los Mejores Regalos para Bebés: Juguetes y Accesorios Prácticos",
       "date": "2025-06-17",
@@ -509,6 +599,36 @@
       "title": "Los Mejores Productos para Decorar tu Terraza Este Verano",
       "date": "2025-06-18",
       "image": "https://www.compramejor.es/wp-content/uploads/2022/05/pexels-pixabay-271815.jpg"
+    }
+  ],
+  "deportes": [
+    {
+      "slug": "las-mejores-bicicletas-hibridas-para-rutas-urbanas-y-campestres",
+      "title": "Las mejores bicicletas híbridas para rutas urbanas y campestres",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2020/10/Bicicleta-hibrida.jpg"
+    },
+    {
+      "slug": "las-mejores-gafas-de-running-para-correr-bajo-el-sol",
+      "title": "Las Mejores Gafas de Running para Correr Bajo el Sol",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/05/male-in-sportswear-doing-body-extension-in-the-forest.jpg"
+    }
+  ],
+  "salud": [
+    {
+      "slug": "las-mejores-alternativas-al-papel-albal-para-aliviar-el-dolor-articular-y-muscular",
+      "title": "Las Mejores Alternativas al Papel Albal para Aliviar el Dolor Articular y Muscular",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/06/close-up-young-woman-having-pain-her-waist-1.jpg"
+    }
+  ],
+  "mascotas": [
+    {
+      "slug": "los-mejores-sprays-y-collares-antiparasitos-para-proteger-a-tu-mascota-de-garrapatas",
+      "title": "Los Mejores Sprays y Collares Antiparásitos para Proteger a Tu Mascota de Garrapatas",
+      "date": "2025-06-19",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/11/chewy-gWzTum_yMCg-unsplash-e1637321191180.jpg"
     }
   ]
 }
