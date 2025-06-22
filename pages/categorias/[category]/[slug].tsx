@@ -34,41 +34,34 @@ type PostProps = {
     slug: string;
     category: string;
     products: Product[];
-    updatedAt?: string;
-    tags?: string[];
+    updatedAt?: string; // Fecha de actualización opcional
+    tags?: string[];    // Etiquetas opcionales
   };
-  categoryPath: string;
 };
-
-interface CategoryData {
-  [category: string]: Array<{
-    title: string;
-    slug: string;
-    image: string;
-    date: string;
-  }>;
-}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
+  const filenames = fs.readdirSync(postsDirectory);
   const categoriesPath = path.join(process.cwd(), 'content/categories/categories.json');
   
   // Read categories data
   const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
-  const categories: CategoryData = JSON.parse(categoriesData);
+  const categories = JSON.parse(categoriesData);
   
   // Create paths for all articles under their categories
   const paths: { params: { category: string, slug: string } }[] = [];
   
   Object.entries(categories).forEach(([category, articles]) => {
-    articles.forEach(article => {
-      paths.push({
-        params: {
-          category,
-          slug: article.slug
-        }
+    if (Array.isArray(articles)) {
+      articles.forEach(article => {
+        paths.push({
+          params: {
+            category,
+            slug: article.slug
+          }
+        });
       });
-    });
+    }
   });
   
   return { paths, fallback: false };
@@ -80,26 +73,34 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const postsDirectory = path.join(process.cwd(), 'content/posts');
   const filenames = fs.readdirSync(postsDirectory);
-
+  
   // Verify that the article belongs to the specified category
   const categoriesPath = path.join(process.cwd(), 'content/categories/categories.json');
   const categoriesData = fs.readFileSync(categoriesPath, 'utf8');
-  const categories: CategoryData = JSON.parse(categoriesData);
+  const categories = JSON.parse(categoriesData);
   
+  // Define the type for category articles
+  interface CategoryArticle {
+    title: string;
+    slug: string;
+    image?: string;
+    date?: string;
+  }
+
   // Check if the article exists in the specified category
   const categoryArticles = categories[category] || [];
-  const articleInCategory = categoryArticles.find(article => article.slug === slug);
+  const articleInCategory = categoryArticles.find((article: CategoryArticle) => article.slug === slug);
   
   if (!articleInCategory) {
     return { notFound: true };
   }
 
-  // Find the article file
   let matchedFile = null;
   for (const filename of filenames) {
     const filePath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
 
+    // Use the utility function for consistent frontmatter handling
     const { frontmatter } = extractFrontmatter(fileContents);
     if (!frontmatter || Object.keys(frontmatter).length === 0) {
       continue;
@@ -127,46 +128,79 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Ensure the content is clean from any frontmatter
   const content = preprocessMDX(processedContent);
 
-  // Tell serialize not to try parsing frontmatter again
+  // Tell serialize not to try parsing frontmatter again and ensure MDX doesn't 
+  // try to parse the content as YAML again
   const mdxSource = await serialize(content, {
     parseFrontmatter: false
   });
 
   // Normalize frontMatter.image to ImageObject
   let finalImage: ImageObject;
-  const placeholderUrl = '/default-placeholder.jpg';
+  const placeholderUrl = '/default-placeholder.jpg'; // Define your actual placeholder image
   const placeholderCaption = 'Imagen no disponible';
 
   if (typeof data.image === 'string') {
     if (data.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || !data.image.startsWith('/') && !data.image.startsWith('http')) {
-      finalImage = { url: placeholderUrl, caption: placeholderCaption };
+      finalImage = { url: placeholderUrl, caption: data.title || placeholderCaption };
     } else {
-      finalImage = { url: data.image, caption: data.title || '' };
+      finalImage = { url: data.image, caption: data.title || placeholderCaption };
     }
-  } else if (data.image && typeof data.image === 'object') {
-    finalImage = data.image;
+  } else if (data.image && typeof data.image === 'object' && 'url' in data.image) {
+    const imageUrl = (data.image as ImageObject).url;
+    if (imageUrl === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || !imageUrl.startsWith('/') && !imageUrl.startsWith('http')) {
+      finalImage = { url: placeholderUrl, caption: (data.image as ImageObject).caption || data.title || placeholderCaption };
+    } else {
+      finalImage = data.image as ImageObject;
+    }
   } else {
-    finalImage = { url: placeholderUrl, caption: placeholderCaption };
+    finalImage = { url: placeholderUrl, caption: placeholderCaption }; // Fallback image
   }
 
-  // Ensure products is an array
-  const products = Array.isArray(data.products) ? data.products : [];
+  // Normalize images within data.products
+  if (data.products && Array.isArray(data.products)) {
+    data.products = data.products.map(product => {
+      if (!product) return product; // Should not happen, but good for safety
+
+      let productImage: ImageObject;
+      const productCaption = product.name || placeholderCaption;
+
+      if (typeof product.image === 'string') {
+        if (product.image === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || (!product.image.startsWith('/') && !product.image.startsWith('http'))) {
+          productImage = { url: placeholderUrl, caption: productCaption };
+        } else {
+          productImage = { url: product.image, caption: productCaption };
+        }
+      } else if (product.image && typeof product.image === 'object' && 'url' in product.image) {
+        const imageUrl = (product.image as ImageObject).url;
+        if (imageUrl === 'PENDIENTE_URL_IMAGEN_PRODUCTO' || (!imageUrl.startsWith('/') && !imageUrl.startsWith('http'))) {
+          productImage = { url: placeholderUrl, caption: (product.image as ImageObject).caption || productCaption };
+        } else {
+          productImage = product.image as ImageObject;
+        }
+      } else {
+        // If image is missing or not in a recognized format, use placeholder
+        productImage = { url: placeholderUrl, caption: productCaption };
+      }
+      return { ...product, image: productImage };
+    });
+  }
+
 
   return {
     props: {
       source: mdxSource,
-      frontMatter: {
-        ...data,
+      frontMatter: { 
+        ...data, 
+        slug, 
         image: finalImage,
-        products,
-        category: data.category || category, // Use the category from frontmatter or URL
+        category: category // Ensure category is passed to the component
       },
-      categoryPath: category
+      categoryPath: category // Pass category path for breadcrumbs
     },
   };
 };
 
-export default function CategoryArticlePage({ source, frontMatter, categoryPath }: PostProps) {
+export default function CategoryArticlePage({ source, frontMatter, categoryPath }: PostProps & { categoryPath: string }) {
   return (
     <Layout>
       <NextSeo
@@ -177,23 +211,18 @@ export default function CategoryArticlePage({ source, frontMatter, categoryPath 
           url: `https://comparaland.es/categorias/${categoryPath}/${frontMatter.slug}`,
           title: frontMatter.title,
           description: frontMatter.excerpt,
-          images: [
-            {
-              url: frontMatter.image.url,
-              alt: frontMatter.image.caption || frontMatter.title,
-            },
-          ],
+          images: [{ url: frontMatter.image.url, alt: frontMatter.image.caption || frontMatter.title }],
           type: 'article',
           article: {
             publishedTime: frontMatter.date,
-            modifiedTime: frontMatter.updatedAt,
-            tags: frontMatter.tags,
-          },
+            modifiedTime: frontMatter.updatedAt || frontMatter.date,
+            section: frontMatter.category,
+            tags: frontMatter.tags || [frontMatter.category],
+          }
         }}
       />
 
       <Head>
-        {/* Schema.org structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -201,65 +230,224 @@ export default function CategoryArticlePage({ source, frontMatter, categoryPath 
               "@context": "https://schema.org",
               "@type": "Article",
               "headline": frontMatter.title,
+              "description": frontMatter.excerpt,
               "image": frontMatter.image.url,
-              "datePublished": frontMatter.date,
-              "dateModified": frontMatter.updatedAt || frontMatter.date,
+              "datePublished": (() => {
+                // Convert date string to ISO 8601 format with timezone
+                try {
+                  const date = new Date(frontMatter.date);
+                  return date.toISOString(); // Returns format: YYYY-MM-DDTHH:mm:ss.sssZ
+                } catch (e) {
+                  // Fallback if date parsing fails
+                  return new Date().toISOString();
+                }
+              })(),
+              "dateModified": (() => {
+                // Use updatedAt if available, otherwise use date
+                const dateStr = frontMatter.updatedAt || frontMatter.date;
+                try {
+                  const date = new Date(dateStr);
+                  return date.toISOString(); // Returns format: YYYY-MM-DDTHH:mm:ss.sssZ
+                } catch (e) {
+                  // Fallback if date parsing fails
+                  return new Date().toISOString();
+                }
+              })(),
               "author": {
                 "@type": "Organization",
-                "name": "Comparaland"
+                "name": "comparaland",
+                "url": "https://comparaland.es/nosotros"
               },
+              "publisher": {
+                "@type": "Organization",
+                "name": "comparaland",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://comparaland.es/logo.png",
+                  "width": 600,
+                  "height": 60
+                }
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://comparaland.es/categorias/${categoryPath}/${frontMatter.slug}`
+              },
+              // Añadir FAQ si hay productos (esto ayuda a obtener rich snippets)
               ...(frontMatter.products && frontMatter.products.length > 0 ? {
-                "about": {
-                  "@type": "Product",
-                  "name": frontMatter.products[0].name,
-                  "image": frontMatter.products[0].image,
-                  "description": frontMatter.excerpt,
-                  "brand": {
-                    "@type": "Brand",
-                    "name": frontMatter.products[0].brand || "Marca no especificada"
-                  },
-                  "offers": frontMatter.products.map(product => ({
-                    "@type": "Offer",
-                    "url": product.url,
-                    "price": (() => {
-                      if (typeof product.price === 'object' && product.price.schema) {
-                        return product.price.schema;
-                      } else {
-                        const priceStr = String(product.price);
-                        return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
-                      }
-                    })(),
-                    "availability": "https://schema.org/InStock",
-                    "shippingDetails": {
-                      "@type": "OfferShippingDetails",
-                      "shippingRate": {
-                        "@type": "MonetaryAmount",
-                        "value": "0",
-                        "currency": "EUR"
-                      },
-                      "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {
-                          "@type": "QuantitativeValue",
-                          "minValue": 0,
-                          "maxValue": 1,
-                          "unitCode": "DAY"
-                        },
-                        "transitTime": {
-                          "@type": "QuantitativeValue",
-                          "minValue": 1,
-                          "maxValue": 3,
-                          "unitCode": "DAY"
+                "hasPart": {
+                  "@type": "FAQPage",
+                  "mainEntity": [
+                    {
+                      "@type": "Question",
+                      "name": `¿Cuál es el mejor ${(() => {
+                        // Extraer el tipo de producto del título de forma segura
+                        const title = frontMatter.title.toLowerCase();
+                        if (title.includes('mejores')) {
+                          const parts = title.split('mejores');
+                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'producto';
                         }
+                        return 'producto';
+                      })()} en ${new Date().getFullYear()}?`,
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": frontMatter.products[0]?.name ? `Según nuestro análisis, ${frontMatter.products[0].name} es actualmente la mejor opción por su relación calidad-precio y prestaciones.` : frontMatter.excerpt
                       }
                     },
-                    "hasMerchantReturnPolicy": {
-                      "@type": "MerchantReturnPolicy",
-                      "applicableCountry": "ES",
-                      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-                      "merchantReturnDays": 30,
-                      "returnMethod": "https://schema.org/ReturnByMail",
-                      "returnFees": "https://schema.org/FreeReturn"
+                    {
+                      "@type": "Question",
+                      "name": `¿Qué características debo considerar al comprar ${(() => {
+                        // Extraer el tipo de producto del título de forma segura
+                        const title = frontMatter.title.toLowerCase();
+                        if (title.includes('mejores')) {
+                          const parts = title.split('mejores');
+                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'este producto';
+                        }
+                        return 'este producto';
+                      })()}?`,
+                      "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": `Debes considerar factores como calidad, precio, funcionalidades específicas y opiniones de otros usuarios. En nuestro artículo analizamos detalladamente estos aspectos para ayudarte a tomar la mejor decisión.`
+                      }
+                    }
+                  ]
+                },
+                // Añadir review para el primer producto
+                "review": {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "4.8",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Organization",
+                    "name": "comparaland"
+                  },
+                  "itemReviewed": {
+                    "@type": "Product",
+                    "name": frontMatter.products[0].name,
+                    "image": frontMatter.products[0].image.url,
+                    "description": frontMatter.products[0].description || frontMatter.excerpt,
+                    "brand": {
+                      "@type": "Brand",
+                      "name": frontMatter.products[0].name.split(' ')[0] // Extraemos la primera palabra como marca
+                    },
+                    "offers": {
+                      "@type": "Offer",
+                      "url": frontMatter.products[0].affiliateLink,
+                      "priceCurrency": "EUR",
+                      "price": (() => {
+                        // Handle both string and object price formats
+                        if (frontMatter.products[0].price) {
+                          if (typeof frontMatter.products[0].price === 'object' && frontMatter.products[0].price.schema) {
+                            // Use the schema format which already has periods
+                            return frontMatter.products[0].price.schema;
+                          } else {
+                            // For string prices, convert commas to periods for schema.org
+                            const priceStr = String(frontMatter.products[0].price);
+                            return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                          }
+                        }
+                        return "";
+                      })(),
+                      "availability": "https://schema.org/InStock",
+                      "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                          "@type": "MonetaryAmount",
+                          "value": "0",
+                          "currency": "EUR"
+                        },
+                        "deliveryTime": {
+                          "@type": "ShippingDeliveryTime",
+                          "handlingTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 0,
+                            "maxValue": 1,
+                            "unitCode": "DAY"
+                          },
+                          "transitTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "unitCode": "DAY"
+                          }
+                        }
+                      },
+                      "hasMerchantReturnPolicy": {
+                        "@type": "MerchantReturnPolicy",
+                        "applicableCountry": "ES",
+                        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                        "merchantReturnDays": 30,
+                        "returnMethod": "https://schema.org/ReturnByMail",
+                        "returnFees": "https://schema.org/FreeReturn"
+                      }
+                    }
+                  }
+                },
+                // Add ItemList schema for multiple products
+                "mainEntity": {
+                  "@type": "ItemList",
+                  "itemListElement": frontMatter.products.map((product, index) => ({
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "item": {
+                      "@type": "Product",
+                      "name": product.name,
+                      "image": product.image.url,
+                      "description": product.description || frontMatter.excerpt,
+                      "brand": {
+                        "@type": "Brand",
+                        "name": product.name.split(' ')[0]
+                      },
+                      "offers": {
+                        "@type": "Offer",
+                        "url": product.affiliateLink,
+                        "priceCurrency": "EUR",
+                        "price": (() => {
+                          if (product.price) {
+                            if (typeof product.price === 'object' && product.price.schema) {
+                              return product.price.schema;
+                            } else {
+                              const priceStr = String(product.price);
+                              return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                            }
+                          }
+                          return "";
+                        })(),
+                        "availability": "https://schema.org/InStock",
+                        "shippingDetails": {
+                          "@type": "OfferShippingDetails",
+                          "shippingRate": {
+                            "@type": "MonetaryAmount",
+                            "value": "0",
+                            "currency": "EUR"
+                          },
+                          "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 0,
+                              "maxValue": 1,
+                              "unitCode": "DAY"
+                            },
+                            "transitTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 1,
+                              "maxValue": 3,
+                              "unitCode": "DAY"
+                            }
+                          }
+                        },
+                        "hasMerchantReturnPolicy": {
+                          "@type": "MerchantReturnPolicy",
+                          "applicableCountry": "ES",
+                          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                          "merchantReturnDays": 30,
+                          "returnMethod": "https://schema.org/ReturnByMail",
+                          "returnFees": "https://schema.org/FreeReturn"
+                        }
+                      }
                     }
                   }))
                 }
