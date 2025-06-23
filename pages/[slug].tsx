@@ -390,6 +390,10 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                             "value": "0",
                             "currency": "EUR"
                           },
+                          "shippingDestination": {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "ES"
+                          },
                           "deliveryTime": {
                             "@type": "ShippingDeliveryTime",
                             "handlingTime": {
