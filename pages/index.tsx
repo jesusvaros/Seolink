@@ -80,6 +80,25 @@ export default function Home({ newestArticles, hottestArticles }: { newestArticl
           images: [{ url: 'https://comparaland.es/images/og-image.jpg', alt: 'Comparaland - Guías de Compra' }],
         }}
       />
+      
+      {/* Breadcrumb structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Inicio",
+                "item": "https://comparaland.es/"
+              }
+            ]
+          })
+        }}
+      />
       {/* Hero section */}
       <div className="bg-ivory py-12 px-4 mb-8 rounded-xl">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">

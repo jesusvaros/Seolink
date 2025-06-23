@@ -5,15 +5,6 @@ import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  // Schema.org Organization markup for logo in Google search results
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    'name': 'Comparaland',
-    'url': 'https://comparaland.es',
-    'logo': 'https://comparaland.es/logo_no_words.png',
-    'image': 'https://comparaland.es/logo_no_words.png'
-  };
 
   return (
     <>
@@ -30,10 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           }
         ]}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
+
       <div className="flex flex-col justify-between min-h-screen bg-gray-50">
         <header className="bg-white shadow sticky top-0 z-10">
           <div className="container mx-auto px-4 py-3 flex justify-between items-center">
