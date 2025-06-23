@@ -1299,3 +1299,105 @@ Error: Could not parse CSS stylesheet
 [2025-06-19T08:34:22.113Z] ✅ All tasks completed successfully
 [2025-06-19T08:34:22.113Z] ==================================================
 [2025-06-19T08:34:22.113Z] ==================================================
+[2025-06-23T09:10:00.446Z] ==================================================
+[2025-06-23T09:10:00.446Z] ==================================================
+[2025-06-23T09:10:00.448Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-23T09:10:00.448Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-23T09:10:00.449Z] ==================================================
+[2025-06-23T09:10:00.449Z] ==================================================
+[2025-06-23T09:10:00.449Z] 🚀 Starting Elle scraping...
+[2025-06-23T09:10:00.449Z] 🚀 Starting Elle scraping...
+[2025-06-23T09:10:00.449Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-23T09:10:00.449Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-23T09:10:19.190Z] ✅ Elle scraping completed successfully
+[2025-06-23T09:10:19.190Z] ✅ Elle scraping completed successfully
+[2025-06-23T09:10:19.191Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-23T09:10:19.191Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-23T09:10:19.191Z] 🚀 Starting Compramejor scraping...
+[2025-06-23T09:10:19.191Z] 🚀 Starting Compramejor scraping...
+[2025-06-23T09:10:19.191Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-06-23T09:10:19.191Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-06-23T09:10:28.090Z] ✅ Compramejor scraping completed successfully
+[2025-06-23T09:10:28.090Z] ✅ Compramejor scraping completed successfully
+[2025-06-23T09:10:28.091Z] Output: 🚀 Iniciando scraping de 1 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+
+[2025-06-23T09:10:28.091Z] Output: 🚀 Iniciando scraping de 1 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+
+[2025-06-23T09:10:28.091Z] 🚀 Starting MDX generation...
+[2025-06-23T09:10:28.091Z] 🚀 Starting MDX generation...
+[2025-06-23T09:10:28.091Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-23T09:10:28.091Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-23T09:27:01.284Z] ⚠️ Script warning: ❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 37956 (line 708 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+⚠️ No se encontraron productos de Amazon válidos.
+
+[2025-06-23T09:27:01.284Z] ⚠️ Script warning: ❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 37956 (line 708 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+⚠️ No se encontraron productos de Amazon válidos.
+
+[2025-06-23T09:27:01.284Z] ✅ MDX generation completed successfully
+[2025-06-23T09:27:01.284Z] ✅ MDX generation completed successfully
+[2025-06-23T09:27:01.285Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 690
+
+📋 Total URLs encontradas: 975
+
+🔍 URLs válidas para procesar: 92
+🔍 Verificando si https://www.compramejor.es/movistar-plus-suscripcion-mensual-que-ver/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramejor...(truncated)
+[2025-06-23T09:27:01.285Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 690
+
+📋 Total URLs encontradas: 975
+
+🔍 URLs válidas para procesar: 92
+🔍 Verificando si https://www.compramejor.es/movistar-plus-suscripcion-mensual-que-ver/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramejor...(truncated)
+[2025-06-23T09:27:01.285Z] ==================================================
+[2025-06-23T09:27:01.285Z] ==================================================
+[2025-06-23T09:27:01.285Z] ✅ All tasks completed successfully
+[2025-06-23T09:27:01.285Z] ✅ All tasks completed successfully
+[2025-06-23T09:27:01.285Z] ==================================================
+[2025-06-23T09:27:01.285Z] ==================================================
