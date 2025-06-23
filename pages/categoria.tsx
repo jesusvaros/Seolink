@@ -15,7 +15,7 @@ export default function CategoriasRedirect() {
       <NextSeo
         title="Categorías - Comparaland | Guías de Compra y Análisis"
         description="Explora todas las categorías de productos analizados por nuestros expertos."
-        canonical="https://comparaland.es/categoria"
+        canonical="https://comparaland.es/categorias"
         noindex={true} // Don't index this redirect page
       />
       <div className="flex items-center justify-center min-h-screen">

@@ -62,9 +62,9 @@ export default function CategoriesIndexPage({
       <NextSeo
         title="Categorías - Comparaland | Guías de Compra y Análisis"
         description="Explora todas las categorías de productos analizados por nuestros expertos. Guías de compra, comparativas y recomendaciones para tomar la mejor decisión."
-        canonical="https://comparaland.es/categoria"
+        canonical="https://comparaland.es/categorias"
         openGraph={{
-          url: "https://comparaland.es/categoria",
+          url: "https://comparaland.es/categorias",
           title: "Categorías - Comparaland | Guías de Compra y Análisis",
           description: "Explora todas las categorías de productos analizados por nuestros expertos.",
           images: [{ url: 'https://comparaland.es/images/og-image.jpg', alt: "Categorías - Comparaland" }],
