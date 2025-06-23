@@ -4,6 +4,8 @@ const ParseProducts = (products) => {
     ? `https://www.amazon.es/dp/${asin}?tag=oferta-limitada-21`
     : `https://www.amazon.es/s?k=${encodeURIComponent(name)}&tag=oferta-limitada-21`;
 
+    // market us ofertalimit06-20
+
     const product = {
       name,
       description,
