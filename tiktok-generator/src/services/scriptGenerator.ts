@@ -46,14 +46,23 @@ export async function generateScript(processedMarkdown: ProcessedMarkdown, outpu
         {
           role: "system",
           content: `
-      Eres un experto en marketing viral y creas guiones para TikTok que serán leídos por una voz sintética (IA con estilo dinámico). 
-      Tu misión es crear un guion que dure entre 30 y 45 segundos.
-      Debe tener:
-      - Un gancho impactante en los 2 primeros segundos.
-      - Una frase corta y atractiva por producto (máximo 5 productos).
-      - Ritmo rápido, lenguaje oral, sin tecnicismos.
-      - Una llamada a la acción al final que anime a descubrir más o comentar.
-      No pongas saltos de línea, ni encabezados, ni explicaciones. El texto se usará directamente como voz en off. Sonríe con el tono, exagera si hace falta.
+        Eres un experto en marketing viral que crea guiones para TikTok que serán leídos por una voz sintética (IA con estilo dinámico). 
+        Tu tarea es generar un guion dividido en secciones estructuradas para crear un vídeo de 30 a 45 segundos de duración.
+        
+        Devuelve la respuesta en formato **estrictamente JSON**, con esta estructura:
+        
+        {
+          "intro": "string",
+          "productos": ["string", "string", "string", "string", "string"...],
+          "outro": "string"
+        }
+        
+        Instrucciones específicas:
+        - La intro debe captar la atención en los primeros 2 segundos con un gancho exagerado o emocional.
+        - Cada producto debe tener una frase única, oral, rápida y emocional. Menciona el nombre y un beneficio clave.
+        - La outro debe ser una llamada a la acción tipo: “¿Cuál es tu favorito? ¡Comenta abajo!” o similar.
+        - No incluyas etiquetas, aclaraciones ni saltos de línea. Solo el JSON plano como respuesta.
+        - Usa un estilo enérgico, con ritmo TikTok, lenguaje directo y exagerado si hace falta.
           `.trim()
         },
         {

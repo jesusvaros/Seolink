@@ -9,9 +9,11 @@ export interface ProcessedMarkdown {
   metadata: Record<string, any>;
   images: string[];
   title: string;
-  products: string[];
+  description?: string; // Added description field
+  products: any[];
   image: string;
   excerpt: string;
+  slideImages: string[]; // Array of images for the slideshow
 }
 
 export async function processMarkdown(filePath: string): Promise<ProcessedMarkdown> {
@@ -25,21 +27,51 @@ export async function processMarkdown(filePath: string): Promise<ProcessedMarkdo
     // Extract image URLs/paths from the markdown content
     const images = await extractImages(content, path.dirname(filePath));
 
-       // Leer y parsear el archivo MDX
-        const mdxContent = await fs.readFile(filePath, 'utf-8');
-        const { data } = matter(mdxContent);
-        
-        // Extraer información relevante
-        const { title, products, image, excerpt } = data;
+    // Extract information from MDX frontmatter
+    const { title, products = [], image, excerpt, description } = metadata;
     
+    // Create an array of images for the TikTok video slideshow
+    const slideImages: string[] = [];
+    
+    // 1. Add the main image as the first slide
+    if (image) {
+      slideImages.push(image);
+    }
+    
+    // 2. Add product images
+    if (Array.isArray(products)) {
+      for (const product of products) {
+        if (product && product.image) {
+          slideImages.push(product.image);
+        }
+      }
+    }
+    
+    // 3. Add logo as the last slide (can be replaced with your actual logo URL)
+    const logoUrl = 'https://jesusvaros.com/wp-content/uploads/2024/04/logo.png';
+    slideImages.push(logoUrl);
+    
+    // Make sure we have at least some images
+    if (slideImages.length === 0) {
+      console.warn('No images found in MDX file, using fallback images');
+      slideImages.push(
+        'https://via.placeholder.com/1080x1920/333333/ffffff?text=No+Image+Available'
+      );
+    }
+
+    console.log('Slide images:', slideImages, products);
+    
+    // Return processed markdown data
     return {
       content,
       metadata,
       images,
-      title,
+      title: title || path.basename(filePath, path.extname(filePath)),
+      description: description || excerpt || '', // Include description, fallback to excerpt
       products,
-      image,
-      excerpt
+      image: image || '',
+      excerpt: excerpt || '',
+      slideImages,
     };
   } catch (error) {
     console.error('Error processing markdown:', error);

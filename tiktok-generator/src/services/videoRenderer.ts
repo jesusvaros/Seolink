@@ -6,6 +6,7 @@ import fs from 'fs-extra';
 import { fileURLToPath } from 'url';
 import os from 'os';
 import { WebpackOverrideFn } from '@remotion/bundler';
+import { AudioSegment } from './voiceSynthesizer.js';
 
 // ES modules compatibility: Create equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -13,76 +14,97 @@ const __dirname = path.dirname(__filename);
 
 interface VideoRenderOptions {
   images: string[];
-  audioPath: string;
   script: string;
   metadata: Record<string, any>;
+  slideImages?: string[]; // Array with article main image, product images and logo
+  audioSegments: AudioSegment[]; // Structured audio segments
+  outputDir?: string; // Output directory
+  outputPath?: string; // Specific path for the output video
 }
 
-export async function renderVideo(options: VideoRenderOptions): Promise<string> {
+export async function renderVideo({ 
+  images, 
+  script,
+  metadata,
+  slideImages = [],
+  audioSegments, 
+  outputDir = path.join(process.cwd(), 'output'),
+  outputPath
+}: VideoRenderOptions): Promise<string> {
   try {
-    const { images, audioPath, script, metadata } = options;
+    // Use slideImages with priority if they exist
+    const imagesToUse = slideImages.length > 0 ? slideImages : images;
     
-    // Read audio file into memory and encode as base64
-    const audioDir = path.dirname(audioPath);
-    const outputPath = path.join(audioDir, 'video.mp4');
+    // Ensure output directory exists
+    if (outputPath && path.dirname(outputPath) !== outputDir) {
+      await fs.ensureDir(path.dirname(outputPath));
+    } else {
+      await fs.ensureDir(outputDir);
+    }
     
-    console.log(`Reading audio file: ${audioPath}`);
-    const audioBuffer = await fs.readFile(audioPath);
-    const audioBase64 = audioBuffer.toString('base64');
-    console.log(`Audio file read into memory: ${audioBuffer.length} bytes`);
-    console.log(`Video will be saved to: ${outputPath}`);
+    // Create a temporary directory for bundling
+    const tempDir = path.join(os.tmpdir(), `remotion-render-${Date.now()}`);
+    await fs.ensureDir(tempDir);
     
-    // Bundle the video components
-    console.log('Bundling video components...');
+    // Initialize Remotion bundler
+    console.log('Initializing Remotion bundler...');
     
-    // Important: Use the JS file from dist, not the TS source file
-    const entryPointPath = path.join(process.cwd(), 'dist/remotion/index.js');
-    console.log(`Using Remotion entry point: ${entryPointPath}`);
-    
-    // Create a simpler bundle configuration
-    const bundleOptions = {
-      entryPoint: entryPointPath,
-      // Enable verbose output for debugging
-      verbose: true,
-    };
-    
-    console.log('Bundle options:', bundleOptions);
-    const bundled = await bundle(bundleOptions);
-    
-    // Pass the base64 audio data instead of a file path
-    const audioDataUrl = `data:audio/mp3;base64,${audioBase64}`;
+    // Setup input props for the video
+    console.log(`Using segmented audio approach with ${audioSegments.length} segments`);
     
     const inputProps = {
-      images,
-      audioData: audioDataUrl, // Pass base64 audio data
+      images: imagesToUse,
+      audioSegments: audioSegments.map(segment => ({
+        type: segment.type,
+        index: segment.index || 0,
+        text: segment.text,
+        audioData: `data:audio/mp3;base64,${segment.audioBase64}`
+      })),
       script,
-      title: metadata.title || 'TikTok Video',
-      description: metadata.description || '',
+      title: metadata?.title || 'TikTok Video',
+      description: metadata?.description || ''
     };
     
-    console.log('Using audio data URL instead of file path');
-    
-    console.log('Using input props:', inputProps);
-    
+    // Set up bundler options for Remotion
+    const webpackOverride: WebpackOverrideFn = (config) => {
+      return {
+        ...config,
+        resolve: {
+          ...config.resolve,
+          fallback: {
+            fs: false,
+            path: false,
+            os: false,
+          },
+        },
+      };
+    };
+
+    // Bundle the Remotion project
+    console.log('Bundling Remotion project...');
+    const bundled = await bundle({
+      entryPoint: path.join(__dirname, '../remotion/index.js'),
+      webpackOverride,
+    });
+
     // Get the composition
     console.log('Selecting composition...');
     const composition = await selectComposition({
       serveUrl: bundled,
       id: 'TiktokVideo',
       inputProps,
-      envVariables: {
-        // Pass env variables that might be needed
-        REMOTION_AUDIO_DATA: audioDataUrl,
-      },
     });
     
+    // Ensure we have a valid output path
+    const finalOutputPath = outputPath || path.join(process.cwd(), 'output', 'video.mp4');
+    
     // Render the video
-    console.log('Rendering video...');
+    console.log(`Rendering video to: ${finalOutputPath}`);
     await renderMedia({
       composition,
       serveUrl: bundled,
       codec: 'h264',
-      outputLocation: outputPath,
+      outputLocation: finalOutputPath,
       inputProps,
       // Add progress callback for better visibility
       onProgress: (progress) => {
@@ -90,8 +112,8 @@ export async function renderVideo(options: VideoRenderOptions): Promise<string> 
       },
     });
     
-    console.log(`Video rendered to ${outputPath}`);
-    return outputPath;
+    console.log(`Video rendered to ${finalOutputPath}`);
+    return finalOutputPath;
   } catch (error) {
     console.error('Error rendering video:', error);
     throw error;
