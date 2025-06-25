@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "prestart": "tsc --skipLibCheck",
     "start": "node --experimental-specifier-resolution=node dist/index.js",
     "dev": "ts-node --esm src/index.ts",
     "generate": "ts-node --esm src/index.ts content/sample.mdx",

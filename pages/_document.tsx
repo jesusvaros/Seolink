@@ -16,7 +16,7 @@ export default function Document() {
               "@type": "Organization",
               "name": "Comparaland",
               "url": "https://comparaland.es",
-              "logo": "https://comparaland.es/logo.svg",
+              "logo": "https://comparaland.es/logo_no_words.png",
               "sameAs": [
                 "https://facebook.com/comparaland",
                 "https://twitter.com/comparaland",
