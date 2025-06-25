@@ -91,7 +91,7 @@ async function main() {
     const audioOutputDir = path.join(OUTPUT_DIR, videoId);
     await fs.mkdir(audioOutputDir, { recursive: true });
     const audioPath = path.join(audioOutputDir, `audio.mp3`);
-    await generateAudio(script, audioPath);
+   // await generateAudio(script, audioPath);
     if (!existsSync(audioPath)) {
       console.log('No se ha generado audio. Deteniendo el proceso.');
       process.exit(1);

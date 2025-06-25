@@ -1,48 +1,65 @@
 import { exec } from 'child_process';
+import { existsSync } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
 import { promisify } from 'util';
-import { existsSync } from 'fs';
+import axios from 'axios';
 
 const execPromise = promisify(exec);
 
+// Ruta para guardar los datos temporales
+const tempDataDir = path.join(process.cwd(), 'output');
+
 export async function createVideoWithRemotion(title, products, audioPath, outputPath, featuredImage = null) {
+  let serverProcess = null;
+  
   try {
-    // Verificar que el archivo de audio existe
+    // Verificar que el archivo de audio exista
     if (!existsSync(audioPath)) {
       throw new Error(`No se encontró el archivo de audio en ${audioPath}`);
     }
     
-    // Asegurarse de que el directorio de salida existe
+    // Crear el directorio de salida si no existe
     const outputDir = path.dirname(outputPath);
     await fs.mkdir(outputDir, { recursive: true });
     
-    console.log('Iniciando renderizado con Remotion...');
-    
-    // Crear un archivo temporal con los datos del video
-    const tempDataPath = path.join(outputDir, 'video-data.json');
-    await fs.writeFile(tempDataPath, JSON.stringify({
+    // Preparar los datos para el video
+    const videoData = {
       title,
       products,
       audioPath,
       imageUrl: featuredImage
-    }, null, 2));
+    };
     
-    // Construir el comando para renderizar el video con Remotion
-    const remotionPath = path.join(process.cwd(), 'video-generator', 'remotion', 'Video.jsx');
-    const command = `npx remotion render ${remotionPath} TikTokVideo ${outputPath} --props="file://${tempDataPath}" --overwrite`;
+    // Guardar los datos en un archivo temporal específico para este video
+    const tempDataPath = path.join(outputDir, 'video-data.json');
+    await fs.writeFile(tempDataPath, JSON.stringify(videoData, null, 2));
     
-    console.log(`Ejecutando: ${command}`);
+    console.log('Iniciando servidor Remotion...');
     
-    // Ejecutar el comando de Remotion
-    const { stdout, stderr } = await execPromise(command);
+    // Iniciar el servidor Remotion en segundo plano
+    const serverPath = path.join(process.cwd(), 'remotion', 'server.js');
+    serverProcess = exec(`node ${serverPath}`);
     
-    console.log('Salida de Remotion:');
-    console.log(stdout);
+    // Dar tiempo para que el servidor inicie
+    await new Promise(resolve => setTimeout(resolve, 3000));
     
-    if (stderr) {
-      console.warn('Advertencias de Remotion:');
-      console.warn(stderr);
+    console.log('Servidor Remotion iniciado. Solicitando renderizado...');
+    
+    // Hacer una solicitud al servidor para renderizar el video
+    const response = await axios.get('http://localhost:3000/render', {
+      params: {
+        propsFile: tempDataPath,
+        outputPath
+      },
+      timeout: 300000 // 5 minutos de timeout
+    });
+    
+    console.log('Respuesta del servidor:', response.data);
+    
+    // Verificar que el video se haya generado correctamente
+    if (!existsSync(outputPath)) {
+      throw new Error(`El video no se generó correctamente en ${outputPath}`);
     }
     
     // Limpiar archivos temporales

@@ -1,0 +1,127 @@
+{
+  "title": "Camisetas Blancas: La Prenda Esencial para Cada Estilo",
+  "products": [
+    {
+      "name": "Camiseta blanca de Adolfo Domínguez",
+      "asin": "B08XYZ1234",
+      "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1748285054-captura-de-pantalla-2025-05-26-a-las-20-43-13-6834b65101985.png?crop=0.9321100917431193xw:1xh;center,top&resize=980:*",
+      "price": "80 €",
+      "affiliateLink": "https://www.amazon.es/dp/B08XYZ1234?tag=oferta-limitada-21",
+      "destacado": "Diseño arquitectónico único",
+      "pros": [
+        "Diseño único y elegante",
+        "Comodidad y versatilidad",
+        "Material de alta calidad"
+      ],
+      "cons": [
+        "Precio elevado",
+        "Disponibilidad limitada"
+      ],
+      "especificaciones": [
+        {
+          "nombre": "Material",
+          "valor": "100% algodón orgánico"
+        },
+        {
+          "nombre": "Tamaño",
+          "valor": "Disponible en S, M, L"
+        },
+        {
+          "nombre": "Color",
+          "valor": "Blanco"
+        }
+      ],
+      "analisis": "La camiseta blanca de Adolfo Domínguez se destaca por su diseño arquitectónico que aporta un toque especial a una prenda básica. Su corte y el uso de materiales de alta calidad la hacen ideal para quienes buscan comodidad sin sacrificar el estilo. Sin embargo, su precio puede ser un factor limitante para algunos consumidores. Comparada con otras camisetas blancas del mercado, esta opción se posiciona como una alternativa premium que justifica su costo a través de su diseño y calidad.",
+      "brand": "Adolfo Domínguez",
+      "offers": {
+        "@type": "Offer",
+        "price": "80.00",
+        "priceCurrency": "EUR",
+        "availability": "http://schema.org/InStock",
+        "url": "https://www.amazon.es/dp/B08XYZ1234?tag=oferta-limitada-21",
+        "priceValidUntil": "2026-06-16"
+      },
+      "review": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Análisis del Experto"
+        },
+        "datePublished": "2025-06-16",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "4.5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Camiseta blanca de manga corta con un diseño arquitectónico y elegante."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.0",
+        "reviewCount": "5"
+      }
+    },
+    {
+      "name": "Camiseta blanca de Massimo Dutti",
+      "asin": "B08XYZ5678",
+      "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1748293988-captura-de-pantalla-2025-05-26-a-las-23-11-11-6834d8fa96f41.png?crop=0.8096192384769539xw:1xh;center,top&resize=980:*",
+      "price": "99 €",
+      "affiliateLink": "https://www.amazon.es/dp/B08XYZ5678?tag=oferta-limitada-21",
+      "destacado": "Ideal para el uso diario",
+      "pros": [
+        "Ideal para el uso diario",
+        "Buena relación calidad-precio",
+        "Fácil de combinar"
+      ],
+      "cons": [
+        "Diseño simple",
+        "Menos durabilidad"
+      ],
+      "especificaciones": [
+        {
+          "nombre": "Material",
+          "valor": "100% algodón"
+        },
+        {
+          "nombre": "Tamaño",
+          "valor": "Disponible en S, M, L"
+        },
+        {
+          "nombre": "Color",
+          "valor": "Blanco"
+        }
+      ],
+      "analisis": "La camiseta blanca de Massimo Dutti es una opción clásica y accesible que se adapta a cualquier armario. Su diseño básico la convierte en una prenda versátil que puede ser utilizada en múltiples ocasiones, desde un día casual hasta un evento más formal. Sin embargo, su simplicidad puede no ser atractiva para quienes buscan algo más distintivo. En comparación con otras camisetas, su precio es competitivo, lo que la convierte en una excelente opción para quienes buscan calidad sin gastar demasiado.",
+      "brand": "Massimo Dutti",
+      "offers": {
+        "@type": "Offer",
+        "price": "99.00",
+        "priceCurrency": "EUR",
+        "availability": "http://schema.org/InStock",
+        "url": "https://www.amazon.es/dp/B08XYZ5678?tag=oferta-limitada-21",
+        "priceValidUntil": "2026-06-16"
+      },
+      "review": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Análisis del Experto"
+        },
+        "datePublished": "2025-06-16",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "4.5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Camiseta blanca básica de manga corta, perfecta para el uso diario."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.0",
+        "reviewCount": "5"
+      }
+    }
+  ],
+  "audioPath": "/Users/aa/CascadeProjects/amazon-afiliados/video-generator/output/camisetas-blancas-la-prenda-esencial-para-cada-estilo/audio.mp3",
+  "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/looks-con-camiseta-blanca-elle-68357dd8a4c7f.jpg?crop=1.00xw:0.335xh;0,0.100xh&resize=1200:*"
+}
