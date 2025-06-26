@@ -1,0 +1,11 @@
+{
+  "intro": "¡Atención, amantes de la cocina! ¡Las freidoras de aceite del 2025 están aquí para revolucionar tus comidas!",
+  "productos": [
+    "Tefal Filtra FR511170: ¡Con su gran capacidad, podrás freír para toda la familia sin problemas!",
+    "Fagor Elektra Compact Pro: ¡Perfecta para espacios pequeños, no sacrifiques sabor por espacio!",
+    "Cecotec CleanFry 3000 ProFilter: ¡Olvídate del aceite sucio, su filtrado te dará frituras más limpias!",
+    "Taurus Professional 2 Plus Freidora: ¡Compacta y poderosa, ideal para los chefs en casa!",
+    "Princess Freidora eléctrica de Acero inoxidable: ¡Gran capacidad y diseño elegante, cocina con estilo!"
+  ],
+  "outro": "¿Cuál es tu favorita? ¡Comenta abajo y cuéntanos tu experiencia!"
+}

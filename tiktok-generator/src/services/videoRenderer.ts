@@ -8,6 +8,9 @@ import os from 'os';
 import { WebpackOverrideFn } from '@remotion/bundler';
 import { AudioSegment } from './voiceSynthesizer.js';
 
+// Define constants for video rendering
+const FPS = 30; // Frames per second, must match the value in TiktokVideo.tsx
+
 // ES modules compatibility: Create equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -71,6 +74,23 @@ export async function renderVideo({
     // This helps ensure the video is just the right length for the content
     let estimatedDurationInFrames = 0;
     
+    // Calculate the total duration based on the audio segments
+    if (audioSegments && audioSegments.length > 0) {
+      // Each audio segment has base64 data we can use to estimate duration
+      for (const segment of audioSegments) {
+        // Calculate audio duration from base64 length
+        // Base64 encodes 3 bytes into 4 characters, so we can estimate the audio length
+        const base64Length = segment.audioBase64.length;
+        const audioDataLength = base64Length * 0.75; // Convert base64 length to byte length
+        const estimatedDuration = audioDataLength / 16000; // Assuming 16kHz mono audio
+        const seconds = Math.max(2, estimatedDuration); // Ensure at least 2 seconds per segment
+        estimatedDurationInFrames += Math.ceil(seconds * FPS);
+      }
+      console.log(`Calculated total duration: ${estimatedDurationInFrames} frames (${estimatedDurationInFrames/FPS} seconds)`); 
+    } else {
+      console.error('No audio segments provided, using default duration');
+      estimatedDurationInFrames = 60 * FPS; // Default to 60 seconds if no audio segments
+    }
     
     // Set up bundler options for Remotion
     const webpackOverride: WebpackOverrideFn = (config) => {
@@ -103,8 +123,9 @@ export async function renderVideo({
     
     if (tiktokComposition) {
       // Modify the composition duration to match our audio segments
-      console.log(`Setting composition duration to ${Math.ceil(estimatedDurationInFrames)} frames`);
       tiktokComposition.durationInFrames = Math.ceil(estimatedDurationInFrames);
+    } else {
+      console.error('Could not find TiktokVideo composition!');
     }
     
     // Now select the composition with our inputs
@@ -113,6 +134,10 @@ export async function renderVideo({
       id: 'TiktokVideo',
       inputProps,
     });
+    
+    // Override the composition duration with our calculated value
+    // This is the key step to ensure the correct duration is used
+    composition.durationInFrames = Math.ceil(estimatedDurationInFrames);
     
     // Ensure we have a valid output path
     const finalOutputPath = outputPath || path.join(process.cwd(), 'output', 'video.mp4');
@@ -125,9 +150,8 @@ export async function renderVideo({
       codec: 'h264',
       outputLocation: finalOutputPath,
       inputProps,
-      // Add progress callback for better visibility
       onProgress: (progress) => {
-        console.log(`Rendering progress: ${progress.renderedFrames} frames (${Math.round(progress.progress * 100)}%)`);
+       console.log(`Rendering progress: ${progress.renderedFrames} frames (${Math.round(progress.progress * 100)}%)`);
       },
     });
     
