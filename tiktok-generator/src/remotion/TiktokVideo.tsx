@@ -40,17 +40,6 @@ let durationInFrames = 60 * FPS; // fallback default
   }
 })();
 
-interface TiktokVideoProps {
-  images: string[];
-  audioData: string; // Changed to audioData for base64 encoded audio
-  script: string;
-  title: string;
-  description: string;
-}
-
-// Define props schema for Remotion
-type RemotionProps = Record<string, unknown>;
-
 // Export the Root component for Remotion
 export const TiktokVideo: React.FC = () => {
   return (

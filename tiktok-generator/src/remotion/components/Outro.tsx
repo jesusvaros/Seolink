@@ -2,10 +2,9 @@ import React from 'react';
 import { AbsoluteFill, useCurrentFrame, spring } from 'remotion';
 
 interface OutroProps {
-  logoUrl?: string; // Logo URL for the outro
 }
 
-export const Outro: React.FC<OutroProps> = ({ logoUrl }) => {
+export const Outro: React.FC<OutroProps> = () => {
   const frame = useCurrentFrame();
   
   // Spring animation for call to action
@@ -72,19 +71,17 @@ export const Outro: React.FC<OutroProps> = ({ logoUrl }) => {
         </p>
         
         {/* Logo */}
-        {logoUrl && (
-          <div style={{ marginTop: '20px', maxWidth: '200px', maxHeight: '200px' }}>
-            <img 
-              src={logoUrl} 
-              alt="Logo"
-              style={{
-                width: '100%',
-                height: 'auto',
-                filter: 'drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5))',
-              }}
-            />
-          </div>
-        )}  
+        <div style={{ marginTop: '20px', maxWidth: '200px', maxHeight: '200px' }}>
+          <img 
+            src={'/logo_color.png'} 
+            alt="Logo"
+            style={{
+              width: '100%',
+              height: 'auto',
+              filter: 'drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5))',
+            }}
+          />
+        </div>
       </div>
     </AbsoluteFill>
   );

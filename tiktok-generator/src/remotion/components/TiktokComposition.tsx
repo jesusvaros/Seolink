@@ -20,7 +20,6 @@ interface TiktokCompositionProps {
   description: string;
   audioSegments: AudioSegmentData[]; // Segmented audio data
   mainImage?: string; // Main image for intro background
-  logoUrl?: string; // Logo URL for outro
 }
 
 export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
@@ -30,7 +29,6 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
   description,
   audioSegments,
   mainImage,
-  logoUrl,
 }) => {
   const { fps } = useVideoConfig();
   
@@ -136,7 +134,7 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
       {/* Outro Section */}
       {outroSegment && (
         <Sequence from={outroStartFrame} durationInFrames={outroFrames}>
-          <Outro logoUrl={logoUrl} />
+          <Outro />
           <Audio src={outroSegment.audioData} />
         </Sequence>
       )}
@@ -154,7 +152,6 @@ export const TiktokCompositionWrapper: React.FC<Record<string, unknown>> = (prop
       description={props.description as string}
       audioSegments={props.audioSegments as AudioSegmentData[]}
       mainImage={props.mainImage as string | undefined}
-      logoUrl={props.logoUrl as string | undefined}
     />
   );
 };
