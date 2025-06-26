@@ -53,12 +53,11 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
     const base64Length = segment.audioData.length;
     const audioDataLength = base64Length * 0.75; // Base64 is ~4/3 the size of the binary data
     const estimatedDuration = audioDataLength / 16000; // ~16KB per second at 128kbps
-    
     // Ensure a minimum duration and convert to frames
     const seconds = Math.max(2, estimatedDuration); 
     return Math.ceil(seconds * fps);
   };
-  
+
   // Calculate frame ranges for each segment based on estimated audio durations
   const introFrames = introSegment ? getAudioDurationInFrames(introSegment) : fps * 3;
   const outroFrames = outroSegment ? getAudioDurationInFrames(outroSegment) : fps * 3;
@@ -142,5 +141,20 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
         </Sequence>
       )}
     </AbsoluteFill>
+  );
+};
+
+// Wrapper for Remotion registry compatibility
+export const TiktokCompositionWrapper: React.FC<Record<string, unknown>> = (props) => {
+  return (
+    <TiktokComposition
+      images={props.images as string[]}
+      script={props.script as string}
+      title={props.title as string}
+      description={props.description as string}
+      audioSegments={props.audioSegments as AudioSegmentData[]}
+      mainImage={props.mainImage as string | undefined}
+      logoUrl={props.logoUrl as string | undefined}
+    />
   );
 };
