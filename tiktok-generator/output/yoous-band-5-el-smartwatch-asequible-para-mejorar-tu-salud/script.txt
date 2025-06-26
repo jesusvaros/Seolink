@@ -1,0 +1,7 @@
+{
+  "intro": "¡Atención, amantes de la tecnología! ¡El smartwatch que cambiará tu vida está aquí!",
+  "productos": [
+    "YOOUS Band 5: ¡Solo 23 euros por un compañero de salud que no te fallará!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo y no olvides seguirnos para más sorpresas!"
+}

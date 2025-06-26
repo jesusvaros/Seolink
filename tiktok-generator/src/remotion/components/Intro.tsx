@@ -4,9 +4,10 @@ import { AbsoluteFill, useCurrentFrame, spring, interpolate } from 'remotion';
 interface IntroProps {
   title: string;
   description: string;
+  backgroundImage?: string; // Add background image prop
 }
 
-export const Intro: React.FC<IntroProps> = ({ title, description }) => {
+export const Intro: React.FC<IntroProps> = ({ title, description, backgroundImage }) => {
   const frame = useCurrentFrame();
   
   // Spring animation for title
@@ -47,13 +48,34 @@ export const Intro: React.FC<IntroProps> = ({ title, description }) => {
         alignItems: 'center',
       }}
     >
-      {/* Gradient background */}
-      <AbsoluteFill
-        style={{
-          background: 'linear-gradient(45deg, #FF2C55, #FF6B81)',
-          opacity: 0.8,
-        }}
-      />
+      {/* Background image or gradient fallback */}
+      {backgroundImage ? (
+        <AbsoluteFill>
+          <img 
+            src={backgroundImage}
+            alt="Background"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: 0.7, // Slightly dimmed to make text readable
+            }}
+          />
+          {/* Dark overlay for better text readability */}
+          <AbsoluteFill
+            style={{
+              background: 'rgba(0, 0, 0, 0.3)',
+            }}
+          />
+        </AbsoluteFill>
+      ) : (
+        <AbsoluteFill
+          style={{
+            background: 'linear-gradient(45deg, #FF2C55, #FF6B81)',
+            opacity: 0.8,
+          }}
+        />
+      )}
       
       {/* Content container */}
       <div style={{ padding: '40px', textAlign: 'center', maxWidth: '80%' }}>
@@ -82,7 +104,19 @@ export const Intro: React.FC<IntroProps> = ({ title, description }) => {
             opacity: descriptionOpacity,
           }}
         >
-          {description}
+         🔥 🔥 No te creeras el numero 4 🔥 🔥
+        </p>
+        <p
+          style={{
+            fontFamily: 'sans-serif',
+            fontSize: '32px',
+            color: 'white',
+            textShadow: '1px 1px 5px rgba(0, 0, 0, 0.3)',
+            marginTop: '20px',
+            opacity: descriptionOpacity,
+          }}
+        >
+         🔥 🔥 No te creeras el numero 4 🔥 🔥
         </p>
       </div>
     </AbsoluteFill>

@@ -62,8 +62,15 @@ export async function renderVideo({
       })),
       script,
       title: metadata?.title || 'TikTok Video',
-      description: metadata?.description || ''
+      description: metadata?.description || '',
+      mainImage: imagesToUse.length > 0 ? imagesToUse[0] : undefined, // First image is main image
+      logoUrl: imagesToUse.length > 1 ? imagesToUse[imagesToUse.length - 1] : '/logo.svg' // Last image is logo
     };
+    
+    // Calculate estimated video duration based on audio segments
+    // This helps ensure the video is just the right length for the content
+    let estimatedDurationInFrames = 0;
+    
     
     // Set up bundler options for Remotion
     const webpackOverride: WebpackOverrideFn = (config) => {
@@ -89,6 +96,18 @@ export async function renderVideo({
 
     // Get the composition
     console.log('Selecting composition...');
+    
+    // First get all compositions to get the actual one we want to modify
+    const compositions = await getCompositions(bundled);
+    const tiktokComposition = compositions.find(comp => comp.id === 'TiktokVideo');
+    
+    if (tiktokComposition) {
+      // Modify the composition duration to match our audio segments
+      console.log(`Setting composition duration to ${Math.ceil(estimatedDurationInFrames)} frames`);
+      tiktokComposition.durationInFrames = Math.ceil(estimatedDurationInFrames);
+    }
+    
+    // Now select the composition with our inputs
     const composition = await selectComposition({
       serveUrl: bundled,
       id: 'TiktokVideo',

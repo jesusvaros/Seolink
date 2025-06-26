@@ -1,0 +1,11 @@
+{
+  "intro": "¡Atención, amantes de la moda! ¡Los vestidos del verano 2025 están aquí para deslumbrarte!",
+  "productos": [
+    "Vestido de gasa amarillo: ¡ligero y transpirable, perfecto para esos días calurosos!",
+    "Vestido satinado verde pastel: ¡brillo elegante que te hará destacar en cualquier evento!",
+    "Vestido largo con vuelo: ¡sophistiquézate con un diseño que roba miradas!",
+    "Vestido en mezcla de lino: ¡fresco y cómodo, ideal para un día de verano!",
+    "Vestido lencero en color crema: ¡romántico y femenino, el toque perfecto para tu look!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo y cuéntanos cuál te harás tuyo!"
+}

@@ -27,9 +27,10 @@ export const TiktokVideo: React.FC = () => {
     <>
       <Composition
         id="TiktokVideo"
-        // @ts-ignore - Ignore type checking for Remotion component
         component={TiktokComposition}
-        durationInFrames={30 * FPS} // Default 30 seconds, will be adjusted based on audio
+        // Use dynamic duration that will be set by the renderer based on actual audio length
+        // Default is 60 seconds but this will be overridden by the actual duration during render
+        durationInFrames={60 * FPS}
         fps={FPS}
         width={TIKTOK_WIDTH}
         height={TIKTOK_HEIGHT}

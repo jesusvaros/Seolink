@@ -1,7 +1,11 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, spring } from 'remotion';
 
-export const Outro: React.FC = () => {
+interface OutroProps {
+  logoUrl?: string; // Logo URL for the outro
+}
+
+export const Outro: React.FC<OutroProps> = ({ logoUrl }) => {
   const frame = useCurrentFrame();
   
   // Spring animation for call to action
@@ -35,6 +39,10 @@ export const Outro: React.FC = () => {
           padding: '40px',
           textAlign: 'center',
           opacity,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
         }}
       >
         <h2
@@ -57,10 +65,26 @@ export const Outro: React.FC = () => {
             color: 'white',
             textShadow: '1px 1px 5px rgba(0, 0, 0, 0.3)',
             marginTop: '20px',
+            marginBottom: '40px',
           }}
         >
           👉 Like, Comment & Share 👈
         </p>
+        
+        {/* Logo */}
+        {logoUrl && (
+          <div style={{ marginTop: '20px', maxWidth: '200px', maxHeight: '200px' }}>
+            <img 
+              src={logoUrl} 
+              alt="Logo"
+              style={{
+                width: '100%',
+                height: 'auto',
+                filter: 'drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5))',
+              }}
+            />
+          </div>
+        )}  
       </div>
     </AbsoluteFill>
   );

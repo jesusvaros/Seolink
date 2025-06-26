@@ -47,8 +47,8 @@ export async function processMarkdown(filePath: string): Promise<ProcessedMarkdo
       }
     }
     
-    // 3. Add logo as the last slide (can be replaced with your actual logo URL)
-    const logoUrl = 'https://jesusvaros.com/wp-content/uploads/2024/04/logo.png';
+    // 3. Add logo as the last slide
+    const logoUrl = 'https://jesusvaros.com/wp-content/uploads/2024/04/logo.png'; // Using absolute URL
     slideImages.push(logoUrl);
     
     // Make sure we have at least some images
