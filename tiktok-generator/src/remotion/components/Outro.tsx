@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, spring } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, spring, staticFile } from 'remotion';
 
 interface OutroProps {
 }
@@ -73,7 +73,7 @@ export const Outro: React.FC<OutroProps> = () => {
         {/* Logo */}
         <div style={{ marginTop: '20px', maxWidth: '200px', maxHeight: '200px' }}>
           <img 
-            src={'/logo_color.png'} 
+            src={staticFile('logo_color.png')} 
             alt="Logo"
             style={{
               width: '100%',
