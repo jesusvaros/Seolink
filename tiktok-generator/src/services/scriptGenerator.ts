@@ -54,15 +54,16 @@ export async function generateScript(processedMarkdown: ProcessedMarkdown, outpu
         {
           "intro": "string",
           "productos": ["string", "string", "string", "string", "string"...],
-          "outro": "string"
+          "outro": "string + "Mas en comparaland.es"
         }
         
         Instrucciones específicas:
-        - La intro debe captar la atención en los primeros 2 segundos con un gancho exagerado o emocional.
-        - Cada producto debe tener una frase única, oral, rápida y emocional. Menciona el nombre y un beneficio clave.
+        - La intro debe captar la atención en los primeros 2 segundos con un gancho exagerado o emocional no debe durar mas de 3 segundos ejemplos: top 10 vestidos para verano 2025, los mejores smartwatch para 2025, el mejor regalo para niños de 2025, los mejores productos de 2025, ...etc.
+        - Cada producto debe tener una frase única, oral, rápida y emocional. Menciona solo un beneficio clave para que cada producto no dure mas de 4 segundos.
         - La outro debe ser una llamada a la acción tipo: “¿Cuál es tu favorito? ¡Comenta abajo!” o similar.
         - No incluyas etiquetas, aclaraciones ni saltos de línea. Solo el JSON plano como respuesta.
-        - Usa un estilo enérgico, con ritmo TikTok, lenguaje directo y exagerado si hace falta.
+        - Usa un estilo enérgico, con ritmo TikTok, lenguaje directo y exagerado.
+        - Al final de la outro debe ir "Mas en comparaland.es"
           `.trim()
         },
         {

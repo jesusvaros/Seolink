@@ -55,6 +55,20 @@ export async function renderVideo({
     // Setup input props for the video
     console.log(`Using segmented audio approach with ${audioSegments.length} segments`);
     
+    // Verificar que los productos están disponibles en metadata
+    console.log('==========================================');
+    console.log('PRODUCTOS EN METADATA:', metadata?.products ? metadata.products.length : 0);
+    if (metadata?.products?.length > 0) {
+      console.log('PRIMER PRODUCTO:', metadata.products[0].name);
+      console.log('TODOS LOS PRODUCTOS:');
+      metadata.products.forEach((product: any, index: number) => {
+        console.log(`  ${index + 1}. ${product.name}`);
+      });
+    } else {
+      console.log('NO HAY PRODUCTOS EN METADATA');
+    }
+    console.log('==========================================');
+    
     const inputProps = {
       images: imagesToUse,
       audioSegments: audioSegments.map(segment => ({
@@ -67,8 +81,13 @@ export async function renderVideo({
       title: metadata?.title || 'TikTok Video',
       description: metadata?.description || '',
       mainImage: imagesToUse.length > 0 ? imagesToUse[0] : undefined, // First image is main image
-      logoUrl: imagesToUse.length > 1 ? imagesToUse[imagesToUse.length - 1] : '/logo.svg' // Last image is logo
+      logoUrl: imagesToUse.length > 1 ? imagesToUse[imagesToUse.length - 1] : '/logo.svg', // Last image is logo
+      products: metadata?.products || [], // Pasar los productos del MDX
+      metadata // Pasar todo el metadata por si necesitamos más información
     };
+    
+    // Verificar que los productos se están pasando correctamente
+    console.log('Products en inputProps:', inputProps.products ? inputProps.products.length : 0);
     
     // Calculate estimated video duration based on audio segments
     // This helps ensure the video is just the right length for the content
@@ -151,7 +170,11 @@ export async function renderVideo({
       outputLocation: finalOutputPath,
       inputProps,
       onProgress: (progress) => {
-       console.log(`Rendering progress: ${progress.renderedFrames} frames (${Math.round(progress.progress * 100)}%)`);
+        // Solo mostrar progreso en múltiplos de 5%
+        const percentage = Math.round(progress.progress * 100);
+        if (percentage % 5 === 0 && percentage > 0) {
+          console.log(`Rendering progress: ${progress.renderedFrames} frames (${percentage}%)`);
+        }
       },
     });
     

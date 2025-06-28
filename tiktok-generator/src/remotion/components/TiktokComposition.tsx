@@ -13,6 +13,15 @@ interface AudioSegmentData {
   audioData: string; // Base64 data URL for audio
 }
 
+// Interfaz para los productos del MDX
+interface Product {
+  name?: string;
+  price?: string;
+  image?: string;
+  pro?: string;
+  [key: string]: any;
+}
+
 interface TiktokCompositionProps {
   images: string[];
   script: string;
@@ -20,6 +29,7 @@ interface TiktokCompositionProps {
   description: string;
   audioSegments: AudioSegmentData[]; // Segmented audio data
   mainImage?: string; // Main image for intro background
+  products?: Product[]; // Products from MDX
 }
 
 export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
@@ -29,6 +39,7 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
   description,
   audioSegments,
   mainImage,
+  products = [],
 }) => {
   const { fps } = useVideoConfig();
   
@@ -76,6 +87,9 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
   console.log(`- Intro: ${introFrames} frames`);
   console.log(`- Products: ${totalProductFrames} frames (${productSegments.length} products)`);
   console.log(`- Outro: ${outroFrames} frames`);
+
+
+  {console.log('productos',products)}
   
   // Make sure totalDuration is visible in React DevTools for debugging
   React.useEffect(() => {
@@ -106,6 +120,7 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
           productFrames.slice(0, index).reduce((sum, frames) => sum + frames, 0);
         const duration = productFrames[index];
         const imageIndex = index % productImages.length; // Loop through available product images
+
         
         return (
           <Sequence key={`product-${index}`} from={startFrame} durationInFrames={duration}>
@@ -121,8 +136,12 @@ export const TiktokComposition: React.FC<TiktokCompositionProps> = ({
                 }} 
               />
               
-              {/* Display the product text */}
-              <TextOverlay text={segment.text} />
+              {/* Display the product text with name and index */}
+              <TextOverlay 
+                text={segment.text} 
+                productName={products[index]?.name || `Producto ${index + 1}`} 
+                productIndex={index} 
+              />
               
               {/* Play the product audio */}
               <Audio src={segment.audioData} />
@@ -152,6 +171,7 @@ export const TiktokCompositionWrapper: React.FC<Record<string, unknown>> = (prop
       description={props.description as string}
       audioSegments={props.audioSegments as AudioSegmentData[]}
       mainImage={props.mainImage as string | undefined}
+      products={props.products as Product[] | undefined}
     />
   );
 };

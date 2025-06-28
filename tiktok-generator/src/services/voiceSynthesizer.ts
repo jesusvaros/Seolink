@@ -35,10 +35,10 @@ async function synthesizeSegment(
       modelId: 'eleven_multilingual_v2',
       voiceSettings: {
         stability: 0.5,       // Mid-range stability for more expressiveness
-        similarityBoost: 0.8, // Higher value for more emphasis
+        similarityBoost: 0.9, // Higher value for more emphasis
         style: 0.7,          // Higher style for more dynamic speech
         useSpeakerBoost: true,
-        speed: 1.2           // Maximum allowed speed (1.2)
+        speed: 1.1           // Maximum allowed speed (1.2)
       }
     });
 
@@ -175,7 +175,7 @@ export async function synthesizeStructuredVoice(
       apiKey
     });
 
-    const voiceId = process.env.ELEVENLABS_VOICE_ID || 'a0MaQpDjx7p7bZmqzFp1'; // Default voice ID
+    const voiceId = process.env.ELEVENLABS_VOICE_ID || 'yiWEefwu5z3DQCM79clN'; // Default voice ID
     
     console.log('Generating segmented audio with ElevenLabs...');
     

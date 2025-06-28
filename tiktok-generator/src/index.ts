@@ -95,6 +95,11 @@ async function processFile(mdxFilePath: string) {
       console.log('✅ Video already exists, skipping rendering...');
     } else {
       console.log('🌄 Rendering video...');
+      console.log('Productos disponibles en MDX:', processedMarkdown.products.length);
+      if (processedMarkdown.products.length > 0) {
+        console.log('Primer producto:', processedMarkdown.products[0].name);
+      }
+      
       const outputPath = await renderVideo({
         images: processedMarkdown.images,
         slideImages: processedMarkdown.slideImages,
@@ -103,7 +108,8 @@ async function processFile(mdxFilePath: string) {
         outputDir,
         metadata: {
           title: processedMarkdown.title || '',
-          description: processedMarkdown.description || ''
+          description: processedMarkdown.description || '',
+          products: processedMarkdown.products // Pasar los productos del MDX correctamente
         },
         outputPath: videoPath,
       });

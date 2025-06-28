@@ -54,7 +54,7 @@ export const Outro: React.FC<OutroProps> = () => {
             margin: 0,
           }}
         >
-          Follow for more!
+          Siguenos para Más!
         </h2>
         
         <p
@@ -67,20 +67,51 @@ export const Outro: React.FC<OutroProps> = () => {
             marginBottom: '40px',
           }}
         >
-          👉 Like, Comment & Share 👈
+          👉 Comenta cual es tu favorito 👈
         </p>
         
-        {/* Logo */}
-        <div style={{ marginTop: '20px', maxWidth: '200px', maxHeight: '200px' }}>
+        {/* Logo - Más grande */}
+        <div style={{ marginTop: '20px', maxWidth: '600px', maxHeight: '600px' }}>
           <img 
             src={staticFile('logo_color.png')} 
             alt="Logo"
             style={{
               width: '100%',
               height: 'auto',
-              filter: 'drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5))',
+              filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.7))',
             }}
           />
+        </div>
+        
+        {/* LINK EN BIO destacado */}
+        <div 
+          style={{
+            marginTop: '30px',
+            backgroundColor: '#FFFFFF',
+            padding: '15px 30px',
+            borderRadius: '30px',
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
+            transform: `scale(${spring({
+              frame: frame - 15,
+              from: 0.8,
+              to: 1.1,
+              fps: 30,
+              config: { mass: 0.5, damping: 8 }
+            })})`,
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'sans-serif',
+              fontSize: '48px',
+              fontWeight: 'bold',
+              color: '#FF2C55',
+              margin: 0,
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            LINK EN EL PERFIL
+          </h3>
         </div>
       </div>
     </AbsoluteFill>
