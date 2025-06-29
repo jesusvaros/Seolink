@@ -42,7 +42,18 @@ export async function processMarkdown(filePath: string): Promise<ProcessedMarkdo
     if (Array.isArray(products)) {
       for (const product of products) {
         if (product && product.image) {
-          slideImages.push(product.image);
+          // Manejar tanto strings como objetos ImageObject
+          if (typeof product.image === 'string') {
+            slideImages.push(product.image);
+          } else if (typeof product.image === 'object' && product.image['@type'] === 'ImageObject' && product.image.url) {
+            // Extraer la URL del objeto ImageObject
+            slideImages.push(product.image.url);
+          } else if (typeof product.image === 'object' && product.image.url) {
+            // Fallback para objetos que tienen url pero no son explícitamente ImageObject
+            slideImages.push(product.image.url);
+          } else {
+            console.warn(`No se pudo extraer la URL de la imagen para el producto: ${product.name || 'desconocido'}`);
+          }
         }
       }
     }

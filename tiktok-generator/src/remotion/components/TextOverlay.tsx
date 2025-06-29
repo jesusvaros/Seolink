@@ -32,12 +32,12 @@ export const TextOverlay: React.FC<TextOverlayProps> = ({ text, productName, pro
   
   return (
     <AbsoluteFill>
-      {/* Product Number and Name at the top */}
+      {/* Product Number and Name - movido 200px más abajo */}
       {productName && (
         <div
           style={{
             position: 'absolute',
-            top: 0,
+            top: '280px', // Movido 200px más abajo desde la posición original
             left: 0,
             right: 0,
             padding: '20px',
