@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores regalos para bebés de 1 año en 2025!",
+  "productos": [
+    "Feber First Slide: ¡Desmontable y fácil de guardar, diversión asegurada!",
+    "Zawaer Juguetes Montessori: ¡Silicona de calidad alimentaria, seguro y divertido!",
+    "Umatoll Bicicleta sin pedales: ¡Ligera y fácil de manejar, aventura en cada paseo!",
+    "Hahaland Cubos Apilables Montessori: ¡Favorece la motricidad fina, aprendizaje jugando!",
+    "LEGO Duplo Caja de Ladrillos: ¡Desarrollo de la creatividad, construye sueños!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
