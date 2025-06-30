@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import dotenv from 'dotenv';
+// Importar dotenv de manera compatible con CommonJS y ESM
+import * as dotenv from 'dotenv';
 import path from 'path';
 import { processMarkdown } from './services/mdxProcessor.js';
 import { generateScript } from './services/scriptGenerator.js';
