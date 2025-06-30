@@ -2,81 +2,111 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url>
   <loc>https://comparaland.es/categorias/cocina</loc>
-  <lastmod>2025-06-26T11:11:58.978Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.398Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/hogar</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/moda</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/belleza</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/viajes</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/tecnologia</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/libros</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/regalos</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/juguetes</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/jardin</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/deportes</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/salud</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
   <loc>https://comparaland.es/categorias/mascotas</loc>
-  <lastmod>2025-06-26T11:11:58.979Z</lastmod>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/automovil</loc>
+  <lastmod>2025-06-30T11:04:39.399Z</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-batidoras-cecotec-potencia-y-versatilidad-para-tu-cocina</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/cocina/las-mejores-batidoras-cecotec-potencia-y-versatilidad-para-tu-cocina</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-cafeteras-superautomaticas-en-amazon-para-disfrutar-del-cafe-perfecto</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/cocina/las-mejores-cafeteras-superautomaticas-en-amazon-para-disfrutar-del-cafe-perfecto</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
 </url>
 <url>
   <loc>https://comparaland.es/las-mejores-purificadoras-de-agua-y-cartuchos-de-recambio-para-tu-hogar</loc>
@@ -355,6 +385,18 @@
   <priority>0.7</priority>
 </url>
 <url>
+  <loc>https://comparaland.es/las-mejores-sabanas-refrigerantes-para-dormir-fresco-este-verano</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/hogar/las-mejores-sabanas-refrigerantes-para-dormir-fresco-este-verano</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
   <loc>https://comparaland.es/los-mejores-juegos-de-sabanas-de-amazon-para-dormir-fresco-este-verano</loc>
   <lastmod>2025-06-23T00:00:00.000Z</lastmod>
   <changefreq>monthly</changefreq>
@@ -423,6 +465,18 @@
 <url>
   <loc>https://comparaland.es/categorias/hogar/mejores-batidoras-vaso-2025</loc>
   <lastmod>2025-06-06T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/zapatillas-pepe-jeans-estilo-y-comodidad-para-hombres-de-50-anos</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/moda/zapatillas-pepe-jeans-estilo-y-comodidad-para-hombres-de-50-anos</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -627,6 +681,78 @@
 <url>
   <loc>https://comparaland.es/categorias/moda/las-mejores-chaquetas-saharianas-de-amazon-para-este-verano</loc>
   <lastmod>2025-06-16T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/los-mejores-productos-para-combatir-la-celulitis-masajeadores-y-cremas-efectivas</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/los-mejores-productos-para-combatir-la-celulitis-masajeadores-y-cremas-efectivas</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/los-mejores-balsamos-labiales-para-labios-jugosos-y-protegidos</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/los-mejores-balsamos-labiales-para-labios-jugosos-y-protegidos</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-manicuras-de-verano-colores-y-tendencias-para-lucir-elegantes</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/las-mejores-manicuras-de-verano-colores-y-tendencias-para-lucir-elegantes</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-pinzas-de-depilar-para-vello-facial-en-2025</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/las-mejores-pinzas-de-depilar-para-vello-facial-en-2025</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-cremas-reductoras-para-combatir-la-celulitis-y-grasa-localizada</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/las-mejores-cremas-reductoras-para-combatir-la-celulitis-y-grasa-localizada</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/las-mejores-cremas-con-acido-hialuronico-para-una-hidratacion-profunda</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/belleza/las-mejores-cremas-con-acido-hialuronico-para-una-hidratacion-profunda</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -1171,6 +1297,54 @@
   <priority>0.7</priority>
 </url>
 <url>
+  <loc>https://comparaland.es/siete-libros-imprescindibles-para-disfrutar-en-tus-vacaciones-de-verano</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/libros/siete-libros-imprescindibles-para-disfrutar-en-tus-vacaciones-de-verano</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/descubre-sentido-y-sensibilidad-la-mejor-adaptacion-de-jane-austen</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/libros/descubre-sentido-y-sensibilidad-la-mejor-adaptacion-de-jane-austen</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/los-mejores-libros-de-misterio-y-suspense-para-amantes-del-thriller</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/libros/los-mejores-libros-de-misterio-y-suspense-para-amantes-del-thriller</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/explora-amado-mio-un-clasico-de-la-literatura-lgtbiq</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/libros/explora-amado-mio-un-clasico-de-la-literatura-lgtbiq</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
   <loc>https://comparaland.es/las-mejores-novelas-de-stephen-king-que-debes-leer</loc>
   <lastmod>2025-06-26T00:00:00.000Z</lastmod>
   <changefreq>monthly</changefreq>
@@ -1503,6 +1677,18 @@
 <url>
   <loc>https://comparaland.es/categorias/mascotas/los-mejores-sprays-y-collares-antiparasitos-para-proteger-a-tu-mascota-de-garrapatas</loc>
   <lastmod>2025-06-19T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/ds-n8-elegancia-y-eficiencia-en-un-solo-automovil</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://comparaland.es/categorias/automovil/ds-n8-elegancia-y-eficiencia-en-un-solo-automovil</loc>
+  <lastmod>2025-06-30T00:00:00.000Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
