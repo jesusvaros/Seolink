@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los productos más vendidos del Black Friday 2025 están aquí!",
+  "productos": [
+    "Helly Hansen Chaqueta Crew: ¡Mantente seco y a la moda con esta chaqueta impermeable!",
+    "Garmin Vívoactive 5: ¡Entrena como un pro con su pantalla AMOLED brillante!",
+    "Apple iPad 10: ¡Disfruta de tus series favoritas en una pantalla Liquid Retina espectacular!",
+    "Citizen Reloj Analógico para Hombres: ¡El toque clásico que nunca pasa de moda!",
+    "Soundcore de Anker Q30: ¡Sumérgete en tu música con una increíble cancelación de ruido!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

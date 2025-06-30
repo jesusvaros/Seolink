@@ -1,0 +1,8 @@
+{
+  "intro": "¡Los mejores suplementos naturales para combatir la ansiedad en 2025!",
+  "productos": [
+    "Ansioser: ¡acción rápida y efectiva para esos momentos de estrés!",
+    "Ashwagandha Alta Potencia: ¡la planta adaptógena que te ayuda a mantener la calma!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

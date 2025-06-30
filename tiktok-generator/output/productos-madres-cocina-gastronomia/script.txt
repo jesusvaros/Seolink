@@ -1,0 +1,9 @@
+{
+  "intro": "¡Los mejores productos para mamás chefs en 2025!",
+  "productos": [
+    "NutriBullet Flip: ¡Portátil y fácil de usar, el aliado perfecto para tus recetas!",
+    "Ron Barceló Imperial: ¡Una edición limitada que hará brillar tus celebraciones!",
+    "Palacio de los Olivos DUO: ¡Variedades premiadas que elevarán tus platos al siguiente nivel!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

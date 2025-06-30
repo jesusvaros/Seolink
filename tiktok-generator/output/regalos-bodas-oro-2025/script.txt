@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los regalos más innovadores para bodas de oro en 2025!",
+  "productos": [
+    "Regalo de bodas de oro personalizado, ¡hazlo único con tu toque personal!",
+    "Curia Grabador Placa, un diseño elegante que inmortaliza el amor eterno.",
+    "Vienrose Álbum de fotos autoadhesivo, ¡captura cada recuerdo con su gran capacidad!",
+    "Contraxt Marco 50 aniversario, ¡un precio accesible para un recuerdo inolvidable!",
+    "Ana Weddings Libro de Firmas, ¡interactúa y deja huella en este día especial!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

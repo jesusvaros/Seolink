@@ -1491,3 +1491,93 @@ Error: Could not parse CSS stylesheet
 [2025-06-26T10:17:32.984Z] ✅ All tasks completed successfully
 [2025-06-26T10:17:32.984Z] ==================================================
 [2025-06-26T10:17:32.984Z] ==================================================
+[2025-06-30T10:00:01.185Z] ==================================================
+[2025-06-30T10:00:01.185Z] ==================================================
+[2025-06-30T10:00:01.189Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-30T10:00:01.189Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-06-30T10:00:01.189Z] ==================================================
+[2025-06-30T10:00:01.189Z] ==================================================
+[2025-06-30T10:00:01.189Z] 🚀 Starting Elle scraping...
+[2025-06-30T10:00:01.189Z] 🚀 Starting Elle scraping...
+[2025-06-30T10:00:01.189Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-30T10:00:01.189Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-06-30T10:00:21.184Z] ✅ Elle scraping completed successfully
+[2025-06-30T10:00:21.184Z] ✅ Elle scraping completed successfully
+[2025-06-30T10:00:21.185Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-30T10:00:21.185Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 58 enlaces únicos
+  💾 Guardados 58 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-06-30T10:00:21.185Z] 🚀 Starting Compramejor scraping...
+[2025-06-30T10:00:21.185Z] 🚀 Starting Compramejor scraping...
+[2025-06-30T10:00:21.186Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-06-30T10:00:21.186Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-06-30T10:00:30.350Z] ✅ Compramejor scraping completed successfully
+[2025-06-30T10:00:30.350Z] ✅ Compramejor scraping completed successfully
+[2025-06-30T10:00:30.351Z] Output: 🚀 Iniciando scraping de 1 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+
+[2025-06-30T10:00:30.351Z] Output: 🚀 Iniciando scraping de 1 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+
+[2025-06-30T10:00:30.351Z] 🚀 Starting MDX generation...
+[2025-06-30T10:00:30.351Z] 🚀 Starting MDX generation...
+[2025-06-30T10:00:30.351Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-30T10:00:30.351Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-06-30T10:20:18.699Z] ✅ MDX generation completed successfully
+[2025-06-30T10:20:18.699Z] ✅ MDX generation completed successfully
+[2025-06-30T10:20:18.700Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 877
+
+📋 Total URLs encontradas: 975
+
+🔍 URLs válidas para procesar: 92
+🔍 Verificando si https://www.compramejor.es/liposer-suplemento-elimina-grasa-localizada/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramej...(truncated)
+[2025-06-30T10:20:18.700Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 877
+
+📋 Total URLs encontradas: 975
+
+🔍 URLs válidas para procesar: 92
+🔍 Verificando si https://www.compramejor.es/liposer-suplemento-elimina-grasa-localizada/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramej...(truncated)
+[2025-06-30T10:20:18.700Z] ==================================================
+[2025-06-30T10:20:18.700Z] ==================================================
+[2025-06-30T10:20:18.701Z] ✅ All tasks completed successfully
+[2025-06-30T10:20:18.701Z] ✅ All tasks completed successfully
+[2025-06-30T10:20:18.701Z] ==================================================
+[2025-06-30T10:20:18.701Z] ==================================================

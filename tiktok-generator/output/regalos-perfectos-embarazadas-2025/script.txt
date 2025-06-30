@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los regalos perfectos para embarazadas en 2025 ya están aquí!",
+  "productos": [
+    "EUDORA Harmony Ball: ¡Un sonido relajante que calma a mamá y bebé!",
+    "Niimo Cojín de lactancia: ¡Versatilidad y comodidad en cada abrazo!",
+    "AELITA Caja regalo: ¡Cuidado natural para el bienestar total!",
+    "INtrenDU® Certificado de nacimiento: ¡Recuerdos de calidad que perduran!",
+    "Hornice Braguita ajustable: ¡Suavidad que se adapta a tu pancita!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

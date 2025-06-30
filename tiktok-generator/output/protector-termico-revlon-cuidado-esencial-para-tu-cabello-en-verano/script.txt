@@ -1,0 +1,5 @@
+{
+  "intro": "¡El mejor aliado para tu cabello este verano! ¡Descubre el protector térmico Revlon!",
+  "productos": ["REVLON PROFESSIONAL Protector térmico pelo: ¡Protege tu cabello del calor y luce radiante!"],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

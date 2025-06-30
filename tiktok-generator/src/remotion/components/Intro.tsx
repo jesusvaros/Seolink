@@ -10,6 +10,16 @@ interface IntroProps {
 export const Intro: React.FC<IntroProps> = ({ title, description, backgroundImage }) => {
   const frame = useCurrentFrame();
   
+  // Forzar la precarga de la imagen de fondo
+  React.useEffect(() => {
+    if (backgroundImage) {
+      const img = new Image();
+      img.src = backgroundImage;
+      img.onload = () => console.log('Imagen de fondo cargada correctamente');
+      img.onerror = (e) => console.error('Error al cargar la imagen de fondo:', e);
+    }
+  }, [backgroundImage]);
+  
   // Lógica para el parpadeo de la flecha (solo parpadea 2 veces en el segundo 2)
   const arrowBlinkFrame = frame - 60; // Comienza en el segundo 2 (60 frames)
   const showArrow = 
@@ -18,17 +28,19 @@ export const Intro: React.FC<IntroProps> = ({ title, description, backgroundImag
   
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      {/* Fondo: imagen o gradiente */}
+      {/* Fondo: imagen o gradiente - asegurando que aparezca desde el primer frame */}
       <div style={{ 
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        zIndex: 1 // Aseguramos que esté por encima del fondo negro
       }}>
         {backgroundImage ? (
           <>
+            {/* Precargar la imagen para asegurar que esté disponible inmediatamente */}
             <img 
               src={backgroundImage}
               alt="Background"
@@ -36,8 +48,12 @@ export const Intro: React.FC<IntroProps> = ({ title, description, backgroundImag
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                opacity: 1
+                opacity: 1,
+                display: 'block', // Asegura que se muestre como bloque
+                visibility: 'visible' // Fuerza la visibilidad
               }}
+              // Añadir prioridad alta para cargar
+              loading="eager"
             />
             <div style={{
               position: 'absolute',

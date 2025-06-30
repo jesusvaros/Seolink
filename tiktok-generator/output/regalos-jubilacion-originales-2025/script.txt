@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los regalos de jubilación más originales para 2025!",
+  "productos": [
+    "¡La tarjeta de madera Contraxt es duradera y única!",
+    "¡Sorprende con la Smartbox de experiencias, pura variedad!",
+    "¡La camiseta de jubilado es ligera y súper cómoda!",
+    "¡Personaliza la placa de metacrilato Oedim, un regalo estelar!",
+    "¡El pack de accesorios de yoga Fitfiu es perfecto para mantenerse activo!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

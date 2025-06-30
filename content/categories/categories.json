@@ -1,6 +1,18 @@
 {
   "cocina": [
     {
+      "slug": "las-mejores-batidoras-cecotec-potencia-y-versatilidad-para-tu-cocina",
+      "title": "Las Mejores Batidoras Cecotec: Potencia y Versatilidad para tu Cocina",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/batidora-cecotec-66b9ef39da108.jpg?crop=1.00xw:0.502xh;0,0.137xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cafeteras-superautomaticas-en-amazon-para-disfrutar-del-cafe-perfecto",
+      "title": "Las mejores cafeteras superautomáticas en Amazon para disfrutar del café perfecto",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cafetera-wmf-1594637725.jpg?crop=1.00xw:0.630xh;0,0.179xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-purificadoras-de-agua-y-cartuchos-de-recambio-para-tu-hogar",
       "title": "Las Mejores Purificadoras de Agua y Cartuchos de Recambio para Tu Hogar",
       "date": "2025-06-26",
@@ -141,6 +153,12 @@
   ],
   "hogar": [
     {
+      "slug": "las-mejores-sabanas-refrigerantes-para-dormir-fresco-este-verano",
+      "title": "Las Mejores Sábanas Refrigerantes para Dormir Fresco Este Verano",
+      "date": "2025-06-30",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/08/pexels-andrea-piacquadio-914910.jpg"
+    },
+    {
       "slug": "los-mejores-juegos-de-sabanas-de-amazon-para-dormir-fresco-este-verano",
       "title": "Los Mejores Juegos de Sábanas de Amazon para Dormir Fresco Este Verano",
       "date": "2025-06-23",
@@ -178,6 +196,12 @@
     }
   ],
   "moda": [
+    {
+      "slug": "zapatillas-pepe-jeans-estilo-y-comodidad-para-hombres-de-50-anos",
+      "title": "Zapatillas Pepe Jeans: Estilo y Comodidad para Hombres de 50 Años",
+      "date": "2025-06-30",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/06/Diseno-sin-titulo-79.jpg"
+    },
     {
       "slug": "las-mejores-sandalias-de-verano-en-amazon-por-menos-de-35-euros",
       "title": "Las mejores sandalias de verano en Amazon por menos de 35 euros",
@@ -282,6 +306,42 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-productos-para-combatir-la-celulitis-masajeadores-y-cremas-efectivas",
+      "title": "Los Mejores Productos para Combatir la Celulitis: Masajeadores y Cremas Efectivas",
+      "date": "2025-06-30",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/07/masajeador-anticelulitico-zoom-1-1.jpg"
+    },
+    {
+      "slug": "los-mejores-balsamos-labiales-para-labios-jugosos-y-protegidos",
+      "title": "Los Mejores Bálsamos Labiales para Labios Jugosos y Protegidos",
+      "date": "2025-06-30",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/01/pexels-ron-lach-8129894.jpg"
+    },
+    {
+      "slug": "las-mejores-manicuras-de-verano-colores-y-tendencias-para-lucir-elegantes",
+      "title": "Las mejores manicuras de verano: colores y tendencias para lucir elegantes",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/unas-cortas-verano-685e95050787e.jpg?crop=1.00xw:0.334xh;0,0.233xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-pinzas-de-depilar-para-vello-facial-en-2025",
+      "title": "Las Mejores Pinzas de Depilar para Vello Facial en 2025",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-1533813870.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cremas-reductoras-para-combatir-la-celulitis-y-grasa-localizada",
+      "title": "Las Mejores Cremas Reductoras para Combatir la Celulitis y Grasa Localizada",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-cremas-1600164972.jpg?crop=1.00xw:0.502xh;0,0.183xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cremas-con-acido-hialuronico-para-una-hidratacion-profunda",
+      "title": "Las Mejores Cremas con Ácido Hialurónico para una Hidratación Profunda",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cremas-acido-hialuronico-cara-6633d1dda3aed.jpg?crop=1.00xw:0.334xh;0,0.235xh&resize=1200:*"
+    },
     {
       "slug": "las-12-mejores-mascarillas-para-el-pelo-seco-en-2025",
       "title": "Las 12 mejores mascarillas para el pelo seco en 2025",
@@ -559,6 +619,30 @@
   ],
   "libros": [
     {
+      "slug": "siete-libros-imprescindibles-para-disfrutar-en-tus-vacaciones-de-verano",
+      "title": "Siete libros imprescindibles para disfrutar en tus vacaciones de verano",
+      "date": "2025-06-30",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/08/woman-reading-book-at-the-beach.jpg"
+    },
+    {
+      "slug": "descubre-sentido-y-sensibilidad-la-mejor-adaptacion-de-jane-austen",
+      "title": "Descubre 'Sentido y Sensibilidad': La Mejor Adaptación de Jane Austen",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/2725qif1tjj-686245b4dfbaa.jpg?crop=1.00xw:0.745xh;0,0.0771xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-libros-de-misterio-y-suspense-para-amantes-del-thriller",
+      "title": "Los mejores libros de misterio y suspense para amantes del thriller",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/neil-barrett-m-bks-f19-003-685e8c98e4378.jpg?crop=1.00xw:0.754xh;0,0.0439xh&resize=1200:*"
+    },
+    {
+      "slug": "explora-amado-mio-un-clasico-de-la-literatura-lgtbiq",
+      "title": "Explora 'Amado mío': Un Clásico de la Literatura LGTBIQ+",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/collage-lgtbiq-1656331899-667d60b985197.jpg?crop=1.00xw:0.997xh;0,0&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-novelas-de-stephen-king-que-debes-leer",
       "title": "Las mejores novelas de Stephen King que debes leer",
       "date": "2025-06-26",
@@ -737,6 +821,14 @@
       "title": "Los Mejores Sprays y Collares Antiparásitos para Proteger a Tu Mascota de Garrapatas",
       "date": "2025-06-19",
       "image": "https://www.compramejor.es/wp-content/uploads/2021/11/chewy-gWzTum_yMCg-unsplash-e1637321191180.jpg"
+    }
+  ],
+  "automovil": [
+    {
+      "slug": "ds-n8-elegancia-y-eficiencia-en-un-solo-automovil",
+      "title": "DS Nº8: Elegancia y Eficiencia en un Solo Automóvil",
+      "date": "2025-06-30",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/paris-m-str-s26-0339-1-685d047811c3d.jpg?crop=0.862xw:0.287xh;0.138xw,0.209xh&resize=1200:*"
     }
   ]
 }
