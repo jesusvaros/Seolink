@@ -1,0 +1,9 @@
+{
+  "intro": "¡Las zapatillas que todo hombre de 50 años necesita en su vida!",
+  "productos": [
+    "Pepe Jeans Kenton Court M en blanco, ¡elegancia y versatilidad en cada paso!",
+    "Pepe Jeans Kenton Court M en azul marino, ¡dile adiós a las manchas!",
+    "Pepe Jeans Brit Supra M en blanco, ¡un diseño retro que nunca pasa de moda!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los siete libros que necesitas para tus vacaciones de verano!",
+  "productos": [
+    "Toda la verdad de mis mentiras: ¡Una narrativa original que te atrapará desde la primera página!",
+    "La idea de ti: ¡Una perspectiva única sobre la maternidad que te hará reflexionar!",
+    "La muy catastrófica visita al zoo: ¡Una narrativa adictiva que no podrás soltar!",
+    "Empezamos por el final: ¡Profundidad emocional que te tocará el corazón!",
+    "Por si un día volvemos: ¡Una narrativa poderosa que resonará contigo!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
