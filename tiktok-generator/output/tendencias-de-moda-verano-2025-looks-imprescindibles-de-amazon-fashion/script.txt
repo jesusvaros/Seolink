@@ -1,0 +1,10 @@
+{
+  "intro": "¡Los looks imprescindibles de verano 2025 ya están aquí!",
+  "productos": [
+    "Chaqueta Vaquera Levi's: ¡Un diseño atemporal que nunca pasa de moda!",
+    "Zapatillas Adidas Court: ¡Comodidad excepcional para tus días de verano!",
+    "Vestido Negro sin Tirantes: ¡Elegancia y comodidad en una sola prenda!",
+    "Camisa de Rayas: ¡Un diseño moderno y fresco que te hará brillar!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
