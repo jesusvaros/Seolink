@@ -3,17 +3,12 @@ import { renderMedia, selectComposition } from '@remotion/renderer';
 import { getCompositions } from '@remotion/renderer';
 import path from 'path';
 import fs from 'fs-extra';
-import { fileURLToPath } from 'url';
 import os from 'os';
 import { WebpackOverrideFn } from '@remotion/bundler';
 import { AudioSegment } from './voiceSynthesizer.js';
 
 // Define constants for video rendering
 const FPS = 30; // Frames per second, must match the value in TiktokVideo.tsx
-
-// ES modules compatibility: Create equivalent of __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 interface VideoRenderOptions {
   images: string[];
@@ -129,7 +124,7 @@ export async function renderVideo({
     // Bundle the Remotion project
     console.log('Bundling Remotion project...');
     const bundled = await bundle({
-      entryPoint: path.join(__dirname, '../remotion/index.js'),
+      entryPoint: path.resolve(process.cwd(), 'dist/remotion/index.js'),
       webpackOverride,
     });
 

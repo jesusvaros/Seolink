@@ -2,12 +2,11 @@
   "name": "tiktok-generator",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "prestart": "tsc --skipLibCheck",
-    "start": "node --experimental-specifier-resolution=node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "ts-node --esm src/index.ts",
     "generate": "ts-node --esm src/index.ts content/sample.mdx",
     "preview": "remotion preview src/remotion/index.ts",

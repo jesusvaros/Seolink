@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-import * as dotenv from 'dotenv';
+// @ts-ignore
+const dotenv = require('dotenv');
 import path from 'path';
 import { processMarkdown } from './services/mdxProcessor.js';
 import { generateScript } from './services/scriptGenerator.js';
 import { synthesizeStructuredVoice, AudioSegment } from './services/voiceSynthesizer.js';
 import { renderVideo } from './services/videoRenderer.js';
-import fs from 'fs-extra';
-import { glob } from 'glob';
+// @ts-ignore
+const fs = require('fs-extra');
+// @ts-ignore
+const { glob } = require('glob');
 
 // Load environment variables
 dotenv.config();
