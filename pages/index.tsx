@@ -100,19 +100,13 @@ export default function Home({ newestArticles, hottestArticles }: { newestArticl
         }}
       />
       {/* Hero section */}
-      <div className="bg-ivory py-12 px-4 mb-8 rounded-xl">
+      <div className="bg-ivory py-12 px-4 mb-8 rounded-xl pb-6">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex flex-col items-start text-left mb-8 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-4 leading-tight">
+          <div className="flex flex-col items-start text-left">
+            <h1 className="text-4xl md:text-5xl font-bold text-purple-900 m-0 leading-tight">
               Lo mejor de lo mejor <br />
               en cada compra.
             </h1>
-            <a 
-              href="#newest" 
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300"
-            >
-              Descubrir Mejores Ofertas
-            </a>
           </div>
           <div className="w-full md:w-auto">
             <img src="/logo.svg" alt="Comparaland" className="h-48 w-auto mx-auto" />

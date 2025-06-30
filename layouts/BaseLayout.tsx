@@ -24,11 +24,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-col justify-between min-h-screen bg-gray-50">
         <header className="bg-white shadow sticky top-0 z-10">
-          <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="container mx-auto px-4 py-3 flex flex-row justify-between items-center">
             <Link href="/" className="flex items-center">
-              <div className="relative w-44 h-14">
+              <div className="relative w-12 md:w-44 h-10 md:h-12">
                 <Image 
-                  src="/logo.svg" 
+                  src="/logo_color.png" 
                   alt="Comparaland" 
                   fill
                   priority
@@ -36,10 +36,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
               </div>
             </Link>
-            <nav className="hidden md:flex space-x-6">
-              <Link href="/" className="text-gray-800 hover:text-purple-900 font-medium">Inicio</Link>
-              <Link href="/categorias" className="text-gray-800 hover:text-purple-900 font-medium">Categorías</Link>
-              <Link href="/articulos" className="text-gray-800 hover:text-purple-900 font-medium">Artículos</Link>
+            <nav className="flex space-x-4 md:space-x-6">
+              <Link href="/" className="hidden md:inline-block text-gray-800 hover:text-purple-900 font-medium text-base">Inicio</Link>
+              <Link href="/categorias" className="text-gray-800 hover:text-purple-900 font-medium text-sm md:text-base">Categorías</Link>
+              <Link href="/articulos" className="text-gray-800 hover:text-purple-900 font-medium text-sm md:text-base">Artículos</Link>
             </nav>
           </div>
         </header>
