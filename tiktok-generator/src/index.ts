@@ -7,8 +7,10 @@ import { processMarkdown } from './services/mdxProcessor.js';
 import { generateScript } from './services/scriptGenerator.js';
 import { synthesizeStructuredVoice, AudioSegment } from './services/voiceSynthesizer.js';
 import { renderVideo } from './services/videoRenderer.js';
-import fs from 'fs-extra';
-import { glob } from 'glob';
+// @ts-ignore
+const fs = require('fs-extra');
+// @ts-ignore
+const glob = require('glob');
 
 // Load environment variables
 dotenv.config();
@@ -162,12 +164,12 @@ async function main() {
     // Check for existing output folders
     const outputRootDir = path.resolve(process.cwd(), 'output');
     const existingOutputs = await fs.pathExists(outputRootDir) ? 
-      (await fs.readdir(outputRootDir)).filter(file => 
+      (await fs.readdir(outputRootDir)).filter((file: string) => 
         fs.statSync(path.join(outputRootDir, file)).isDirectory()
       ) : [];
     
     console.log(`Found ${existingOutputs.length} existing output folders:`);
-    existingOutputs.forEach(folder => console.log(`- ${folder}`));
+    existingOutputs.forEach((folder: string) => console.log(`- ${folder}`));
     
     // Filter files that already have complete outputs (video.mp4)
     const pendingFiles: string[] = [];

@@ -24,7 +24,6 @@
     "@remotion/bundler": "^4.0.319",
     "@remotion/cli": "^4.0.319",
     "@remotion/renderer": "^4.0.319",
-    "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
@@ -44,6 +43,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1"
+    "@types/dotenv": "^6.1.1",
+    "@types/fs-extra": "^11.0.4"
   }
 }
