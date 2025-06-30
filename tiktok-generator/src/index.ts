@@ -1,16 +1,12 @@
 #!/usr/bin/env node
-// Usar require para dotenv para evitar problemas de tipos en Vercel
-// @ts-ignore
-const dotenv = require('dotenv');
+import * as dotenv from 'dotenv';
 import path from 'path';
 import { processMarkdown } from './services/mdxProcessor.js';
 import { generateScript } from './services/scriptGenerator.js';
 import { synthesizeStructuredVoice, AudioSegment } from './services/voiceSynthesizer.js';
 import { renderVideo } from './services/videoRenderer.js';
-// @ts-ignore
-const fs = require('fs-extra');
-// @ts-ignore
-const glob = require('glob');
+import fs from 'fs-extra';
+import { glob } from 'glob';
 
 // Load environment variables
 dotenv.config();
