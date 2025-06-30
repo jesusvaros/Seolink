@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-import dotenv from 'dotenv';
+// Usar require para dotenv para evitar problemas de tipos en Vercel
+// @ts-ignore
+const dotenv = require('dotenv');
 import path from 'path';
 import { processMarkdown } from './services/mdxProcessor.js';
 import { generateScript } from './services/scriptGenerator.js';
