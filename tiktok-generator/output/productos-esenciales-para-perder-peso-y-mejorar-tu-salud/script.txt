@@ -1,0 +1,10 @@
+{
+  "intro": "¡Los mejores productos para perder peso y mejorar tu salud en 2025!",
+  "productos": [
+    "Forté Magnesio Marino 300: ¡Adiós a la fatiga y hola a la energía!",
+    "Treonat® Treonato de Magnesio: ¡Potencia tu mente y enfócate mejor!",
+    "Arkosueño Forte 8h: ¡Duerme como un bebé con su doble liberación de melatonina!",
+    "EnRelax Forte: ¡Relájate y desconéctate del estrés al instante!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
