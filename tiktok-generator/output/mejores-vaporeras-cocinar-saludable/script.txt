@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores vaporeras para cocinar saludable en 2025!",
+  "productos": [
+    "Russell Hobbs Vaporera Cook@Home, ¡gran capacidad para toda la familia!",
+    "WMF Kitchenminis, ¡recipientes de acero inoxidable que durarán para siempre!",
+    "Orbegozo CO 4015, ¡el mejor precio para una cocina saludable!",
+    "Lékué Ogya Estuche Vapor, ¡muy fácil de usar, perfecto para principiantes!",
+    "Joseph Joseph Bloom Cesta Vaporera Plegable, ¡diseño adaptable que ahorra espacio!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores sérums de vitamina C para una piel radiante en 2025!",
+  "productos": [
+    "Nivea Expert Filler: ¡Ilumina tu piel a diario por solo 15 euros!",
+    "SVR [C] Ampoule: ¡Potencia tu brillo con su alta concentración de vitamina C!",
+    "Sesderma C-Vit: ¡Perfecto para todo tipo de pieles, solo 32 euros!",
+    "Florence Bio Cosmesi C: ¡Cuida tu piel y el planeta con esta fórmula ecológica!",
+    "Garnier SkinActive: ¡Dile adiós a las manchas y despierta tu piel apagada por solo 12 euros!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
