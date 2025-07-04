@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las tendencias en sexualidad para 2025 están aquí!",
+  "productos": [
+    "Womanizer Vibe: ¡Su diseño ergonómico te hará sentir el placer como nunca!",
+    "Satisfyer Love Birds Vary Connect App: Controla tu placer desde tu móvil, ¡así de fácil!",
+    "LELO Smart Wand 2: ¡Potente y listo para llevar tus sensaciones al siguiente nivel!",
+    "Satisfyer Heat Flex 4: ¡Siente el calor del placer con su función de calentamiento!",
+    "LELO SMART Bead: Mejora tu salud pélvica mientras disfrutas de momentos únicos!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
