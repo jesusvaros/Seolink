@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores freidoras de aire para Black Friday 2025!",
+  "productos": [
+    "Cosori Freidora sin Aceite 5.5 L: ¡Con valoraciones increíbles, es un must!",
+    "Cosori Freidora de Aire 4.7L: ¡Súper intuitiva, cocina como un chef!",
+    "Philips Airfryer Serie 5000 XL: ¡Gran capacidad para toda la familia!",
+    "Moulinex Easy Fry XXL 6.5 L EZ8018: ¡Cocina para todos, sin complicaciones!",
+    "Aigostar Odin - Freidora sin aceite, 4,2L: ¡Compacta y perfecta para cualquier cocina!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
