@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores regalos originales para sorprender a mamá en 2025!",
+  "productos": [
+    "Masajeador cervical ELEHOT-Store: ¡calor ajustable para un relax total!",
+    "Caja de regalo antiedad SatinNaturel: ¡totalmente orgánico para cuidar su piel!",
+    "Pendientes Gleam Colors de SINGULARU: ¡diseño brillante que la hará brillar!",
+    "Perfume Yara de Lattafa: ¡aroma duradero que la hará sentir especial!",
+    "Árbol en miniatura Magic Sakura: ¡fácil de usar y un toque de naturaleza en casa!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

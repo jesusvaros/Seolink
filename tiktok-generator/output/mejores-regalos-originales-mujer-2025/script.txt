@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores regalos originales para mujer en 2025!",
+  "productos": [
+    "Mersoco Tocadiscos con Bluetooth: ¡Revive el encanto vintage en cada nota!",
+    "Rocketbook Core Reusable Smart Notebook: ¡Escribe y reutiliza, adiós al papel!",
+    "JBL Go 4 Altavoz inalámbrico portátil: ¡Llévate la fiesta a donde quieras, incluso bajo la lluvia!",
+    "SatinNaturel Caja 4 bombas de baño orgánicas: ¡Transforma tu baño en un spa natural!",
+    "Plantifique Masajeador facial antiarrugas: ¡Relájate y dile adiós a las arrugas!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
