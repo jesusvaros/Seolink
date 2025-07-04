@@ -5,7 +5,7 @@ dotenv.config({ path: '../.env.local' }); // To load OPENAI_API_KEY
 
 async function runTest() {
   const sampleData = {
-    title: "Comparativa Definitiva: Los 5 Mejores Robots Aspiradores para Pelo de Mascota en 2024",
+    title: "Comparativa Definitiva: Los 5 Mejores Robots Aspiradores para Pelo de Mascota en 2025",
     content: `
       <h1>Guía Completa de Robots Aspiradores para Dueños de Mascotas</h1>
       <p>Si compartes tu vida con amigos peludos, sabes que mantener la casa limpia de pelos es una batalla constante. Un buen robot aspirador puede ser tu mejor aliado. En esta comparativa, analizamos los modelos más destacados del mercado, enfocándonos en su capacidad para lidiar con el pelo de animal, su potencia de succión, sistemas de filtración y facilidad de mantenimiento.</p>
@@ -27,7 +27,7 @@ async function runTest() {
 
       <p>Esperamos que esta comparativa te ayude a elegir el mejor robot aspirador para mantener tu hogar libre de pelos y disfrutar más de tus mascotas.</p>
     `,
-    url: "https://www.example.com/articulos/mejores-robots-aspiradores-mascotas-2024",
+    url: "https://www.example.com/articulos/mejores-robots-aspiradores-mascotas-2025",
     date: "2024-01-15", // Original article date
     image: "https://www.example.com/images/default-robots.jpg"
   };
