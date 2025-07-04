@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las Ofertas Más Destacadas de Black Friday 2025 están aquí!",
+  "productos": [
+    "ghd GLIDE: Alisado sencillo para un cabello perfecto en minutos.",
+    "Oral-B iO 3N: ¡Adiós placa! Sonrisa brillante garantizada.",
+    "REVLON Salon One-Step: ¡Seca, alisa y da volumen en un solo paso!",
+    "Philips Serie X5000: Cuida tu piel con una reducción de irritación asombrosa.",
+    "Xiaomi Redmi Pad SE: Disfruta de una pantalla grande para todo tu contenido favorito."
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
