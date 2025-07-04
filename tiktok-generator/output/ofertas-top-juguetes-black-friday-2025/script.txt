@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores ofertas en juguetes para Black Friday 2025!",
+  "productos": [
+    "Dinosaurio Montessori: ¡Aprender nunca fue tan divertido!",
+    "Tarjetas Flash Parlantes: ¡Interacción que fascina a los pequeños!",
+    "Bici-correpasillos: ¡Ligera y lista para la aventura!",
+    "Xilófono infantil: ¡Colores que despiertan la creatividad!",
+    "Triángulo de escalada de madera: ¡Robustez para escalar sueños!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}
