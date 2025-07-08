@@ -28,28 +28,24 @@ async function generateCategoriesSitemap() {
 </url>`;
     });
 
-    // Añadir URLs de artículos (tanto directos como por categoría)
+    // Añadir URLs de artículos (solo URLs canónicas)
     for (const category of categories) {
       const articles = categoriesData[category];
       
       articles.forEach(article => {
-        // Añadir URL directa del artículo
-        sitemap += `
+        // Añadir solo la URL canónica del artículo
+        if (article.slug) {
+          sitemap += `
 <url>
   <loc>https://comparaland.es/${article.slug}</loc>
   <lastmod>${new Date(article.date).toISOString()}</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>`;
+        }
         
-        // Añadir URL del artículo con ruta de categoría
-        sitemap += `
-<url>
-  <loc>https://comparaland.es/categorias/${category}/${article.slug}</loc>
-  <lastmod>${new Date(article.date).toISOString()}</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>`;
+        // Ya no añadimos la URL con ruta de categoría
+        // porque ahora redirige a la URL canónica
       });
     }
 
