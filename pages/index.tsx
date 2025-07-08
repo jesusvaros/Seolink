@@ -109,7 +109,7 @@ export default function Home({ newestArticles, hottestArticles }: { newestArticl
             </h1>
           </div>
           <div className="w-full md:w-auto">
-            <img src="/logo_no_words.png" alt="Comparaland" className="h-48 w-auto mx-auto" />
+            <img src="/logo.svg" alt="Comparaland" className="h-48 w-auto mx-auto" />
           </div>
         </div>
       </div>
