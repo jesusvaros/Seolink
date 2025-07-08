@@ -8,7 +8,7 @@ const defaultSEO = {
     site_name: 'Comparaland',
     images: [
       {
-        url: 'https://comparaland.com/logo.svg',
+        url: 'https://comparaland.com/logo_no_words.png',
         width: 534,
         height: 176,
         alt: 'Comparaland Logo',

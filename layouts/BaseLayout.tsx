@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <footer className="bg-white py-6 text-center text-gray-600 text-sm mt-8 border-t border-gray-200">
           <div className="container mx-auto px-4">
             <div className="mb-4">
-              <Image src="/logo.svg" alt="Comparaland" width={120} height={40} className="mx-auto mb-4" />
+              <Image src="/logo_no_words.png" alt="Comparaland" width={120} height={40} className="mx-auto mb-4" />
             </div>
             <p>© {new Date().getFullYear()} Comparaland. Todos los derechos reservados.</p>
             <p className="mt-2">Comparativas y análisis independientes de productos.</p>
