@@ -5,7 +5,8 @@ module.exports = {
   sitemapSize: 7000,
   exclude: [
     '/404*', 
-    '/500*'
+    '/500*',
+    '/categorias/*/*' // Excluir URLs de artículos con categoría
   ],
   robotsTxtOptions: {
     additionalSitemaps: [
@@ -28,11 +29,9 @@ module.exports = {
         lastmod: new Date().toISOString(),
       };
     }
-    // Mayor prioridad a artículos de categorías populares (tanto directos como por categoría)
+    // Mayor prioridad a artículos de categorías populares (solo URLs canónicas)
     if (path.startsWith('/cocina') || 
-        path.startsWith('/belleza') || 
-        path.startsWith('/categorias/cocina') || 
-        path.startsWith('/categorias/belleza')) {
+        path.startsWith('/belleza')) {
       return {
         loc: path,
         changefreq: 'weekly',
@@ -41,8 +40,8 @@ module.exports = {
       };
     }
     
-    // Prioridad para las páginas de categorías
-    if (path.startsWith('/categorias/')) {
+    // Prioridad para las páginas de categorías (solo las páginas principales de categoría, no los artículos)
+    if (path.startsWith('/categorias/') && path.split('/').length === 3) {
       return {
         loc: path,
         changefreq: 'weekly',
