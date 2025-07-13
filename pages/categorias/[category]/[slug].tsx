@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+
+
 import fs from 'fs';
 import path from 'path';
 
@@ -9,16 +9,9 @@ type RedirectProps = {
   slug: string;
 };
 
-// Componente que redirige a la ruta principal
-export default function CategoryRedirect({ slug }: RedirectProps) {
-  const router = useRouter();
-  
-  useEffect(() => {
-    // Redirigir a la ruta principal
-    router.replace(`/${slug}`);
-  }, [router, slug]);
-  
-  // Devolver un componente vacío mientras se realiza la redirección
+// Página de redirección generada estáticamente
+export default function CategoryRedirect() {
+  // Este componente nunca se renderiza porque Next.js maneja la redirección en el lado del servidor
   return null;
 }
 
@@ -27,11 +20,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) {
     return { notFound: true };
   }
-  
+
+  const slug = params.slug as string;
+
   return {
-    props: {
-      slug: params.slug,
-    }
+    redirect: {
+      destination: `/${slug}`,
+      permanent: true,
+    },
   };
 };
 
