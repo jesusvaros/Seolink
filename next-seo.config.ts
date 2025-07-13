@@ -4,11 +4,11 @@ const defaultSEO = {
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://comparaland.com',
+    url: 'https://comparaland.es',
     site_name: 'Comparaland',
     images: [
       {
-        url: 'https://comparaland.com/logo_no_words.png',
+        url: 'https://comparaland.es/logo_no_words.png',
         width: 534,
         height: 176,
         alt: 'Comparaland Logo',

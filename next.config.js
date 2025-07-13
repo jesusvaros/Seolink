@@ -35,7 +35,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'comparaland.com', // Para futuras imágenes propias
+        hostname: 'comparaland.es', // Para futuras imágenes propias
       },
       {
         protocol: 'https',
