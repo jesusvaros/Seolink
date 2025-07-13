@@ -1806,3 +1806,76 @@ Error: Could not parse CSS stylesheet
 [2025-07-10T10:13:28.016Z] ✅ All tasks completed successfully
 [2025-07-10T10:13:28.016Z] ==================================================
 [2025-07-10T10:13:28.016Z] ==================================================
+[2025-07-13T13:09:47.209Z] ==================================================
+[2025-07-13T13:09:47.212Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-07-13T13:09:47.212Z] ==================================================
+[2025-07-13T13:09:47.212Z] 🚀 Starting Elle scraping...
+[2025-07-13T13:09:47.212Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-07-13T13:10:03.735Z] ✅ Elle scraping completed successfully
+[2025-07-13T13:10:03.736Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 67 enlaces únicos
+  💾 Guardados 67 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-07-13T13:10:03.736Z] 🚀 Starting Compramejor scraping...
+[2025-07-13T13:10:03.736Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-07-13T13:10:17.586Z] ✅ Compramejor scraping completed successfully
+[2025-07-13T13:10:17.587Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-07-13T13:10:17.587Z] 🚀 Starting MDX generation...
+[2025-07-13T13:10:17.587Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-07-13T13:55:08.577Z] ⚠️ Script warning: ❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 33622 (line 604 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 34855 (line 627 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 35475 (line 681 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 37128 (line 681 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 37699 (line 748 column 10)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 35051 (line 738 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 35658 (line 704 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 35554 (line 627 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+
+[2025-07-13T13:55:08.578Z] ✅ MDX generation completed successfully
+[2025-07-13T13:55:08.578Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1233
+
+📋 Total URLs encontradas: 1136
+
+🔍 URLs válidas para procesar: 104
+🔍 Verificando si https://www.compramejor.es/amazon-prime-day-las-mejores-ofertas-para-cuidar-la-salud/ contiene productos de Amazon...
+🌐 Navegando a http...(truncated)
+[2025-07-13T13:55:08.578Z] ==================================================
+[2025-07-13T13:55:08.578Z] ✅ All tasks completed successfully
+[2025-07-13T13:55:08.578Z] ==================================================

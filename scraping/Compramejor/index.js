@@ -3,7 +3,7 @@ import path from 'path';
 import { chromium } from 'playwright';
 
 // Define URLs to scrape - can be provided as command line arguments or use defaults
-const SEARCH_URLS = ['https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post'];
+const SEARCH_URLS = ['https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post','https://www.compramejor.es/ofertas/','https://www.compramejor.es/','https://www.compramejor.es/t/mejor-valorados/'];
 
 // Ensure output directory exists
 // Use absolute path to ensure files are saved in the project directory
