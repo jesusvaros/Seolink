@@ -1,13 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-
-
 import fs from 'fs';
 import path from 'path';
-
-// Tipo para las propiedades de redirección
-type RedirectProps = {
-  slug: string;
-};
 
 // Página de redirección generada estáticamente
 export default function CategoryRedirect() {
