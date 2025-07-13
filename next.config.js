@@ -2,6 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
+  async redirects() {
+    return [
+      {
+        source: '/categorias/:category/:slug',
+        destination: '/:slug',
+        permanent: true, // Redirección 301 permanente
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
