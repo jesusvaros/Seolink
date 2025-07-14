@@ -329,7 +329,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                       "review": {
                         "@type": "Review",
                         "author": { "@type": "Person", "name": "Análisis del Experto" },
-                        "datePublished": new Date().toISOString().split('T')[0],
+                        "datePublished": frontMatter.date ? new Date(frontMatter.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
                         "reviewRating": { "@type": "Rating", "ratingValue": (() => {
                           // Función hash simple para generar número determinista basado en slug y nombre de producto
                           const getConsistentRating = (seed: string, min: number, max: number) => {
@@ -365,6 +365,13 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                           return "";
                         })(),
                         "availability": "https://schema.org/InStock",
+                        "priceValidUntil": (() => {
+                          // Use the date from the MDX frontmatter as the base date
+                          const baseDate = frontMatter.date ? new Date(frontMatter.date) : new Date();
+                          const validUntil = new Date(baseDate);
+                          validUntil.setFullYear(validUntil.getFullYear() + 1);
+                          return validUntil.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+                        })(),
                         "shippingDetails": {
                           "@type": "OfferShippingDetails",
                           "shippingRate": {
