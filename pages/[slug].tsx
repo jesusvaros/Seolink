@@ -320,7 +320,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                       "image": product.image.url,
                       "itemCondition": "https://schema.org/NewCondition",
                       "category": frontMatter.category || "Cuidado personal",
-                      "description": product.description || frontMatter.excerpt,
+                      "description": product.description || product.reviewBody,
                       ...(product.asin ? { "sku": product.asin } : {}),
                       "brand": {
                         "@type": "Brand",
@@ -401,7 +401,8 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                         },
                         "seller": {
                           "@type": "Organization",
-                          "name": "Amazon"
+                          "name": "Amazon",
+                          "description": "Amazon es una tienda online líder mundial con millones de productos y entregas rápidas."
                         },
                         "hasMerchantReturnPolicy": {
                           "@type": "MerchantReturnPolicy",
