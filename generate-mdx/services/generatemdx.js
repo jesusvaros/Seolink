@@ -33,6 +33,33 @@ export async function generateMDX(data) {
 function generateMDXContent(data, processedData, frontmatter) {
     // Create MDX content
     const productsVar = 'products';
+    
+    // Crear sección de análisis comparativo si existe
+    let comparativaSection = '';
+    if (processedData.comparativa) {
+        comparativaSection = `
+## Análisis Comparativo
+
+${processedData.comparativa}
+
+`;
+    }
+    
+    // Crear sección de FAQ si existe
+    let faqSection = '';
+    if (Array.isArray(processedData.faq) && processedData.faq.length > 0) {
+        faqSection = `
+## Preguntas Frecuentes
+
+${processedData.faq.map(faq => (
+            `### ${faq.question}
+
+${faq.answer}
+
+`
+        )).join('')}`;
+    }
+    
     const mdxContent = `---json
 ${frontmatter}
 ---
@@ -50,11 +77,16 @@ ${processedData.introduction}
 
 ${processedData.products.map((_, index) => `<ProductDetailCard product={${productsVar}[${index}]} index={${index}} />
 
-`).join('')}## 
+`).join('')}
+
+${comparativaSection}
+
+${faqSection}
+
+## Conclusión
 
 ${processedData.conclusion}
 `;
 
     return mdxContent;
-
 }

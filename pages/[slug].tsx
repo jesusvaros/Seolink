@@ -171,8 +171,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function PostPage({ source, frontMatter }: PostProps) {
-
-  console.log(frontMatter.faq);
   return (
     <Layout>
       <NextSeo
@@ -482,6 +480,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
             ProductDetailCard,
             ProductHeading,
             ProductRankingTable,
+            FaqSection,
           }}
           scope={{
             products: Array.isArray(frontMatter.products) ? frontMatter.products : [],
@@ -492,25 +491,6 @@ export default function PostPage({ source, frontMatter }: PostProps) {
         {frontMatter.products?.length > 0 && (
           <StickyBuyCTA product={frontMatter.products[0]} />
         )}
-        
-        {/* Comparative Analysis Section */}
-        {frontMatter.comparativa && (
-          <section className="my-8 " aria-labelledby="comparativa-heading">
-          <div className="max-w-3xl mx-auto ...">
-            <h2 id="comparativa-heading" className="text-3xl font-bold mb-4 text-gray-800">
-              Análisis Comparativo
-            </h2>
-              <div className="bg-orange-100">
-              {(frontMatter.comparativa || "").split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4">{paragraph}</p>
-            ))}
-              </div>
-            </div>
-          </section>
-        )}
-        
-        {/* FAQ Section */}
-        <FaqSection faqs={frontMatter.faq} />
       </article>
 
       {/* Related Articles Section */}
