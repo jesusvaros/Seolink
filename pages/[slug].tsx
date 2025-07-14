@@ -41,7 +41,6 @@ type PostProps = {
     category: string;
     products: Product[];
     updatedAt?: string; // Fecha de actualización opcional
-    tags?: string[];    // Etiquetas opcionales
     faq?: FaqItem[];    // Preguntas y respuestas para FAQPage
   };
 };
@@ -189,7 +188,7 @@ export default function PostPage({ source, frontMatter }: PostProps) {
             publishedTime: frontMatter.date,
             modifiedTime: frontMatter.updatedAt || frontMatter.date,
             section: frontMatter.category,
-            tags: frontMatter.tags || [frontMatter.category],
+            tags:[frontMatter.category],
           }
         }}
       />
@@ -204,6 +203,9 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               "headline": frontMatter.title,
               "description": frontMatter.excerpt,
               "image": frontMatter.image.url,
+              "inLanguage": "es",
+              "articleSection": frontMatter.category || "Guías de compra",
+              "keywords": frontMatter.title.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "").split(" ").filter(word => word.length > 3).join(", "),
               "datePublished": (() => {
                 // Convert date string to ISO 8601 format with timezone
                 try {
@@ -233,11 +235,12 @@ export default function PostPage({ source, frontMatter }: PostProps) {
               "publisher": {
                 "@type": "Organization",
                 "name": "comparaland",
+                "url": "https://comparaland.es",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://comparaland.es/logo.png",
-                  "width": 600,
-                  "height": 60
+                  "url": "https://comparaland.es/ogo_no_words.png",
+                  "width": 420,
+                  "height": 420
                 }
               },
               "mainEntityOfPage": {
@@ -260,7 +263,6 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                         }
                       }));
                     } 
-                    
                     // Fallback a las preguntas estáticas predefinidas
                     const productType = (() => {
                       const title = frontMatter.title.toLowerCase();
@@ -294,14 +296,33 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                 // Add ItemList schema for multiple products
                 "itemList": {
                   "@type": "ItemList",
+                  "name": "Ranking de productos",
                   "itemListElement": frontMatter.products.map((product, index) => ({
                     "@type": "ListItem",
                     "position": index + 1,
                     "item": {
                       "@type": "Product",
+                      "additionalType": (() => {
+                        // Mapear categorías a tipos de productos en ProductOntology
+                        const category = (frontMatter.category || "").toLowerCase();
+                        const ontologyMap: Record<string, string> = {
+                          "cocina": "http://www.productontology.org/id/Kitchen_utensil",
+                          "hogar": "http://www.productontology.org/id/Household_goods",
+                          "belleza": "http://www.productontology.org/id/Cosmetics",
+                          "moda": "http://www.productontology.org/id/Clothing",
+                          "jardin": "http://www.productontology.org/id/Garden_tool",
+                          "electronica": "http://www.productontology.org/id/Consumer_electronics",
+                          "maquillaje": "http://www.productontology.org/id/Cosmetics",
+                          "ropa": "http://www.productontology.org/id/Clothing"
+                        };
+                        return category in ontologyMap ? ontologyMap[category] : "http://www.productontology.org/id/Consumer_goods";
+                      })(),
                       "name": product.name,
                       "image": product.image.url,
+                      "itemCondition": "https://schema.org/NewCondition",
+                      "category": frontMatter.category || "Cuidado personal",
                       "description": product.description || frontMatter.excerpt,
+                      ...(product.asin ? { "sku": product.asin } : {}),
                       "brand": {
                         "@type": "Brand",
                         "name": product.name.split(' ')[0]
@@ -311,22 +332,22 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                         "author": { "@type": "Person", "name": "Análisis del Experto" },
                         "datePublished": new Date().toISOString().split('T')[0],
                         "reviewRating": { "@type": "Rating", "ratingValue": (() => {
-                          // Generar un rating aleatorio entre 4.4 y 5
-                          const rating = (Math.random() * 0.6 + 4.4).toFixed(1);
-                          return rating;
+                          // Función hash simple para generar número determinista basado en slug y nombre de producto
+                          const getConsistentRating = (seed: string, min: number, max: number) => {
+                            let hash = 0;
+                            for (let i = 0; i < seed.length; i++) {
+                              hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+                              hash = hash & hash; // Convertir a entero de 32 bits
+                            }
+                            // Normalizar entre 0 y 1, luego escalar al rango deseado
+                            const normalized = (Math.abs(hash) % 1000) / 1000;
+                            return (normalized * (max - min) + min).toFixed(1);
+                          };
+                          // Usar slug + nombre de producto como semilla
+                          const seed = `${frontMatter.slug}-${product.name}-${index}`;
+                          return getConsistentRating(seed, 4.4, 5.0);
                         })(), "bestRating": "5" },
                         "reviewBody": product.analisis || `${product.name} es un producto con excelente relación calidad-precio.`
-                      },
-                      "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": (() => {
-                          // Generar un rating agregado aleatorio entre 4.0 y 4.8
-                          return (Math.random() * 0.8 + 4.0).toFixed(1);
-                        })(),
-                        "reviewCount": (() => {
-                          // Generar un número de reseñas aleatorio entre 50 y 300
-                          return Math.floor(Math.random() * 250 + 50).toString();
-                        })()
                       },
                       "offers": {
                         "@type": "Offer",
@@ -338,7 +359,8 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                               return product.price.schema;
                             } else {
                               const priceStr = String(product.price);
-                              return priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                              const cleaned = priceStr.replace(/[^0-9,.]/g, '').replace(',', '.');
+                              return cleaned || "0.00"; // Asegurarse de que el precio sea un número válido
                             }
                           }
                           return "";
@@ -370,6 +392,10 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                               "unitCode": "DAY"
                             }
                           }
+                        },
+                        "seller": {
+                          "@type": "Organization",
+                          "name": "Amazon"
                         },
                         "hasMerchantReturnPolicy": {
                           "@type": "MerchantReturnPolicy",
