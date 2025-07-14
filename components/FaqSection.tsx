@@ -15,12 +15,12 @@ const FaqSection: React.FC<FaqSectionProps> = ({ faqs }) => {
   }
 
   return (
-    <section className="my-8 bg-gray-50 p-6 rounded-lg shadow-sm">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Preguntas frecuentes</h2>
+    <section className="my-8 bg-gray-50 rounded-lg shadow-sm">
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">Preguntas frecuentes</h2>
       <div className="space-y-6">
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
-            <h3 className="text-xl font-semibold mb-2 text-gray-700">{faq.question}</h3>
+          <div key={index} className="border-b border-gray-900 pb-4 last:border-b-0">
+            <h3 className="text-xl font-semibold mb-2 text-gray-700 unde">{faq.question}</h3>
             <p className="text-gray-600">{faq.answer}</p>
           </div>
         ))}

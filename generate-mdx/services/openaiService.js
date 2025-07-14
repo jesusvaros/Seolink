@@ -47,14 +47,19 @@ export async function contentProcessingAI(data) {
       5. titulo:
       Genera un título para el artículo que sea atractivo y que refleje el contenido del artículo para long-tail keywords.
 
-      6. faq:
-      Genera un array de 4-6 preguntas y respuestas naturales, realistas y muy específicas sobre los productos mencionados. Cada pregunta debe hacer referencia a situaciones de uso, compatibilidad, conservación o casos de compra concretos. Evita preguntas genéricas como "¿Qué beneficios tiene este producto?" o "¿Cuándo es recomendable comprarlo?". Las respuestas deben ser detalladas, útiles y con ejemplos concretos. Ejemplos de buenas preguntas:
-      ¿Qué tipo de piel tolera mejor esta crema con retinol?
-      ¿Es necesario precalentar este electrodoméstico antes de usarlo?
-      ¿Qué formato es más cómodo si se viaja con frecuencia?
-      ¿Cuánto tarda en verse efecto si se usa cada día?
-      ¿Qué alimentos se cocinan mejor en este electrodoméstico?
-      ¿Qué ventajas tiene este electrodoméstico frente a otros de la misma gama?
+     6. faq:
+      Genera un array de 4-6 preguntas y respuestas naturales, realistas y muy específicas sobre los productos mencionados. Cada pregunta debe:
+      - Nombrar siempre el producto específico del que habla.
+      - Hacer referencia a situaciones de uso, compatibilidad, conservación o casos de compra concretos.
+      - Incluir ejemplos prácticos en la respuesta (por ejemplo: "si lo usas en climas muy secos, notarás...").
+      - Mencionar diferencias con otros productos si procede.
+      Evita preguntas genéricas como "¿Qué beneficios tiene este producto?" o "¿Cuándo es recomendable comprarlo?".
+
+
+      7. comparativa:
+      Genera un texto de al menos 2 párrafos donde compares de manera editorial los productos entre sí. Explica qué diferencias hay en precio, público recomendado, funcionalidades y calidad percibida. Este texto debe sonar natural, como una recomendación de un experto que ha probado los productos. Usa frases comparativas directas y ejemplos concretos. 
+      Ejemplo de comienzo:
+      "Aunque las tres cremas ofrecen una hidratación intensiva, cada una está pensada para un perfil de piel diferente. La opción de CeraVe destaca por su relación calidad-precio..."
 
       Contenido:
       ${data.content}
@@ -68,6 +73,7 @@ export async function contentProcessingAI(data) {
         "introduction": "Introducción",
         "conclusion": "Conclusión",
         "title": "titulo",
+        "comparativa": "Texto de comparativa general"
         "faq": [
           {
             "question": "Pregunta 1",
@@ -144,6 +150,7 @@ export async function contentProcessingAI(data) {
       category: responseData.category || 'productos',
       title: responseData.title,
       conclusion: responseData.conclusion,
+      comparativa: responseData.comparativa,
       introduction: responseData.introduction,
       faq: responseData.faq || []
     };

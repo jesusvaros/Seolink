@@ -26,7 +26,9 @@ export async function generateFrontmatter(data,processedData) {
         date: new Date().toISOString().split('T')[0],
         category,
         image: data.image,
-        excerpt: processedData.conclusion,
+        conclusion: processedData.conclusion,
+        excerpt: processedData.excerpt,
+        comparativa: processedData.comparativa,
         // Incluir FAQ si está disponible
         faq: Array.isArray(processedData.faq) ? processedData.faq : [],
         products: processedData.products.map((p,index) => {

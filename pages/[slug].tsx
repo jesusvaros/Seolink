@@ -42,6 +42,7 @@ type PostProps = {
     products: Product[];
     updatedAt?: string; // Fecha de actualización opcional
     faq?: FaqItem[];    // Preguntas y respuestas para FAQPage
+    comparativa?: string; // Texto comparativo entre productos
   };
 };
 
@@ -490,6 +491,22 @@ export default function PostPage({ source, frontMatter }: PostProps) {
         {/* Sticky Buy CTA for mobile */}
         {frontMatter.products?.length > 0 && (
           <StickyBuyCTA product={frontMatter.products[0]} />
+        )}
+        
+        {/* Comparative Analysis Section */}
+        {frontMatter.comparativa && (
+          <section className="my-8 " aria-labelledby="comparativa-heading">
+          <div className="max-w-3xl mx-auto ...">
+            <h2 id="comparativa-heading" className="text-3xl font-bold mb-4 text-gray-800">
+              Análisis Comparativo
+            </h2>
+              <div className="bg-orange-100">
+              {(frontMatter.comparativa || "").split('\n').map((paragraph, index) => (
+              <p key={index} className="mb-4">{paragraph}</p>
+            ))}
+              </div>
+            </div>
+          </section>
         )}
         
         {/* FAQ Section */}
