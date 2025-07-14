@@ -44,9 +44,18 @@ export async function contentProcessingAI(data) {
       4. introduction:
       Genera una introducción de al menos dos parrafos con la información más relevante del contenido.
 
-      5.titulo:
+      5. titulo:
       Genera un título para el artículo que sea atractivo y que refleje el contenido del artículo para long-tail keywords.
-      
+
+      6. faq:
+      Genera un array de 4-6 preguntas y respuestas naturales, realistas y muy específicas sobre los productos mencionados. Cada pregunta debe hacer referencia a situaciones de uso, compatibilidad, conservación o casos de compra concretos. Evita preguntas genéricas como "¿Qué beneficios tiene este producto?" o "¿Cuándo es recomendable comprarlo?". Las respuestas deben ser detalladas, útiles y con ejemplos concretos. Ejemplos de buenas preguntas:
+      ¿Qué tipo de piel tolera mejor esta crema con retinol?
+      ¿Es necesario precalentar este electrodoméstico antes de usarlo?
+      ¿Qué formato es más cómodo si se viaja con frecuencia?
+      ¿Cuánto tarda en verse efecto si se usa cada día?
+      ¿Qué alimentos se cocinan mejor en este electrodoméstico?
+      ¿Qué ventajas tiene este electrodoméstico frente a otros de la misma gama?
+
       Contenido:
       ${data.content}
       Array de precios de los productos, el numero total de productos es de ${data.productPrices.length} y los precios son los siguientes:
@@ -59,6 +68,16 @@ export async function contentProcessingAI(data) {
         "introduction": "Introducción",
         "conclusion": "Conclusión",
         "title": "titulo",
+        "faq": [
+          {
+            "question": "Pregunta 1",
+            "answer": "Respuesta 1"
+          },
+          {
+            "question": "Pregunta 2",
+            "answer": "Respuesta 2"
+          }
+        ],
         "products": [
           {
             "name": "Nombre del producto",
@@ -125,7 +144,8 @@ export async function contentProcessingAI(data) {
       category: responseData.category || 'productos',
       title: responseData.title,
       conclusion: responseData.conclusion,
-      introduction: responseData.introduction
+      introduction: responseData.introduction,
+      faq: responseData.faq || []
     };
   } catch (error) {
     console.error('❌ Error en el procesamiento unificado:', error.message);

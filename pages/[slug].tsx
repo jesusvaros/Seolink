@@ -17,11 +17,17 @@ import ProductHeading from '../components/ProductHeading';
 import StickyBuyCTA from '../components/StickyBuyCTA';
 import ProductRankingTable from '../components/ProductRankingTable';
 import RelatedArticles from '../components/RelatedArticles';
+import FaqSection from '../components/FaqSection';
 
 interface ImageObject {
   '@type'?: 'ImageObject';
   url: string;
   caption?: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
 }
 
 type PostProps = {
@@ -36,6 +42,7 @@ type PostProps = {
     products: Product[];
     updatedAt?: string; // Fecha de actualización opcional
     tags?: string[];    // Etiquetas opcionales
+    faq?: FaqItem[];    // Preguntas y respuestas para FAQPage
   };
 };
 
@@ -164,6 +171,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function PostPage({ source, frontMatter }: PostProps) {
+
+  console.log(frontMatter.faq);
   return (
     <Layout>
       <NextSeo
@@ -235,44 +244,52 @@ export default function PostPage({ source, frontMatter }: PostProps) {
                 "@type": "WebPage",
                 "@id": `https://comparaland.es/${frontMatter.slug}`
               },
-              // Añadir FAQ si hay productos (esto ayuda a obtener rich snippets)
+              // Añadir FAQ si hay productos o datos FAQ específicos (esto ayuda a obtener rich snippets)
               ...(frontMatter.products && frontMatter.products.length > 0 ? {
                 "hasPart": {
                   "@type": "FAQPage",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": `¿Cuál es el mejor ${(() => {
-                        // Extraer el tipo de producto del título de forma segura
-                        const title = frontMatter.title.toLowerCase();
-                        if (title.includes('mejores')) {
-                          const parts = title.split('mejores');
-                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'producto';
+                  "mainEntity": (() => {
+                    // Usar FAQs generadas por IA si están disponibles
+                    if (frontMatter.faq && Array.isArray(frontMatter.faq) && frontMatter.faq.length > 0) {
+                      return frontMatter.faq.map(item => ({
+                        "@type": "Question",
+                        "name": item.question,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": item.answer
                         }
-                        return 'producto';
-                      })()} en ${new Date().getFullYear()}?`,
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": frontMatter.products[0]?.name ? `Según nuestro análisis, ${frontMatter.products[0].name} es actualmente la mejor opción por su relación calidad-precio y prestaciones.` : frontMatter.excerpt
+                      }));
+                    } 
+                    
+                    // Fallback a las preguntas estáticas predefinidas
+                    const productType = (() => {
+                      const title = frontMatter.title.toLowerCase();
+                      if (title.includes('mejores')) {
+                        const parts = title.split('mejores');
+                        return parts.length > 1 && parts[1] ? parts[1].trim() : 'producto';
                       }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": `¿Qué características debo considerar al comprar ${(() => {
-                        // Extraer el tipo de producto del título de forma segura
-                        const title = frontMatter.title.toLowerCase();
-                        if (title.includes('mejores')) {
-                          const parts = title.split('mejores');
-                          return parts.length > 1 && parts[1] ? parts[1].trim() : 'este producto';
+                      return 'producto';
+                    })();
+                    
+                    return [
+                      {
+                        "@type": "Question",
+                        "name": `¿Cuál es el mejor ${productType} en ${new Date().getFullYear()}?`,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": frontMatter.products[0]?.name ? `Según nuestro análisis, ${frontMatter.products[0].name} es actualmente la mejor opción por su relación calidad-precio y prestaciones.` : frontMatter.excerpt
                         }
-                        return 'este producto';
-                      })()}?`,
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": `Debes considerar factores como calidad, precio, funcionalidades específicas y opiniones de otros usuarios. En nuestro artículo analizamos detalladamente estos aspectos para ayudarte a tomar la mejor decisión.`
+                      },
+                      {
+                        "@type": "Question",
+                        "name": `¿Qué características debo considerar al comprar ${productType}?`,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": `Debes considerar factores como calidad, precio, funcionalidades específicas y opiniones de otros usuarios. En nuestro artículo analizamos detalladamente estos aspectos para ayudarte a tomar la mejor decisión.`
+                        }
                       }
-                    }
-                  ]
+                    ];
+                  })()
                 },
                 // Añadir review para el primer producto
                 "review": {
@@ -504,6 +521,9 @@ export default function PostPage({ source, frontMatter }: PostProps) {
         {frontMatter.products?.length > 0 && (
           <StickyBuyCTA product={frontMatter.products[0]} />
         )}
+        
+        {/* FAQ Section */}
+        <FaqSection faqs={frontMatter.faq} />
       </article>
 
       {/* Related Articles Section */}

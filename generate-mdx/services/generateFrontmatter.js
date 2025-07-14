@@ -27,6 +27,8 @@ export async function generateFrontmatter(data,processedData) {
         category,
         image: data.image,
         excerpt: processedData.conclusion,
+        // Incluir FAQ si está disponible
+        faq: Array.isArray(processedData.faq) ? processedData.faq : [],
         products: processedData.products.map((p,index) => {
          const price = data.productPrices[index]
           
