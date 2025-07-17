@@ -1,6 +1,12 @@
 {
   "cocina": [
     {
+      "slug": "los-mejores-cepillos-de-cocina-para-facilitar-la-limpieza",
+      "title": "Los Mejores Cepillos de Cocina para Facilitar la Limpieza",
+      "date": "2025-07-17",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/02/chef-preparing-sauce-1.jpg"
+    },
+    {
       "slug": "las-mejores-licuadoras-para-batidos-y-smoothies-en-amazon",
       "title": "Las Mejores Licuadoras para Batidos y Smoothies en Amazon",
       "date": "2025-07-13",
@@ -245,6 +251,18 @@
   ],
   "moda": [
     {
+      "slug": "vestidos-y-sandalias-elegantes-para-bodas-de-alta-sociedad",
+      "title": "Vestidos y Sandalias Elegantes para Bodas de Alta Sociedad",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/invitada-de-boda-con-vestido-manton-de-mango-elle-1-68761a2846a1a.jpg?crop=1.00xw:0.335xh;0,0.0665xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-little-black-dresses-y-accesorios-para-este-verano",
+      "title": "Los Mejores Little Black Dresses y Accesorios para Este Verano",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-las-que-mejor-visten-68761c34e41b3.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-zapatillas-unisex-en-amazon-con-descuentos-imperdibles",
       "title": "Las Mejores Zapatillas Unisex en Amazon con Descuentos Imperdibles",
       "date": "2025-07-13",
@@ -396,6 +414,30 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "las-mejores-pestanas-postizas-magneticas-para-realzar-tu-mirada",
+      "title": "Las Mejores Pestañas Postizas Magnéticas para Realzar tu Mirada",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/blue-eye-with-makeup-macro-shot-royalty-free-image-1639591163.jpg?crop=1.00xw:0.753xh;0,0.151xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-productos-de-retinol-microencapsulado-para-una-piel-radiante",
+      "title": "Los Mejores Productos de Retinol Microencapsulado para una Piel Radiante",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cremas-con-retinol-para-piel-sensible-687784ece908c.jpg?crop=1.00xw:0.334xh;0,0.128xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-aceites-para-cuticulas-hidratacion-y-cuidado-esencial",
+      "title": "Los Mejores Aceites para Cutículas: Hidratación y Cuidado Esencial",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/bright-neon-red-manicure-on-female-hands-on-the-royalty-free-image-1601626485.jpg?crop=1.00xw:0.751xh;0,0.0767xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-productos-para-cuidar-tu-piel-despues-del-sol",
+      "title": "Los Mejores Productos para Cuidar tu Piel Después del Sol",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cremas-noche-reparadoras-del-sol-1-687735d2cfff6.jpg?crop=1.00xw:0.506xh;0,0.212xh&resize=1200:*"
+    },
     {
       "slug": "las-mejores-cremas-hidratantes-faciales-de-2025-guia-completa",
       "title": "Las Mejores Cremas Hidratantes Faciales de 2025: Guía Completa",
@@ -865,6 +907,18 @@
   ],
   "libros": [
     {
+      "slug": "10-libros-imperdibles-para-leer-este-verano",
+      "title": "10 Libros Imperdibles para Leer Este Verano",
+      "date": "2025-07-17",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/07/Diseno-sin-titulo-88.jpg"
+    },
+    {
+      "slug": "descubre-la-saga-de-los-bridgerton-libros-imperdibles",
+      "title": "Descubre la Saga de Los Bridgerton: Libros Imperdibles",
+      "date": "2025-07-17",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/bridgerton-305-unit-00786r-66ffb7c992ab1.jpg?crop=1.00xw:0.751xh;0,0.110xh&resize=1200:*"
+    },
+    {
       "slug": "los-mejores-libros-de-megan-maxwell-que-debes-leer",
       "title": "Los mejores libros de Megan Maxwell que debes leer",
       "date": "2025-07-14",
@@ -1038,6 +1092,12 @@
     }
   ],
   "jardin": [
+    {
+      "slug": "las-mejores-tumbonas-y-mesas-plegables-para-tu-jardin-este-verano",
+      "title": "Las Mejores Tumbonas y Mesas Plegables para Tu Jardín Este Verano",
+      "date": "2025-07-17",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/05/Diseno-sin-titulo-44.jpg"
+    },
     {
       "slug": "las-mejores-mesas-colgantes-para-balcones-pequenos",
       "title": "Las mejores mesas colgantes para balcones pequeños",
