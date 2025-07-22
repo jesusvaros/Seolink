@@ -2103,3 +2103,50 @@ Error: Could not parse CSS stylesheet
 [2025-07-17T10:17:38.962Z] ✅ All tasks completed successfully
 [2025-07-17T10:17:38.962Z] ==================================================
 [2025-07-17T10:17:38.962Z] ==================================================
+[2025-07-22T08:17:21.741Z] ==================================================
+[2025-07-22T08:17:21.745Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-07-22T08:17:21.745Z] ==================================================
+[2025-07-22T08:17:21.745Z] 🚀 Starting Elle scraping...
+[2025-07-22T08:17:21.745Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-07-22T08:18:06.009Z] ✅ Elle scraping completed successfully
+[2025-07-22T08:18:06.009Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-07-22T08:18:06.009Z] 🚀 Starting Compramejor scraping...
+[2025-07-22T08:18:06.009Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-07-22T08:18:35.380Z] ✅ Compramejor scraping completed successfully
+[2025-07-22T08:18:35.380Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-07-22T08:18:35.380Z] 🚀 Starting MDX generation...
+[2025-07-22T08:18:35.380Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-07-22T08:46:06.581Z] ⚠️ Script warning: ❌ Error al generar frontmatter: Cannot read properties of undefined (reading 'priceValue')
+
+[2025-07-22T08:46:06.581Z] ✅ MDX generation completed successfully
+[2025-07-22T08:46:06.581Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1438
+
+📋 Total URLs encontradas: 1128
+
+🔍 URLs válidas para procesar: 97
+🔍 Verificando si https://www.compramejor.es/viaje-carretera-que-llevar-planificar/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramejor.e...(truncated)
+[2025-07-22T08:46:06.581Z] ==================================================
+[2025-07-22T08:46:06.581Z] ✅ All tasks completed successfully
+[2025-07-22T08:46:06.581Z] ==================================================
