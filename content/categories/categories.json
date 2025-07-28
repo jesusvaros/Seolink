@@ -1,6 +1,24 @@
 {
   "cocina": [
     {
+      "slug": "cajones-extraibles-para-cocina-organiza-tu-espacio-con-estilo",
+      "title": "Cajones Extraíbles para Cocina: Organiza tu Espacio con Estilo",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/05/mejores-carritos-auxiliares-cocina-e1620895836964.jpg"
+    },
+    {
+      "slug": "las-mejores-creperas-para-hacer-crepes-perfectos-en-casa",
+      "title": "Las Mejores Creperas para Hacer Crepes Perfectos en Casa",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2019/04/photo-1460103841677-11ff72e1f0b9.jpg"
+    },
+    {
+      "slug": "los-6-productos-esenciales-para-viajar-sin-gluten",
+      "title": "Los 6 Productos Esenciales para Viajar Sin Gluten",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/productos-gluten-free-elle-gourmet-684bff453e320.jpg?crop=1.00xw:0.737xh;0,0.225xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-sartenes-de-cocina-en-amazon-comparativa-y-analisis",
       "title": "Las Mejores Sartenes de Cocina en Amazon: Comparativa y Análisis",
       "date": "2025-07-22",
@@ -263,6 +281,36 @@
   ],
   "moda": [
     {
+      "slug": "las-5-gorras-imprescindibles-para-este-verano",
+      "title": "Las 5 gorras imprescindibles para este verano",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/08/pexels-craig-mckay-842943.jpg"
+    },
+    {
+      "slug": "alternativas-economicas-a-las-sandalias-birkenstock",
+      "title": "Alternativas económicas a las sandalias Birkenstock",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/07/kamile-leonaviciute-1xo_bzIhUh0-unsplash-e1626854896333.jpg"
+    },
+    {
+      "slug": "los-mejores-bolsos-de-playa-xxl-para-este-verano",
+      "title": "Los Mejores Bolsos de Playa XXL para Este Verano",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/06/Ocoopa_sand_free_beach_blanket_1024x1024-1.jpg"
+    },
+    {
+      "slug": "moda-y-estilo-en-tus-vacaciones-en-la-comunidad-valenciana",
+      "title": "Moda y Estilo en tus Vacaciones en la Comunidad Valenciana",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-5-looks-destinos-2-688098e3e7e75.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "cunas-de-esparto-geox-elegancia-y-comodidad-para-el-verano",
+      "title": "Cuñas de Esparto Geox: Elegancia y Comodidad para el Verano",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1509849427-687fa7b4c87fb.jpg?crop=1.00xw:0.335xh;0,0.149xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-sandalias-camper-y-geox-para-el-verano-2023",
       "title": "Las Mejores Sandalias Camper y Geox para el Verano 2023",
       "date": "2025-07-22",
@@ -444,6 +492,24 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-balsamos-labiales-con-spf-para-proteger-tus-labios-este-verano",
+      "title": "Los Mejores Bálsamos Labiales con SPF para Proteger tus Labios este Verano",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/01/pexels-burst-374856.jpg"
+    },
+    {
+      "slug": "las-mejores-brumas-solares-para-proteger-tu-piel-en-verano",
+      "title": "Las Mejores Brumas Solares para Proteger tu Piel en Verano",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-81773298-64d2462438e90.jpg?crop=1.00xw:0.637xh;0,0.181xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-productos-para-fortalecer-unas-quebradizas-en-2025",
+      "title": "Los Mejores Productos para Fortalecer Uñas Quebradizas en 2025",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1326306686.jpg?crop=1.00xw:0.750xh;0,0.130xh&resize=1200:*"
+    },
     {
       "slug": "tendencias-de-color-y-cortes-de-pelo-para-el-verano-2025",
       "title": "Tendencias de Color y Cortes de Pelo para el Verano 2025",
@@ -869,6 +935,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "los-mejores-regalos-tecnologicos-para-amigas-innovacion-y-estilo",
+      "title": "Los Mejores Regalos Tecnológicos para Amigas: Innovación y Estilo",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gossip-girl-657880b77f40c.jpeg?crop=1.00xw:0.716xh;0,0.0116xh&resize=1200:*"
+    },
+    {
       "slug": "los-10-objetos-imprescindibles-para-un-viaje-por-carretera-perfecto",
       "title": "Los 10 objetos imprescindibles para un viaje por carretera perfecto",
       "date": "2025-07-22",
@@ -984,6 +1056,12 @@
     }
   ],
   "libros": [
+    {
+      "slug": "descubre-las-mejores-novelas-contemporaneas-para-el-verano-2025",
+      "title": "Descubre las Mejores Novelas Contemporáneas para el Verano 2025",
+      "date": "2025-07-28",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/princess-maria-olympia-of-greece-wears-a-black-long-sleeve-news-photo-1753268478.pjpeg?crop=1.00xw:0.751xh;0,0.144xh&resize=1200:*"
+    },
     {
       "slug": "los-10-mejores-comics-de-francisco-ibanez-para-disfrutar-este-verano",
       "title": "Los 10 mejores cómics de Francisco Ibáñez para disfrutar este verano",
@@ -1208,6 +1286,12 @@
     }
   ],
   "deportes": [
+    {
+      "slug": "los-mejores-chalecos-de-hidratacion-para-running-y-senderismo",
+      "title": "Los Mejores Chalecos de Hidratación para Running y Senderismo",
+      "date": "2025-07-28",
+      "image": "https://www.compramejor.es/wp-content/uploads/2018/10/pexels-pixabay-236973.jpg"
+    },
     {
       "slug": "los-mejores-chalecos-lastrados-para-entrenamiento-proiron-vs-ise",
       "title": "Los Mejores Chalecos Lastrados para Entrenamiento: Proiron vs ISE",

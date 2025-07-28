@@ -2150,3 +2150,142 @@ Error: Could not parse CSS stylesheet
 [2025-07-22T08:46:06.581Z] ==================================================
 [2025-07-22T08:46:06.581Z] ✅ All tasks completed successfully
 [2025-07-22T08:46:06.581Z] ==================================================
+[2025-07-28T08:27:24.781Z] ==================================================
+[2025-07-28T08:27:24.787Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-07-28T08:27:24.787Z] ==================================================
+[2025-07-28T08:27:24.787Z] 🚀 Starting Elle scraping...
+[2025-07-28T08:27:24.787Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-07-28T08:27:42.132Z] ✅ Elle scraping completed successfully
+[2025-07-28T08:27:42.133Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 56 enlaces únicos
+  💾 Guardados 56 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 65 enlaces únicos
+  💾 Guardados 65 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-07-28T08:27:42.133Z] 🚀 Starting Compramejor scraping...
+[2025-07-28T08:27:42.133Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-07-28T08:28:00.489Z] ✅ Compramejor scraping completed successfully
+[2025-07-28T08:28:00.490Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-07-28T08:28:00.490Z] 🚀 Starting MDX generation...
+[2025-07-28T08:28:00.490Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-07-28T08:47:48.981Z] ⚠️ Script warning: ❌ Error al parsear JSON: Expected ',' or ']' after array element in JSON at position 37968 (line 875 column 6)
+❌ Error en el procesamiento unificado: Cannot read properties of undefined (reading 'products')
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+
+[2025-07-28T08:47:48.981Z] ✅ MDX generation completed successfully
+[2025-07-28T08:47:48.981Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1535
+
+📋 Total URLs encontradas: 1126
+
+🔍 URLs válidas para procesar: 114
+🔍 Verificando si https://www.compramejor.es/protector-labial-spf-50-por-9-economico-hidratacion/ contiene productos de Amazon...
+🌐 Navegando a https://ww...(truncated)
+[2025-07-28T08:47:48.981Z] ==================================================
+[2025-07-28T08:47:48.981Z] ✅ All tasks completed successfully
+[2025-07-28T08:47:48.981Z] ==================================================
+[2025-07-28T10:00:00.424Z] ==================================================
+[2025-07-28T10:00:00.424Z] ==================================================
+[2025-07-28T10:00:00.426Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-07-28T10:00:00.426Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-07-28T10:00:00.426Z] ==================================================
+[2025-07-28T10:00:00.426Z] ==================================================
+[2025-07-28T10:00:00.426Z] 🚀 Starting Elle scraping...
+[2025-07-28T10:00:00.426Z] 🚀 Starting Elle scraping...
+[2025-07-28T10:00:00.426Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-07-28T10:00:00.426Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-07-28T10:00:18.933Z] ✅ Elle scraping completed successfully
+[2025-07-28T10:00:18.933Z] ✅ Elle scraping completed successfully
+[2025-07-28T10:00:18.934Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-07-28T10:00:18.934Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-07-28T10:00:18.934Z] 🚀 Starting Compramejor scraping...
+[2025-07-28T10:00:18.934Z] 🚀 Starting Compramejor scraping...
+[2025-07-28T10:00:18.934Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-07-28T10:00:18.934Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-07-28T10:00:39.830Z] ✅ Compramejor scraping completed successfully
+[2025-07-28T10:00:39.830Z] ✅ Compramejor scraping completed successfully
+[2025-07-28T10:00:39.831Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-07-28T10:00:39.831Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-07-28T10:00:39.831Z] 🚀 Starting MDX generation...
+[2025-07-28T10:00:39.831Z] 🚀 Starting MDX generation...
+[2025-07-28T10:00:39.831Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-07-28T10:00:39.831Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-07-28T10:01:12.559Z] ✅ MDX generation completed successfully
+[2025-07-28T10:01:12.559Z] ✅ MDX generation completed successfully
+[2025-07-28T10:01:12.560Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1649
+
+📋 Total URLs encontradas: 1123
+
+🔍 URLs válidas para procesar: 13
+🔍 Verificando si https://www.elle.com/es/living/ocio-cultura/a65524311/jacobo-bergareche-opinion-elle-agosto-2025/ contiene productos de Amazon...
+🌐 Naveg...(truncated)
+[2025-07-28T10:01:12.560Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1649
+
+📋 Total URLs encontradas: 1123
+
+🔍 URLs válidas para procesar: 13
+🔍 Verificando si https://www.elle.com/es/living/ocio-cultura/a65524311/jacobo-bergareche-opinion-elle-agosto-2025/ contiene productos de Amazon...
+🌐 Naveg...(truncated)
+[2025-07-28T10:01:12.560Z] ==================================================
+[2025-07-28T10:01:12.560Z] ==================================================
+[2025-07-28T10:01:12.560Z] ✅ All tasks completed successfully
+[2025-07-28T10:01:12.560Z] ✅ All tasks completed successfully
+[2025-07-28T10:01:12.560Z] ==================================================
+[2025-07-28T10:01:12.560Z] ==================================================
