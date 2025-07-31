@@ -1,6 +1,12 @@
 {
   "cocina": [
     {
+      "slug": "como-hacer-la-mejor-tarta-de-queso-utensilios-y-consejos",
+      "title": "Cómo Hacer la Mejor Tarta de Queso: Utensilios y Consejos",
+      "date": "2025-07-31",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/07/Diseno-sin-titulo-98.jpg"
+    },
+    {
       "slug": "cajones-extraibles-para-cocina-organiza-tu-espacio-con-estilo",
       "title": "Cajones Extraíbles para Cocina: Organiza tu Espacio con Estilo",
       "date": "2025-07-28",
@@ -280,6 +286,12 @@
     }
   ],
   "moda": [
+    {
+      "slug": "las-mejores-prendas-de-moda-para-el-verano-2023",
+      "title": "Las Mejores Prendas de Moda para el Verano 2023",
+      "date": "2025-07-31",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-las-que-mejor-visten-6889101449737.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
     {
       "slug": "las-5-gorras-imprescindibles-para-este-verano",
       "title": "Las 5 gorras imprescindibles para este verano",
@@ -935,6 +947,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "galaxy-z-fold7-y-z-flip7-innovacion-y-estilo-en-smartphones-plegables",
+      "title": "Galaxy Z Fold7 y Z Flip7: Innovación y Estilo en Smartphones Plegables",
+      "date": "2025-07-31",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/model-wears-oversized-amber-tinted-sunglasses-and-a-light-news-photo-1753878597.pjpeg?crop=1.00xw:0.754xh;0,0.127xh&resize=1200:*"
+    },
+    {
       "slug": "los-mejores-regalos-tecnologicos-para-amigas-innovacion-y-estilo",
       "title": "Los Mejores Regalos Tecnológicos para Amigas: Innovación y Estilo",
       "date": "2025-07-28",
@@ -1056,6 +1074,12 @@
     }
   ],
   "libros": [
+    {
+      "slug": "las-mejores-novelas-historicas-para-leer-en-2024",
+      "title": "Las mejores novelas históricas para leer en 2024",
+      "date": "2025-07-31",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/61do1bn-nxl-sl1000-68889e9e1e415.jpg?crop=1.00xw:0.754xh;0,0.0976xh&resize=1200:*"
+    },
     {
       "slug": "descubre-las-mejores-novelas-contemporaneas-para-el-verano-2025",
       "title": "Descubre las Mejores Novelas Contemporáneas para el Verano 2025",
