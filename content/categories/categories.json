@@ -1,6 +1,24 @@
 {
   "cocina": [
     {
+      "slug": "los-mejores-utensilios-para-preparar-ensaladas-rapidas-y-saludables",
+      "title": "Los Mejores Utensilios para Preparar Ensaladas Rápidas y Saludables",
+      "date": "2025-08-07",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/08/Diseno-sin-titulo-2025-08-06T155437.255.jpg"
+    },
+    {
+      "slug": "descubre-los-mejores-productos-gastronomicos-para-este-verano",
+      "title": "Descubre los Mejores Productos Gastronómicos para Este Verano",
+      "date": "2025-08-07",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/copenhagen-str-s26-0221-6894575f06d94.jpg?crop=1.00xw:0.336xh;0,0.192xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cafeteras-nespresso-comparativa-y-analisis",
+      "title": "Las Mejores Cafeteras Nespresso: Comparativa y Análisis",
+      "date": "2025-08-07",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cafetera-cafe-capsulas-elle-gourmet-640f08abd8998.jpg?crop=1.00xw:0.688xh;0,0.213xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-sartenes-de-hierro-fundido-en-amazon-comparativa-y-analisis",
       "title": "Las Mejores Sartenes de Hierro Fundido en Amazon: Comparativa y Análisis",
       "date": "2025-08-04",
@@ -305,6 +323,12 @@
   ],
   "moda": [
     {
+      "slug": "estilos-de-falda-midi-para-el-verano-inspirate-con-looks-sofisticados",
+      "title": "Estilos de Falda Midi para el Verano: Inspírate con Looks Sofisticados",
+      "date": "2025-08-07",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-las-que-mejor-visten-falda-midi-6891d35fcfc07.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-zapatillas-tommy-hilfiger-para-el-verano-estilo-y-comodidad",
       "title": "Las Mejores Zapatillas Tommy Hilfiger para el Verano: Estilo y Comodidad",
       "date": "2025-08-04",
@@ -540,6 +564,24 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "las-mejores-cremas-hidratantes-con-color-para-el-verano",
+      "title": "Las Mejores Cremas Hidratantes con Color para el Verano",
+      "date": "2025-08-07",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/08/Diseno-sin-titulo-2025-08-04T171535.267.jpg"
+    },
+    {
+      "slug": "guia-completa-para-una-limpieza-facial-efectiva-productos-y-consejos",
+      "title": "Guía Completa para una Limpieza Facial Efectiva: Productos y Consejos",
+      "date": "2025-08-07",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1189453458-170667a-1-665494e19a2a3.jpg?crop=1xw:0.7507374631268436xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-serums-con-vitamina-c-para-una-piel-radiante",
+      "title": "Los Mejores Sérums con Vitamina C para una Piel Radiante",
+      "date": "2025-08-07",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/vitamina-c-65267d0013160.jpg?crop=1.00xw:0.502xh;0,0.0326xh&resize=1200:*"
+    },
     {
       "slug": "los-mejores-sprays-antiencrespamiento-para-un-cabello-perfecto-en-verano",
       "title": "Los Mejores Sprays Antiencrespamiento para un Cabello Perfecto en Verano",
