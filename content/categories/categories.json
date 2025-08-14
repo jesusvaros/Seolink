@@ -249,6 +249,12 @@
   ],
   "hogar": [
     {
+      "slug": "aparadores-modernos-funcionalidad-y-estilo-para-tu-hogar",
+      "title": "Aparadores Modernos: Funcionalidad y Estilo para Tu Hogar",
+      "date": "2025-08-13",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/05/plant-vase-wooden-furniture-1.jpg"
+    },
+    {
       "slug": "ofertas-imperdibles-en-productos-basicos-para-el-hogar-en-amazon-prime-day-2025",
       "title": "Ofertas Imperdibles en Productos Básicos para el Hogar en Amazon Prime Day 2025",
       "date": "2025-07-13",
@@ -322,6 +328,12 @@
     }
   ],
   "moda": [
+    {
+      "slug": "descubre-los-polos-de-tommy-hilfiger-en-rebajas-estilo-y-comodidad-a-precio-minimo",
+      "title": "Descubre los Polos de Tommy Hilfiger en Rebajas: Estilo y Comodidad a Precio Mínimo",
+      "date": "2025-08-13",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/08/Diseno-sin-titulo-2025-08-12T134957.509.jpg"
+    },
     {
       "slug": "estilos-de-falda-midi-para-el-verano-inspirate-con-looks-sofisticados",
       "title": "Estilos de Falda Midi para el Verano: Inspírate con Looks Sofisticados",
@@ -564,6 +576,24 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "coloretes-para-un-look-haute-blush-tendencias-y-mejores-productos",
+      "title": "Coloretes para un Look Haute Blush: Tendencias y Mejores Productos",
+      "date": "2025-08-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/haute-blush-la-tecnica-de-colorete-que-esculpe-eleva-y-armoniza-el-rostro-este-verano-68712b6114280.jpg?crop=1xw:0.7496339677891655xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-tintes-para-labios-y-mejillas-guia-completa-2025",
+      "title": "Los mejores tintes para labios y mejillas: guía completa 2025",
+      "date": "2025-08-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/tinte-para-mejillas-labios-1-688ce6a022326.jpg?crop=1.00xw:0.334xh;0,0.192xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-suplementos-de-colageno-para-una-piel-radiante-en-verano",
+      "title": "Los Mejores Suplementos de Colágeno para una Piel Radiante en Verano",
+      "date": "2025-08-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/perdida-colageno-1-688d043c7d7dc.jpg?crop=1xw:0.4xh;center,top&resize=1200:*"
+    },
     {
       "slug": "las-mejores-cremas-hidratantes-con-color-para-el-verano",
       "title": "Las Mejores Cremas Hidratantes con Color para el Verano",
@@ -1165,6 +1195,12 @@
   ],
   "libros": [
     {
+      "slug": "las-mejores-agendas-escolares-para-el-curso-2025-2026-en-amazon",
+      "title": "Las Mejores Agendas Escolares para el Curso 2025-2026 en Amazon",
+      "date": "2025-08-13",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/09/Diseno-sin-titulo-83.jpg"
+    },
+    {
       "slug": "los-mejores-libros-para-superar-una-ruptura-amorosa",
       "title": "Los mejores libros para superar una ruptura amorosa",
       "date": "2025-08-04",
@@ -1413,6 +1449,12 @@
   ],
   "deportes": [
     {
+      "slug": "esterillas-reclinables-la-alternativa-ligera-para-la-playa",
+      "title": "Esterillas Reclinables: La Alternativa Ligera para la Playa",
+      "date": "2025-08-13",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/07/dos-chicas-playa-hablando-1.jpg"
+    },
+    {
       "slug": "los-mejores-chalecos-de-hidratacion-para-running-y-senderismo",
       "title": "Los Mejores Chalecos de Hidratación para Running y Senderismo",
       "date": "2025-07-28",
@@ -1470,6 +1512,12 @@
     }
   ],
   "mascotas": [
+    {
+      "slug": "los-mejores-productos-para-mantener-a-tu-gato-fresco-en-verano",
+      "title": "Los Mejores Productos para Mantener a tu Gato Fresco en Verano",
+      "date": "2025-08-13",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/08/al-gato-1.jpg"
+    },
     {
       "slug": "los-mejores-sprays-y-collares-antiparasitos-para-proteger-a-tu-mascota-de-garrapatas",
       "title": "Los Mejores Sprays y Collares Antiparásitos para Proteger a Tu Mascota de Garrapatas",
