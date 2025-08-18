@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los estilos de falda midi que arrasarán este verano!",
+  "productos": [
+    "Falda popelín blanca, ¡la versatilidad en su máxima expresión!",
+    "Falda midi de rayas con lazos, ¡un diseño único que te hará brillar!",
+    "Gafas de sol rojas, ¡ligereza y estilo en cada mirada!",
+    "Bolso shopping de rafia, ¡espacioso y perfecto para tus días de verano!",
+    "Sandalias de tacón rojas, ¡elegancia que no pasa desapercibida!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
