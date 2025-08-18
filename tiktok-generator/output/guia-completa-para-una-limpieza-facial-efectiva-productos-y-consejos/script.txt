@@ -1,0 +1,8 @@
+{
+  "intro": "¡Los mejores productos para una limpieza facial efectiva en 2025!",
+  "productos": [
+    "Foreo Set Clean Balance Luna 4: ¡Limpieza profunda que transforma tu piel!",
+    "Segle Limpiador Facial: ¡Suavidad extrema para una piel radiante!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

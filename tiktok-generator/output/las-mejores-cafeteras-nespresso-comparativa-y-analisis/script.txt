@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores cafeteras Nespresso de 2025!",
+  "productos": [
+    "Nespresso Lattissima One Evo: ¡Espuma de leche perfecta en segundos!",
+    "Krups Essenza Mini: ¡Café delicioso sin ocupar espacio!",
+    "Nespresso Vertuo Next: ¡Cápsulas expulsadas automáticamente, sin líos!",
+    "Nespresso De'Longhi Inissia EN80.B: ¡El café gourmet más barato del mercado!",
+    "Nespresso Vertuo Plus: ¡Gran depósito, menos recargas, más café!"
+  ],
+  "outro": "¿Cuál es tu favorita? ¡Comenta abajo! Mas en comparaland punto es."
+}
