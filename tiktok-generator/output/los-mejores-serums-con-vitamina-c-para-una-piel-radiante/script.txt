@@ -1,0 +1,10 @@
+{
+  "intro": "¡Los mejores sérums con vitamina C para una piel radiante en 2025!",
+  "productos": [
+    "Nivea Expert Filler, ¡ilumina tu piel día y noche!",
+    "SVR [C] Ampoule, ¡brilla en solo una semana!",
+    "Sesderma C-Vit, ¡una fórmula completa para tu rostro!",
+    "Garnier SkinActive, ¡antimanchas a un precio increíble!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

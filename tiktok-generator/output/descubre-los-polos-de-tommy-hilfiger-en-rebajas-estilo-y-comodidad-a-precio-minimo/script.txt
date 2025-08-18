@@ -1,0 +1,8 @@
+{
+  "intro": "¡Los mejores polos de Tommy Hilfiger en rebajas 2025!",
+  "productos": [
+    "Polo de Manga Corta Hombre 1985 Slim Fit: ¡Un diseño atemporal que nunca pasa de moda!",
+    "Polo de Manga Corta Hombre Flag Cuff Slim Fit: ¡Comodidad y transpirabilidad para tu día a día!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
