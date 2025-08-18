@@ -1,0 +1,10 @@
+{
+  "intro": "¡Los mejores productos para mantener a tu gato fresco este verano!",
+  "productos": [
+    "Fuente para Gatos AONBOY: ¡Mantiene el agua fresca todo el día!",
+    "Fuente para Gatos Acero Inoxidable: ¡Material resistente que dura!",
+    "Alfombrilla Refrescante Bravpet: ¡Sin electricidad y pura frescura!",
+    "GOURMET Gold Bocaditos en Salsa: ¡Variedad de sabores que encantan!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

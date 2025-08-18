@@ -1,0 +1,8 @@
+{
+  "intro": "¡Las mejores esterillas reclinables para la playa 2025!",
+  "productos": [
+    "Esterilla de Playa de 2 Piezas con Respaldo Acolchado: ¡Ligera y fácil de llevar a cualquier lugar!",
+    "Esterilla de Playa Plegable con Respaldo Ajustable: ¡Estructura de acero resistente para disfrutar sin preocupaciones!"
+  ],
+  "outro": "¿Cuál es tu favorita? ¡Comenta abajo! Mas en comparaland punto es."
+}
