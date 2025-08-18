@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las tendencias de moda para vacacionar en Asturias están aquí!",
+  "productos": [
+    "Sudadera Puru Remangu: ¡El estilo retro que necesitas para destacar!",
+    "Gafas de sol Livegens: ¡Protección UV para tus días soleados!",
+    "Vestido largo Celia B: ¡Luce elegante en cada rincón asturiano!",
+    "Pillbox de rafia Zahati: ¡Ligero y perfecto para el verano!",
+    "Gafas Hawkers X Paula Echevarría: ¡Diseño exclusivo que todos querrán!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

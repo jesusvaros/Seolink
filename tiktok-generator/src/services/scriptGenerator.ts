@@ -54,7 +54,7 @@ export async function generateScript(processedMarkdown: ProcessedMarkdown, outpu
         {
           "intro": "string",
           "productos": ["string", "string", "string", "string", "string"...],
-          "outro": "string + "Mas en comparaland.es"
+          "outro": "string + "Mas en comparaland punto es."
         }
         
         Instrucciones específicas:
@@ -63,7 +63,7 @@ export async function generateScript(processedMarkdown: ProcessedMarkdown, outpu
         - La outro debe ser una llamada a la acción tipo: “¿Cuál es tu favorito? ¡Comenta abajo!” o similar.
         - No incluyas etiquetas, aclaraciones ni saltos de línea. Solo el JSON plano como respuesta.
         - Usa un estilo enérgico, con ritmo TikTok, lenguaje directo y exagerado.
-        - Al final de la outro debe ir "Mas en comparaland.es"
+        - Al final de la outro debe ir "Mas en comparaland punto es."
           `.trim()
         },
         {

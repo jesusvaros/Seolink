@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores cremas antienvejecimiento sin retinol para 2025!",
+  "productos": [
+    "Crema facial rejuvenecedora Sescacay: ¡Perfecta para pieles sensibles, dile adiós a las irritaciones!",
+    "Crema Redensificante Eternal de Skeyndor: ¡Estimula tu piel y renueva tu juventud al instante!",
+    "Elixir de noche Mi Rebotica: ¡La alternativa segura al retinol que tu piel estaba esperando!",
+    "Crema facial reafirmante Hada Labo Tokyo Premium: ¡Hidratación profunda que transforma tu piel!",
+    "3X Ceramides Night Repair de Biovène: ¡La mejor relación calidad-precio para un cuidado nocturno increíble!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland.es"
+}

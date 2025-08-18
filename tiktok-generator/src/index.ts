@@ -189,6 +189,24 @@ async function main() {
     console.log(`- ${completeFiles.length} with complete videos`);
     console.log(`- ${pendingFiles.length} pending processing`);
     
+    // Sort pending files by last modified time (newest first)
+    try {
+      pendingFiles.sort((a: string, b: string) => {
+        const aStat = fs.statSync(a);
+        const bStat = fs.statSync(b);
+        return bStat.mtimeMs - aStat.mtimeMs;
+      });
+      console.log('🕒 Pending files sorted by last modified (newest first).');
+      if (pendingFiles.length > 0) {
+        const newest = pendingFiles[0];
+        const newestStat = fs.statSync(newest);
+        console.log(`➡️  Newest pending: ${path.basename(newest)} (modified: ${new Date(newestStat.mtimeMs).toISOString()})`);
+      }
+    } catch (e) {
+      const msg = (e && typeof e === 'object' && 'message' in (e as any)) ? (e as any).message : String(e);
+      console.warn('Could not sort by last modified time:', msg);
+    }
+
     // Apply batch limits
     const filesToProcess = pendingFiles
       .slice(startIndex, startIndex + batchSize);
