@@ -1,0 +1,11 @@
+{
+  "intro": "¡Las mejores agendas escolares para el curso 2025-2026!",
+  "productos": [
+    "Mr.Wonderful - Agenda Escolar Wonder 2025-26: ¡Con un diseño que enamora a primera vista!",
+    "Miquelrius - Agenda Escolar 2025 2026: ¡La opción más económica para tu bolsillo!",
+    "Finocam - Agenda Cool Curso 2025 2026: ¡Contenido educativo completo para ser un genio!",
+    "Kokonote Agenda escolar 2025-2026: ¡Un diseño artístico que hará que todos te miren!",
+    "Grupo Erik Agenda escolar 2025-2026: ¡Ilustraciones divertidas que alegran tus días!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
