@@ -1,0 +1,8 @@
+{
+  "intro": "¡Los mejores aparadores modernos para tu hogar en 2024!",
+  "productos": [
+    "Bealife Armario Aparador de Cocina: ¡Transforma tu cocina con su diseño rústico y elegante!",
+    "VASAGLE Aparador: ¡Dale un toque industrial y moderno a tu espacio con este increíble diseño!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
