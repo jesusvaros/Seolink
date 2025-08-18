@@ -1,0 +1,8 @@
+{
+  "intro": "¡Las mejores cremas reafirmantes para combatir la flacidez ya están aquí!",
+  "productos": [
+    "Gel-Crema Corporal Radiofrecuencia Reafirmante Hidratante: ¡Efecto reafirmante inmediato que amarás!",
+    "Crema reafirmante Collistar Intensiva Plus: ¡Textura rica y envolvente que transforma tu piel!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

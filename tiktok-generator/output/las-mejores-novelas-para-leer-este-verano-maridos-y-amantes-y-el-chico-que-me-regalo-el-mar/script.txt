@@ -1,0 +1,8 @@
+{
+  "intro": "¡Las mejores novelas para leer este verano!",
+  "productos": [
+    "'Maridos y amantes': ¡Sumérgete en una narrativa dual que te atrapará!",
+    "'El chico que me regaló el mar': Perfecto para jóvenes, ¡una aventura inolvidable!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
