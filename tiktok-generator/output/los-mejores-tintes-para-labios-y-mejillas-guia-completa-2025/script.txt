@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores tintes para labios y mejillas de 2025!",
+  "productos": [
+    "BENEFIT Benetint: ¡Rubor natural que puedes modular a tu antojo!",
+    "MILK MAKEUP Cooling Water Jelly Tint: ¡Siente la frescura en cada aplicación!",
+    "MAYBELLINE NEW YORK Super Stay Teddy Tint: ¡Duración de hasta 12 horas para que brilles todo el día!",
+    "ESSENCE COSMETICS What A Tint!: ¡Fórmula acuosa que se adapta a ti al instante!",
+    "YOU ARE THE PRINCESS Rescue Tint: ¡Una gama de tonos que te hará sentir única!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
