@@ -1,0 +1,10 @@
+{
+  "intro": "¡Las mejores cangrejeras de verano 2025!",
+  "productos": [
+    "Andrés Machado - Cangrejeras Juveniles: ¡Resistentes y listas para cualquier aventura!",
+    "Crocs - Swiftwater Sandal Women: ¡Ligereza que te hará sentir como si volaras!",
+    "Hitmars Sandalias Mujer Cuña Comodas: ¡Un diseño elegante que roba miradas!",
+    "Skechers Reggae Cup Oh, Snap!: ¡Comodidad excepcional para tus días soleados!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

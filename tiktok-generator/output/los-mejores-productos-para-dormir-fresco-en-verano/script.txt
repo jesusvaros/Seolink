@@ -1,0 +1,9 @@
+{
+  "intro": "¡Los mejores productos para dormir fresco en verano!",
+  "productos": [
+    "Bramble - Almohada de Gel Fresco: ¡Alivio inmediato del calor!",
+    "Utopia Bedding Juego de Sábanas 3 Piezas: ¡Suave y cómodo para tus noches!",
+    "Honeywell HT900E TurboForce Ventilador: ¡Compacto y potente para un aire refrescante!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
