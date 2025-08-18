@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores coloretes para un look Haute Blush en 2025!",
+  "productos": [
+    "L'Oréal Paris Accord Parfait Nude Serum: ¡Hidratación que transforma tu piel!",
+    "Charlotte Tilbury Beautiful Skin Radiant Concealer: ¡Cobertura perfecta para un acabado radiante!",
+    "Lancôme Blush Subtil: ¡Textura ligera que se siente como una caricia!",
+    "Idony Cosmetics Dream Paint Blush: ¡Pigmentación intensa para un color vibrante!",
+    "Dior Backstage Rosy Glow: ¡Larga duración que te acompaña todo el día!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
