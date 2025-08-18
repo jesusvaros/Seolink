@@ -1,0 +1,11 @@
+{
+  "intro": "¡Los mejores suplementos de colágeno para una piel radiante este verano!",
+  "productos": [
+    "Nutralie Collagen Complex: ¡La fórmula completa que tu piel necesita!",
+    "Kobho Labs Collagen + Hyaluronic Acid: ¡Estimula tu colágeno desde adentro!",
+    "Vital Proteins Collagen Peptides: ¡Potente en aminoácidos para una piel de ensueño!",
+    "Marnys Beauty In & Out Elixir: ¡Concentración de colágeno para una belleza instantánea!",
+    "Solgar Collagen Hyaluronic Acid Complex: ¡Protege tu piel del daño oxidativo!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}

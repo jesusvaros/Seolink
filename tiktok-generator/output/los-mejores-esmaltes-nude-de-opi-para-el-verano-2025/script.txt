@@ -1,0 +1,8 @@
+{
+  "intro": "¡Los mejores esmaltes nude de OPI para el verano 2025!",
+  "productos": [
+    "Samoan Sand: ¡Cobertura uniforme que deslumbra!",
+    "Mimosas for Mr. & Mrs.: ¡Un tono romántico y femenino que enamora!"
+  ],
+  "outro": "¿Cuál es tu favorito? ¡Comenta abajo! Mas en comparaland punto es."
+}
