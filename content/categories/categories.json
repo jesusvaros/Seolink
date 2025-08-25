@@ -335,6 +335,24 @@
   ],
   "moda": [
     {
+      "slug": "looks-imprescindibles-para-tus-vacaciones-en-las-islas-baleares",
+      "title": "Looks imprescindibles para tus vacaciones en las Islas Baleares",
+      "date": "2025-08-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-5-looks-destinos-4-68875b94e7951.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "anillos-en-los-dedos-de-los-pies-la-tendencia-de-joyeria-que-necesitas-este-verano",
+      "title": "Anillos en los dedos de los pies: La tendencia de joyería que necesitas este verano",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/anillos-pies-68a30101afea5.jpg?crop=1.00xw:0.335xh;0,0.517xh&resize=1200:*"
+    },
+    {
+      "slug": "zapatillas-skechers-comodidad-y-estilo-para-cada-ocasion",
+      "title": "Zapatillas Skechers: Comodidad y Estilo para Cada Ocasión",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1414820864-6870d6910738c.jpg?crop=1.00xw:0.335xh;0,0.216xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-cangrejeras-de-verano-comodidad-y-estilo-en-cada-paso",
       "title": "Las Mejores Cangrejeras de Verano: Comodidad y Estilo en Cada Paso",
       "date": "2025-08-18",
@@ -594,6 +612,18 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-productos-con-resveratrol-para-una-piel-radiante-a-partir-de-los-40",
+      "title": "Los Mejores Productos con Resveratrol para una Piel Radiante a Partir de los 40",
+      "date": "2025-08-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/blanca-llacer-farmaceutica-el-resveratrol-es-capaz-de-activar-la-sirtuina-1-sirt1-una-enzima-implicada-en-la-reparacion-del-adn-y-la-longevidad-68877c3b42070.jpg?crop=1.00xw:0.754xh;0,0.0902xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cremas-y-serums-antiedad-para-mujeres-urbanas",
+      "title": "Las Mejores Cremas y Sérums Antiedad para Mujeres Urbanas",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/belleza-pijas-madrilen-as-68a2fdb01194d.jpg?crop=1.00xw:0.335xh;0,0.131xh&resize=1200:*"
+    },
     {
       "slug": "las-mejores-cremas-reafirmantes-para-combatir-la-flacidez",
       "title": "Las Mejores Cremas Reafirmantes para Combatir la Flacidez",
@@ -1230,6 +1260,24 @@
     }
   ],
   "libros": [
+    {
+      "slug": "los-mejores-libros-para-este-verano-la-asistenta-y-la-muy-catastrofica-visita-al-zoo",
+      "title": "Los Mejores Libros para Este Verano: 'La Asistenta' y 'La Muy Catastrófica Visita al Zoo'",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/agenda-planes-68a711d2bf5e8.jpg?crop=0.876xw:0.292xh;0.0604xw,0.0315xh&resize=1200:*"
+    },
+    {
+      "slug": "obras-maestras-de-la-literatura-espanola-un-viaje-por-las-decadas",
+      "title": "Obras maestras de la literatura española: Un viaje por las décadas",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-80-an-os-libros-68a58ce200526.jpg?crop=0.979xw:1.00xh;0.0114xw,0&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-novelas-historicas-para-leer-este-verano",
+      "title": "Las mejores novelas históricas para leer este verano",
+      "date": "2025-08-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cortesia-dior-libro-68a575f5a5b35.jpg?crop=1.00xw:0.335xh;0,0.275xh&resize=1200:*"
+    },
     {
       "slug": "las-mejores-novelas-para-leer-este-verano-maridos-y-amantes-y-el-chico-que-me-regalo-el-mar",
       "title": "Las mejores novelas para leer este verano: 'Maridos y amantes' y 'El chico que me regaló el mar'",

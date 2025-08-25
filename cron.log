@@ -2782,3 +2782,115 @@ Error: Could not parse CSS stylesheet
 [2025-08-18T10:07:52.157Z] ✅ All tasks completed successfully
 [2025-08-18T10:07:52.158Z] ==================================================
 [2025-08-18T10:07:52.158Z] ==================================================
+[2025-08-22T09:54:34.609Z] ==================================================
+[2025-08-22T09:54:34.609Z] ==================================================
+[2025-08-22T09:54:34.616Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-08-22T09:54:34.616Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-08-22T09:54:34.616Z] ==================================================
+[2025-08-22T09:54:34.616Z] ==================================================
+[2025-08-22T09:54:34.616Z] 🚀 Starting Elle scraping...
+[2025-08-22T09:54:34.616Z] 🚀 Starting Elle scraping...
+[2025-08-22T09:54:34.616Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-08-22T09:54:34.616Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-08-22T09:54:51.998Z] ✅ Elle scraping completed successfully
+[2025-08-22T09:54:51.998Z] ✅ Elle scraping completed successfully
+[2025-08-22T09:54:51.998Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 57 enlaces únicos
+  💾 Guardados 57 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-08-22T09:54:51.998Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 57 enlaces únicos
+  💾 Guardados 57 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-08-22T09:54:51.998Z] 🚀 Starting Compramejor scraping...
+[2025-08-22T09:54:51.998Z] 🚀 Starting Compramejor scraping...
+[2025-08-22T09:54:51.998Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-08-22T09:54:51.998Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-08-22T09:55:11.031Z] ✅ Compramejor scraping completed successfully
+[2025-08-22T09:55:11.031Z] ✅ Compramejor scraping completed successfully
+[2025-08-22T09:55:11.031Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-08-22T09:55:11.031Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-08-22T09:55:11.031Z] 🚀 Starting MDX generation...
+[2025-08-22T09:55:11.031Z] 🚀 Starting MDX generation...
+[2025-08-22T09:55:11.031Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-08-22T09:55:11.031Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-08-25T10:00:00.837Z] ==================================================
+[2025-08-25T10:00:00.837Z] ==================================================
+[2025-08-25T10:00:00.849Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-08-25T10:00:00.849Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-08-25T10:00:00.849Z] ==================================================
+[2025-08-25T10:00:00.849Z] ==================================================
+[2025-08-25T10:00:00.849Z] 🚀 Starting Elle scraping...
+[2025-08-25T10:00:00.849Z] 🚀 Starting Elle scraping...
+[2025-08-25T10:00:00.850Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-08-25T10:00:00.850Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Elle/index.js
+[2025-08-25T10:00:21.129Z] ✅ Elle scraping completed successfully
+[2025-08-25T10:00:21.129Z] ✅ Elle scraping completed successfully
+[2025-08-25T10:00:21.130Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-08-25T10:00:21.130Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 55 enlaces únicos
+  💾 Guardados 55 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 54 enlaces únicos
+  💾 Guardados 54 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-08-25T10:00:21.130Z] 🚀 Starting Compramejor scraping...
+[2025-08-25T10:00:21.130Z] 🚀 Starting Compramejor scraping...
+[2025-08-25T10:00:21.130Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-08-25T10:00:21.130Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/scraping/Compramejor/index.js
+[2025-08-25T10:00:41.486Z] ✅ Compramejor scraping completed successfully
+[2025-08-25T10:00:41.486Z] ✅ Compramejor scraping completed successfully
+[2025-08-25T10:00:41.487Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-08-25T10:00:41.487Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-08-25T10:00:41.488Z] 🚀 Starting MDX generation...
+[2025-08-25T10:00:41.488Z] 🚀 Starting MDX generation...
+[2025-08-25T10:00:41.488Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-08-25T10:00:41.488Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
