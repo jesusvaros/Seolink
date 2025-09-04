@@ -255,6 +255,12 @@
   ],
   "hogar": [
     {
+      "slug": "los-mejores-colchones-y-accesorios-para-un-sueno-reparador",
+      "title": "Los Mejores Colchones y Accesorios para un Sueño Reparador",
+      "date": "2025-09-04",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/03/my-bed-is-my-best-friend-1.jpg"
+    },
+    {
       "slug": "material-escolar-esencial-para-la-vuelta-al-cole-con-descuentos",
       "title": "Material Escolar Esencial para la Vuelta al Cole con Descuentos",
       "date": "2025-08-28",
@@ -352,6 +358,30 @@
     }
   ],
   "moda": [
+    {
+      "slug": "los-mejores-productos-para-empezar-a-tejer-crochet-en-casa",
+      "title": "Los Mejores Productos para Empezar a Tejer Crochet en Casa",
+      "date": "2025-09-04",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/mujer-de-tejido-de-tiro-medio-en-casa.jpg"
+    },
+    {
+      "slug": "los-mejores-chubasqueros-para-la-lluvia-en-amazon-comodidad-y-estilo",
+      "title": "Los Mejores Chubasqueros para la Lluvia en Amazon: Comodidad y Estilo",
+      "date": "2025-09-04",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/05/un-hombre-deportivo-con-una-chaqueta-deportiva-azul-ata-sus-zapatillas-e1756727600442.jpg"
+    },
+    {
+      "slug": "tendencias-en-moda-el-ante-como-protagonista-del-otono-2025",
+      "title": "Tendencias en moda: El ante como protagonista del otoño 2025",
+      "date": "2025-09-04",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/street-style-ante-68b592b11b2b3.jpg?crop=1.00xw:0.334xh;0,0.166xh&resize=1200:*"
+    },
+    {
+      "slug": "tendencias-de-moda-productos-de-ante-para-otono-2025",
+      "title": "Tendencias de Moda: Productos de Ante para Otoño 2025",
+      "date": "2025-09-04",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/street-style-ante-68b592b11b2b3.jpg?crop=1.00xw:0.334xh;0,0.166xh&resize=1200:*"
+    },
     {
       "slug": "las-mejores-camisetas-de-verano-para-hombre-comodidad-y-estilo",
       "title": "Las Mejores Camisetas de Verano para Hombre: Comodidad y Estilo",
@@ -1157,6 +1187,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "los-mejores-smartwatches-para-ninos-seguridad-y-diversion-en-la-vuelta-al-cole",
+      "title": "Los Mejores Smartwatches para Niños: Seguridad y Diversión en la Vuelta al Cole",
+      "date": "2025-09-04",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/nino-hablando-por-reloj-inteligente-azul-y-beber-te-cerca-de-la-escuela-e1756907083868.jpg"
+    },
+    {
       "slug": "los-mejores-repetidores-wifi-para-mejorar-tu-conexion-en-casa",
       "title": "Los Mejores Repetidores WiFi para Mejorar tu Conexión en Casa",
       "date": "2025-08-04",
@@ -1290,6 +1326,12 @@
     }
   ],
   "libros": [
+    {
+      "slug": "descubre-libros-que-transforman-recomendaciones-literarias-de-autoras-contemporaneas",
+      "title": "Descubre libros que transforman: recomendaciones literarias de autoras contemporáneas",
+      "date": "2025-09-04",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/manos-de-pan1-68a57a4923ac0.jpg?crop=1.00xw:0.385xh;0,0.230xh&resize=1200:*"
+    },
     {
       "slug": "los-mejores-thrillers-psicologicos-nunca-mientas-y-la-paciente-silenciosa",
       "title": "Los Mejores Thrillers Psicológicos: 'Nunca Mientas' y 'La Paciente Silenciosa'",
