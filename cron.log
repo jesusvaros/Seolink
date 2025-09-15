@@ -3280,3 +3280,37 @@ Call log:
 [2025-09-11T10:00:42.849Z] 🚀 Starting MDX generation...
 [2025-09-11T10:00:42.849Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
 [2025-09-11T10:00:42.849Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-09-11T10:21:48.839Z] ✅ MDX generation completed successfully
+[2025-09-11T10:21:48.839Z] ✅ MDX generation completed successfully
+[2025-09-11T10:21:48.840Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 2481
+
+📋 Total URLs encontradas: 1143
+
+🔍 URLs válidas para procesar: 141
+🔍 Verificando si https://www.compramejor.es/tablet-lenovo-idea-tab-modelo-mas-buscado-ultimas-semanas/ contiene productos de Amazon...
+🌐 Navegando a http...(truncated)
+[2025-09-11T10:21:48.840Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 2481
+
+📋 Total URLs encontradas: 1143
+
+🔍 URLs válidas para procesar: 141
+🔍 Verificando si https://www.compramejor.es/tablet-lenovo-idea-tab-modelo-mas-buscado-ultimas-semanas/ contiene productos de Amazon...
+🌐 Navegando a http...(truncated)
+[2025-09-11T10:21:48.840Z] ==================================================
+[2025-09-11T10:21:48.840Z] ==================================================
+[2025-09-11T10:21:48.840Z] ✅ All tasks completed successfully
+[2025-09-11T10:21:48.840Z] ✅ All tasks completed successfully
+[2025-09-11T10:21:48.840Z] ==================================================
+[2025-09-11T10:21:48.840Z] ==================================================
