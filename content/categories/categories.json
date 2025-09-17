@@ -1,6 +1,24 @@
 {
   "cocina": [
     {
+      "slug": "utensilios-esenciales-para-postres-de-chocolate",
+      "title": "Utensilios Esenciales para Postres de Chocolate",
+      "date": "2025-09-15",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/09/pieces-of-chocolate-on-wooden-table-and-cacao-sprinkled-1.jpg"
+    },
+    {
+      "slug": "las-mejores-cafeteras-espresso-para-disfrutar-en-casa",
+      "title": "Las mejores cafeteras espresso para disfrutar en casa",
+      "date": "2025-09-15",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cafetera-the-barista-express-sage-elle-1661976476.jpg?crop=1.00xw:0.753xh;0,0.140xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cafeteras-express-comparativa-y-analisis",
+      "title": "Las Mejores Cafeteras Express: Comparativa y Análisis",
+      "date": "2025-09-15",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/cafetera-the-barista-express-sage-elle-1661976476.jpg?crop=1.00xw:0.753xh;0,0.140xh&resize=1200:*"
+    },
+    {
       "slug": "los-mejores-muebles-de-cocina-para-optimizar-espacio-y-estilo",
       "title": "Los Mejores Muebles de Cocina para Optimizar Espacio y Estilo",
       "date": "2025-09-01",
@@ -365,6 +383,12 @@
   ],
   "moda": [
     {
+      "slug": "camisetas-hugo-boss-estilo-y-comodidad-por-menos-de-10-euros",
+      "title": "Camisetas Hugo Boss: Estilo y Comodidad por Menos de 10 Euros",
+      "date": "2025-09-15",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/05/pexels-elle-hughes-1680184.jpg"
+    },
+    {
       "slug": "los-mejores-productos-para-empezar-a-tejer-crochet-en-casa",
       "title": "Los Mejores Productos para Empezar a Tejer Crochet en Casa",
       "date": "2025-09-04",
@@ -672,6 +696,18 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-serums-con-retinol-para-una-piel-radiante-y-juvenil",
+      "title": "Los Mejores Sérums con Retinol para una Piel Radiante y Juvenil",
+      "date": "2025-09-15",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/chiara-ferragni-attends-the-stillwater-screening-during-the-news-photo-1634818985.jpg?crop=1.00xw:0.752xh;0,0&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-serums-antiedad-para-pieles-maduras",
+      "title": "Los Mejores Sérums Antiedad para Pieles Maduras",
+      "date": "2025-09-15",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/serums-para-pieles-maduras-1-68c2e43b7c9d6.jpg?crop=1.00xw:0.334xh;0,0.190xh&resize=1200:*"
+    },
     {
       "slug": "mejores-limpiadores-faciales-cerave-vs-la-roche-posay",
       "title": "Mejores limpiadores faciales: CeraVe vs La Roche Posay",
@@ -1241,6 +1277,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "comparativa-de-localizadores-moto-tag-vs-samsung-smarttag-2",
+      "title": "Comparativa de Localizadores: Moto Tag vs Samsung SmartTag 2",
+      "date": "2025-09-15",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/Diseno-sin-titulo-2025-09-10T160808.384.jpg"
+    },
+    {
       "slug": "lenovo-idea-tab-pro-la-tablet-ideal-para-el-trabajo-y-el-entretenimiento",
       "title": "Lenovo Idea Tab Pro: La Tablet Ideal para el Trabajo y el Entretenimiento",
       "date": "2025-09-11",
@@ -1744,6 +1786,12 @@
     }
   ],
   "salud": [
+    {
+      "slug": "los-mejores-potenciadores-sexuales-para-hombres-en-amazon",
+      "title": "Los Mejores Potenciadores Sexuales para Hombres en Amazon",
+      "date": "2025-09-15",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/04/romantic-couple-hugging-full-shot-1.jpg"
+    },
     {
       "slug": "los-mejores-suplementos-de-citrato-de-magnesio-para-tu-salud",
       "title": "Los Mejores Suplementos de Citrato de Magnesio para tu Salud",
