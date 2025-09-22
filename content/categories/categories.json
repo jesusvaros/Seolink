@@ -1,6 +1,12 @@
 {
   "cocina": [
     {
+      "slug": "los-mejores-robots-de-cocina-en-amazon-versatilidad-y-eficiencia",
+      "title": "Los Mejores Robots de Cocina en Amazon: Versatilidad y Eficiencia",
+      "date": "2025-09-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/recetas-para-moulinex-cookeo-1080x1080-640c820a44066.jpg?crop=1.00xw:0.502xh;0,0.297xh&resize=1200:*"
+    },
+    {
       "slug": "utensilios-esenciales-para-postres-de-chocolate",
       "title": "Utensilios Esenciales para Postres de Chocolate",
       "date": "2025-09-15",
@@ -383,6 +389,24 @@
   ],
   "moda": [
     {
+      "slug": "los-mejores-relojes-de-hombre-en-oferta-estilo-y-calidad-al-mejor-precio",
+      "title": "Los mejores relojes de hombre en oferta: estilo y calidad al mejor precio",
+      "date": "2025-09-22",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/03/pexels-faruk-tokluoglu-11350587.jpg"
+    },
+    {
+      "slug": "los-mejores-chubasqueros-para-el-otono-columbia-vs-helly-hansen",
+      "title": "Los Mejores Chubasqueros para el Otoño: Columbia vs Helly Hansen",
+      "date": "2025-09-22",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/09/chubasquero-cortaviento-barato-resistente.jpg"
+    },
+    {
+      "slug": "zapatillas-skechers-bobs-squad-chaos-comodidad-y-estilo-para-cada-ocasion",
+      "title": "Zapatillas Skechers BOBS Squad Chaos: Comodidad y Estilo para Cada Ocasión",
+      "date": "2025-09-18",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1414820864-6870d6910738c.jpg?crop=1.00xw:0.335xh;0,0.216xh&resize=1200:*"
+    },
+    {
       "slug": "camisetas-hugo-boss-estilo-y-comodidad-por-menos-de-10-euros",
       "title": "Camisetas Hugo Boss: Estilo y Comodidad por Menos de 10 Euros",
       "date": "2025-09-15",
@@ -696,6 +720,36 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-productos-con-factores-de-crecimiento-para-pieles-a-partir-de-45-anos",
+      "title": "Los Mejores Productos con Factores de Crecimiento para Pieles a Partir de 45 Años",
+      "date": "2025-09-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/factores-crecimiento-68cd504d9d9a4.jpg?crop=1.00xw:0.753xh;0,0.130xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-acondicionadores-para-cada-tipo-de-cabello-guia-completa",
+      "title": "Los Mejores Acondicionadores para Cada Tipo de Cabello: Guía Completa",
+      "date": "2025-09-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/acondicionadores-pelo-6579fbc4ed2d5.jpg?crop=1.00xw:0.337xh;0,0.176xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-champus-para-cada-tipo-de-cabello-guia-completa",
+      "title": "Los Mejores Champús para Cada Tipo de Cabello: Guía Completa",
+      "date": "2025-09-22",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/portrait-of-redheaded-young-woman-against-sky-royalty-free-image-1636098188.jpg?crop=1.00xw:0.752xh;0,0.185xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-vitaminas-y-tratamientos-para-unas-quebradizas",
+      "title": "Las Mejores Vitaminas y Tratamientos para Uñas Quebradizas",
+      "date": "2025-09-18",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/11/polvo-acrilico-unas-3.jpg"
+    },
+    {
+      "slug": "los-mejores-rizadores-de-pelo-para-2025-guia-de-compra-y-comparativa",
+      "title": "Los Mejores Rizadores de Pelo para 2025: Guía de Compra y Comparativa",
+      "date": "2025-09-18",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/rizos-2-1631261496.jpg?crop=1.00xw:0.502xh;0,0.236xh&resize=1200:*"
+    },
     {
       "slug": "los-mejores-serums-con-retinol-para-una-piel-radiante-y-juvenil",
       "title": "Los Mejores Sérums con Retinol para una Piel Radiante y Juvenil",
@@ -1277,6 +1331,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "novedades-de-samsung-galaxy-s25-fe-y-galaxy-tab-s11",
+      "title": "Novedades de Samsung: Galaxy S25 FE y Galaxy Tab S11",
+      "date": "2025-09-18",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/new-york-str-s26-0035-68c2b7621633c.jpg?crop=1.00xw:0.335xh;0,0.104xh&resize=1200:*"
+    },
+    {
       "slug": "comparativa-de-localizadores-moto-tag-vs-samsung-smarttag-2",
       "title": "Comparativa de Localizadores: Moto Tag vs Samsung SmartTag 2",
       "date": "2025-09-15",
@@ -1428,6 +1488,12 @@
     }
   ],
   "libros": [
+    {
+      "slug": "descubre-la-saga-el-club-del-crimen-de-los-jueves-misterios-y-amistad",
+      "title": "Descubre la Saga 'El Club del Crimen de los Jueves': Misterios y Amistad",
+      "date": "2025-09-18",
+      "image": "https://hips.hearstapps.com/vidthumb/images/the-thursday-murder-club-official-teaser-68386ccfa7b4f.jpg?crop=0.813xw:1.00xh;0.0341xw,0&resize=1200:*"
+    },
     {
       "slug": "descubre-libros-que-transforman-recomendaciones-literarias-de-autoras-contemporaneas",
       "title": "Descubre libros que transforman: recomendaciones literarias de autoras contemporáneas",
@@ -1718,6 +1784,12 @@
     }
   ],
   "deportes": [
+    {
+      "slug": "las-mejores-mallas-deportivas-para-hombres-comodidad-y-rendimiento",
+      "title": "Las Mejores Mallas Deportivas para Hombres: Comodidad y Rendimiento",
+      "date": "2025-09-22",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/Diseno-sin-titulo-2025-09-18T182613.108.jpg"
+    },
     {
       "slug": "las-mejores-bicicletas-estaticas-para-perder-peso-en-casa",
       "title": "Las Mejores Bicicletas Estáticas para Perder Peso en Casa",
