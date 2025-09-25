@@ -3550,3 +3550,37 @@ Call log:
 [2025-09-22T10:00:55.225Z] 🚀 Starting MDX generation...
 [2025-09-22T10:00:55.225Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
 [2025-09-22T10:00:55.225Z] Running script: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/index.js
+[2025-09-22T10:18:12.011Z] ✅ MDX generation completed successfully
+[2025-09-22T10:18:12.011Z] ✅ MDX generation completed successfully
+[2025-09-22T10:18:12.013Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 2821
+
+📋 Total URLs encontradas: 1008
+
+🔍 URLs válidas para procesar: 97
+🔍 Verificando si https://www.compramejor.es/mejores-relojes-hombre-rebajados/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramejor.es/mej...(truncated)
+[2025-09-22T10:18:12.013Z] Output: 📂 Project root: /Users/aa/CascadeProjects/amazon-afiliados
+📂 URLs directory: /Users/aa/CascadeProjects/amazon-afiliados/generate-mdx/urls
+📂 Content directory: /Users/aa/CascadeProjects/amazon-afiliados/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 2821
+
+📋 Total URLs encontradas: 1008
+
+🔍 URLs válidas para procesar: 97
+🔍 Verificando si https://www.compramejor.es/mejores-relojes-hombre-rebajados/ contiene productos de Amazon...
+🌐 Navegando a https://www.compramejor.es/mej...(truncated)
+[2025-09-22T10:18:12.013Z] ==================================================
+[2025-09-22T10:18:12.013Z] ==================================================
+[2025-09-22T10:18:12.013Z] ✅ All tasks completed successfully
+[2025-09-22T10:18:12.013Z] ✅ All tasks completed successfully
+[2025-09-22T10:18:12.013Z] ==================================================
+[2025-09-22T10:18:12.013Z] ==================================================
