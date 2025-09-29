@@ -1,6 +1,18 @@
 {
   "cocina": [
     {
+      "slug": "las-mejores-sartenes-para-cocinar-guia-de-compra-2023",
+      "title": "Las Mejores Sartenes para Cocinar: Guía de Compra 2023",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/male-expertise-cooking-king-oyster-mushroom-and-royalty-free-image-1728385838.jpg?crop=1.00xw:0.753xh;0,0.247xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-ollas-de-cocina-comparativa-y-analisis-de-productos",
+      "title": "Las Mejores Ollas de Cocina: Comparativa y Análisis de Productos",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/kitchen-unit-in-a-domestic-kitchen-at-evening-light-royalty-free-image-1726826389.jpg?crop=1.00xw:0.753xh;0,0.122xh&resize=1200:*"
+    },
+    {
       "slug": "los-mejores-robots-de-cocina-en-amazon-versatilidad-y-eficiencia",
       "title": "Los Mejores Robots de Cocina en Amazon: Versatilidad y Eficiencia",
       "date": "2025-09-22",
@@ -285,6 +297,12 @@
   ],
   "hogar": [
     {
+      "slug": "las-mejores-comodas-para-organizar-tu-armario-en-otono",
+      "title": "Las Mejores Cómodas para Organizar tu Armario en Otoño",
+      "date": "2025-09-25",
+      "image": "https://www.compramejor.es/wp-content/uploads/2021/05/cambio-armario-3.jpg"
+    },
+    {
       "slug": "las-mejores-almohadas-cervicales-para-un-sueno-reparador",
       "title": "Las Mejores Almohadas Cervicales para un Sueño Reparador",
       "date": "2025-09-11",
@@ -394,6 +412,18 @@
     }
   ],
   "moda": [
+    {
+      "slug": "zapatillas-marrones-para-otono-2025-comodidad-y-estilo-con-skechers-uno",
+      "title": "Zapatillas marrones para otoño 2025: Comodidad y estilo con Skechers UNO",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/apatillas-skechers-uno-marrones-elle-68d4eb30e04f8.jpg?crop=0.814xw:0.609xh;0.100xw,0.120xh&resize=1200:*"
+    },
+    {
+      "slug": "chaquetas-tipo-bomber-de-ante-estilo-y-ahorro-para-el-entretiempo",
+      "title": "Chaquetas tipo bomber de ante: Estilo y Ahorro para el Entretiempo",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-2214879324-68d12451e3d37.jpg?crop=1.00xw:0.335xh;0,0.213xh&resize=1200:*"
+    },
     {
       "slug": "los-mejores-relojes-de-hombre-en-oferta-estilo-y-calidad-al-mejor-precio",
       "title": "Los mejores relojes de hombre en oferta: estilo y calidad al mejor precio",
@@ -726,6 +756,48 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "los-mejores-esmaltes-y-tratamientos-para-unas-en-amazon",
+      "title": "Los Mejores Esmaltes y Tratamientos para Uñas en Amazon",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/prolongar-esmalte-68da2e59939e7.jpg?crop=1.00xw:0.334xh;0,0.223xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-lamparas-led-para-unas-en-amazon-guia-de-compra-2025",
+      "title": "Las Mejores Lámparas LED para Uñas en Amazon: Guía de Compra 2025",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/unas-1632741235.jpg?crop=1.00xw:0.502xh;0,0.0913xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-depiladoras-faciales-de-amazon-para-una-piel-suave-y-sin-vello",
+      "title": "Las Mejores Depiladoras Faciales de Amazon para una Piel Suave y Sin Vello",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1312262192.jpg?crop=0.986xw:0.395xh;0.00801xw,0.253xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-depiladoras-faciales-en-amazon-eficacia-y-comodidad",
+      "title": "Las Mejores Depiladoras Faciales en Amazon: Eficacia y Comodidad",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1312262192.jpg?crop=0.986xw:0.395xh;0.00801xw,0.253xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-productos-para-combatir-el-melasma",
+      "title": "Los Mejores Productos para Combatir el Melasma",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/melasma-a-los-40-1-68d2caccc9e52.jpg?crop=1xw:0.7501831501831502xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-suplementos-anticaida-para-el-otono",
+      "title": "Los Mejores Suplementos Anticaída para el Otoño",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/suplementos-para-caida-pelo-68d2c8c2826f2.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-manicuras-de-otono-esmaltes-y-tendencias-para-unas-elegantes",
+      "title": "Las Mejores Manicuras de Otoño: Esmaltes y Tendencias para Uñas Elegantes",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/off-white-bks-f25-058-68c0248aa6cd2.jpg?crop=1xw:0.7494322482967449xh;center,top&resize=1200:*"
+    },
     {
       "slug": "los-mejores-productos-con-factores-de-crecimiento-para-pieles-a-partir-de-45-anos",
       "title": "Los Mejores Productos con Factores de Crecimiento para Pieles a Partir de 45 Años",
@@ -1337,6 +1409,18 @@
   ],
   "tecnologia": [
     {
+      "slug": "xiaomi-15t-series-innovacion-y-estilo-en-smartphones",
+      "title": "Xiaomi 15T Series: Innovación y Estilo en Smartphones",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/milano-str-s26-0644-68d4ec6624990.jpg?crop=1.00xw:0.752xh;0,0.0438xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-regalos-tecnologicos-para-sorprender-en-cumpleanos",
+      "title": "Los Mejores Regalos Tecnológicos para Sorprender en Cumpleaños",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/zimmermann-s23-012a-667bc8ec317f7.jpg?crop=1.00xw:0.336xh;0,0.0391xh&resize=1200:*"
+    },
+    {
       "slug": "novedades-de-samsung-galaxy-s25-fe-y-galaxy-tab-s11",
       "title": "Novedades de Samsung: Galaxy S25 FE y Galaxy Tab S11",
       "date": "2025-09-18",
@@ -1494,6 +1578,18 @@
     }
   ],
   "libros": [
+    {
+      "slug": "las-5-mejores-novelas-de-arturo-perez-reverte-que-debes-leer",
+      "title": "Las 5 Mejores Novelas de Arturo Pérez-Reverte que Debes Leer",
+      "date": "2025-09-29",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/arturo-perez-reverte-attends-las-luces-de-la-memoria-news-photo-1721636455.jpg?crop=1.00xw:0.755xh;0,0&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-novelas-policiacas-para-leer",
+      "title": "Las mejores novelas policíacas para leer",
+      "date": "2025-09-25",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/model-reads-a-book-as-her-hair-is-dried-backstage-at-the-news-photo-1758535538.pjpeg?crop=1.00xw:0.336xh;0,0.334xh&resize=1200:*"
+    },
     {
       "slug": "libros-esenciales-para-entender-la-vida-moderna",
       "title": "Libros Esenciales para Entender la Vida Moderna",
@@ -1776,6 +1872,12 @@
     }
   ],
   "jardin": [
+    {
+      "slug": "los-mejores-conservantes-para-flores-manten-tus-ramos-frescos-y-vivos",
+      "title": "Los Mejores Conservantes para Flores: Mantén tus Ramos Frescos y Vivos",
+      "date": "2025-09-25",
+      "image": "https://www.compramejor.es/wp-content/uploads/2023/04/mom-this-flowers-are-you.jpg"
+    },
     {
       "slug": "las-mejores-tumbonas-y-mesas-plegables-para-tu-jardin-este-verano",
       "title": "Las Mejores Tumbonas y Mesas Plegables para Tu Jardín Este Verano",
