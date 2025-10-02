@@ -1,6 +1,12 @@
 {
   "cocina": [
     {
+      "slug": "deliciosos-platos-preparados-de-foodtropia-en-amazon",
+      "title": "Deliciosos Platos Preparados de Foodtropia en Amazon",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/foodtropia-platos-preparados-amazon-elle-gourmet-00-68d653b369e6e.jpg?crop=1.00xw:0.395xh;0,0.477xh&resize=1200:*"
+    },
+    {
       "slug": "las-mejores-sartenes-para-cocinar-guia-de-compra-2023",
       "title": "Las Mejores Sartenes para Cocinar: Guía de Compra 2023",
       "date": "2025-09-25",
@@ -756,6 +762,36 @@
     }
   ],
   "belleza": [
+    {
+      "slug": "las-mejores-bases-de-maquillaje-para-un-acabado-perfecto-y-cuidado-de-la-piel",
+      "title": "Las Mejores Bases de Maquillaje para un Acabado Perfecto y Cuidado de la Piel",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-bases-maquillaje-1616670271.jpg?crop=1.00xw:0.503xh;0,0.0304xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-cepillos-de-pelo-redondos-para-cada-tipo-de-cabello",
+      "title": "Los Mejores Cepillos de Pelo Redondos para Cada Tipo de Cabello",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-brushing-1668770229.jpg?crop=1.00xw:0.502xh;0,0&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-productos-anti-encrespamiento-para-un-cabello-perfecto",
+      "title": "Los Mejores Productos Anti Encrespamiento para un Cabello Perfecto",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/people-during-the-street-style-at-dolce-amp-gabbana-fashion-news-photo-1636313280.jpg?crop=1.00xw:0.335xh;0,0.0717xh&resize=1200:*"
+    },
+    {
+      "slug": "las-mejores-cremas-de-manos-para-deportistas-hidratacion-y-proteccion",
+      "title": "Las Mejores Cremas de Manos para Deportistas: Hidratación y Protección",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/dsc07941-v1-scaled-67fee406b896d.jpg?crop=1xw:0.7498535442296427xh;center,top&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-champus-hidratantes-y-reparadores-de-2025",
+      "title": "Los Mejores Champús Hidratantes y Reparadores de 2025",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/home-1566908206.jpg?crop=1xw:1xh;center,top&resize=1200:*"
+    },
     {
       "slug": "los-mejores-esmaltes-y-tratamientos-para-unas-en-amazon",
       "title": "Los Mejores Esmaltes y Tratamientos para Uñas en Amazon",
@@ -1578,6 +1614,18 @@
     }
   ],
   "libros": [
+    {
+      "slug": "descubre-los-libros-esenciales-de-jane-goodall",
+      "title": "Descubre los libros esenciales de Jane Goodall",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-509562756-68de3f6b9d92e.jpg?crop=1.00xw:0.725xh;0,0.0915xh&resize=1200:*"
+    },
+    {
+      "slug": "los-mejores-libros-para-leer-y-registrar-en-2024",
+      "title": "Los mejores libros para leer y registrar en 2024",
+      "date": "2025-10-02",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-56945627-68d674e7dfeac.jpg?crop=1.00xw:0.334xh;0,0.556xh&resize=1200:*"
+    },
     {
       "slug": "las-5-mejores-novelas-de-arturo-perez-reverte-que-debes-leer",
       "title": "Las 5 Mejores Novelas de Arturo Pérez-Reverte que Debes Leer",
