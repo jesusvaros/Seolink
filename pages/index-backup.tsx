@@ -6,7 +6,6 @@ import ArticleCard from '../components/ArticleCard';
 import SearchBar from '../components/SearchBar';
 import CategoryGrid from '../components/CategoryGrid';
 import SiteStats from '../components/SiteStats';
-import TikTokProfile from '../components/TikTokProfile';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 
@@ -19,26 +18,6 @@ interface Article {
   excerpt?: string;
 }
 
-function getCategoryDisplayName(category: string): string {
-  const categoryNames: { [key: string]: string } = {
-    'cocina': 'Cocina',
-    'belleza': 'Belleza',
-    'jardin': 'Jardín',
-    'maquillaje': 'Maquillaje',
-    'ropa': 'Ropa',
-    'hogar': 'Hogar',
-    'tecnologia': 'Tecnología',
-    'deportes': 'Deportes',
-    'salud': 'Salud',
-    'moda': 'Moda',
-    'mascotas': 'Mascotas',
-    'electrodomesticos': 'Electrodomésticos',
-    'libros': 'Libros'
-  };
-  
-  return categoryNames[category] || category.charAt(0).toUpperCase() + category.slice(1);
-}
-
 // Función para obtener datos estáticos
 export async function getStaticProps() {
   // Leer datos de categorías
@@ -47,14 +26,10 @@ export async function getStaticProps() {
   const categoriesObj = JSON.parse(categoriesData);
   
   // Recopilar todos los artículos de todas las categorías
-  let allArticles: (Article & { category: string })[] = [];
+  let allArticles: Article[] = [];
   Object.keys(categoriesObj).forEach(category => {
     if (Array.isArray(categoriesObj[category])) {
-      const articlesWithCategory = categoriesObj[category].map((article: Article) => ({
-        ...article,
-        category: getCategoryDisplayName(category)
-      }));
-      allArticles = [...allArticles, ...articlesWithCategory];
+      allArticles = [...allArticles, ...categoriesObj[category]];
     }
   });
   
@@ -87,14 +62,9 @@ export async function getStaticProps() {
 
   // Calcular estadísticas
   const totalArticles = allArticles.length;
-  const totalProducts = allArticles.reduce((acc: number, article: Article) => {
-    // Usar una función determinista basada en el slug para evitar errores de hidratación
-    const hash = article.slug.split('').reduce((a, b) => {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-    // Estimar 3-5 productos por artículo de forma determinista
-    return acc + Math.abs(hash % 3) + 3;
+  const totalProducts = allArticles.reduce((acc, article) => {
+    // Estimar 3-5 productos por artículo en promedio
+    return acc + Math.floor(Math.random() * 3) + 3;
   }, 0);
 
   return { 
@@ -108,21 +78,19 @@ export async function getStaticProps() {
   };
 }
 
-interface HomeProps {
-  newestArticles: (Article & { category: string })[];
-  hottestArticles: (Article & { category: string })[];
-  categories: { [key: string]: Article[] };
-  totalArticles: number;
-  totalProducts: number;
-}
-
 export default function Home({ 
   newestArticles, 
   hottestArticles, 
   categories, 
   totalArticles, 
   totalProducts 
-}: HomeProps) {
+}: { 
+  newestArticles: Article[];
+  hottestArticles: Article[];
+  categories: { [key: string]: Article[] };
+  totalArticles: number;
+  totalProducts: number;
+}) {
   return (
     <Layout>
       <NextSeo
@@ -155,9 +123,8 @@ export default function Home({
           })
         }}
       />
-      
       {/* Hero section */}
-      <div className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-16 px-4 mb-12 rounded-2xl" style={{overflow: 'visible'}}>
+      <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 py-16 px-4 mb-12 rounded-2xl">
         {/* Elementos decorativos de fondo */}
         <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-200 rounded-full opacity-20"></div>
         <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-blue-200 rounded-full opacity-20"></div>
@@ -194,7 +161,7 @@ export default function Home({
       {/* Estadísticas */}
       <SiteStats totalArticles={totalArticles} totalProducts={totalProducts} />
       
-      {/* Newest section */}
+      {/* Newest section */
       <div id="newest" className="mb-12">
         <h2 className="text-2xl font-bold mb-6">
           <span>Lo Más Nuevo</span>
@@ -202,21 +169,17 @@ export default function Home({
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {newestArticles.map((article) => (
-            <ArticleCard 
-              key={article.slug}
-              title={article.title}
-              image={article.image}
-              slug={article.slug}
-              excerpt={article.excerpt}
-              category={article.category}
-            />
+            <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
+              <ArticleCard 
+                title={article.title}
+                image={article.image}
+                slug={article.slug}
+                excerpt={article.excerpt}
+              />
+            </div>
           ))}
         </div>
       </div>
-
-
-      {/* TikTok Profile */}
-      <TikTokProfile />
       
       {/* Hottest section */}
       <div id="hottest" className="mb-12">
@@ -226,20 +189,21 @@ export default function Home({
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hottestArticles.map((article) => (
-            <ArticleCard 
-              key={article.slug}
-              title={article.title}
-              image={article.image}
-              slug={article.slug}
-              excerpt={article.excerpt}
-              category={article.category}
-            />
+            <div key={article.slug} className="transform transition-transform hover:translate-y-[-5px]">
+              <ArticleCard 
+                title={article.title}
+                image={article.image}
+                slug={article.slug}
+                excerpt={article.excerpt}
+              />
+            </div>
           ))}
         </div>
       </div>
       
       {/* Añadir un estilo global para ocultar la barra de desplazamiento */}
-      <style jsx global>{`
+      <style jsx global>{
+        `
         .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
@@ -247,7 +211,8 @@ export default function Home({
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
-      `}</style>
+        `
+      }</style>
     </Layout>
   );
 }

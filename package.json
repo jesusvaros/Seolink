@@ -16,6 +16,7 @@
     "content:generate-mdx": "cd generate-mdx && node index.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@types/node": "20.11.30",
     "@vercel/analytics": "^1.5.0",
     "cookie": "^1.0.2",
