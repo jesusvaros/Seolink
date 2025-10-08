@@ -1,4 +1,5 @@
 import React from 'react';
+import { useUmami } from '../hooks/useUmami';
 
 interface ImageObject {
   '@type'?: 'ImageObject';
@@ -30,10 +31,16 @@ interface Specification {
 }
 
 const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }> = ({ product, index }) => {
+  const { trackBuyButtonClick } = useUmami();
+  
   if (!product) {
     console.warn('ProductDetailCard: No se ha proporcionado un producto válido');
     return null;
   }
+
+  const handleBuyClick = (buttonType: string) => {
+    trackBuyButtonClick(product.name, product.asin, buttonType);
+  };
 
   // Split pros and cons into arrays if they're provided as comma-separated strings
   const prosList = product.pros ? (Array.isArray(product.pros) ? product.pros : String(product.pros).split(',').map(item => item.trim())) : [];
@@ -197,6 +204,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }>
               href={product.affiliateLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => handleBuyClick('more-info')}
               className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200 text-center w-full md:w-auto mr-3"
             >
               Mas información
@@ -205,6 +213,7 @@ const ProductDetailCard: React.FC<{ product?: DetailedProduct, index?: number }>
               href={product.affiliateLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => handleBuyClick('buy-button')}
               className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center mt-2 md:mt-0"
             >
               Comprar en Amazon :  {typeof product.price === 'object' ? product.price.display : product.price}

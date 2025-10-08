@@ -9,6 +9,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <>
       <DefaultSeo {...SEO} />
       <Component {...pageProps} />
+      {/* Keep both analytics - Vercel for basic metrics, Umami for detailed tracking */}
       <Analytics />
     </>
   );

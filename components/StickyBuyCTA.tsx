@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useUmami } from '../hooks/useUmami';
 
 // It's better to import shared types if available
 // For now, defining ImageObject here if not globally accessible
@@ -14,13 +15,20 @@ interface Product {
   price?: string | { display: string; schema: string };
   affiliateLink: string;
   image?: ImageObject; // Changed from string to ImageObject
+  asin?: string;
 }
 
 export default function StickyBuyCTA({ product }: { product: Product }) {
+  const { trackStickyCtaClick } = useUmami();
+  
   if (!product) return null;
   
   // Usar title o name según lo que esté disponible
   const productName = product.name || product.title || 'Producto recomendado';
+  
+  const handleStickyClick = () => {
+    trackStickyCtaClick(productName, product.asin || 'unknown');
+  };
   
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-lg p-3 flex justify-between items-center md:hidden z-50">
@@ -35,6 +43,7 @@ export default function StickyBuyCTA({ product }: { product: Product }) {
         href={product.affiliateLink}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleStickyClick}
         className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 text-sm font-semibold rounded-md whitespace-nowrap transition duration-200"
       >
         Comprar ahora

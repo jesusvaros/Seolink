@@ -18,6 +18,7 @@ import StickyBuyCTA from '../components/StickyBuyCTA';
 import ProductRankingTable from '../components/ProductRankingTable';
 import RelatedArticles from '../components/RelatedArticles';
 import FaqSection from '../components/FaqSection';
+import { usePageTracking } from '../hooks/usePageTracking';
 
 interface ImageObject {
   '@type'?: 'ImageObject';
@@ -171,6 +172,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function PostPage({ source, frontMatter }: PostProps) {
+  // Enable page tracking for affiliate articles
+  usePageTracking({ 
+    category: frontMatter.category || 'affiliate-article',
+    trackScroll: true,
+    trackTime: true 
+  });
+
   return (
     <Layout>
       <NextSeo

@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useUmami } from '../hooks/useUmami';
 
 interface ImageObject {
   '@type': 'ImageObject';
@@ -22,6 +23,8 @@ interface AffiliateCardProps {
 }
 
 export default function AffiliateCard({ product, className, priorityImage }: AffiliateCardProps) {
+  const { trackAffiliateClick } = useUmami();
+  
   const imageUrlString = (product && product.image && typeof product.image.url === 'string') 
                          ? product.image.url 
                          : null;
@@ -30,6 +33,10 @@ export default function AffiliateCard({ product, className, priorityImage }: Aff
   const isSafeToUseAsSrc = trimmedUrl &&
                            trimmedUrl !== 'PENDIENTE_URL_IMAGEN_PRODUCTO' &&
                            (trimmedUrl.startsWith('/') || trimmedUrl.startsWith('http'));
+
+  const handleAffiliateClick = () => {
+    trackAffiliateClick(product?.name || 'Unknown Product', product?.asin || 'Unknown ASIN');
+  };
 
   return (
     <div className={`${className} group bg-white rounded shadow p-4 flex flex-col items-center text-center`}>
@@ -54,6 +61,7 @@ export default function AffiliateCard({ product, className, priorityImage }: Aff
         href={product?.affiliateLink || '#'}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleAffiliateClick}
         className="mt-2 px-3 py-1.5 bg-yellow-400 text-gray-800 font-semibold rounded hover:bg-yellow-500 transition text-xs md:text-sm w-full"
       >
         Comprar en Amazon

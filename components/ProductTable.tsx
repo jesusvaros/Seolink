@@ -1,4 +1,5 @@
 import React from 'react';
+import { useUmami } from '../hooks/useUmami';
 
 interface ImageObject {
   '@type'?: 'ImageObject';
@@ -27,8 +28,15 @@ export type Product = {
 };
 
 export default function ProductTable({ products }: { products: Product[] }) {
+  const { trackTableInteraction, trackAffiliateClick } = useUmami();
+  
   // Propiedades que siempre queremos excluir de la tabla
   const excludedProps = ['asin', 'name', 'image', 'affiliateLink', 'price', 'pros', 'cons', 'description', 'detailedDescription', 'subtitle', 'destacado'];
+
+  const handleProductClick = (productName: string, asin: string, clickType: string) => {
+    trackAffiliateClick(productName, asin);
+    trackTableInteraction(clickType, productName);
+  };
 
   // Detectar automáticamente todas las propiedades disponibles en los productos
   const availableProps: Record<string, boolean> = {};
@@ -126,6 +134,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
                             href={product.affiliateLink}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => handleProductClick(product.name, product.asin, 'product-name-click')}
                             className="text-gray-800 hover:underline font-medium"
                           >
                             {product.name}
@@ -142,6 +151,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
                           href={product.affiliateLink}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => handleProductClick(product.name, product.asin, 'table-buy-button')}
                           className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 transition-colors duration-200 text-center w-36"
                         >
                           Comprar {product.price && `· ${typeof product.price === 'object' ? product.price.display : product.price}`}
@@ -181,6 +191,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
                   href={product.affiliateLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => handleProductClick(product.name, product.asin, 'mobile-product-name-click')}
                   className="text-gray-800 hover:underline font-medium"
                 >
                   {product.name}
@@ -211,6 +222,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
                 href={product.affiliateLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => handleProductClick(product.name, product.asin, 'mobile-buy-button')}
                 className="block w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-md text-center transition-colors duration-200"
               >
                 Comprar {product.price && `· ${typeof product.price === 'object' ? product.price.display : product.price}`}

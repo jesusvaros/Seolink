@@ -52,6 +52,13 @@ export default function Document() {
             })
           }}
         />
+        
+        {/* Umami Analytics */}
+        <script 
+          defer 
+          src="https://cloud.umami.is/script.js" 
+          data-website-id="9b734560-f9b3-42bb-a754-99ffdb0f6159"
+        />
       </Head>
       <body>
         <Main />
