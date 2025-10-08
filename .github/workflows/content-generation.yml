@@ -47,6 +47,10 @@ jobs:
         # Create log directory
         mkdir -p logs
         
+        # Add fresh URLs for today
+        echo "Adding fresh URLs for today..."
+        cd generate-mdx && node add-fresh-urls.js && cd ..
+        
         # Run the content generation scripts
         echo "Starting automated content generation..."
         npm run content:generate
