@@ -10,7 +10,7 @@ interface UsePageTrackingOptions {
 
 export const usePageTracking = (options: UsePageTrackingOptions = {}) => {
   const router = useRouter();
-  const startTimeRef = useRef<number>();
+  const startTimeRef = useRef<number | undefined>(undefined);
   const scrollDepthsTracked = useRef<Set<number>>(new Set<number>());
   
   const {
