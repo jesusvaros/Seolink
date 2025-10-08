@@ -209,6 +209,7 @@ export default function Home({
               slug={article.slug}
               excerpt={article.excerpt}
               category={article.category}
+              date={article.date}
             />
           ))}
         </div>
@@ -233,6 +234,7 @@ export default function Home({
               slug={article.slug}
               excerpt={article.excerpt}
               category={article.category}
+              date={article.date}
             />
           ))}
         </div>
