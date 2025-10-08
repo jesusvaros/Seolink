@@ -9,7 +9,11 @@
     "lint": "next lint",
     "postinstall": "next-sitemap",
     "generate-sitemap": "next-sitemap",
-    "generate-categories-sitemap": "node scripts/generate-categories-sitemap.js"
+    "generate-categories-sitemap": "node scripts/generate-categories-sitemap.js",
+    "content:generate": "node autoRunner.js",
+    "content:scrape-elle": "node scraping/Elle/index.js",
+    "content:scrape-compramejor": "node scraping/Compramejor/index.js",
+    "content:generate-mdx": "cd generate-mdx && node index.js"
   },
   "dependencies": {
     "@types/node": "20.11.30",

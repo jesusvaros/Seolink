@@ -1,0 +1,93 @@
+name: Automated Content Generation
+
+on:
+  schedule:
+    # Run every day at 9 AM UTC (adjust timezone as needed)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm ci
+        cd generate-mdx && npm ci
+        cd ../tiktok-generator && npm ci
+
+    - name: Install Playwright browsers
+      run: |
+        cd generate-mdx
+        npx playwright install chromium
+        npx playwright install-deps chromium
+
+    - name: Run content generation
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        NODE_ENV: production
+        # Add other environment variables as needed
+      run: |
+        # Create log directory
+        mkdir -p logs
+        
+        # Run the content generation scripts
+        echo "Starting automated content generation..."
+        npm run content:generate
+        
+        # Check if any new content was generated
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "New content generated, proceeding with build and deployment..."
+          echo "FILES_CHANGED=true" >> $GITHUB_ENV
+        else
+          echo "No new content generated, skipping build."
+          echo "FILES_CHANGED=false" >> $GITHUB_ENV
+        fi
+
+    - name: Build site
+      if: success() && env.FILES_CHANGED == 'true'
+      run: |
+        npm run build
+        
+    - name: Commit and push changes
+      if: success() && env.FILES_CHANGED == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add all changes
+        git add .
+        
+        # Check if there are changes to commit
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "🤖 Automated content generation - $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
+          echo "Changes committed and pushed successfully"
+        else
+          echo "No changes to commit"
+        fi
+
+    - name: Deploy to production (if using Vercel/Netlify)
+      if: success()
+      run: |
+        echo "Deployment will be triggered automatically by the git push"
+        # If you need specific deployment commands, add them here
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "Content generation failed. Check the logs for details."
+        # You can add notification logic here (Slack, email, etc.)
