@@ -1,6 +1,24 @@
 {
   "cocina": [
     {
+      "slug": "las-mejores-licuadoras-para-batidos-y-smoothies-en-amazon",
+      "title": "Las Mejores Licuadoras para Batidos y Smoothies en Amazon",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/01/receta-jugo-ingredientes.jpg"
+    },
+    {
+      "slug": "los-mejores-utensilios-de-cocina-para-celebrar-el-dia-mundial-del-chocolate",
+      "title": "Los Mejores Utensilios de Cocina para Celebrar el Día Mundial del Chocolate",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2022/09/pieces-of-chocolate-on-wooden-table-and-cacao-sprinkled-1.jpg"
+    },
+    {
+      "slug": "los-mejores-cepillos-de-cocina-para-una-limpieza-sin-esfuerzo",
+      "title": "Los mejores cepillos de cocina para una limpieza sin esfuerzo",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/02/chef-preparing-sauce-1.jpg"
+    },
+    {
       "slug": "deliciosos-platos-preparados-de-foodtropia-en-amazon",
       "title": "Deliciosos Platos Preparados de Foodtropia en Amazon",
       "date": "2025-10-02",
@@ -303,6 +321,12 @@
   ],
   "hogar": [
     {
+      "slug": "las-mejores-ofertas-de-productos-basicos-en-amazon-no-te-las-pierdas",
+      "title": "Las Mejores Ofertas de Productos Básicos en Amazon: ¡No Te Las Pierdas!",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/11/Black-Friday-2024-mejores-ofertas.jpg"
+    },
+    {
       "slug": "las-mejores-comodas-para-organizar-tu-armario-en-otono",
       "title": "Las Mejores Cómodas para Organizar tu Armario en Otoño",
       "date": "2025-09-25",
@@ -418,6 +442,30 @@
     }
   ],
   "moda": [
+    {
+      "slug": "polos-tommy-hilfiger-en-rebajas-estilo-y-comodidad-para-el-verano",
+      "title": "Polos Tommy Hilfiger en Rebajas: Estilo y Comodidad para el Verano",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/08/Diseno-sin-titulo-2025-08-12T134957.509.jpg"
+    },
+    {
+      "slug": "zapatillas-comodas-y-elegantes-skechers-y-crocs-para-todas-las-edades",
+      "title": "Zapatillas cómodas y elegantes: Skechers y Crocs para todas las edades",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2024/07/b477e316-c5c2-4918-82e1-1e62fad53493_source-aspect-ratio_default_0-1.jpg"
+    },
+    {
+      "slug": "gabardinas-y-botines-tendencias-otono-2025",
+      "title": "Gabardinas y Botines: Tendencias Otoño 2025",
+      "date": "2025-10-09",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/guest-wears-long-wavy-light-brown-hair-with-blonde-news-photo-1759926937.pjpeg?crop=1.00xw:0.335xh;0,0.165xh&resize=1200:*"
+    },
+    {
+      "slug": "bolsos-de-moda-otono-2025-tendencias-imperdibles",
+      "title": "Bolsos de Moda Otoño 2025: Tendencias Imperdibles",
+      "date": "2025-10-09",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/bolsos-elle-68e64b6fe882b.jpg?crop=1.00xw:0.334xh;0,0.243xh&resize=1200:*"
+    },
     {
       "slug": "zapatillas-marrones-para-otono-2025-comodidad-y-estilo-con-skechers-uno",
       "title": "Zapatillas marrones para otoño 2025: Comodidad y estilo con Skechers UNO",
@@ -1475,6 +1523,12 @@
   ],
   "tecnologia": [
     {
+      "slug": "los-mejores-localizadores-para-android-moto-tag-y-smarttag-2",
+      "title": "Los Mejores Localizadores para Android: Moto Tag y SmartTag 2",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/Diseno-sin-titulo-2025-09-10T160808.384.jpg"
+    },
+    {
       "slug": "xiaomi-15t-series-innovacion-y-estilo-en-smartphones",
       "title": "Xiaomi 15T Series: Innovación y Estilo en Smartphones",
       "date": "2025-09-29",
@@ -2000,6 +2054,12 @@
     }
   ],
   "deportes": [
+    {
+      "slug": "las-mejores-mallas-deportivas-para-hombres-under-armour-en-oferta",
+      "title": "Las Mejores Mallas Deportivas para Hombres: Under Armour en Oferta",
+      "date": "2025-10-09",
+      "image": "https://www.compramejor.es/wp-content/uploads/2025/09/Diseno-sin-titulo-2025-09-18T182613.108.jpg"
+    },
     {
       "slug": "las-mejores-mallas-deportivas-para-hombres-comodidad-y-rendimiento",
       "title": "Las Mejores Mallas Deportivas para Hombres: Comodidad y Rendimiento",
