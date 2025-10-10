@@ -42,18 +42,43 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         NODE_ENV: production
+        # Network timeout settings
+        NODE_OPTIONS: '--max-old-space-size=4096'
         # Add other environment variables as needed
+      timeout-minutes: 30
       run: |
         # Create log directory
         mkdir -p logs
+        
+        # Verify OpenAI API key is available
+        if [ -z "$OPENAI_API_KEY" ]; then
+          echo "❌ OPENAI_API_KEY not found in secrets"
+          exit 1
+        fi
         
         # Add fresh URLs for today
         echo "Adding fresh URLs for today..."
         cd generate-mdx && node add-fresh-urls.js && cd ..
         
-        # Run the content generation scripts
+        # Run the content generation scripts with retry logic
         echo "Starting automated content generation..."
-        npm run content:generate
+        
+        # Try content generation with retries
+        for i in {1..3}; do
+          echo "Attempt $i of 3..."
+          if timeout 20m npm run content:generate; then
+            echo "✅ Content generation completed successfully"
+            break
+          else
+            echo "⚠️ Attempt $i failed, waiting before retry..."
+            if [ $i -lt 3 ]; then
+              sleep 30
+            else
+              echo "❌ All attempts failed"
+              exit 1
+            fi
+          fi
+        done
         
         # Check if any new content was generated
         if [ -n "$(git status --porcelain)" ]; then

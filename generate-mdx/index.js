@@ -144,8 +144,9 @@ async function main() {
 
       // Pause between URLs to avoid overloading the API
       if (result.didAttemptFullProcessing && i < urlsToProcess.length - 1) {
-        console.log(`⏳ Esperando 5 segundos antes de procesar la siguiente URL...`);
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        const waitTime = process.env.NODE_ENV === 'production' ? 10000 : 5000; // More time in GitHub Actions
+        console.log(`⏳ Esperando ${waitTime/1000} segundos antes de procesar la siguiente URL...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
       }
     }
 
