@@ -1,25 +1,25 @@
 import fs from 'fs';
 import path from 'path';
 
-// URLs de búsqueda que suelen tener contenido fresco con productos de Amazon
+// URLs específicas que suelen tener productos de Amazon
 const FRESH_SEARCH_URLS = [
-  // Elle.com - búsquedas por fechas y términos actuales
-  'https://www.elle.com/es/search/?q=enero+2025',
-  'https://www.elle.com/es/search/?q=febrero+2025', 
-  'https://www.elle.com/es/search/?q=marzo+2025',
-  'https://www.elle.com/es/search/?q=abril+2025',
-  'https://www.elle.com/es/search/?q=mayo+2025',
-  'https://www.elle.com/es/search/?q=junio+2025',
-  'https://www.elle.com/es/search/?q=mejores+productos+2025',
-  'https://www.elle.com/es/search/?q=tendencias+2025',
-  'https://www.elle.com/es/search/?q=ofertas+amazon',
-  'https://www.elle.com/es/search/?q=black+friday+2025',
-  'https://www.elle.com/es/search/?q=rebajas+enero+2025',
+  // Elle.com - artículos específicos con productos
+  'https://www.elle.com/es/belleza/cara-cuerpo/g38560549/mejores-serum-antiedad/',
+  'https://www.elle.com/es/belleza/cara-cuerpo/g38015231/depiladoras-laser-luz-pulsada/',
+  'https://www.elle.com/es/belleza/pelo/g38026004/champus-pelo-rizado/',
+  'https://www.elle.com/es/gourmet/gastronomia/g43274351/mejores-cafeteras-italianas-analizadas-comparadas/',
+  'https://www.elle.com/es/living/ocio-cultura/g45650588/regalos-jubilacion-originales/',
+  'https://www.elle.com/es/belleza/cara-cuerpo/g23721229/calendarios-adviento-navidad/',
+  'https://www.elle.com/es/gourmet/recetas-cocina/g61895660/recetas-faciles-cocinar-verduras/',
   
-  // Compramejor - páginas que se actualizan frecuentemente
-  'https://www.compramejor.es/page/2/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post',
-  'https://www.compramejor.es/page/3/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post',
-  'https://www.compramejor.es/page/4/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post',
+  // Compramejor - artículos específicos de productos
+  'https://www.compramejor.es/mejores-aspiradoras-robot-2025/',
+  'https://www.compramejor.es/mejores-cafeteras-automaticas-2025/',
+  'https://www.compramejor.es/mejores-freidoras-aire-2025/',
+  'https://www.compramejor.es/mejores-batidoras-amasadoras-2025/',
+  'https://www.compramejor.es/mejores-robots-cocina-2025/',
+  'https://www.compramejor.es/mejores-secadores-pelo-2025/',
+  'https://www.compramejor.es/mejores-planchas-pelo-2025/',
 ];
 
 // Función para generar nombre de archivo basado en fecha
