@@ -4264,3 +4264,48 @@ Call log:
 [2025-10-12T09:15:10.659Z] ==================================================
 [2025-10-12T09:15:10.659Z] ✅ All tasks completed successfully
 [2025-10-12T09:15:10.659Z] ==================================================
+[2025-10-13T09:16:33.541Z] ==================================================
+[2025-10-13T09:16:33.544Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-10-13T09:16:33.544Z] ==================================================
+[2025-10-13T09:16:33.544Z] 🚀 Starting Elle scraping...
+[2025-10-13T09:16:33.545Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Elle/index.js
+[2025-10-13T09:16:57.584Z] ✅ Elle scraping completed successfully
+[2025-10-13T09:16:57.585Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 70 enlaces únicos
+  💾 Guardados 70 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 67 enlaces únicos
+  💾 Guardados 67 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-10-13T09:16:57.585Z] 🚀 Starting Compramejor scraping...
+[2025-10-13T09:16:57.585Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Compramejor/index.js
+[2025-10-13T09:17:17.649Z] ✅ Compramejor scraping completed successfully
+[2025-10-13T09:17:17.649Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 40 enlaces únicos
+  💾 Guardados 40 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando...(truncated)
+[2025-10-13T09:17:17.649Z] 🚀 Starting MDX generation...
+[2025-10-13T09:17:17.649Z] Running script: /home/runner/work/Seolink/Seolink/generate-mdx/index.js
+[2025-10-13T09:18:06.899Z] ✅ MDX generation completed successfully
+[2025-10-13T09:18:06.900Z] Output: 📂 Project root: /home/runner/work/Seolink/Seolink
+📂 URLs directory: /home/runner/work/Seolink/Seolink/generate-mdx/urls
+📂 Content directory: /home/runner/work/Seolink/Seolink/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 834
+
+📋 Total URLs encontradas: 1256
+
+🔍 URLs válidas para procesar: 22
+🔍 Verificando si https://www.elle.com/es/moda/tendencias/a68039146/botas-marron-chocolate-sustituiran-negras-este-otono/ contiene productos de Amazon...
+🌐 Navegando a https://www.ell...(truncated)
+[2025-10-13T09:18:06.900Z] ==================================================
+[2025-10-13T09:18:06.900Z] ✅ All tasks completed successfully
+[2025-10-13T09:18:06.900Z] ==================================================
