@@ -811,6 +811,18 @@
   ],
   "belleza": [
     {
+      "slug": "los-mejores-champus-para-cabello-rizado-hidratacion-y-definicion",
+      "title": "Los Mejores Champús para Cabello Rizado: Hidratación y Definición",
+      "date": "2025-10-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/side-portrait-of-a-dark-skinned-female-eyes-closed-royalty-free-image-1634833217.jpg?crop=1.00xw:0.686xh;0,0.144xh&resize=1200:*"
+    },
+    {
+      "slug": "guia-de-productos-para-el-look-toasty-glam-belleza-y-elegancia-por-menos-de-10",
+      "title": "Guía de Productos para el Look Toasty Glam: Belleza y Elegancia por Menos de 10€",
+      "date": "2025-10-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/toasty-glam-la-tecnica-de-maquillaje-idonea-para-extender-la-luminosidad-veraniega-a-los-meses-mas-frios-segun-un-maquillador-68e51653e9755.jpg?crop=1xw:0.7496463932107497xh;center,top&resize=1200:*"
+    },
+    {
       "slug": "los-mejores-productos-para-lograr-el-efecto-blurred-lips",
       "title": "Los Mejores Productos para Lograr el Efecto Blurred Lips",
       "date": "2025-10-06",
@@ -1698,6 +1710,24 @@
     }
   ],
   "libros": [
+    {
+      "slug": "descubre-alice-de-judith-hermann-un-viaje-emocional-a-traves-del-duelo",
+      "title": "Descubre 'Alice' de Judith Hermann: Un Viaje Emocional a Través del Duelo",
+      "date": "2025-10-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/paris-str-s26-2652-68e75d3402f23.jpg?crop=1.00xw:0.335xh;0,0.182xh&resize=1200:*"
+    },
+    {
+      "slug": "descubre-las-mejores-obras-de-laszlo-krasznahorkai-premio-nobel-de-literatura-2025",
+      "title": "Descubre las Mejores Obras de László Krasznahorkai, Premio Nobel de Literatura 2025",
+      "date": "2025-10-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/hungarian-novelist-and-screenwriter-l-c3-a1szl-c3-b3-krasznahorkai-news-photo-1760009023.pjpeg?crop=0.849xw:0.637xh;0.151xw,0.149xh&resize=1200:*"
+    },
+    {
+      "slug": "explora-las-obras-de-laszlo-krasznahorkai-nobel-de-literatura-2025",
+      "title": "Explora las Obras de László Krasznahorkai: Nobel de Literatura 2025",
+      "date": "2025-10-13",
+      "image": "https://hips.hearstapps.com/hmg-prod/images/hungarian-novelist-and-screenwriter-l-c3-a1szl-c3-b3-krasznahorkai-news-photo-1760009023.pjpeg?crop=0.849xw:0.637xh;0.151xw,0.149xh&resize=1200:*"
+    },
     {
       "slug": "las-novelas-de-suspense-de-javier-castillo-un-viaje-literario",
       "title": "Las Novelas de Suspense de Javier Castillo: Un Viaje Literario",
