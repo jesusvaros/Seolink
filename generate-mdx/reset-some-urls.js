@@ -4,9 +4,10 @@ import fs from 'fs';
 const urlsToReset = [
   'https://www.elle.com/es/belleza/cara-cuerpo/g38560549/mejores-serum-antiedad/',
   'https://www.elle.com/es/belleza/cara-cuerpo/g38015231/depiladoras-laser-luz-pulsada/',
-  'https://www.elle.com/es/belleza/pelo/g38026004/champus-pelo-rizado/',
   'https://www.elle.com/es/gourmet/gastronomia/g43274351/mejores-cafeteras-italianas-analizadas-comparadas/',
+  'https://www.elle.com/es/gourmet/gastronomia/g43539981/mejores-sartenes-antiadherente/',
   'https://www.elle.com/es/living/ocio-cultura/g45650588/regalos-jubilacion-originales/',
+  'https://www.elle.com/es/living/ocio-cultura/g42305506/regalos-madres-originales-y-bonitos/',
 ];
 
 // Leer URLs procesadas
