@@ -4559,3 +4559,53 @@ Call log:
 [2025-10-20T09:38:34.855Z] ==================================================
 [2025-10-20T09:38:34.855Z] ✅ All tasks completed successfully
 [2025-10-20T09:38:34.855Z] ==================================================
+[2025-10-21T09:16:52.538Z] ==================================================
+[2025-10-21T09:16:52.541Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-10-21T09:16:52.541Z] ==================================================
+[2025-10-21T09:16:52.541Z] 🚀 Starting Elle scraping...
+[2025-10-21T09:16:52.541Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Elle/index.js
+[2025-10-21T09:17:13.472Z] ✅ Elle scraping completed successfully
+[2025-10-21T09:17:13.472Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 70 enlaces únicos
+  💾 Guardados 70 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 66 enlaces únicos
+  💾 Guardados 66 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 67 enlaces únicos
+  💾 Guardados 67 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-10-21T09:17:13.472Z] 🚀 Starting Compramejor scraping...
+[2025-10-21T09:17:13.472Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Compramejor/index.js
+[2025-10-21T09:17:24.483Z] ✅ Compramejor scraping completed successfully
+[2025-10-21T09:17:24.483Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 0 enlaces únicos
+  💾 Guardados 0 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando: ...(truncated)
+[2025-10-21T09:17:24.483Z] 🚀 Starting MDX generation...
+[2025-10-21T09:17:24.483Z] Running script: /home/runner/work/Seolink/Seolink/generate-mdx/index.js
+[2025-10-21T09:19:03.263Z] ⚠️ Script warning: ❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+
+[2025-10-21T09:19:03.263Z] ✅ MDX generation completed successfully
+[2025-10-21T09:19:03.263Z] Output: 📂 Project root: /home/runner/work/Seolink/Seolink
+📂 URLs directory: /home/runner/work/Seolink/Seolink/generate-mdx/urls
+📂 Content directory: /home/runner/work/Seolink/Seolink/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 852
+
+📋 Total URLs encontradas: 1185
+
+🔍 URLs válidas para procesar: 37
+🔍 Verificando si https://www.elle.com/es/moda/tendencias/a67962105/chaquetas-cazadoras-de-piel-oversize-obsesion-prescriptoras-moda/ contiene productos de Amazon...
+🌐 Navegando a htt...(truncated)
+[2025-10-21T09:19:03.263Z] ==================================================
+[2025-10-21T09:19:03.264Z] ✅ All tasks completed successfully
+[2025-10-21T09:19:03.264Z] ==================================================
