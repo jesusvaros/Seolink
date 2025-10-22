@@ -2,6 +2,8 @@
 
 This document explains how to set up GitHub Actions to automate your content generation process, replacing the need for local cron jobs.
 
+> **Note:** Local cron jobs have been disabled. All automation now runs through GitHub Actions only. The local cron setup files have been renamed to `.disabled` to prevent accidental re-enabling.
+
 ## Overview
 
 The GitHub Actions workflow will:
