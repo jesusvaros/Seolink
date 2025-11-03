@@ -5241,3 +5241,47 @@ Call log:
 [2025-11-02T09:15:09.679Z] ==================================================
 [2025-11-02T09:15:09.679Z] ✅ All tasks completed successfully
 [2025-11-02T09:15:09.679Z] ==================================================
+[2025-11-03T09:17:28.523Z] ==================================================
+[2025-11-03T09:17:28.525Z] 🤖 Amazon Afiliados Auto Runner started
+[2025-11-03T09:17:28.525Z] ==================================================
+[2025-11-03T09:17:28.525Z] 🚀 Starting Elle scraping...
+[2025-11-03T09:17:28.526Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Elle/index.js
+[2025-11-03T09:17:51.494Z] ✅ Elle scraping completed successfully
+[2025-11-03T09:17:51.494Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 69 enlaces únicos
+  💾 Guardados 69 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 67 enlaces únicos
+  💾 Guardados 67 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 67 enlaces únicos
+  💾 Guardados 67 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2025-11-03T09:17:51.494Z] 🚀 Starting Compramejor scraping...
+[2025-11-03T09:17:51.494Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Compramejor/index.js
+[2025-11-03T09:18:02.722Z] ✅ Compramejor scraping completed successfully
+[2025-11-03T09:18:02.723Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  📊 Encontrados 0 enlaces únicos
+  💾 Guardados 0 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando: ...(truncated)
+[2025-11-03T09:18:02.723Z] 🚀 Starting MDX generation...
+[2025-11-03T09:18:02.723Z] Running script: /home/runner/work/Seolink/Seolink/generate-mdx/index.js
+[2025-11-03T09:18:46.961Z] ✅ MDX generation completed successfully
+[2025-11-03T09:18:46.961Z] Output: 📂 Project root: /home/runner/work/Seolink/Seolink
+📂 URLs directory: /home/runner/work/Seolink/Seolink/generate-mdx/urls
+📂 Content directory: /home/runner/work/Seolink/Seolink/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 1255
+
+📋 Total URLs encontradas: 1376
+
+🔍 URLs válidas para procesar: 17
+🔍 Verificando si https://www.elle.com/es/moda/tendencias/a69181422/del-lujo-silencioso-al-estilo-audaz-y-creativo-asi-es-la-nueva-era-maximalista-que-domina-en-moda/ contiene product...(truncated)
+[2025-11-03T09:18:46.961Z] ==================================================
+[2025-11-03T09:18:46.961Z] ✅ All tasks completed successfully
+[2025-11-03T09:18:46.961Z] ==================================================
