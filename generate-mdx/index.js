@@ -27,7 +27,6 @@ import {
 
 // Import content extraction services
 import {
-  containsAmazonLinks,
   fetchCleanContent
 } from './services/contentExtractor.js';
 
@@ -36,21 +35,15 @@ async function processUrl(url) {
 
   try {
     const cleanUrl = url.trim().replace(/['"`]+$/, '');
-    const hasAmazonLinks = await containsAmazonLinks(cleanUrl);
 
-    if (!hasAmazonLinks) {
-      console.log('⏩ Saltando URL - No contiene enlaces de Amazon');
-      return { success: true, skipped: true, reason: 'no-amazon-links' };
-    }
-
-    console.log('✅ La URL contiene enlaces de Amazon');
+    console.log('✅ Procesando URL (sin filtro de Amazon)');
 
     // Extract clean content from URL
     console.log('📄 Extrayendo contenido limpio...');
     const data = await fetchCleanContent(url);
     didAttemptFullProcessing = true;
 
-    if (!data || !data.title || !data.content || !data.productPrices || data.productPrices.length === 0) {
+    if (!data || !data.title || !data.content) {
       console.log('⏩ Saltando URL - No se pudo extraer contenido válido');
       return { success: true, skipped: true, reason: 'invalid-content' };
     }

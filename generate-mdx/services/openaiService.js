@@ -19,13 +19,13 @@ export async function contentProcessingAI(data) {
     const prompt = `
       Analiza el siguiente contenido y realiza las siguientes tareas:
 
-      1. EXTRACCIÓN DE PRODUCTOS: Extrae TODOS los productos de Amazon mencionados en el contenido.
+      1. EXTRACCIÓN DE PRODUCTOS: Extrae TODOS los productos mencionados en el contenido (no tienen que ser de Amazon).
       Para cada producto, proporciona:
       - name - nombre del producto
       - description - descripción breve
       - price - precio
-      - link - enlace de Amazon
-      - asin - ASIN
+      - link - enlace del producto (si no hay enlace de Amazon, puedes dejarlo vacío o usar una URL genérica)
+      - asin - ASIN (si no hay ASIN, puedes dejarlo vacío)
       - image - imagen
       - brand - marca 
       - pros - Lista de 3-4 puntos fuertes
@@ -54,6 +54,8 @@ export async function contentProcessingAI(data) {
       - Incluir ejemplos prácticos en la respuesta (por ejemplo: "si lo usas en climas muy secos, notarás...").
       - Mencionar diferencias con otros productos si procede.
       Evita preguntas genéricas como "¿Qué beneficios tiene este producto?" o "¿Cuándo es recomendable comprarlo?".
+
+      IMPORTANTE: Debes generar artículos incluso si los productos no son de Amazon. El objetivo es crear contenido publicitario para cualquier tipo de productos.
 
 
       7. comparativa:
@@ -115,7 +117,7 @@ export async function contentProcessingAI(data) {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Eres un asistente especializado en análisis de productos, marketing y categorización de contenido. Generas contenido para una web que quiere pelear por el seo de long-tail keywords.  Responde en formato JSON. Extrae siempre TODOS los productos mencionados en el contenido." },
+        { role: "system", content: "Eres un asistente especializado en análisis de productos, marketing y categorización de contenido. Generas contenido para una web que quiere pelear por el seo de long-tail keywords. Responde en formato JSON. Extrae siempre TODOS los productos mencionados en el contenido, no tienen que ser de Amazon." },
         { role: "user", content: prompt }
       ],
       temperature: 0.3,

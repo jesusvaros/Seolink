@@ -8,8 +8,8 @@ export async function generateMDX(data) {
         // Step 1: Process content to extract products, generate destacados, and assign category
         const processedData = await contentProcessingAI(data);
 
-        if (!processedData.products || processedData.products.length === 0) {
-            console.warn('⚠️ No se encontraron productos de Amazon válidos.');
+        if (!processedData.products || processedData.products.length < 3) {
+            console.warn(`⚠️ Se encontraron ${processedData.products?.length || 0} productos. Se necesitan al menos 3 productos.`);
             return null;
         }
 

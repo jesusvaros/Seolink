@@ -34,22 +34,12 @@ interface PaginatedArticlesPageProps {
 const ARTICLES_PER_PAGE = 9;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Leer directorio de posts para obtener el número total de artículos
-  const postsDirectory = path.join(process.cwd(), 'content/posts');
-  const filenames = fs.readdirSync(postsDirectory)
-    .filter(filename => filename.endsWith('.mdx'));
-  
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(filenames.length / ARTICLES_PER_PAGE);
-  
-  // Generar paths para cada página (excluyendo la primera que es /articulos)
-  const paths = Array.from({ length: totalPages - 1 }, (_, i) => ({
-    params: { page: String(i + 2) }
-  }));
-  
+  // No pre-generamos miles de páginas en build.
+  // Con fallback 'blocking', Next generará páginas nuevas bajo demanda
+  // (cuando existan nuevos MDX) y las mantendrá actualizadas con ISR.
   return {
-    paths,
-    fallback: false
+    paths: [],
+    fallback: 'blocking'
   };
 };
 
