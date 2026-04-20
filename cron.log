@@ -21521,3 +21521,127 @@ Call log:
 [2026-04-19T09:42:01.221Z] ==================================================
 [2026-04-19T09:42:01.221Z] ✅ All tasks completed successfully
 [2026-04-19T09:42:01.221Z] ==================================================
+[2026-04-20T10:28:14.725Z] ==================================================
+[2026-04-20T10:28:14.727Z] 🤖 Amazon Afiliados Auto Runner started
+[2026-04-20T10:28:14.727Z] ==================================================
+[2026-04-20T10:28:14.727Z] 🚀 Starting Elle scraping...
+[2026-04-20T10:28:14.728Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Elle/index.js
+[2026-04-20T10:28:44.581Z] ✅ Elle scraping completed successfully
+[2026-04-20T10:28:44.581Z] Output: 🚀 Iniciando scraping de 7 URLs...
+🔍 Procesando: https://www.elle.com/es/gourmet/
+  📊 Encontrados 52 enlaces únicos
+  💾 Guardados 52 enlaces en www_elle_com_es_gourmet_.json
+🔍 Procesando: https://www.elle.com/es/belleza/
+  📊 Encontrados 61 enlaces únicos
+  💾 Guardados 61 enlaces en www_elle_com_es_belleza_.json
+🔍 Procesando: https://www.elle.com/es/moda/
+  📊 Encontrados 56 enlaces únicos
+  💾 Guardados 56 enlaces en www_elle_com_es_moda_.json
+🔍 Procesando: https://www.elle.com/es/
+  📊 ...(truncated)
+[2026-04-20T10:28:44.581Z] 🚀 Starting Compramejor scraping...
+[2026-04-20T10:28:44.581Z] Running script: /home/runner/work/Seolink/Seolink/scraping/Compramejor/index.js
+[2026-04-20T10:28:46.031Z] ⚠️ Script warning:   ❌ Error procesando https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+Call log:
+  - navigating to "https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post", waiting until "domcontentloaded"
+
+  ❌ Error procesando https://www.compramejor.es/ofertas/: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.compramejor.es/ofertas/
+Call log:
+  - navigating to "https://www.compramejor.es/ofertas/", waiting until "domcontentloaded"
+
+  ❌ Error procesando https://www.compramejor.es/: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.compramejor.es/
+Call log:
+  - navigating to "https://www.compramejor.es/", waiting until "domcontentloaded"
+
+  ❌ Error procesando https://www.compramejor.es/t/mejor-valorados/: page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.compramejor.es/t/mejor-valorados/
+Call log:
+  - navigating to "https://www.compramejor.es/t/mejor-valorados/", waiting until "domcontentloaded"
+
+
+[2026-04-20T10:28:46.031Z] ✅ Compramejor scraping completed successfully
+[2026-04-20T10:28:46.031Z] Output: 🚀 Iniciando scraping de 4 URLs...
+🔍 Procesando: https://www.compramejor.es/?s=&asl_active=1&p_asid=1&p_asl_data=1&qtranslate_lang=0&asl_gen%5B%5D=exact&asl_gen%5B%5D=title&asl_gen%5B%5D=content&asl_gen%5B%5D=excerpt&customset%5B%5D=post
+  💾 Guardados 0 enlaces en www_compramejor_es_s_asl_active_1_p_asid_1_p_asl_data_1_qtranslate_lang_0_asl_gen_5B_5D_exact_asl_gen_5B_5D_title_asl_gen_5B_5D_content_asl_gen_5B_5D_excerpt_customset_5B_5D_post.json
+🔍 Procesando: https://www.compramejor.es/ofertas...(truncated)
+[2026-04-20T10:28:46.031Z] 🚀 Starting MDX generation...
+[2026-04-20T10:28:46.031Z] Running script: /home/runner/work/Seolink/Seolink/generate-mdx/index.js
+[2026-04-20T10:32:45.857Z] ⚠️ Script warning: ❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+❌ Error en el procesamiento unificado: Connection error.
+❌ Error al generar MDX: Cannot read properties of undefined (reading 'products')
+
+[2026-04-20T10:32:45.857Z] ✅ MDX generation completed successfully
+[2026-04-20T10:32:45.857Z] Output: 📂 Project root: /home/runner/work/Seolink/Seolink
+📂 URLs directory: /home/runner/work/Seolink/Seolink/generate-mdx/urls
+📂 Content directory: /home/runner/work/Seolink/Seolink/content
+
+🚀 Iniciando generador de MDX...
+
+📊 URLs ya procesadas: 5702
+
+📋 Total URLs encontradas: 3668
+
+🔍 URLs válidas para procesar: 30
+✅ Procesando URL (sin filtro de Amazon)
+📄 Extrayendo contenido limpio...
+📄 Extrayendo contenido limpio...
+🌐 Navegando a https://www.elle.com/es/living/ocio-cultura/a71034291/bienve...(truncated)
+[2026-04-20T10:32:45.857Z] ==================================================
+[2026-04-20T10:32:45.857Z] ✅ All tasks completed successfully
+[2026-04-20T10:32:45.857Z] ==================================================
